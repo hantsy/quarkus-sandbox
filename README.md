@@ -177,15 +177,15 @@ Currently we skip the security issues.  We will discuss it in the further posts.
 
 Following the REST convention and HTTP protocol specification, the RESTful  APIs  are designed as the following table.
 
-| Uri   | Request     | Response  | Description   |
-| ---- | : ---- | ---- |
-| /posts               | GET                                                                  | 200, [{'id':1, 'title'},{}]                     | Get all posts                            |
-| /posts               | POST         {'id':1, 'title':'test title','content':'test content'} | 201                                             | Create a new post                        |
-| /posts/{id}          | GET                                                                  | 200, {'id':1, 'title'}                          | Get a post by slug                       |
-| /posts/{id}          | PUT          {'title':'test title','content':'test content'}         | 204                                             | Update a post                            |
-| /posts/{id}          | DELETE                                                              | 204                                             | Delete a post by slug                    |
-| /posts/{id}/comments | GET                                                                  | 200, [{'id':1, 'content':'comment content'},{}] | Get all comments of the certain post     |
-| /posts/{id}/comments | POST         {'content':'test content'}                              | 201                                             | Create a new comment of the certain post |
+| Uri                    |  Request                                  | Response                                 | Description                              |
+| ---------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| /posts                 | GET        | 200, [{'id':1, 'title'},{}]              | Get all posts                            |
+| /posts                 | POST         {'id':1, 'title':'test title','content':'test content'} | 201                                      | Create a new post                        |
+| /posts/{id}          | GET                                                  | 200, {'id':1, 'title'}                   | Get a post by slug                       |
+| /posts/{id}          | PUT          {'title':'test title','content':'test content'} | 204                                      | Update a post                            |
+| /posts/{id}          | DELETE                                                | 204                                      | Delete a post by slug                    |
+| /posts/{id}/comments | GET                                                   | 200, [{'id':1, 'content':'comment content'},{}] | Get all comments of the certain post     |
+| /posts/{id}/comments | POST        {'content':'test content'}               | 201                                      | Create a new comment of the certain post |
 
 Create a POJO class for representing Post entity.
 
