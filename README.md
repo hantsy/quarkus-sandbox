@@ -1,10 +1,10 @@
-# Quarkus demo
+# Kickstart your first Quarkus application
 
-
+[TOC]
 
 [Quarkus](https://quarkus.io) is a container-first framework for building Docker/K8s  ready  applications.
 
-##  Kickstart your first Quarkus application
+##  Getting Started
 
 First of all, make you have the following software installed.
 
@@ -160,7 +160,7 @@ public @interface TransactionalQuarkusTest{}
 
 OK ,  let's create RESTful APIs for a blog application that I have used in several samples on [Github](https://github.com/hantsy).
 
-## Build RESTful APIs
+## Building RESTful APIs
 
 
 
@@ -177,15 +177,15 @@ Currently we skip the security issues.  We will discuss it in the further posts.
 
 Following the REST convention and HTTP protocol specification, the RESTful  APIs  are designed as the following table.
 
-| Uri                    |  Request                                  | Response                                 | Description                              |
-| ---------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| /posts                 | GET        | 200, [{'id':1, 'title'},{}]              | Get all posts                            |
-| /posts                 | POST         {'id':1, 'title':'test title','content':'test content'} | 201                                      | Create a new post                        |
-| /posts/{id}          | GET                                                  | 200, {'id':1, 'title'}                   | Get a post by slug                       |
-| /posts/{id}          | PUT          {'title':'test title','content':'test content'} | 204                                      | Update a post                            |
-| /posts/{id}          | DELETE                                                | 204                                      | Delete a post by slug                    |
-| /posts/{id}/comments | GET                                                   | 200, [{'id':1, 'content':'comment content'},{}] | Get all comments of the certain post     |
-| /posts/{id}/comments | POST        {'content':'test content'}               | 201                                      | Create a new comment of the certain post |
+| Uri                  | Request                                                      | Response                                        | Description                              |
+| -------------------- | ------------------------------------------------------------ | ----------------------------------------------- | ---------------------------------------- |
+| /posts               | GET                                                          | 200, [{'id':1, 'title'},{}]                     | Get all posts                            |
+| /posts               | POST         {'id':1, 'title':'test title','content':'test content'} | 201                                             | Create a new post                        |
+| /posts/{id}          | GET                                                          | 200, {'id':1, 'title'}                          | Get a post by id                         |
+| /posts/{id}          | PUT          {'title':'test title','content':'test content'} | 204                                             | Update a post                            |
+| /posts/{id}          | DELETE                                                       | 204                                             | Delete a post by id                      |
+| /posts/{id}/comments | GET                                                          | 200, [{'id':1, 'content':'comment content'},{}] | Get all comments of the certain post     |
+| /posts/{id}/comments | POST        {'content':'test content'}                       | 201                                             | Create a new comment of the certain post |
 
 Create a POJO class for representing Post entity.
 
@@ -711,7 +711,7 @@ Verify if it works.
 
 ```
 
-## Visualize APIs with MP OpenAPI and SwaggerUI
+## Visualizing APIs with MP OpenAPI and SwaggerUI
 
 The  original Swagger schema was standardized as OpenAPI, and Microprofile brings it into Java EE by [Microprofile OpenAPI Spec](https://github.com/eclipse/microprofile-open-api/).
 
@@ -854,7 +854,7 @@ components:
 
 ```
 
-You can change the endpoint location if you dislike the default "/openapi", just add the following into the application.properties.
+You can change the endpoint location if you dislike the default "/openapi", just add the following line in the *application.properties*.
 
 ```properties
 quarkus.smallrye-openapi.path=/swagger
@@ -878,5 +878,4 @@ The Swagger UI is only included in dev mode, if you want it included in all envi
 quarkus.swagger-ui.always-include=true
 ```
 
-> Unfortunately, the CommentResource is not included in the generated OpenAPI schema, maybe it is an issues of subresource support in OpenAPI.
-
+> Unfortunately, the CommentResource is not included in the generated OpenAPI schema, maybe it is an issues of subresource support in Microprofile OpenAPI.
