@@ -414,7 +414,7 @@ Eclipse Vert.x                                     quarkus-vertx
 
 ```
 
-Add **RESTEasy - JSON-B ** to this project.
+Add **RESTEasy - JSON-B** to this project.
 
 ```bash
 >mvn quarkus:add-extension -Dextension=resteasy-jsonb
@@ -632,4 +632,251 @@ It will add `quarkus-hibernate-validator` into dependencies.
     <artifactId>quarkus-hibernate-validator</artifactId>
 </dependency>
 ```
+
+For example, when a user comments on a post, the comment content should not be empty.
+
+Create a POJO class for representing the Comment form data. 
+
+```java
+public class CommentForm implements Serializable {
+
+    @NotEmpty
+    private String content;
+
+    public static CommentForm of(String content) {
+        CommentForm form= new CommentForm();
+        form.setContent(content);
+        return form;
+    }
+
+   //getters and setters
+}
+
+```
+
+Change the `saveComment` method of `CommentResource` like this.
+
+```java
+ public Response saveComment(@Valid CommentForm commentForm) {...}
+```
+
+`@Valid` indicates the request body should be validated by Bean validation framework when this method is invoked. If the validation is failed,  a `ConstraintViolationException` will be thrown.
+
+Create a `ExceptionMapper` to handle this exception.
+
+```java
+@Provider
+public class BeanValidationExceptionMapper implements ExceptionMapper<ConstraintViolationException> {
+    @Override
+    public Response toResponse(ConstraintViolationException exception) {
+        Map<String, String> errors = new HashMap<>();
+        exception.getConstraintViolations()
+                .forEach(v -> {
+                    errors.put(lastFieldName(v.getPropertyPath().iterator()), v.getMessage());
+                });
+        return status(Response.Status.BAD_REQUEST).entity(errors).build();
+    }
+
+    private String lastFieldName(Iterator<Path.Node> nodes) {
+        Path.Node last = null;
+        while (nodes.hasNext()) {
+            last = nodes.next();
+        }
+        return last.getName();
+    }
+}
+```
+
+Verify if it works. 
+
+```bash
+>$ curl -v -X POST  http://localhost:8080/posts/e1ddbe3d-2964-4b1e-8aa8-1d3be8e30c3c/comments  -H "Content-Type:application/json" -H "Accept:application/json" -d "{\"content\":\"\"}"
+
+> POST /posts/e1ddbe3d-2964-4b1e-8aa8-1d3be8e30c3c/comments HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.65.0
+> Content-Type:application/json
+> Accept:application/json
+> Content-Length: 14
+>
+
+< HTTP/1.1 400 Bad Request
+< Connection: keep-alive
+< Content-Type: application/json
+< Content-Length: 31
+< Date: Sat, 07 Sep 2019 03:20:37 GMT
+<
+...
+{"content":"must not be empty"}
+
+```
+
+## Visualize APIs with MP OpenAPI and SwaggerUI
+
+The  original Swagger schema was standardized as OpenAPI, and Microprofile brings it into Java EE by [Microprofile OpenAPI Spec](https://github.com/eclipse/microprofile-open-api/).
+
+Quarkus  provides an extension for Microprofile OpenAPI.
+
+Install `openapi` extension via `quarkus-maven-plugin`.
+
+```bash
+mvn quarkus:add-extension -Dextension=openapi
+```
+
+It will add `quarkus-smallrye-openapi` dependency into pom.xml file.
+
+```xml
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-smallrye-openapi</artifactId>
+</dependency>
+```
+
+Start the application, and try to access http://localhost:8080/openapi.
+
+```bash
+> curl http://localhost:8080/openapi
+---
+openapi: 3.0.1
+info:
+  title: Generated API
+  version: "1.0"
+paths:
+  /hello:
+    get:
+      responses:
+        200:
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/String'
+  /hello/async:
+    get:
+      responses:
+        200:
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+  /hello/greeting/{name}:
+    get:
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/String'
+      responses:
+        200:
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/String'
+  /posts:
+    get:
+      responses:
+        200:
+          description: OK
+          content:
+            application/json: {}
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*': {}
+  /posts/{id}:
+    get:
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/String'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json: {}
+    put:
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/String'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*': {}
+    delete:
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/String'
+      responses:
+        200:
+          description: OK
+          content:
+            '*/*': {}
+components:
+  schemas:
+    String:
+      type: string
+    Post:
+      type: object
+      properties:
+        content:
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+        id:
+          type: string
+        title:
+          type: string
+
+```
+
+You can change the endpoint location if you dislike the default "/openapi", just add the following into the application.properties.
+
+```properties
+quarkus.smallrye-openapi.path=/swagger
+```
+
+The Swagger UI is also available in development mode. Open a browser,and navigate to http://localhost:8080/swagger-ui.
+
+![swagger-ui](./swagger-ui.png)
+
+
+
+If you want to change the default endpoint path of Swagger UI,  add  the following entry in the `application.properties`.
+
+```properties
+quarkus.swagger-ui.path=/my-custom-path
+```
+
+The Swagger UI is only included in dev mode, if you want it included in all environments, add the following configuration in the `application.proerpties`.
+
+```properties
+quarkus.swagger-ui.always-include=true
+```
+
+> Unfortunately, the CommentResource is not included in the generated OpenAPI schema, maybe it is an issues of subresource support in OpenAPI.
 

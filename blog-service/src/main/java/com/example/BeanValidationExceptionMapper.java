@@ -17,9 +17,7 @@ public class BeanValidationExceptionMapper implements ExceptionMapper<Constraint
     public Response toResponse(ConstraintViolationException exception) {
         Map<String, String> errors = new HashMap<>();
         exception.getConstraintViolations()
-                .forEach(v -> {
-                    errors.put(lastFieldName(v.getPropertyPath().iterator()), v.getMessage());
-                });
+                .forEach(v -> errors.put(lastFieldName(v.getPropertyPath().iterator()), v.getMessage()));
         return status(Response.Status.BAD_REQUEST).entity(errors).build();
     }
 

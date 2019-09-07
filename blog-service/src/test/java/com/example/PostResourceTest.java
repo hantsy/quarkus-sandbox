@@ -11,6 +11,14 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 public class PostResourceTest {
 
     @Test
+    public void getNoneExistedPost_shouldReturn404() {
+        given()
+                .when().get("/posts/nonexisted")
+                .then()
+                .statusCode(404);
+    }
+
+    @Test
     public void testPostsEndpoint() {
         given()
                 .when().get("/posts")
