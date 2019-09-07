@@ -499,8 +499,6 @@ public class CommentRepository {
 
 ```
 
-
-
 Create a `CommentResource`  class to expose comments endpoints.
 
 ```java
@@ -545,20 +543,51 @@ public class CommentResource {
 
 
 
-> We have to add @Unremovable to make CommentResource work, see: https://stackoverflow.com/questions/57820428/jax-rs-subresource-issue-in-quarkus
+> Currently we have to add @Unremovable on CommentResource to make it work in Quarkus, see: https://stackoverflow.com/questions/57820428/jax-rs-subresource-issue-in-quarkus
 
-Maybe you have noticed we have not added a `@Path` on this class. Comment should be designed as a sub resources of  `PostResource`.  JAXRS has a good mechanism to register a sub resource in the parent.
+Maybe you have noticed we have not added a `@Path` on this class. Comment can be designed as a sub resources of  `PostResource`.  JAXRS has a good mechanism to register a sub resource in the parent.
 
-Add the following method in the `PostResource` we created above.
+Add the following method in the `PostResource` we have created.
 
 ```java
-@Path("{id}/comments")
-public CommentResource postResource() {
-    return resourceContext.getResource(CommentResource.class);
-}
+public class PostResource{
+    //other methods are omitted here.
+    
+   @Path("{id}/comments")
+    public CommentResource commentResource() {
+        return resourceContext.getResource(CommentResource.class);
+    }    
+}   
 ```
 
+Let's try to add some comments.
 
+```bash
+$ curl -v -X POST  http://localhost:8080/posts/e1ddbe3d-2964-4b1e-8aa8-1d3be8e30c3c/comments  -H "Content-Type:application/json" -H "Accept:application/json" -d "{\"content\":\"test comment\"}"
+
+> POST /posts/e1ddbe3d-2964-4b1e-8aa8-1d3be8e30c3c/comments HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.65.0
+> Content-Type:application/json
+> Accept:application/json
+> Content-Length: 26
+>
+< HTTP/1.1 201 Created
+< Connection: keep-alive
+< Location: http://localhost:8080/posts/e1ddbe3d-2964-4b1e-8aa8-1d3be8e30c3c/comments/a4c14681-cc5e-42b6-aba2-02a83263cd95
+< Content-Length: 0
+< Date: Sat, 07 Sep 2019 07:31:28 GMT
+<
+```
+
+It is created successfully, and return a 201 status code. The location header in the response is the newly added comment. 
+
+Check  if the comment is existed.
+
+```bash
+ >curl http://localhost:8080/posts/e1ddbe3d-2964-4b1e-8aa8-1d3be8e30c3c/comments -H "Accept:application/json"
+[{"content":"test comment","createdAt":"2019-09-07T15:31:28.306218","id":"a4c14681-cc5e-42b6-aba2-02a83263cd95","post":"e1ddbe3d-2964-4b1e-8aa8-1d3be8e30c3c"}]
+```
 
 ## Exception Handling and Bean Validation 
 
@@ -618,7 +647,7 @@ Verify if it  works as expected.
 
 Like the  Bean Validation support in Java EE/JAX-RS, Quarkus also provides seamless Bean Validation support via Hibernate Validator.
 
-Add *hibernate-validator*  into this project. 
+Add *hibernate-validator*  extension to  this project. 
 
 ```bash
 > mvn quarkus:add-extension -Dextension=hibernate-validator
@@ -715,7 +744,7 @@ Verify if it works.
 
 The  original Swagger schema was standardized as OpenAPI, and Microprofile brings it into Java EE by [Microprofile OpenAPI Spec](https://github.com/eclipse/microprofile-open-api/).
 
-Quarkus  provides an extension for Microprofile OpenAPI.
+Quarkus provides an extension to support Microprofile OpenAPI.
 
 Install `openapi` extension via `quarkus-maven-plugin`.
 
@@ -723,7 +752,7 @@ Install `openapi` extension via `quarkus-maven-plugin`.
 mvn quarkus:add-extension -Dextension=openapi
 ```
 
-It will add `quarkus-smallrye-openapi` dependency into pom.xml file.
+It will add `quarkus-smallrye-openapi` dependency into the *pom.xml* file.
 
 ```xml
 <dependency>
@@ -860,7 +889,45 @@ You can change the endpoint location if you dislike the default "/openapi", just
 quarkus.smallrye-openapi.path=/swagger
 ```
 
-The Swagger UI is also available in development mode. Open a browser,and navigate to http://localhost:8080/swagger-ui.
+As you see,  in the generated schema, some description are not clear as expected, eg.  the **GET**  */posts* operation return type description is a little not friendly for API users. You can use Microprofile OpenAPI annotations to enrich it.
+
+```java
+@Operation(
+    summary = "Get all Posts",
+    description = "Get all posts"
+)
+@APIResponse(
+    responseCode = "200",
+    name = "Post list",
+    content = @Content(
+        mediaType = "application/json",
+        schema = @Schema(
+            type = SchemaType.ARRAY,
+            implementation = Post.class
+        )
+    )
+)
+public Response getAllPosts() {...}
+```
+
+Start the application and access http://localhost:8080/openapi again. 
+
+```bash
+ /posts:
+    get:
+      summary: Get all Posts
+      description: Get all posts
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+```
+
+The Swagger UI is also available in development mode. Open a browser, and navigate to http://localhost:8080/swagger-ui.
 
 ![swagger-ui](./swagger-ui.png)
 
@@ -872,10 +939,10 @@ If you want to change the default endpoint path of Swagger UI,  add  the followi
 quarkus.swagger-ui.path=/my-custom-path
 ```
 
-The Swagger UI is only included in dev mode, if you want it included in all environments, add the following configuration in the `application.proerpties`.
+The Swagger UI is only enabled in dev mode, if you want it included in all environments, add the following configuration in the `application.proerpties`.
 
 ```properties
 quarkus.swagger-ui.always-include=true
 ```
 
-> Unfortunately, the CommentResource is not included in the generated OpenAPI schema, maybe it is an issues of subresource support in Microprofile OpenAPI.
+> Unfortunately, the CommentResource is not included in the generated OpenAPI schema, maybe it is an issues of subresource support in Microprofile OpenAPI spec.

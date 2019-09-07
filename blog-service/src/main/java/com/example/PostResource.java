@@ -1,5 +1,12 @@
 package com.example;
 
+import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -33,6 +40,21 @@ public class PostResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Operation(
+            summary = "Get all Posts",
+            description = "Get all posts"
+    )
+    @APIResponse(
+            responseCode = "200",
+            name = "Post list",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(
+                            type = SchemaType.ARRAY,
+                            implementation = Post.class
+                    )
+            )
+    )
     public Response getAllPosts() {
         return ok(this.posts.all()).build();
     }
