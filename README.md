@@ -154,6 +154,7 @@ You can customize your own annotation with `@QuarkusTest` like this.
 
 ```java
 @Transactional
+@Stereotype
 @QuarkusTest
 public @interface TransactionalQuarkusTest{}
 ```
@@ -543,7 +544,7 @@ public class CommentResource {
 
 
 
-> Currently we have to add @Unremovable on CommentResource to make it work in Quarkus, see: https://stackoverflow.com/questions/57820428/jax-rs-subresource-issue-in-quarkus
+> Currently we have to add @Unremovable on CommentResource to make it work in Quarkus, see  [question on stackoverflow](https://stackoverflow.com/questions/57820428/jax-rs-subresource-issue-in-quarkus]) and  [Quarkus issue#3919](https://github.com/quarkusio/quarkus/issues/3919).
 
 Maybe you have noticed we have not added a `@Path` on this class. Comment can be designed as a sub resources of  `PostResource`.  JAXRS has a good mechanism to register a sub resource in the parent.
 
@@ -945,4 +946,5 @@ The Swagger UI is only enabled in dev mode, if you want it included in all envir
 quarkus.swagger-ui.always-include=true
 ```
 
-> Unfortunately, the CommentResource is not included in the generated OpenAPI schema, maybe it is an issues of subresource support in Microprofile OpenAPI spec.
+> Unfortunately, the CommentResource is not included in the generated OpenAPI schema, maybe it is an issues of subresource support in Microprofile OpenAPI spec,  see [Quarkus issue#3918](https://github.com/quarkusio/quarkus/issues/3918).
+
