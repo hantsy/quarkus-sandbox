@@ -1,22 +1,34 @@
 package com.example;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
+@Entity
 public class Comment implements Serializable {
+
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-    private String post;
+
+    @Embedded
+    @AttributeOverride(
+            name = "id",
+            column = @Column(name = "post_id")
+    )
+    private PostId post;
     private String content;
     private LocalDateTime createdAt;
 
     public static Comment of(String postId, String content) {
         Comment comment = new Comment();
 
-        comment.setId(UUID.randomUUID().toString());
         comment.setContent(content);
         comment.setCreatedAt(LocalDateTime.now());
-        comment.setPost(postId);
+        comment.setPost(new PostId(postId));
 
         return comment;
     }
@@ -29,11 +41,11 @@ public class Comment implements Serializable {
         this.id = id;
     }
 
-    public String getPost() {
+    public PostId getPost() {
         return post;
     }
 
-    public void setPost(String post) {
+    public void setPost(PostId post) {
         this.post = post;
     }
 
@@ -56,10 +68,10 @@ public class Comment implements Serializable {
     @Override
     public String toString() {
         return "Comment{" +
-            "id='" + id + '\'' +
-            ", post='" + post + '\'' +
-            ", content='" + content + '\'' +
-            ", createdAt=" + createdAt +
-            '}';
+                "id='" + id + '\'' +
+                ", post='" + post + '\'' +
+                ", content='" + content + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

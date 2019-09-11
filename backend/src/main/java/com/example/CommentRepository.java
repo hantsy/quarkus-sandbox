@@ -1,35 +1,33 @@
 package com.example;
 
-import javax.enterprise.context.ApplicationScoped;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
+import io.quarkus.hibernate.orm.panache.runtime.JpaOperations;
 
-import static java.util.stream.Collectors.toList;
+import javax.enterprise.context.ApplicationScoped;
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+import java.util.List;
 
 @ApplicationScoped
-public class CommentRepository {
-    static Map<String, Comment> data = new ConcurrentHashMap<>();
+public class CommentRepository implements PanacheRepositoryBase<Comment, String> {
 
-    public List<Comment> all() {
-        return new ArrayList<>(data.values());
-    }
-
-    public Comment getById(String id) {
-        return data.get(id);
-    }
-
+    @Transactional
     public Comment save(Comment comment) {
-        data.put(comment.getId(), comment);
-        return comment;
+        EntityManager em = JpaOperations.getEntityManager();
+        if (comment.getId() == null || comment.getId().trim().isEmpty()) {
+            em.persist(comment);
+            return comment;
+        } else {
+            return em.merge(comment);
+        }
     }
 
+    @Transactional
     public void deleteById(String id) {
-        data.remove(id);
+        this.delete("id", id);
     }
 
     public List<Comment> allByPostId(String id) {
-        return data.values().stream().filter(c -> c.getPost().equals(id)).collect(toList());
+        return this.list("post.id", id);
     }
 }
