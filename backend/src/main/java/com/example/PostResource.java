@@ -1,10 +1,11 @@
 package com.example;
 
-import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.enums.ParameterIn;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
 import javax.enterprise.context.RequestScoped;
@@ -55,8 +56,16 @@ public class PostResource {
                     )
             )
     )
-    public Response getAllPosts() {
-        return ok(this.posts.all()).build();
+    public Response getAllPosts(
+            @Parameter(name = "q", in = ParameterIn.QUERY, description = "keyword match tile or content")
+            @QueryParam("q") String q,
+            @Parameter(name = "offset", in = ParameterIn.QUERY, description = "pagination offset")
+            @QueryParam("offset") @DefaultValue("0") int offset,
+            @Parameter(name = "limit", in = ParameterIn.QUERY, description = "pagination limit")
+            @QueryParam("limit") @DefaultValue("10") int limit
+
+    ) {
+        return ok(this.posts.findByKeyword(q, offset, limit)).build();
     }
 
     @POST
@@ -64,9 +73,9 @@ public class PostResource {
     public Response savePost(@Valid Post post) {
         Post saved = this.posts.save(Post.of(post.getTitle(), post.getContent()));
         return created(
-            uriInfo.getBaseUriBuilder()
-                .path("/posts/{id}")
-                .build(saved.getId())
+                uriInfo.getBaseUriBuilder()
+                        .path("/posts/{id}")
+                        .build(saved.getId())
         ).build();
     }
 
@@ -74,23 +83,28 @@ public class PostResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPostById(@PathParam("id") final String id) {
-        Post post = this.posts.getById(id);
-        if (post == null) {
-            throw new PostNotFoundException(id);
-        }
-        return ok(post).build();
+        return this.posts.getById(id)
+                .map(post -> ok(post).build())
+                .orElseThrow(
+                        () -> new PostNotFoundException(id)
+                );
     }
 
     @Path("{id}")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updatePost(@PathParam("id") final String id, @Valid Post post) {
-        Post existed = this.posts.getById(id);
-        existed.setTitle(post.getTitle());
-        existed.setContent(post.getContent());
+        return this.posts.getById(id)
+                .map(existed -> {
+                    existed.setTitle(post.getTitle());
+                    existed.setContent(post.getContent());
 
-        Post saved = this.posts.save(existed);
-        return noContent().build();
+                    Post saved = this.posts.save(existed);
+                    return noContent().build();
+                })
+                .orElseThrow(
+                        () -> new PostNotFoundException(id)
+                );
     }
 
 

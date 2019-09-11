@@ -948,3 +948,46 @@ quarkus.swagger-ui.always-include=true
 
 > Unfortunately, the CommentResource is not included in the generated OpenAPI schema, maybe it is an issues of subresource support in Microprofile OpenAPI spec,  see [Quarkus issue#3918](https://github.com/quarkusio/quarkus/issues/3918).
 
+## Data Persistence with JPA
+
+Currently we are using a dummy Repository for retrieving and saving data. We will change it to use a real database. Several RDBMS and NoSQL products get support in Quarkus. Here we are focusing on RDBMS, we will discuss NoSQL support in future. 
+
+There are some extensions for RDBMS  operations.
+
+* [agroal](https://github.com/agroal) - The outbox Datasource and connection pool implementations
+* hibernate-orm - Hibernate is de facto JPA implementation.
+* hibernate-orm-panache - Provides more fluent APIs for JPA operations.
+* narayana-jta -  Integrates JTA transaction supports,  and you can use CDI @Transactional.
+
+hibernate-orm-panache depends on the three others transitively. 
+
+Install *hibernate-orm-panache*  via quarkus-maven-plugin.
+
+```bash
+mvn quarkus:add-extension -Dextension=hibernate-orm-panache
+```
+
+Like the general Java EE applications, you need a Jdbc driver to connect database.  Quarkus provides driver extensions for:
+
+- H2 - jdbc-h2
+- PostgreSQL - jdbc-postgresql
+- MariaDB (and MySQL) - jdbc-mariadb
+- Microsoft SQL Server - jdbc-mssql
+
+ Let's take  PostgreSQL as an example. 
+
+```bash
+mvn quarkus:add-extension -Dextension=jdbc-postgresql
+```
+Open pom.xml, the following two dependencies are added.
+
+```xml
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-hibernate-orm-panache</artifactId>
+</dependency>
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-jdbc-postgresql</artifactId>
+</dependency>
+```

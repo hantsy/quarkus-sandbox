@@ -1,11 +1,19 @@
 package com.example;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
+@Entity
 public class Post implements Serializable {
 
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     String id;
     String title;
     String content;
@@ -13,7 +21,6 @@ public class Post implements Serializable {
 
     public static Post of(String title, String content) {
         Post post = new Post();
-        post.setId(UUID.randomUUID().toString());
         post.setCreatedAt(LocalDateTime.now());
         post.setTitle(title);
         post.setContent(content);

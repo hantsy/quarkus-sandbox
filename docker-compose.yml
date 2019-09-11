@@ -1,14 +1,14 @@
 version: '3.1' # specify docker-compose version
 
 services:
-  quarkusdb:
+  blogdb:
     image: postgres
     ports:
       - "5432:5432"
     restart: always
     environment:
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: demo
+      POSTGRES_DB: blogdb
       POSTGRES_USER: user
     volumes:
       - ./data:/var/lib/postgresql
