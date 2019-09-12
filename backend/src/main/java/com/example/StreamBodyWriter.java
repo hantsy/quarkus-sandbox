@@ -28,7 +28,9 @@ public class StreamBodyWriter implements MessageBodyWriter<Stream> {
 
     @Override
     public long getSize(Stream stream, Class<?> type, Type genericType,
-                        Annotation[] annotations, MediaType mediaType) { return -1; }
+                        Annotation[] annotations, MediaType mediaType) {
+        return -1;
+    }
 
     @Override
     public void writeTo(Stream stream, Class<?> type, Type genericType,

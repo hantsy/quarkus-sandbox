@@ -11,7 +11,6 @@ import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 @ApplicationScoped
 public class PostRepository implements PanacheRepositoryBase<Post, String> {
@@ -20,16 +19,28 @@ public class PostRepository implements PanacheRepositoryBase<Post, String> {
         return this.listAll(Sort.descending("createdAt"));
     }
 
-    public Stream<Post> findByKeyword(String q, int offset, int size) {
+//    public Stream<Post> findByKeyword(String q, int offset, int size) {
+//        if (q == null || q.trim().isEmpty()) {
+//            return this.streamAll(Sort.descending("createdAt"))
+//                    .skip(offset)
+//                    .limit(size);
+//        } else {
+//            return this.streamAll(Sort.descending("createdAt"))
+//                    .filter(p -> p.title.contains(q) || p.content.contains(q))
+//                    .skip(offset)
+//                    .limit(size);
+//        }
+//    }
+
+    public List<Post> findByKeyword(String q, int offset, int size) {
         if (q == null || q.trim().isEmpty()) {
-            return this.streamAll(Sort.descending("createdAt"))
-                    .skip(offset)
-                    .limit(size);
+            return this.findAll(Sort.descending("createdAt"))
+                    .page(offset / size, size)
+                    .list();
         } else {
-            return this.streamAll(Sort.descending("createdAt"))
-                    .filter(p -> p.title.contains(q) || p.content.contains(q))
-                    .skip(offset)
-                    .limit(size);
+            return this.find("title like ?1 or content like ?1", Sort.descending("createdAt"), '%' + q + '%')
+                    .page(offset / size, size)
+                    .list();
         }
     }
 
