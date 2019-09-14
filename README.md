@@ -1215,7 +1215,7 @@ Now run the test again, you will see an embedded  H2 database is starting up.
 
 And it will use this H2 to replace the datasource configured in the *src/main/resources/application.properties*.
 
-Ideally, I would like Quarkus provides some  test facilities like Spring Boot based `@DataJpaTest` `@RestMvcTest` etc. Hope there are some surprise in the further versions.
+Personally I hope Quarkus will provides some *slice test* functionality like Spring Boot based `@DataJpaTest` and  `@RestMvcTest` etc. 
 
 
 
@@ -1296,10 +1296,24 @@ services:
   
 ```
 
-> The quarkus-test-h2 is problematic when test against the native profile, see [#3973](https://github.com/quarkusio/quarkus/issues/3973). I excluded it from the project temporarily.
+> Currently, the quarkus-test-h2 is problematic when test against the native profile, see [#3973](https://github.com/quarkusio/quarkus/issues/3973). I excluded it from the project temporarily.
 
+Execute the `docker-compose up` command to run the application. 
 
+```bash
+docker-compose up
+```
 
- [Quarkus](https://www.quarkus.io) is still a very  young project, I believe in that it will evolve into a mature solution as time goes by and become a robust solution for building cloud native applications. 
+Please be patient, it will take some minutes.  Drink a cup of coffee .
+
+The application will be started at last .  
+
+```bash
+post-service_1  | 2019-09-14 14:19:11,035 INFO  [io.quarkus] (main) Quarkus 0.21.2 started in 0.267s. Listening on: http://0.0.0.0:8080
+```
+
+As you see, the start-up progress just takes 0.267 seconds. Awesome !
+
+ [Quarkus](https://www.quarkus.io) is still a very young project, I believe in that it will evolve into a mature framework as time goes by and become a robust solution for building cloud native applications. 
 
 Check  out the [source codes](https://github.com/hantsy/quarkus-sample) form my Github.
