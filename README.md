@@ -991,3 +991,74 @@ Open pom.xml, the following two dependencies are added.
     <artifactId>quarkus-jdbc-postgresql</artifactId>
 </dependency>
 ```
+
+There are two programming models provided in Hibernate ORM Panache , it is a little like the topic about **Anaemic Model and Rich Model** we had discussed several years ago. 
+* **PanacheEntity** is a little like the Model provided in Ruby On Rails, act as **Rich Model** , it mixes up the model data with the operation behaviors(eg. save, delete, etc..) in the same class.  
+* **PanacheRepository** is some like the Repository from Spring Data and [Apache Deltaspike](https://deltaspike.apache.org), it is also a good match with the DDD Repository concept. 
+
+To keep current code structure, we use Repository here.
+
+Add an `@Entity`  annotation on the `Post` class, and do not forget adding an `@Id`  annotation to the *id* field to identify an  JPA Entity.
+
+```java
+@Entity
+public class Post implements Serializable {
+
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    String id;
+ 
+    // other codes are not changed.
+}    
+```
+
+Create a `Repository` for the `Post`  entity.
+
+```java
+@ApplicationScoped
+public class PostRepository implements PanacheRepositoryBase<Post, String> {...}
+```
+
+> Here we subclass the `PanacheRepositoryBase` to make it accept a `String` typed id.  `PanacheRepository` is also derived from `PanacheRepositoryBase` , but it sets `Long` type for id by default.  
+
+ `PanacheRepositoryBase` provides a collection of fluent APIs for data operations.  Check the source code of  `PanacheRepositoryBase`.
+
+Add a `findByAllPosts` method, sort by *createdAt*  descending.
+
+```java
+public List<Post> findAllPosts() {
+    return this.listAll(Sort.descending("createdAt"));
+}
+```
+
+Add a `findByKeyword` method to fetch a pageable Post list by keyword searching.
+
+```java
+ public List<Post> findByKeyword(String q, int offset, int size) {
+        if (q == null || q.trim().isEmpty()) {
+            return this.findAll(Sort.descending("createdAt"))
+                    .page(offset / size, size)
+                    .list();
+        } else {
+            return this.find("title like ?1 or content like ?1", Sort.descending("createdAt"), '%' + q + '%')
+                    .page(offset / size, size)
+                    .list();
+        }
+    }
+
+```
+
+Add a delete  method.
+
+```java
+@Transactional
+public void deleteById(String id) {
+    this.delete("id=?1", id);
+}
+```
+
+Hope Hibernate ORM Panache will provide more fluent APIs like the ones in Spring Data project in a further version.
+
+
+
