@@ -1,11 +1,13 @@
 ## Stage 1 : build with maven builder image with native capabilities
 FROM quay.io/quarkus/centos-quarkus-maven:19.1.1 AS build
-COPY src /usr/src/app/src
-COPY pom.xml /usr/src/app
+WORKDIR /usr/src/app
+COPY pom.xml .
+RUN mvn -U dependency:go-offline && mvn -U dependency:go-offline -Pnative
+COPY src/ /usr/src/app/src/
 USER root
 RUN chown -R quarkus /usr/src/app
 USER quarkus
-RUN mvn -f /usr/src/app/pom.xml -Pnative clean package
+RUN mvn clean package -Pnative
 
 ## Stage 2 : create the docker final image
 FROM registry.access.redhat.com/ubi8/ubi-minimal

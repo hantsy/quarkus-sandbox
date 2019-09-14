@@ -1,7 +1,5 @@
 package com.example;
 
-import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +8,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 
 @QuarkusTest
-@QuarkusTestResource(H2DatabaseTestResource.class)
+//@QuarkusTestResource(H2DatabaseTestResource.class)
 public class PostResourceTest {
 
     @Test

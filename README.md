@@ -2,7 +2,7 @@
 
 [TOC]
 
-[Quarkus](https://quarkus.io) is a container-first framework for building Docker/K8s  ready  applications.
+[Quarkus](https://quarkus.io) is a container-first framework for building cloud native applications.
 
 ##  Getting Started
 
@@ -74,12 +74,12 @@ After it is done, there are two jars in the target folder.  `xxx-runner.jar`  is
 >java -jar target\demo-1.0.0-SNAPSHOT-runner.jar
 ```
 
-In development stage, you can run the application in development mode.
+In development stage, you can run the application in a debug mode.
 
 ```bash
 mvn compile quarkus:dev
 ```
-You will see the following info. 
+After it is  done, you will see messages like the following. 
 
 ```
 [INFO] --- quarkus-maven-plugin:0.21.1:dev (default-cli) @ demo ---
@@ -89,7 +89,7 @@ Listening for transport dt_socket at address: 5005
 2019-09-06 11:39:10,072 INFO  [io.quarkus] (main) Quarkus 0.21.1 started in 1.464s. Listening on: http://[::]:8080
 2019-09-06 11:39:10,072 INFO  [io.quarkus] (main) Installed features: [cdi, resteasy]
 ```
-Test the hello endpoint with  `curl`.
+Test the hello endpoint with  `curl` command.
 
 ```bash
 >curl http://localhost:8080/hello
@@ -1022,9 +1022,9 @@ public class PostRepository implements PanacheRepositoryBase<Post, String> {...}
 
 > Here we subclass the `PanacheRepositoryBase` to make it accept a `String` typed id.  `PanacheRepository` is also derived from `PanacheRepositoryBase` , but it sets `Long` type for id by default.  
 
- `PanacheRepositoryBase` provides a collection of fluent APIs for data operations.  Check the source code of  `PanacheRepositoryBase`.
+ `PanacheRepositoryBase` provides a collection of fluent APIs for data operations, such as `list(...)`, `find(...)`, `stream(...)`, `count(...)` etc.  Check the source code of  `PanacheRepositoryBase`.
 
-Add a `findByAllPosts` method, sort by *createdAt*  descending.
+Add a `findByAllPosts` method into `Post`, make it sort by *createdAt* in descending order.
 
 ```java
 public List<Post> findAllPosts() {
@@ -1049,7 +1049,38 @@ Add a `findByKeyword` method to fetch a pageable Post list by keyword searching.
 
 ```
 
-Add a delete  method.
+Add the following content to `getById` method.
+
+```java
+ public Optional<Post> getById(String id) {
+     Post post = null;
+     try {
+         post = this.find("id=:id", Parameters.with("id", id)).singleResult();
+     } catch (NoResultException e) {
+         e.printStackTrace();
+     }
+     return Optional.ofNullable(post);
+ }
+```
+
+Instead of throwing an exception when an entity is not found, return a `Optional` to align with Java 8.
+
+There is no `save` method provided like the one in Spring Data, use the following codes for a workaround now.
+
+```java
+@Transactional
+public Post save(Post post) {
+    EntityManager em = JpaOperations.getEntityManager();
+    if (post.getId() == null) {
+        em.persist(post);
+        return post;
+    } else {
+        return em.merge(post);
+    }
+}
+```
+
+Replace the `deleteById`  method with the following content. It requires a transaction existed, add a `@Transactional` on the method to make sure a transaction provided.
 
 ```java
 @Transactional
@@ -1058,7 +1089,186 @@ public void deleteById(String id) {
 }
 ```
 
-Hope Hibernate ORM Panache will provide more fluent APIs like the ones in Spring Data project in a further version.
+No doubt Hibernate ORM Panache simplify the work. But  it can be better  and provide more fluent APIs like Spring Data JPA, there are some wish list in my opinion.
+
+* Provide a generic `save` method , [#3969](https://github.com/quarkusio/quarkus/issues/3969)
+* Dynamic query methods defined by conventions, [#3966](https://github.com/quarkusio/quarkus/issues/3966)
+* Type-safe query via JPA Criteria APIs, [#3965](https://github.com/quarkusio/quarkus/issues/3965)
+* Support `Optional` as  query result type , [#3967](https://github.com/quarkusio/quarkus/issues/3967)
+* Support query by example, [#4015](https://github.com/quarkusio/quarkus/issues/4015)
+* [QueryDSL](https://www.querydsl.com) integration, [#4016](https://github.com/quarkusio/quarkus/issues/4016)
+* AutoMapper support for the query result, [#4017](https://github.com/quarkusio/quarkus/issues/4017)
+* ...
+
+Ok, let's try to run the application and verify if it work as expected. 
+
+Before jumping into the next step, you must offer a running PostgreSQL server.  To simplify the work, I  create a docker-compose file to start up a PostgreSQL in a Docker container. 
+
+```yaml
+version: '3.1' # specify docker-compose version
+
+services:
+  blogdb:
+    image: postgres
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: blogdb
+      POSTGRES_USER: user
+    volumes:
+      - ./data:/var/lib/postgresql
+```
+
+And do not forget to setup  the datasource properties in the *application.properties* file.
+
+```pro
+quarkus.datasource.url = jdbc:postgresql://localhost:5432/blogdb
+quarkus.datasource.driver = org.postgresql.Driver
+quarkus.datasource.username = user
+quarkus.datasource.password = password
+```
+The complete list of the datasource properties can be found in the  [Quarkus Datasource guide](https://quarkus.io/guides/datasource-guide) .  
+
+> Quarkus also support *persistence.xml* to setup the *datasouce* info like  the traditional Java EE applications, but using  the *application.properties* file is highly recommended in Quarkus applications. In a production environment, you maybe change these properties to different values, it is easy to archive by the environment-aware Configuration in Quarkus.
+
+Run the application and try the APIs again, it should work well like before.
+
+## Testing APIs
+
+Currently Quarkus just provides a very few number of APIs for writing test codes.  The most important one is `@QuarkusTest` .
+
+Create the first test for `PostResource.`
+
+```java
+@QuarkusTest
+public class PostResourceTest {
+    @Test
+    public void testPostsEndpoint() {
+        given()
+                .when().get("/posts")
+                .then()
+                .statusCode(200)
+                .body(
+                        "$.size()", is(2),
+                        "title", containsInAnyOrder("Hello Quarkus", "Hello Again, Quarkus"),
+                        "content", containsInAnyOrder("My first post of Quarkus", "My second post of Quarkus")
+                );
+    }
+
+}
+```
+
+We have initialized two posts at the application startup stage.  The `testPostsEndpoint` test to verify they are existed. 
+
+> When I ran the test at the first time, I got an Jadex related exception.  Guided by the info of the exception , I added  an empty *src/resource/META-INF/beans.xml* file to overcome it.
+
+Try to add another test, if the post is not found, return a 404 error code.
+
+```java
+@Test
+public void getNoneExistedPost_shouldReturn404() {
+    given()
+        .when().get("/posts/nonexisted")
+        .then()
+        .statusCode(404);
+}
+```
+
+Run the test again.
+
+```bash
+>mvn clean compile test -Dtest=PostResourceTest
+...
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 15.274 s - in com.example.PostResourceTest
+```
+
+Currently we are testing against the real database.  Quarkus provides a capability to run tests in a test scoped database. 
+
+Add the following dependency in *pom.xml*.
+
+```xml
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-test-h2</artifactId>
+    <scope>test</scope>
+</dependency>
+```
+
+Add  `@QuarkusTestResource(H2DatabaseTestResource.class)` annotation on the `PostResourceTest` class. 
+
+ And it also requires the datasource configuration in *src/test/resources/application.properties*.
+
+```properties
+quarkus.datasource.url=jdbc:h2:tcp://localhost/mem:test
+quarkus.datasource.driver=org.h2.Driver
+quarkus.hibernate-orm.database.generation = drop-and-create
+quarkus.hibernate-orm.log.sql=true
+```
+
+Now run the test again, you will see an embedded  H2 database is starting up. 
+
+```bash
+[INFO] H2 database started in TCP server mode
+```
+
+And it will use this H2 to replace the datasource configured in the *src/main/resources/application.properties*.
+
+Ideally, I would like Quarkus provides some  test facilities like Spring Boot based `@DataJpaTest` `@RestMvcTest` etc. Hope there are some surprise in the further versions.
 
 
+
+## Containerizing the Application
+
+The most attractive feature provided in Quarkus is it provides the capability of building Graalvm compatible native image and run in a container environment.
+
+Follow the [building native image guide](https://quarkus.io/guides/building-native-image-guide), firstly get a copy GraalVM from https://www.graalvm.org/, and create a new `GRAALVM_HOME` environment variable.
+
+GraalVM is stable under MacOS and Linux, but it is still marked as *experimental*  for Windows users. 
+
+> Especially, for Windows users you need install Windows 7 SDK to make it work, check the [Windows specifics](https://github.com/oracle/graal/blob/master/compiler/README.md#windows-specifics-1).
+
+
+In the *src/main/docker* folder, there are some Dockerfile prepared for JVM and GraalVM native image. 
+
+You can create a  Docker image like this..
+
+```bash
+./mvnw package -Pnative -Dnative-image.container-runtime=docker
+```
+Or build your project, and run docker command to build it manually. 
+
+```bash 
+docker built -f src/main/docker/Dockerfile.native - t hantsy/hello .
+```
+
+Alternatively, use a multistage Docker building to build the application in Docker container. Thus under Windows, it is not a must to install the unstable GraalVM now.
+
+Firstly, create a new Dockerfile aka *src/main/docker/Dockerfile.multistage*.
+
+```dockerfile
+## Stage 1 : build with maven builder image with native capabilities
+FROM quay.io/quarkus/centos-quarkus-maven:19.1.1 AS build
+COPY src /usr/src/app/src
+COPY pom.xml /usr/src/app
+USER root
+RUN chown -R quarkus /usr/src/app
+USER quarkus
+RUN mvn -f /usr/src/app/pom.xml -Pnative clean package
+
+## Stage 2 : create the docker final image
+FROM registry.access.redhat.com/ubi8/ubi-minimal
+WORKDIR /work/
+COPY --from=build /usr/src/app/target/*-runner /work/application
+RUN chmod 775 /work
+EXPOSE 8080
+CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
+```
+
+Build the docker image. 
+
+```bash 
+docker build -f src/main/docker/Dockerfile.multistage -t hantsy/post-service .
+```
 
