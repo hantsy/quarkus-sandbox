@@ -1296,4 +1296,10 @@ services:
   
 ```
 
-> The quarkus-test-h2 caused test problematic in test for native profile, see [#3973](https://github.com/quarkusio/quarkus/issues/3973). I excluded it from the project temporarily.
+> The quarkus-test-h2 is problematic when test against the native profile, see [#3973](https://github.com/quarkusio/quarkus/issues/3973). I excluded it from the project temporarily.
+
+
+
+ [Quarkus](https://www.quarkus.io) is still a very  young project, I believe in that it will evolve into a mature solution as time goes by and become a robust solution for building cloud native applications. 
+
+Check  out the [source codes](https://github.com/hantsy/quarkus-sample) form my Github.
