@@ -1237,13 +1237,15 @@ You can create a  Docker image like this..
 ```bash
 ./mvnw package -Pnative -Dnative-image.container-runtime=docker
 ```
-Or build your project, and run docker command to build it manually. 
+Or build your project and run docker command to build the Docker image manually. 
 
 ```bash 
 docker built -f src/main/docker/Dockerfile.native - t hantsy/hello .
 ```
 
-Alternatively, use a multistage Docker building to build the application in Docker container. Thus under Windows, it is not a must to install the unstable GraalVM now.
+Alternatively, use a multistage Dockerfile to move the Maven build lifecycle into a docker container. Thus under Windows, installing GraalVM becomes optional.
+
+> Multistage Dockerfile is a great idea for simplifying  the build tasks in a  continuous integration server. 
 
 Firstly, create a new Dockerfile aka *src/main/docker/Dockerfile.multistage*.
 
@@ -1272,3 +1274,26 @@ Build the docker image.
 docker build -f src/main/docker/Dockerfile.multistage -t hantsy/post-service .
 ```
 
+More simply,  use a docker-compose file to build and run the application.
+
+```yaml
+version: '3.1' # specify docker-compose version
+
+services:
+  blogdb:
+	...
+  post-service: 
+    image: hantsy/quarkus-post-service
+    build: 
+      context: ./backend
+      dockerfile: src/main/docker/Dockerfile.multistage
+    environment:
+      QUARKUS_DATASOURCE_URL: jdbc:postgresql://blogdb:5432/blogdb
+    ports:
+      - "8080:8080" #specify ports forewarding
+    depends_on:
+      - blogdb
+  
+```
+
+> The quarkus-test-h2 caused test problematic in test for native profile, see [#3973](https://github.com/quarkusio/quarkus/issues/3973). I excluded it from the project temporarily.
