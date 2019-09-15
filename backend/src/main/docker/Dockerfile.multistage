@@ -5,7 +5,7 @@ RUN echo "<QUARKUS_DATASOURCE_URL>: $QUARKUS_DATASOURCE_URL"
 # ENV QUARKUS_DATASOURCE_URL $QUARKUS_DATASOURCE_URL
 WORKDIR /usr/src/app
 COPY pom.xml .
-RUN mvn -B dependency:go-offline -Pnative clean package
+RUN mvn -B dependency:go-offline -Pnative
 COPY src/ /usr/src/app/src/
 USER root
 RUN chown -R quarkus /usr/src/app

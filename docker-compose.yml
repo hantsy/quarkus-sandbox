@@ -15,11 +15,11 @@ services:
  
   post-service: 
     image: hantsy/quarkus-post-service
-    build: 
-      context: ./backend
-      dockerfile: src/main/docker/Dockerfile.multistage
-      args:
-        - QUARKUS_DATASOURCE_URL=${QUARKUS_DATASOURCE_URL:-jdbc:postgresql://blogdb:5432/blogdb}
+#    build: 
+#      context: ./backend
+#      dockerfile: src/main/docker/Dockerfile.multistage
+#      args:
+#        - QUARKUS_DATASOURCE_URL=${QUARKUS_DATASOURCE_URL:-jdbc:postgresql://blogdb:5432/blogdb}
     environment:
       QUARKUS_DATASOURCE_URL: jdbc:postgresql://blogdb:5432/blogdb
     ports:
