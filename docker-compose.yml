@@ -1,4 +1,4 @@
-version: '3.1' # specify docker-compose version
+version: '3.7' # specify docker-compose version
 
 services:
   blogdb:
@@ -18,6 +18,8 @@ services:
     build: 
       context: ./backend
       dockerfile: src/main/docker/Dockerfile.multistage
+      args:
+        - QUARKUS_DATASOURCE_URL=${QUARKUS_DATASOURCE_URL:-jdbc:postgresql://blogdb:5432/blogdb}
     environment:
       QUARKUS_DATASOURCE_URL: jdbc:postgresql://blogdb:5432/blogdb
     ports:
