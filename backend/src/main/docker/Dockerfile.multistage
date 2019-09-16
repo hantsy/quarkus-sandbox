@@ -11,7 +11,7 @@ USER root
 RUN chown -R quarkus /usr/src/app
 USER quarkus
 RUN mvn clean package -Pnative -Dquarkus.datasource.url=$QUARKUS_DATASOURCE_URL
-# -DskipTests -Dmaven.test.skip=true
+#RUN mvn clean package -Pnative -DskipTests -Dmaven.test.skip=true
 
 ## Stage 2 : create the docker final image
 FROM registry.access.redhat.com/ubi8/ubi-minimal
