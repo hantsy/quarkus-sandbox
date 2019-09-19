@@ -7,12 +7,15 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static org.springframework.http.ResponseEntity.*;
 
 @RestController
 @RequestMapping("/posts")
 public class PostController {
+    private final static Logger LOG = Logger.getLogger(PostController.class.getName());
     private PostRepository postRepository;
 
     public PostController(PostRepository postRepository) {
@@ -20,17 +23,20 @@ public class PostController {
     }
 
     @GetMapping()
-    public ResponseEntity getAllPosts(
+    public ResponseEntity getAllPosts() {
+        List<Post> posts = this.postRepository.findAll();
+        return ok(posts);
+    }
+
+    @GetMapping("search")
+    public ResponseEntity searchByKeyword(
             @RequestParam(value = "q", required = false) String keyword,
             @RequestParam(value = "page", required = false, defaultValue = "0") int page,
             @RequestParam(value = "size", required = false, defaultValue = "10") int size
-            /** //
-             @PageableDefault(page = 0, size = 10, sort = "createdDate", direction = Direction.DESC) Pageable page*/) {
+    ) {
 
-        //Page<Post> posts = this.postRepository.findAll(PageRequest.of(page, size));
-
-        List<Post> posts = this.postRepository.findAll();
-
+        List<Post> posts = this.postRepository.findByKeyword(keyword, page, size);
+        LOG.log(Level.INFO, "post search by keyword: {}", posts);
         return ok(posts);
     }
 
