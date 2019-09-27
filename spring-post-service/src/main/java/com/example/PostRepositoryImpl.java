@@ -1,5 +1,6 @@
 package com.example;
 
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
