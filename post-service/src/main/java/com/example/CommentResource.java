@@ -19,9 +19,10 @@ import static javax.ws.rs.core.Response.created;
 import static javax.ws.rs.core.Response.ok;
 
 
-//see: https://stackoverflow.com/questions/57820428/jax-rs-subresource-issue-in-quarkus
-@Unremovable
-@RegisterForReflection
+// see: https://stackoverflow.com/questions/57820428/jax-rs-subresource-issue-in-quarkus
+// and Quarkus issue#3919: https://github.com/quarkusio/quarkus/issues/3919
+//@Unremovable
+//@RegisterForReflection
 @RequestScoped
 public class CommentResource {
     private final static Logger LOGGER = Logger.getLogger(CommentResource.class.getName());

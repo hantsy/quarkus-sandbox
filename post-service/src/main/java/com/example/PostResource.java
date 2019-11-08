@@ -10,7 +10,6 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.container.ResourceContext;
@@ -19,7 +18,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 
 import static javax.ws.rs.core.Response.*;
 
@@ -117,8 +115,11 @@ public class PostResource {
         return noContent().build();
     }
 
+    @Inject CommentResource commentResource;
+
     @Path("{id}/comments")
     public CommentResource postResource() {
-        return resourceContext.getResource(CommentResource.class);
+        //return resourceContext.getResource(CommentResource.class);
+        return resourceContext.initResource(commentResource);
     }
 }

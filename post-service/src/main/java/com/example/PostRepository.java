@@ -19,27 +19,27 @@ public class PostRepository implements PanacheRepositoryBase<Post, String> {
         return this.listAll(Sort.descending("createdAt"));
     }
 
-//    public Stream<Post> findByKeyword(String q, int offset, int size) {
+//    public Stream<Post> findByKeyword(String q, int offset, int limit) {
 //        if (q == null || q.trim().isEmpty()) {
 //            return this.streamAll(Sort.descending("createdAt"))
 //                    .skip(offset)
-//                    .limit(size);
+//                    .limit(limit);
 //        } else {
 //            return this.streamAll(Sort.descending("createdAt"))
 //                    .filter(p -> p.title.contains(q) || p.content.contains(q))
 //                    .skip(offset)
-//                    .limit(size);
+//                    .limit(limit);
 //        }
 //    }
 
-    public List<Post> findByKeyword(String q, int offset, int size) {
+    public List<Post> findByKeyword(String q, int offset, int limit) {
         if (q == null || q.trim().isEmpty()) {
             return this.findAll(Sort.descending("createdAt"))
-                    .page(offset / size, size)
+                    .page(offset / limit, limit)
                     .list();
         } else {
             return this.find("title like ?1 or content like ?1", Sort.descending("createdAt"), '%' + q + '%')
-                    .page(offset / size, size)
+                    .page(offset / limit, limit)
                     .list();
         }
     }
