@@ -51,7 +51,7 @@ public class GreetingResource {
 
 The `GreetingService` is a CDI managed bean. We declare it as `ApplicationScoped` scope, and make it available in the application globally. 
 
-```class
+```java
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
@@ -1316,7 +1316,7 @@ The application will be started at last.
 post-service_1  | 2019-09-14 14:19:11,035 INFO  [io.quarkus] (main) Quarkus 1.0.0.CR1 started in 0.267s. Listening on: http://0.0.0.0:8080
 ```
 
-As you see, the start-up progress just takes 0.267 seconds. Awesome !
+As you see, the start-up progress just took 0.267 seconds. Awesome !
 
  [Quarkus was just released  1.0.0 CR1](https://quarkus.io/blog/announcing-quarkus-1-0/),  it is ready for production use. 
 
