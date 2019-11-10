@@ -12,9 +12,9 @@ In this post, we will create a Quarkus application with similar functionality in
 
 ## Generate a Quarkus project skeleton
 
- Similarly, open your browser and navigate to  [Starting Coding](https://code. quarkus.io) page.
+ Similarly, open your browser and navigate to  [Starting Coding](https://code.quarkus.io) page.
 
-1. Search **spring**  in the *Extensions* text box.
+1. Input **spring**  in the *Extensions* text box to filter the extensions.
 
 ![spring init](./spring-init.png) 
 
@@ -64,7 +64,7 @@ Let's reuse the `Post` entity we created in the last post, and create a `Reposit
 
 ## Creating a Spring Data specific Repository
 
- The following is an example of `PostRepository`. 
+ The following is an example of `PostRepository`.  `JpaRepository` is from Spring Data JPA project which provides common operations  for JPA. 
 
 ```java
 public interface PostRepository extends JpaRepository<Post, String>{}
