@@ -12,16 +12,16 @@ In this post, we will create a Quarkus application with similar functionality in
 
 ## Generate a Quarkus project skeleton
 
- Similarly, open your browser and navigate to  [ Starting Coding](https://code. quarkus.io) page.
+ Similarly, open your browser and navigate to  [Starting Coding](https://code. quarkus.io) page.
 
-1. search **spring**  in the *Extensions* text box.
+1. Search **spring**  in the *Extensions* text box.
 
 ![spring init](./spring-init.png) 
 
 2. Select all *Spring* related extensions, and customize the value of **group** and  **artifactId** fields as you like. 
-3. Hit the red **Generate your application** button or use the key combination **ALT+ENTER**  to produce the project skeleton into an archive for downloading.
+3. Hit the **Generate your application** button or use the keyboard shortcuts **ALT+ENTER**  to produce the project skeleton into an archive for downloading.
 
-4. Download the archive file, and extract content into your disc, and import them into your  favorite IDE.
+4. Download the archive file, and extract the files into your disk, and import them into your  favorite IDE.
 
 Next, we'll add some codes to experience the Spring related extensions.
 
@@ -140,7 +140,7 @@ public class PostController {
 ```
 Currently, there are some limitation when creating a `RestController`.
 
-- The return type does not support Page, see [#4056](https://github.com/quarkusio/quarkus/issues/4056)
+- The return type does not support `Page`, see [#4056](https://github.com/quarkusio/quarkus/issues/4056)
 - The request parameter `@PageableDefault` `Pageable` is not supported, see [#4041](https://github.com/quarkusio/quarkus/issues/4041)
 
 In the `getPost` method of the `RestController` class, there is a `PostNotFoundException`  thrown when a post is not found , let's create a `ControllerAdvice` to handle it .
