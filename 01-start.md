@@ -19,7 +19,9 @@ Go to https://code.quarkus.io , and generate a project skeleton.
 * Artifact: demo
 * Extensions: RESTEasy JAX-RS
 
-![code.quarkus.io](./init.png)
+![code.quarkus.io](./code.png)
+
+Press *Generate your project* button to get the project skeleton. 
 
 Extract files from the download archive,  and import into your favorite IDE.
 
@@ -49,7 +51,7 @@ public class GreetingResource {
 
 The `GreetingService` is a CDI managed bean. We declare it as `ApplicationScoped` scope, and make it available in the application globally. 
 
-```class
+```java
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
@@ -82,11 +84,11 @@ mvn compile quarkus:dev
 After it is  done, you will see messages like the following. 
 
 ```
-[INFO] --- quarkus-maven-plugin:0.21.1:dev (default-cli) @ demo ---
+[INFO] --- quarkus-maven-plugin:1.0.0.CR1:dev (default-cli) @ demo ---
 Listening for transport dt_socket at address: 5005
 2019-09-06 11:39:08,764 INFO  [io.qua.dep.QuarkusAugmentor] (main) Beginning quarkus augmentation
 2019-09-06 11:39:09,560 INFO  [io.qua.dep.QuarkusAugmentor] (main) Quarkus augmentation completed in 796ms
-2019-09-06 11:39:10,072 INFO  [io.quarkus] (main) Quarkus 0.21.1 started in 1.464s. Listening on: http://[::]:8080
+2019-09-06 11:39:10,072 INFO  [io.quarkus] (main) Quark1.0.0.CR11.1 started in 1.464s. Listening on: http://[::]:8080
 2019-09-06 11:39:10,072 INFO  [io.quarkus] (main) Installed features: [cdi, resteasy]
 ```
 Test the hello endpoint with  `curl` command.
@@ -211,7 +213,7 @@ public class Post implements Serializable {
  }   
 ```
 
-The `of` is factory method to create a new Post quickly.
+The `of` is a  factory method to create a new Post quickly.
 
 Create a `PostRepository`  to retrieve data from and save to the "database". We used a dummy map here, will replace it with a real database later.
 
@@ -344,15 +346,15 @@ And when we try to access the APIs by `curl`.
 $ curl http://localhost:8080/posts
 Could not find MessageBodyWriter for response object of type: java.util.ArrayList of media type: application/json
 ```
-An errer is occurred, `media type: application/json` can not be handled.
+As you see,  an error is occurred, `media type: application/json` can not be handled.
 
-In the former steps,  we have just created a `GreetingResource`, `plain/text` media type is  used for test purpose. In a real world application, JSON is  the most popular representation format. 
+In the former steps,  we have just created a `GreetingResource`, only  `plain/text` media type is  used for test purpose. In a real world application, JSON is  the most popular representation format. 
 
 To fix the issue, we should add JSON support for the representation marshalling and unmarshalling. 
 
-*quarkus-maven-plugin*  provides several goals for managing the extensions in the project.
+The *quarkus-maven-plugin*  provides several goals for managing the extensions in the project.
 
-*list-extensions* will print all available extensions in the Quarkus ecosystem.
+The *list-extensions*  goal will print all available extensions in the Quarkus ecosystem.
 
 ```bash
 > mvn quarkus:list-extensions
@@ -420,7 +422,7 @@ Add **RESTEasy - JSON-B** to this project.
 ```bash
 >mvn quarkus:add-extension -Dextension=resteasy-jsonb
 ...
-[INFO] --- quarkus-maven-plugin:0.21.1:add-extension (default-cli) @ demo ---
+[INFO] --- quarkus-maven-plugin:1.0.0.CR1:add-extension (default-cli) @ demo ---
 ? Adding extension io.quarkus:quarkus-resteasy-jsonb
 ```
 
@@ -443,9 +445,9 @@ Restart the application and try again.
 
 ```
 
-Now  let's move to  Comment resource. 
+Now  let's move to  `Comment` resource. 
 
-Create a POJO for Comment.
+Create a POJO for presenting Comment entity.
 
 ```java
 public class Comment implements Serializable {
@@ -592,9 +594,9 @@ Check  if the comment is existed.
 
 ## Exception Handling and Bean Validation 
 
-JAX-RS provides exception handling for APIs.
+JAX-RS provides exception handling with it's built-in `ExceptionMapper`.
 
-Chang  `getPostById` method of `PostResource` to the following.  
+Chang the `getPostById` method of `PostResource` to the following.  
 
 ```java
 public Response getPostById(@PathParam("id") final String id) {
@@ -654,7 +656,7 @@ Add *hibernate-validator*  extension to  this project.
 > mvn quarkus:add-extension -Dextension=hibernate-validator
 ```
 
-It will add `quarkus-hibernate-validator` into dependencies.
+It will add artifact `quarkus-hibernate-validator` into dependencies.
 
 ```xml
 <dependency>
@@ -1217,17 +1219,15 @@ And it will use this H2 to replace the datasource configured in the *src/main/re
 
 Personally I hope Quarkus will provides some *slice test* functionality like Spring Boot based `@DataJpaTest` and  `@RestMvcTest` etc. 
 
-
-
 ## Containerizing the Application
 
 The most attractive feature provided in Quarkus is it provides the capability of building GraalVM compatible native image and run in a container environment.
 
-Follow the [building native image guide](https://quarkus.io/guides/building-native-image-guide), firstly get a copy GraalVM from https://www.graalvm.org/, and create a new `GRAALVM_HOME` environment variable.
+Follow the [building native image guide](https://quarkus.io/guides/building-native-image-guide), firstly you should get [GraalVM ](https://www.graalvm.org/) installed, and create a new `GRAALVM_HOME` environment variable.
 
 GraalVM is stable under MacOS and Linux, but it is still marked as *experimental*  for Windows users. 
 
-> Especially, for Windows users you need install Windows 7 SDK to make it work, check the [Windows specifics](https://github.com/oracle/graal/blob/master/compiler/README.md#windows-specifics-1).
+Especially, for Windows users you need install Windows 7 SDK to make it work, check the [Windows specifics](https://github.com/oracle/graal/blob/master/compiler/README.md#windows-specifics-1).
 
 
 In the *src/main/docker* folder, there are some Dockerfiles prepared for JVM and GraalVM native image. 
@@ -1240,10 +1240,10 @@ You can create a  Docker native image like this..
 Or build your project and run docker command to build the Docker image manually. 
 
 ```bash 
-docker built -f src/main/docker/Dockerfile.native - t hantsy/hello .
+docker built -f src/main/docker/Dockerfile.native - t hantsy/quarkus-post-service .
 ```
 
-Alternatively, use a multistage Dockerfile to move the Maven build lifecycle into a docker container. Thus under Windows, installing GraalVM becomes optional.
+You can also use a multistage Dockerfile to move the Maven build lifecycle into a Docker container. 
 
 > Multistage Dockerfile is a great idea for simplifying  the build tasks in a  continuous integration server. 
 
@@ -1251,13 +1251,13 @@ Firstly, create a new Dockerfile aka *src/main/docker/Dockerfile.multistage*.
 
 ```dockerfile
 ## Stage 1 : build with maven builder image with native capabilities
-FROM quay.io/quarkus/centos-quarkus-maven:19.1.1 AS build
+FROM quay.io/quarkus/centos-quarkus-maven:19.2.1 AS build
 COPY src /usr/src/app/src
 COPY pom.xml /usr/src/app
 USER root
 RUN chown -R quarkus /usr/src/app
 USER quarkus
-RUN mvn -f /usr/src/app/pom.xml -Pnative clean package
+RUN mvn -f /usr/src/app/pom.xml -Pnative clean package -DskipTests
 
 ## Stage 2 : create the docker final image
 FROM registry.access.redhat.com/ubi8/ubi-minimal
@@ -1268,17 +1268,19 @@ EXPOSE 8080
 CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
 ```
 
-Execute the following command to build the docker image. 
+Build the docker image. 
 
 ```bash 
 docker build -f src/main/docker/Dockerfile.multistage -t hantsy/quarkus-post-service .
 ```
 
-Firstly it will use Maven to build the application into a GraalVM native image, then dockerize it. Please be patient, the progress will take some minutes.  Drink a cup of coffee. 
+Then run the container using:
 
-When it is done, there is *hantsy/quarkus-post-service* docker image available.
+```bash
+docker run -i --rm -p 8080:8080 hantsy/quarkus-post-service
+```
 
-Next  add another service entry in the `docker-compose.yaml` file.
+More simply,  use a docker-compose file to build and run the application.
 
 ```yaml
 version: '3.1' # specify docker-compose version
@@ -1288,6 +1290,9 @@ services:
 	...
   post-service: 
     image: hantsy/quarkus-post-service
+    build: 
+      context: ./post-service
+      dockerfile: src/main/docker/Dockerfile.multistage
     environment:
       QUARKUS_DATASOURCE_URL: jdbc:postgresql://blogdb:5432/blogdb
     ports:
@@ -1297,22 +1302,22 @@ services:
   
 ```
 
-> Currently, the quarkus-test-h2 is problematic when test against the native profile, see [#3973](https://github.com/quarkusio/quarkus/issues/3973). I excluded it from the project temporarily.
-
-Now, try to execute the following command to start up the application in docker environment. 
+Execute the `docker-compose up` command to run the application. 
 
 ```bash
 docker-compose up
 ```
 
-The application will be started finally.  
+Please be patient, it will take some minutes.  Drink a cup of coffee .
+
+The application will be started at last.  
 
 ```bash
-post-service_1  | 2019-09-14 14:19:11,035 INFO  [io.quarkus] (main) Quarkus 0.21.2 started in 0.267s. Listening on: http://0.0.0.0:8080
+post-service_1  | 2019-09-14 14:19:11,035 INFO  [io.quarkus] (main) Quarkus 1.0.0.CR1 started in 0.267s. Listening on: http://0.0.0.0:8080
 ```
 
-As you see, the whole start-up progress just took 0.267 seconds. Awesome !
+As you see, the start-up progress just took 0.267 seconds. Awesome !
 
- [Quarkus](https://www.quarkus.io) is still a very young project, I believe in that it will evolve into a mature framework as time goes by and become a robust solution for building cloud native applications. 
+ [Quarkus 1.0.0.CR was just released ](https://quarkus.io/blog/announcing-quarkus-1-0/), which means  it is ready for production use. 
 
-Check  out the [source codes](https://github.com/hantsy/quarkus-sample) form my Github.
+Check  out the [source codes](https://github.com/hantsy/quarkus-sandbox) form my Github.
