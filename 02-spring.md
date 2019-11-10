@@ -1,6 +1,6 @@
 # Building a Spring application with Quarkus
 
-In the [last post](./start.md), we have created a simple Quarkus application. For those who are familiar with Spring it is better to code in their way. Luckily, Quarkus supports Spring out of box. 
+In the [last post](./01-start.md), we have created a simple Quarkus application. For those who are familiar with Spring it is better to code in their way. Luckily, Quarkus supports Spring out of box. 
 
 There are some Quarkus extensions available to support Spring framework.
 
@@ -12,17 +12,22 @@ In this post, we will create a Quarkus application with similar functionality in
 
 ## Generate a Quarkus project skeleton
 
- Similarly, go to https://code. quarkus.io, search **spring**  in the *Extensions* text box.
+ Similarly, open your browser and navigate to  [ Starting Coding](https://code. quarkus.io) page.
+
+1. search **spring**  in the *Extensions* text box.
 
 ![spring init](./spring-init.png) 
 
-Select all *Spring* related extensions, and customize the value of **group** and  **artifactId** fields as you like. Hit the red **Generate your application** button or use the key combination **ALT+ENTER**  to produce the project skeleton into an archive for downloading.
+2. Select all *Spring* related extensions, and customize the value of **group** and  **artifactId** fields as you like. 
+3. Hit the red **Generate your application** button or use the key combination **ALT+ENTER**  to produce the project skeleton into an archive for downloading.
 
-Download the archive file, and extract content into your disc, and import them into your  favorite IDE.
+4. Download the archive file, and extract content into your disc, and import them into your  favorite IDE.
+
+Next, we'll add some codes to experience the Spring related extensions.
 
 ##  Enabling JPA Support
 
-First of all, you need to configure your `DataSource` in this project.  
+First of all, you need to configure a  `DataSource`  for the application.  
 
 ```properties
 # configure your datasource
@@ -36,7 +41,17 @@ quarkus.hibernate-orm.database.generation = drop-and-create
 quarkus.hibernate-orm.log.sql=true
 ```
 
-And add the *jdbc-postgresql* extension into the dependencies.
+Using `quarkus:list-extensions` goal to list all extensions provided in Quarkus, there are a few jdbc extensions available.  
+
+Let's use PostgresSQL as an example, and add the *jdbc-postgresql* extension into the project dependencies.
+
+Open your terminal, execute the following command in the project root folder.
+
+```bash
+mvn quarkus:add-extension -Dextension=jdbc-postgresql
+```
+
+Finally,  a new `quarkus-jdbc-postgresql` artifact is added in the `pom.xml` file.
 
 ```xml
 <dependency>
@@ -55,10 +70,10 @@ Let's reuse the `Post` entity we created in the last post, and create a `Reposit
 public interface PostRepository extends JpaRepository<Post, String>{}
 ```
 
-Currently it seems only the basic `Repository` is supported, a lot of attractive features are missing  in the current Quarkus Spring support, including:
+Currently it seems only the basic `Repository` is supported, a lot of attractive features are missing  in the current Quarkus Spring Data support, including:
 
 * QueryDSL and JPA type-safe Criteria APIs, see [#4040](https://github.com/quarkusio/quarkus/issues/4040)
-* Custom Repository interface, see [#4104](https://github.com/quarkusio/quarkus/issues/4104)
+* Custom Repository interface, see [#4104](https://github.com/quarkusio/quarkus/issues/4104), [#5317](https://github.com/quarkusio/quarkus/issues/5317)
 
 ## Creating a RestController
 
@@ -126,7 +141,7 @@ public class PostController {
 Currently, there are some limitation when creating a `RestController`.
 
 - The return type does not support Page, see [#4056](https://github.com/quarkusio/quarkus/issues/4056)
-- The request parameter@PageableDefault Pageable is not supported, see [#4041](https://github.com/quarkusio/quarkus/issues/4041)
+- The request parameter `@PageableDefault` `Pageable` is not supported, see [#4041](https://github.com/quarkusio/quarkus/issues/4041)
 
 In the `getPost` method of the `RestController` class, there is a `PostNotFoundException`  thrown when a post is not found , let's create a `ControllerAdvice` to handle it .
 
@@ -148,6 +163,6 @@ public class PostExceptionHandler {
 }
 ```
 
-There is a limitation  here , `@ExceptionHandler` method can not accept other parameters except the `Exception` itself, see [#4042](https://github.com/quarkusio/quarkus/issues/4042). The fixes will be available in the next version.
+There is a limitation  here , `@ExceptionHandler` method can not accept Spring specific parameters, see [#4042](https://github.com/quarkusio/quarkus/issues/4042).   If you need to access the  HTTP request, try to replace the `WebRequest` with the raw Servlet based `HttpServletRequest`.
 
 Get the source codes from my [Github](https://github.com/hantsy/quarkus-sample).
