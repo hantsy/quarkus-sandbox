@@ -73,7 +73,58 @@ public interface PostRepository extends JpaRepository<Post, String>{}
 Currently it seems only the basic `Repository` is supported, a lot of attractive features are missing  in the current Quarkus Spring Data support, including:
 
 * QueryDSL and JPA type-safe Criteria APIs, see [#4040](https://github.com/quarkusio/quarkus/issues/4040)
-* Custom Repository interface, see [#4104](https://github.com/quarkusio/quarkus/issues/4104), [#5317](https://github.com/quarkusio/quarkus/issues/5317)
+* ~~Custom Repository interface, see [#4104](https://github.com/quarkusio/quarkus/issues/4104), [#5317](https://github.com/quarkusio/quarkus/issues/5317)~~, fixed in the *master* branch and will be available in 1.1.
+
+Create a custom interface `PostReposiotryCustom`.
+
+```java
+public interface PostRepositoryCustom {
+    List<Post> findByKeyword(String q, int page, int size);
+}
+```
+
+Make   `PostRepository` to extend `PostRepositoryCustom`.
+
+```java
+public interface PostRepository extends JpaRepository<Post, String>, PostRepositoryCustom{...}
+```
+
+Provides a implementation for  `PostReposiotryCustom`. 
+
+```java
+public class PostRepositoryImpl implements PostRepositoryCustom {
+    
+    private static final Logger LOGGER = Logger.getLogger(PostRepositoryImpl.class.getName());
+    
+    @PersistenceContext
+    EntityManager entityManager;
+
+    @Override
+    public List<Post> findByKeyword(String q, int offset, int limit) {
+        LOGGER.info("q:" + q + ", offset:" + offset + ", limit:" + limit);
+        CriteriaBuilder cb = this.entityManager.getCriteriaBuilder();
+        CriteriaQuery<Post> query = cb.createQuery(Post.class);
+        Root<Post> root = query.from(Post.class);
+        if (!StringUtils.isEmpty(q)) {
+            query.where(
+                    cb.or(
+                            cb.like(root.get(Post_.title), "%" + q + "%"),
+                            cb.like(root.get(Post_.content), "%" + q + "%")
+                    )
+            );
+
+        }
+        return this.entityManager.createQuery(query)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
+}
+```
+
+The `findByKeyword` method uses JPA Criteria APIs to filter posts by keyword, and also paginated the result by `offset` and `limit` parameter.
+
+
 
 ## Creating a RestController
 
