@@ -151,6 +151,18 @@ public class PostController {
         List<Post> posts = this.postRepository.findAll();
         return ok(posts);
     }
+    
+    @GetMapping("search")
+    public ResponseEntity searchByKeyword(
+            @RequestParam(value = "q", required = false) String keyword,
+            @RequestParam(value = "offset", required = false, defaultValue = "0") int offset,
+            @RequestParam(value = "limit", required = false, defaultValue = "10") int limit
+    ) {
+
+        List<Post> posts = this.postRepository.findByKeyword(keyword, offset, limit);
+        LOG.log(Level.INFO, "post search by keyword:" + posts);
+        return ok(posts);
+    }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Post> getPost(@PathVariable("id") String id) {
@@ -220,5 +232,37 @@ public class PostExceptionHandler {
 ```
 
 There is a limitation  here , `@ExceptionHandler` method can not accept Spring specific parameters, see [#4042](https://github.com/quarkusio/quarkus/issues/4042).   If you need to access the  HTTP request, try to replace the `WebRequest` with the raw Servlet based `HttpServletRequest`.
+
+Run the application:
+
+```bash
+mvn clean quarkus:dev
+```
+
+After it is started,  try to access the APIs using `curl`.
+
+```bash
+>curl http://localhost:8080/posts
+[ {
+  "id" : "7af7f8e7-2cfe-4662-a032-e2143573f12d",
+  "title" : "Hello Quarkus",
+  "content" : "My first post of Quarkus",
+  "createdAt" : "2019-11-11T21:05:29.730126"
+}, {
+  "id" : "7b3532ca-63f5-4cfb-87dd-1a4fbfbfa726",
+  "title" : "Hello Again, Quarkus",
+  "content" : "My second post of Quarkus",
+  "createdAt" : "2019-11-11T21:05:29.730126"
+} ]
+
+>curl http://localhost:8080/posts/search?q=first
+[ {
+  "id" : "9af3ad3c-4a55-4d5d-81e3-4115294fc6c2",
+  "title" : "Hello Quarkus",
+  "content" : "My first post of Quarkus",
+  "createdAt" : "2019-11-11T21:11:20.518208"
+} ]
+```
+
 
 Get the source codes from my [Github](https://github.com/hantsy/quarkus-sample).
