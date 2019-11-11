@@ -1,6 +1,5 @@
 package com.example;
 
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -9,13 +8,16 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class PostRepositoryImpl implements PostRepositoryCustom {
+    private static final Logger LOGGER = Logger.getLogger(PostRepositoryImpl.class.getName());
     @PersistenceContext
     EntityManager entityManager;
 
     @Override
-    public List<Post> findByKeyword(String q, int page, int size) {
+    public List<Post> findByKeyword(String q, int offset, int limit) {
+        LOGGER.info("q:" + q + ", offset:" + offset + ", limit:" + limit);
         CriteriaBuilder cb = this.entityManager.getCriteriaBuilder();
         CriteriaQuery<Post> query = cb.createQuery(Post.class);
         Root<Post> root = query.from(Post.class);
@@ -29,8 +31,8 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
 
         }
         return this.entityManager.createQuery(query)
-                .setFirstResult(page * size)
-                .setMaxResults(size)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
                 .getResultList();
     }
 }

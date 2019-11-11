@@ -31,12 +31,12 @@ public class PostController {
     @GetMapping("search")
     public ResponseEntity searchByKeyword(
             @RequestParam(value = "q", required = false) String keyword,
-            @RequestParam(value = "page", required = false, defaultValue = "0") int page,
-            @RequestParam(value = "size", required = false, defaultValue = "10") int size
+            @RequestParam(value = "offset", required = false, defaultValue = "0") int offset,
+            @RequestParam(value = "limit", required = false, defaultValue = "10") int limit
     ) {
 
-        List<Post> posts = this.postRepository.findByKeyword(keyword, page, size);
-        LOG.log(Level.INFO, "post search by keyword: {}", posts);
+        List<Post> posts = this.postRepository.findByKeyword(keyword, offset, limit);
+        LOG.log(Level.INFO, "post search by keyword:" + posts);
         return ok(posts);
     }
 

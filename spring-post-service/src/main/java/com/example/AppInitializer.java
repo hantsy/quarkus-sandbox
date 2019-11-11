@@ -15,7 +15,7 @@ public class AppInitializer {
     private final static Logger LOGGER = Logger.getLogger(AppInitializer.class.getName());
 
     @Inject
-    private PostRepository posts;
+    PostRepository posts;
 
     @Transactional
     public void onStart(@Observes StartupEvent ev) {
