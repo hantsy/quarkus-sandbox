@@ -75,6 +75,13 @@ Currently it seems only the basic `Repository` is supported, a lot of attractive
 * QueryDSL and JPA type-safe Criteria APIs, see [#4040](https://github.com/quarkusio/quarkus/issues/4040)
 * ~~Custom Repository interface, see [#4104](https://github.com/quarkusio/quarkus/issues/4104), [#5317](https://github.com/quarkusio/quarkus/issues/5317)~~, fixed in the *master* branch and will be available in 1.1.
 
+To experience the custom interface feature, make sure you are using *SNAPSHOT* version before 1.1 is on board. Chang the quarkus version to  *999-SNAPSHOT*.
+
+```xml
+<!-- quarkus -->
+<quarkus.version>999-SNAPSHOT</quarkus.version>
+```
+
 Create a custom interface `PostReposiotryCustom`.
 
 ```java
@@ -123,8 +130,6 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
 ```
 
 The `findByKeyword` method uses JPA Criteria APIs to filter posts by keyword, and also paginated the result by `offset` and `limit` parameter.
-
-
 
 ## Creating a RestController
 
