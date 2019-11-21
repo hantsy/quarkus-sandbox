@@ -73,13 +73,11 @@ public interface PostRepository extends JpaRepository<Post, String>{}
 Currently it seems only the basic `Repository` is supported, a lot of attractive features are missing  in the current Quarkus Spring Data support, including:
 
 * QueryDSL and JPA type-safe Criteria APIs, see [#4040](https://github.com/quarkusio/quarkus/issues/4040)
-* ~~Custom Repository interface, see [#4104](https://github.com/quarkusio/quarkus/issues/4104), [#5317](https://github.com/quarkusio/quarkus/issues/5317)~~, fixed in the *master* branch and will be available in 1.1.
-
-To experience the custom interface feature, make sure you are using *SNAPSHOT* version before 1.1 is on board. Chang the quarkus version to  *999-SNAPSHOT*.
+* ~~Custom Repository interface, see [#4104](https://github.com/quarkusio/quarkus/issues/4104), [#5317](https://github.com/quarkusio/quarkus/issues/5317)~~, fixed in 1.0.0.CR2.
 
 ```xml
 <!-- quarkus -->
-<quarkus.version>999-SNAPSHOT</quarkus.version>
+<quarkus.version>1.0.0.CR2</quarkus.version>
 ```
 
 Create a custom interface `PostReposiotryCustom`.
@@ -208,8 +206,10 @@ public class PostController {
 ```
 Currently, there are some limitation when creating a `RestController`.
 
-- The return type does not support `Page`, see [#4056](https://github.com/quarkusio/quarkus/issues/4056)
+- ~~The return type does not support `Page`, see [#4056](https://github.com/quarkusio/quarkus/issues/4056)~~  fixed.
 - The request parameter `@PageableDefault` `Pageable` is not supported, see [#4041](https://github.com/quarkusio/quarkus/issues/4041)
+
+## Handling Exceptions
 
 In the `getPost` method of the `RestController` class, there is a `PostNotFoundException`  thrown when a post is not found , let's create a `ControllerAdvice` to handle it .
 
@@ -231,7 +231,10 @@ public class PostExceptionHandler {
 }
 ```
 
-There is a limitation  here , `@ExceptionHandler` method can not accept Spring specific parameters, see [#4042](https://github.com/quarkusio/quarkus/issues/4042).   If you need to access the  HTTP request, try to replace the `WebRequest` with the raw Servlet based `HttpServletRequest`.
+There are some limitations here. 
+
+* In Quarkus, a `@ExceptionHandler` can only be used in the `RestControllerAdvice` class. `@ExceptionHandler` method in controllers is not supported now.
+*  `@ExceptionHandler` method can not accept Spring specific parameters, see [#4042](https://github.com/quarkusio/quarkus/issues/4042).   E.g. if you want to access the  HTTP request, try to replace the Spring favored `WebRequest` with the raw Servlet based `HttpServletRequest`.
 
 Run the application:
 

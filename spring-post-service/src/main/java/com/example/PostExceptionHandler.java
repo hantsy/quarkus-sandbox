@@ -5,10 +5,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,26 +34,25 @@ public class PostExceptionHandler {
         return ResponseEntity.badRequest().body(e.getMessage());
     }
 
-//    @ExceptionHandler(Exception2.class)
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    public void handleException2(Exception2 e){
-////    public void handleException2(Exception2 e, HttpServletResponse response) throws IOException {
-////        response.setHeader("Content-Type", "application/json");
-////        response.getWriter().write(e.getMessage());
-////        response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-//    }
+/*    @ExceptionHandler(Exception2.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public void handleException2(Exception2 e){
+    }*/
 
     @ExceptionHandler(Exception2.class)
     public void handleException2(Exception2 e, HttpServletResponse response) throws IOException {
-        response.setHeader("Content-Type", "application/json");
-        response.getWriter().write(e.getMessage());
-        response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        PrintWriter out = response.getWriter();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        out.write("{\"message\":\"" + e.getMessage() + "\"}");
+        out.flush();
     }
 
     @ExceptionHandler(Exception3.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map handleException3(Exception3 e) {
-        Map map= new HashMap();
+        Map map = new HashMap();
         map.put("exception", e.getMessage());
         return map;
     }

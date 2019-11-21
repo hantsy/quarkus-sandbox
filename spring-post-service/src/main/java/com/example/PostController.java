@@ -1,5 +1,8 @@
 package com.example;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -22,9 +25,19 @@ public class PostController {
         this.postRepository = postRepository;
     }
 
-    @GetMapping()
+  /*  @GetMapping()
     public ResponseEntity getAllPosts() {
         List<Post> posts = this.postRepository.findAll();
+        return ok(posts);
+    }*/
+
+    @GetMapping()
+    public ResponseEntity getAllPosts(
+            @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "10") int size
+    ) {
+        Pageable pageRequest= PageRequest.of(page, size );
+        Page<Post> posts = this.postRepository.findAll(pageRequest);
         return ok(posts);
     }
 
