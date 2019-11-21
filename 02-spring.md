@@ -236,6 +236,19 @@ There are some limitations here.
 * In Quarkus, a `@ExceptionHandler` can only be used in the `RestControllerAdvice` class. `@ExceptionHandler` method in controllers is not supported now.
 *  `@ExceptionHandler` method can not accept Spring specific parameters, see [#4042](https://github.com/quarkusio/quarkus/issues/4042).   E.g. if you want to access the  HTTP request, try to replace the Spring favored `WebRequest` with the raw Servlet based `HttpServletRequest`.
 
+
+
+> To use the Servlet APIs, you have to `quarkus-undertow` into the project dependencies.
+>
+> ```xml
+> <dependency>
+>     <groupId>io.quarkus</groupId>
+>     <artifactId>quarkus-undertow</artifactId>
+> </dependency>
+> ```
+>
+> 
+
 ## Run the application
 
 Execute the following command to build and run the application.
