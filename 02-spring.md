@@ -264,13 +264,13 @@ After it is started,  try to access the APIs using `curl`.
 [{"id":"17948b46-6f16-4991-b08b-cfa69204b4c9","title":"Hello Quarkus","content":"My first post of Quarkus","createdAt":[2019,11,21,10,1,15,303790000]},{"id":"f1a105eb-4b94-40bf-9e6e-860a69514daf","title":"Hello Again, Quarkus","content":"My second post of Quarkus","createdAt":[2019,11,21,10,1,15,303790000]}]
 ```
 
-As you see, there are some issues in the json serialization. 
-1. The json format is not good to read.
+As you see, there are some issues in the JSON serialization. 
+1. The JSON format is not good to read.
 2. The  datetime format is serialized as an array of timestamps  numbers. 
 
 To customize the JSON serialization, like we do in Spring application development, just customize a Jackson `ObjectMapper`.
 
-Quarkus does not provides a Spring Boot `Customizer` like tool to cusotmize Jackson `ObjectMapper`,  you can configure  a `ObjectMapper` bean in your `@Configuration` class  to archive the purpose.
+Quarkus does not provides a Spring Boot `Customizer` like tool to customize Jackson `ObjectMapper`,  but you can declare a `ObjectMapper` bean in your `@Configuration` class  to archive the purpose like you do in before Spring applications.
 
 ```java
 @Configuration
