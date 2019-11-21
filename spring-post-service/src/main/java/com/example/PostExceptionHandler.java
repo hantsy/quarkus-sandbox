@@ -33,21 +33,21 @@ public class PostExceptionHandler {
         return ResponseEntity.badRequest().body(e.getMessage());
     }
 
-    @ExceptionHandler(Exception2.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public void handleException2(Exception2 e){
-//    public void handleException2(Exception2 e, HttpServletResponse response) throws IOException {
-//        response.setHeader("Content-Type", "application/json");
-//        response.getWriter().write(e.getMessage());
-//        response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-    }
+//    @ExceptionHandler(Exception2.class)
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    public void handleException2(Exception2 e){
+////    public void handleException2(Exception2 e, HttpServletResponse response) throws IOException {
+////        response.setHeader("Content-Type", "application/json");
+////        response.getWriter().write(e.getMessage());
+////        response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+//    }
 
-/*    @ExceptionHandler(Exception2.class)
+    @ExceptionHandler(Exception2.class)
     public void handleException2(Exception2 e, HttpServletResponse response) throws IOException {
         response.setHeader("Content-Type", "application/json");
         response.getWriter().write(e.getMessage());
         response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-    }*/
+    }
 
     @ExceptionHandler(Exception3.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
