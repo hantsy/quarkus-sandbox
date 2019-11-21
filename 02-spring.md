@@ -236,13 +236,45 @@ There are some limitations here.
 * In Quarkus, a `@ExceptionHandler` can only be used in the `RestControllerAdvice` class. `@ExceptionHandler` method in controllers is not supported now.
 *  `@ExceptionHandler` method can not accept Spring specific parameters, see [#4042](https://github.com/quarkusio/quarkus/issues/4042).   E.g. if you want to access the  HTTP request, try to replace the Spring favored `WebRequest` with the raw Servlet based `HttpServletRequest`.
 
-Run the application:
+## Run the application
+
+Execute the following command to build and run the application.
 
 ```bash
 mvn clean quarkus:dev
 ```
 
 After it is started,  try to access the APIs using `curl`.
+
+```bash
+>curl http://localhost:8080/posts
+[{"id":"17948b46-6f16-4991-b08b-cfa69204b4c9","title":"Hello Quarkus","content":"My first post of Quarkus","createdAt":[2019,11,21,10,1,15,303790000]},{"id":"f1a105eb-4b94-40bf-9e6e-860a69514daf","title":"Hello Again, Quarkus","content":"My second post of Quarkus","createdAt":[2019,11,21,10,1,15,303790000]}]
+```
+
+As you see, there are some issues in the json serialization. 
+1. The json format is not good to read.
+2. The  datetime format is serialized as an array of timestamps  numbers. 
+
+To customize the JSON serialization, like we do in Spring application development, just customize a Jackson `ObjectMapper`.
+
+Quarkus does not provides a Spring Boot `Customizer` like tool to cusotmize Jackson `ObjectMapper`,  you can configure  a `ObjectMapper` bean in your `@Configuration` class  to archive the purpose.
+
+```java
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public ObjectMapper jackson2ObjectMapperBuilder(){
+        Jackson2ObjectMapperBuilder builder = Jackson2ObjectMapperBuilder.json()
+                .featuresToEnable(INDENT_OUTPUT)
+                .featuresToDisable(WRITE_DATES_AS_TIMESTAMPS);
+
+        return builder.build();
+    }
+}
+```
+
+Save the work, and run the application again.  Try to access the `http://localhost:8080/posts`.
 
 ```bash
 >curl http://localhost:8080/posts
