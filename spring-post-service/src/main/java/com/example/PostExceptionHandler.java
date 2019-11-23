@@ -41,10 +41,11 @@ public class PostExceptionHandler {
 
     @ExceptionHandler(Exception2.class)
     public void handleException2(Exception2 e, HttpServletResponse response) throws IOException {
-        PrintWriter out = response.getWriter();
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+
+        PrintWriter out = response.getWriter();
         out.write("{\"message\":\"" + e.getMessage() + "\"}");
         out.flush();
     }
