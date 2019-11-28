@@ -39,6 +39,13 @@ public class PostResource {
         this.posts = posts;
     }
 
+    @Path("count")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response countAllPosts(@QueryParam("q") String q) {
+        return ok(this.posts.countByKeyword(q)).build();
+    }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(
@@ -115,7 +122,8 @@ public class PostResource {
         return noContent().build();
     }
 
-    @Inject CommentResource commentResource;
+    @Inject
+    CommentResource commentResource;
 
     @Path("{id}/comments")
     public CommentResource postResource() {
