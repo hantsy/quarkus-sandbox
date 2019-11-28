@@ -13,7 +13,7 @@ interface PostResourceClient {
     @Produces(MediaType.APPLICATION_JSON)
     fun getAllPosts(
             @QueryParam("q")
-            q: String,
+            q: String?,
             @QueryParam("offset")
             @DefaultValue("0")
             offset: Int,
@@ -27,7 +27,7 @@ interface PostResourceClient {
     @Produces(MediaType.APPLICATION_JSON)
     fun countAllPosts(
             @QueryParam("q")
-            q: String
+            q: String?
     ): Response
 
 }

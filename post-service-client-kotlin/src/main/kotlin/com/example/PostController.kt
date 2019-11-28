@@ -10,25 +10,28 @@ import javax.ws.rs.core.Response.ok
 
 @Path("/api")
 @RequestScoped
-class PostController(@Inject @RestClient val client: PostResourceClient) {
+class PostController {
 
-//    @Inject
-//    @RestClient
-//    lateinit var client: PostServiceClient
+    // see: https://stackoverflow.com/questions/59086151/rest-client-interface-can-not-be-injected-in-quarkus-kotlin-app
+    // and https://github.com/quarkusio/quarkus/issues/5413
+    @Inject
+    @field:RestClient
+    lateinit var client: PostResourceClient
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     fun getPosts(@QueryParam("q")
-                 q: String,
+                 q: String?,
                  @QueryParam("offset")
                  @DefaultValue("0")
                  offset: Int,
                  @QueryParam("limit")
                  @DefaultValue("10")
                  limit: Int): Response {
-        val posts = this.client.getAllPosts(q, offset, limit).entity as List<Post>
-        val count = this.client.countAllPosts(q).entity as Long
-        return ok(PostPage(posts, count)).build()
+        val posts = this.client.getAllPosts(q, offset, limit).readEntity(List::class.java)
+        val count = this.client.countAllPosts(q).readEntity(Long::class.java)
+        println("posts: $posts \n count : $count")
+        return ok(PostPage(posts as List<Post>, count)).build()
     }
 
 }

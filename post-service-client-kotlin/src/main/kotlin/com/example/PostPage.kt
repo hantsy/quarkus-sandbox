@@ -1,3 +1,3 @@
 package com.example
 
-class PostPage( content: List<Post>, count: Long)
+data class PostPage(val content: List<Post>, val count: Long)
