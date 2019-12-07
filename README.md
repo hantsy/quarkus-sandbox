@@ -13,6 +13,7 @@ A  sandbox project  to practice Quarkus framework.
 
 ## References
 
+* [Quarkus Workshop](https://quarkus.io/quarkus-workshops/super-heros/)
 * [Quarkus beginners guide](https://jaxlondon.com/quarkus-beginners-guide-cheat-sheet) by Jaxcenter
 * [DZone Refcard : Quarkus](https://dzone.com/refcardz/quarkus-1?chapter=1)
 * [Configuring a Quarkus application](https://dzone.com/articles/configuring-a-quarkus-application?fromrel=true)
