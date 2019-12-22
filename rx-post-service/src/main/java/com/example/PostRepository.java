@@ -1,9 +1,8 @@
 package com.example;
 
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.vertx.reactivex.pgclient.PgPool;
-import io.vertx.reactivex.sqlclient.Row;
-import io.vertx.reactivex.sqlclient.RowStream;
 import io.vertx.reactivex.sqlclient.Tuple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,8 +25,11 @@ public class PostRepository {
         return this.client
                 .rxBegin()
                 .flatMapObservable(
-                        tx -> tx.rxPreparedQuery("SELECT FROM posts")
-                                .flatMapObservable(rs -> Observable.fromIterable(rs))
+                        tx -> tx.rxPrepare("SELECT FROM posts")
+                                .flatMapObservable(
+                                        preparedQuery -> preparedQuery.createStream(50, Tuple.tuple())
+                                                .toObservable()
+                                )
                                 .doAfterTerminate(tx::commit)
 
                 )
@@ -35,13 +37,15 @@ public class PostRepository {
                 .map(row -> (Post.of(row.getString("id"), row.getString("title"), row.getString("content"))));
     }
 
-    public Observable<Post> getById(String id) {
+    public Maybe<Post> findById(String id) {
         return this.client
                 .rxBegin()
-                .flatMapObservable(
-                        tx -> tx.rxPreparedQuery("SELECT FROM posts WHERE id=$1", Tuple.of(id))
-                                .flatMapObservable(rs -> Observable.fromIterable(rs))
-                                .take(1)
+                .flatMapMaybe(
+                        tx -> tx.rxPrepare("SELECT FROM posts WHERE id=$1")
+                                .flatMapMaybe(
+                                        preparedQuery -> preparedQuery.createStream(1, Tuple.of(id))
+                                                .toObservable().firstElement()
+                                )
                                 .doAfterTerminate(tx::commit)
 
                 )

@@ -1,5 +1,6 @@
 package com.example;
 
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 
 import javax.enterprise.context.RequestScoped;
@@ -22,17 +23,24 @@ public class PostResource {
     }
 
     @GET
+    @Path("test")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Observable<Integer> testObservable() {
+        return Observable.just(1, 2, 3);
+    }
+
+
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Observable<Post> getAllPosts() {
         return this.posts.findAll();
     }
 
-
     @Path("{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Observable<Post> getPostById(@PathParam("id") final String id) {
-        return this.posts.getById(id);
+    public Maybe<Post> getPostById(@PathParam("id") final String id) {
+        return this.posts.findById(id);
     }
 
 }
