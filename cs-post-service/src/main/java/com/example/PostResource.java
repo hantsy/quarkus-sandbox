@@ -38,6 +38,7 @@ public class PostResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public CompletionStage<Response> savePost(@Valid Post post/*, @Context UriInfo uriInfo*/) {
+        //uriInfo.getBaseUriBuilder().path("/posts/{id}").build(id.toString())
         return this.posts.save(post).thenApply(id -> created(URI.create("/posts/"+ id.toString())).build());
     }
 
@@ -45,8 +46,7 @@ public class PostResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public CompletionStage<Response> getPostById(@PathParam("id") final String id) {
-        return this.posts.findById(id).thenApply(post -> post != null ? ok(post) : status(NOT_FOUND))
-                .thenApply(ResponseBuilder::build);
+        return this.posts.findById(id).thenApply(post -> post != null ? ok(post).build() : status(NOT_FOUND).build());
     }
 
     @DELETE
@@ -54,7 +54,7 @@ public class PostResource {
     public CompletionStage<Response> delete(@PathParam("id") String id) {
         return this.posts.delete(id)
                 .thenApply(deleted -> deleted ? Status.NO_CONTENT : Status.NOT_FOUND)
-                .thenApply(status -> Response.status(status).build());
+                .thenApply(status -> status(status).build());
     }
 
 }
