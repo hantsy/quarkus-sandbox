@@ -1,7 +1,6 @@
 package com.example;
 
-import io.reactivex.Maybe;
-import io.reactivex.Observable;
+import io.reactivex.*;
 import io.vertx.reactivex.pgclient.PgPool;
 import io.vertx.reactivex.sqlclient.Tuple;
 import org.slf4j.Logger;
@@ -22,7 +21,7 @@ public class PostRepository {
         this.client = _client;
     }
 
-    public Observable<Post> findAll() {
+    public Flowable<Post> findAll() {
         return this.client
                 .rxBegin()
                 .flatMapObservable(
@@ -34,24 +33,25 @@ public class PostRepository {
                                 .doAfterTerminate(tx::rxCommit)
 
                 )
-                .map(row -> (Post.of(row.getUUID("id").toString(), row.getString("title"), row.getString("content"))));
+                .map(row -> Post.of(row.getUUID("id").toString(), row.getString("title"), row.getString("content")))
+                .toFlowable(BackpressureStrategy.BUFFER);
     }
 
-    public Maybe<Post> findById(String id) {
+    public Single<Post> findById(String id) {
         return this.client
                 .rxBegin()
-                .flatMapMaybe(
+                .flatMapObservable(
                         tx -> tx.rxPrepare("SELECT * FROM posts WHERE id=$1")
-                                .flatMapMaybe(
+                                .flatMapObservable(
                                         preparedQuery -> preparedQuery.createStream(1, Tuple.of(UUID.fromString(id)))
-                                                .toObservable().firstElement()
+                                                .toObservable()
+
                                 )
                                 .doAfterTerminate(tx::rxCommit)
 
                 )
-                .map(row ->
-                        (Post.of(row.getUUID("id").toString(), row.getString("title"), row.getString("content")))
-                );
+                .firstOrError()
+                .map(row -> Post.of(row.getUUID("id").toString(), row.getString("title"), row.getString("content")));
     }
 
 
