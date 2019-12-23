@@ -30,6 +30,8 @@ public class AppInitializer {
         Tuple first = Tuple.of("Hello Quarkus", "My first post of Quarkus");
         Tuple second = Tuple.of("Hello Again, Quarkus", "My second post of Quarkus");
 
+
+
         this.client
                 .rxBegin()
                 .flatMap(

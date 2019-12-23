@@ -25,32 +25,32 @@ public class PostRepository {
         return this.client
                 .rxBegin()
                 .flatMapObservable(
-                        tx -> tx.rxPrepare("SELECT FROM posts")
+                        tx -> tx.rxPrepare("SELECT * FROM posts")
                                 .flatMapObservable(
                                         preparedQuery -> preparedQuery.createStream(50, Tuple.tuple())
                                                 .toObservable()
                                 )
-                                .doAfterTerminate(tx::commit)
+                                .doAfterTerminate(tx::rxCommit)
 
                 )
                 .doOnSubscribe(row -> LOGGER.info("row::" + row.toString()))
-                .map(row -> (Post.of(row.getString("id"), row.getString("title"), row.getString("content"))));
+                .map(row -> (Post.of(row.getUUID("id").toString(), row.getString("title"), row.getString("content"))));
     }
 
     public Maybe<Post> findById(String id) {
         return this.client
                 .rxBegin()
                 .flatMapMaybe(
-                        tx -> tx.rxPrepare("SELECT FROM posts WHERE id=$1")
+                        tx -> tx.rxPrepare("SELECT * FROM posts WHERE id=$1")
                                 .flatMapMaybe(
                                         preparedQuery -> preparedQuery.createStream(1, Tuple.of(id))
                                                 .toObservable().firstElement()
                                 )
-                                .doAfterTerminate(tx::commit)
+                                .doAfterTerminate(tx::rxCommit)
 
                 )
                 .map(row ->
-                        (Post.of(row.getString("id"), row.getString("title"), row.getString("content")))
+                        (Post.of(row.getUUID("id").toString(), row.getString("title"), row.getString("content")))
                 );
     }
 
