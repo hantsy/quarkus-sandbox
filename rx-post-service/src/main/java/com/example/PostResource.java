@@ -4,8 +4,10 @@ import io.reactivex.*;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.validation.Valid;
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.logging.Logger;
 
@@ -56,17 +58,16 @@ public class PostResource {
         return Observable.just(1, 2, 3);
     }
 
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Observable<Post> getAllPosts() {
+    public Flowable<Post> getAllPosts() {
         return this.posts.findAll();
     }
 
     @Path("{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Maybe<Post> getPostById(@PathParam("id") final String id) {
+    public Single<Post> getPostById(@PathParam("id") final String id) {
         return this.posts.findById(id);
     }
 
