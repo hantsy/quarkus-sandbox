@@ -12,7 +12,7 @@ services:
       POSTGRES_USER: user
     volumes:
       - ./data:/var/lib/postgresql
-      - ./pg-initdb.d:/docker-entrypoint-initdb.d
+ #     - ./pg-initdb.d:/docker-entrypoint-initdb.d
   post-service: 
     image: hantsy/quarkus-post-service
     environment:
