@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.util.UUID;
 
 @ApplicationScoped
 public class PostRepository {
@@ -33,7 +34,6 @@ public class PostRepository {
                                 .doAfterTerminate(tx::rxCommit)
 
                 )
-                .doOnSubscribe(row -> LOGGER.info("row::" + row.toString()))
                 .map(row -> (Post.of(row.getUUID("id").toString(), row.getString("title"), row.getString("content"))));
     }
 
@@ -43,7 +43,7 @@ public class PostRepository {
                 .flatMapMaybe(
                         tx -> tx.rxPrepare("SELECT * FROM posts WHERE id=$1")
                                 .flatMapMaybe(
-                                        preparedQuery -> preparedQuery.createStream(1, Tuple.of(id))
+                                        preparedQuery -> preparedQuery.createStream(1, Tuple.of(UUID.fromString(id)))
                                                 .toObservable().firstElement()
                                 )
                                 .doAfterTerminate(tx::rxCommit)

@@ -12,6 +12,11 @@ import io.vertx.reactivex.sqlclient.Tuple;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -31,21 +36,22 @@ public class AppInitializer {
         Tuple second = Tuple.of("Hello Again, Quarkus", "My second post of Quarkus");
 
 
-
         this.client
                 .rxBegin()
                 .flatMap(
-                        tx -> tx.rxQuery("DELETE FROM posts")
+                        tx -> tx.rxQuery(readInitScript())
                                 .flatMap(
-                                        result -> tx.rxPreparedBatch("INSERT INTO posts (title, content) VALUES ($1, $2)", List.of(first, second))
+                                        result1 -> tx.rxQuery("DELETE FROM posts")
                                                 .flatMap(
-                                                        result2 -> tx.rxQuery("SELECT * FROM posts")
+                                                        result2 -> tx.rxPreparedBatch("INSERT INTO posts (title, content) VALUES ($1, $2)", List.of(first, second))
+                                                                .flatMap(
+                                                                        result3 -> tx.rxQuery("SELECT * FROM posts")
 
-                                                )
+                                                                )
 
-                                                .doAfterTerminate(tx::commit)
+                                                                .doAfterTerminate(tx::commit)
 
-                                ))
+                                                )))
                 .<List<Post>>map(rs -> {
                     var posts = new ArrayList<Post>();
                     rs.forEach(
@@ -58,6 +64,17 @@ public class AppInitializer {
                 })
                 .subscribe(data -> LOGGER.info("data::" + data));
 
+    }
+
+    private String readInitScript() {
+        try {
+            return Files.readString(Paths.get(this.getClass().getResource("/init.sql").toURI()), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     void onStop(@Observes ShutdownEvent ev) {
