@@ -40,18 +40,29 @@ public class PostRepository {
     public Single<Post> findById(String id) {
         return this.client
                 .rxBegin()
-                .flatMapObservable(
+                .flatMap(
                         tx -> tx.rxPrepare("SELECT * FROM posts WHERE id=$1")
-                                .flatMapObservable(
+                                .flatMap(
                                         preparedQuery -> preparedQuery.createStream(1, Tuple.of(UUID.fromString(id)))
-                                                .toObservable()
+                                                .toFlowable().firstOrError()
 
                                 )
                                 .doAfterTerminate(tx::rxCommit)
 
                 )
-                .firstOrError()
                 .map(row -> Post.of(row.getUUID("id").toString(), row.getString("title"), row.getString("content")));
+    }
+
+    public Single<String> save(Post data) {
+        return this.client
+                .rxBegin()
+                .flatMap(
+                        tx -> tx.rxPreparedQuery("INSERT INTO posts (title, content) VALUES ($1, $2) RETURNING (id)", Tuple.of(data.getTitle(), data.getContent()))
+                                .toFlowable().firstOrError()
+                                .doAfterTerminate(tx::rxCommit)
+                )
+                .map(rs -> rs.iterator())
+                .map(it -> it.hasNext() ? it.next().getUUID("id").toString() : "");
     }
 
 

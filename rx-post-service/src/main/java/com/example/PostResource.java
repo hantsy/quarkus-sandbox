@@ -3,13 +3,17 @@ package com.example;
 import io.reactivex.*;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.validation.Valid;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.net.URI;
+import java.util.concurrent.CompletionStage;
 import java.util.logging.Logger;
+
+import static javax.ws.rs.core.Response.created;
 
 @Path("/posts")
 @RequestScoped
@@ -62,6 +66,18 @@ public class PostResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Flowable<Post> getAllPosts() {
         return this.posts.findAll();
+    }
+
+    @Inject
+    Event<Activity> eventSource;
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Single<Response> savePost(@Valid Post post) {
+        return this.posts.save(post)
+                .doOnSuccess(id-> eventSource.fireAsync(Activity.of("post_created", "id:"+ id)))
+                .map(id -> created(URI.create("/posts/"+ id)).build())
+                ;
     }
 
     @Path("{id}")

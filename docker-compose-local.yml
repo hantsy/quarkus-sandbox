@@ -1,0 +1,13 @@
+version: '3.7' # specify docker-compose version
+
+services:
+  post-service: 
+    image: hantsy/quarkus-post-service
+    environment:
+      QUARKUS_DATASOURCE_URL: jdbc:postgresql://blogdb:5432/blogdb
+    ports:
+      - "8080:8080" #specify ports forewarding
+    depends_on:
+      - blogdb
+  
+  
