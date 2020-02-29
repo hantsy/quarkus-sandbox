@@ -1,30 +1,32 @@
 package com.example;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class Post {
-    String id;
+    UUID id;
     String title;
     String content;
     LocalDateTime createdAt;
 
     public static Post of(String title, String content) {
-        return Post.of(null, title, content);
+       return of(null, title, content, null);
     }
 
-    public static Post of(String id, String title, String content) {
+    public static Post of(UUID id, String title, String content, LocalDateTime createdAt) {
         Post data = new Post();
         data.setId(id);
         data.setTitle(title);
         data.setContent(content);
+        data.setCreatedAt(createdAt);
         return data;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

@@ -4,8 +4,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.example</groupId>
-    <artifactId>spring-post-service</artifactId>
+    <artifactId>post-service-spring</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+	<description>Post Service using Spring DI, Spring Data JPA, Spring WebMvc</description>
     <properties>
         <!-- quarkus -->
         <quarkus.version>1.0.0.Final</quarkus.version>

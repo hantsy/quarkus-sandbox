@@ -75,9 +75,8 @@ public class PostResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Single<Response> savePost(@Valid Post post) {
         return this.posts.save(post)
-                .doOnSuccess(id-> eventSource.fireAsync(Activity.of("post_created", "id:"+ id)))
-                .map(id -> created(URI.create("/posts/"+ id)).build())
-                ;
+                .doOnSuccess(id -> eventSource.fireAsync(Activity.of("post_created", "id:" + id)))
+                .map(id -> created(URI.create("/posts/" + id)).build());
     }
 
     @Path("{id}")

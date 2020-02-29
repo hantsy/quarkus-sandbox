@@ -18,25 +18,23 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-public class AppInitializer {
-    private final static Logger LOGGER = Logger.getLogger(AppInitializer.class.getName());
+public class DataInitializer {
+    private final static Logger LOGGER = Logger.getLogger(DataInitializer.class.getName());
 
     @Inject
     private PgPool client;
 
     public void onStart(@Observes StartupEvent ev) {
         LOGGER.info("The application is starting...");
-        LOGGER.info("pg client::" + client);
 
         Tuple first = Tuple.of("Hello Quarkus", "My first post of Quarkus");
         Tuple second = Tuple.of("Hello Again, Quarkus", "My second post of Quarkus");
 
-        String initScript = readInitScript();
-
-        LOGGER.info("initialized script::" + initScript);
-
-        client.query(initScript)
-                .thenCompose(r -> client.query("DELETE FROM posts"))
+//        String initScript = readInitScript();
+//        LOGGER.info("initialized script::" + initScript);
+//        client.query(initScript)
+//                .thenCompose(r -> client.query("DELETE FROM posts"))
+         client.query("DELETE FROM posts")
                 .thenCompose(r -> client.preparedBatch("INSERT INTO posts (title, content) VALUES ($1, $2)", List.of(first, second)))
                 .thenCompose(r -> client.query("SELECT * FROM posts"))
                 .toCompletableFuture()
