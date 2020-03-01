@@ -13,12 +13,12 @@ A  sandbox project  to practice Quarkus framework.
 ## Sample Codes
 
 * **post-service** CURD RESTful APIs using Resteasy, Hibernate
-* **post-service-spring** CRUD RESTful APIs using Spring DI, Spring Data JPA, Spring WebMvc
-* **post-service-java8**  CRUD RESTful APIs using Java 8 CompletionStage and reactive Postgre client
-* **post-service-rxjava2** CRUD RESTful APIs using RxJava 2 and reactive Postgre client
-* **post-service-client** Rest Client using MP RestClient spec
-* **post-service-client-kolin** Rest Client using MP RestClient spec, but written in Kotlin.
-* **post-service-client-jaxrs** Rest Client using Jaxrs Client API.
+* **spring** CRUD RESTful APIs using Spring DI, Spring Data JPA, Spring WebMvc
+* **java8-cs**  CRUD RESTful APIs using Java 8 CompletionStage and reactive Postgre client
+* **rxjava2** CRUD RESTful APIs using RxJava 2 and reactive Postgre client
+* **restclient** Rest Client using MP RestClient spec
+* **restclient-kolin** Rest Client using MP RestClient spec, but written in Kotlin.
+* **restclient-jaxrs** Rest Client using Jaxrs Client API.
 
 ## References
 
