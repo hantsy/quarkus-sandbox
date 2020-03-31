@@ -1,5 +1,6 @@
 package com.example;
 
+import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 import javax.ws.rs.*;
@@ -9,6 +10,7 @@ import java.util.concurrent.CompletionStage;
 
 @Path("/posts")
 @RegisterRestClient
+@RegisterProvider(PostResponseExceptionMapper.class)
 public interface PostResourceClient {
 
     @Path("count")
@@ -24,4 +26,8 @@ public interface PostResourceClient {
             @QueryParam("limit") @DefaultValue("10") int limit
     );
 
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    CompletionStage<Post> getPostById(@PathParam("id") String id);
 }
