@@ -2,9 +2,11 @@
 
 In the last post, we [used Spring compatible APIs](https://medium.com/swlh/building-a-spring-application-with-quarkus-8c08b2a9cd8c) to rebuild [our original REST APIs](https://medium.com/@hantsy/kickstart-your-first-quarkus-application-cde54f469973) in a Quarkus application.  In this post, we will interact with the REST APIs in the client side.
 
-There a few HTTP Client libraries used to communicate with REST APIs, such as [Apache HTTPClient](http://hc.apache.org/), [OkHttp](https://square.github.io/okhttp/), etc. And Spring has specific RestTemplate, WebClient API can be used to interact with REST APIs.
+There a few HTTP Client libraries used to communicate with REST APIs, such as [Apache HTTPClient](http://hc.apache.org/), [OkHttp](https://square.github.io/okhttp/), etc. And Spring has specific RestTemplate, WebClient API can be used to interact with REST APIs. And Java 11 also ship a new stable HttpClient API.
 
-Quarkus has built-in support of the latest [Microprofile](https://www.microprofile.io), which includes a Rest Client spec for this purpose, the Quarkus **rest-client** supports both MP RestClient and JAX-RS Client API.
+Quarkus has built-in support of the latest [Microprofile](https://www.microprofile.io), which includes a Rest Client spec for this purpose, the Quarkus **rest-client** supports both MP RestClient and JAX-RS Client API. In this posts, we will explore  MP RestClient, JAX-RS Client and Java 11 HttpClient one by one.
+
+## MicroProfile Rest Client
 
 First of all, let's have a look at how to use MP RestClient to consume REST APIs.
 
@@ -143,7 +145,11 @@ Now, trying to accessing a none existing post resource, it will throw an `PostNo
 
 As an example, you can handle this exception with a custom `ExceptionMapper` in our client application. Check the [`PostNotFoundExceptionMapper`](https://github.com/hantsy/quarkus-sample/blob/master/restclient/src/main/java/com/example/PostNotFoundExceptionMapper.java) yourself.
 
-Besides the declarative approach provided in MP Rest Client, JAX-RS 2.0 provides a Client APIs to shake hands with the REST APIs in a pragmatic way.
+
+
+## JAX-RS Client API
+
+Besides the declarative means provided in MP Rest Client, JAX-RS 2.0 provides a Client API to shake hands with the REST APIs in a programmatic way.
 
 Let's have a look at  the JAX-RS version of `PostResourceClient`.
 
@@ -212,9 +218,27 @@ And the content of the *application.properties* file.
 post-service.base-url=http://localhost:8080
 ```
 
-But if you are using the JAX-RS client API, you should handle exceptions manually.
+But if you are using the JAX-RS client API, you should handle exceptions manually. For example,  calling the REST API like this in the `PostResourceClient`.
 
-If you are using Java 11, it is luckily to use the brand new HttpClient APIs which is finalized to public since Java 11. 
+```java
+Post getPostById(String id) {
+    try (Response getPostByIdResponse = client.target(baseUrl + "/posts/" + id)
+         .request().get()) {
+        if (getPostByIdResponse.getStatus() == 404) {
+            throw new PostNotFoundException(id);
+        }
+
+        return getPostByIdResponse.readEntity(Post.class);
+    }
+
+}
+```
+
+Next, let's look at the HttpClient in Java 11.
+
+## Java 11 HttpClient
+
+If you are using Java 11, it is luckily to use the brand new HttpClient API which is stablized to public since Java 11. 
 
 The following is a new version using Java 11 HttpClient.
 
