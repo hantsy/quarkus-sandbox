@@ -6,8 +6,8 @@ A  sandbox project  to practice Quarkus framework.
 
 ## Docs
 
-* [Kickstart your first Quarkus application](./01-start.md)
-* [Building a Spring web application with Quarkus](./02-spring.md)
+* [Kickstart your first Quarkus application](./docs/01-start.md)
+* [Building a Spring web application with Quarkus](./docs/02-spring.md)
 
 
 ## Sample Codes
