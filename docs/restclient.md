@@ -238,7 +238,7 @@ Next, let's look at the HttpClient in Java 11.
 
 ## Java 11 HttpClient
 
-If you are using Java 11, it is luckily to use the brand new HttpClient API which is stablized to public since Java 11. 
+If you are using Java 11, it is luckily to use the brand new HttpClient API which is stabilized to public since Java 11. 
 
 The following is a new version using Java 11 HttpClient.
 
