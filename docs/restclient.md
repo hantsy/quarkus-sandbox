@@ -1,8 +1,12 @@
-# Interacting with REST APIs in a Quarkus application
+# Interacting with REST APIs in Quarkus 
 
-In the last post, we [use Spring compatible APIs](https://medium.com/swlh/building-a-spring-application-with-quarkus-8c08b2a9cd8c) to rebuild [our original REST APIs](https://medium.com/@hantsy/kickstart-your-first-quarkus-application-cde54f469973) in a Quarkus application.  In this post, we will interact with the REST APIs in the client side.
+In the last post, we [used Spring compatible APIs](https://medium.com/swlh/building-a-spring-application-with-quarkus-8c08b2a9cd8c) to rebuild [our original REST APIs](https://medium.com/@hantsy/kickstart-your-first-quarkus-application-cde54f469973) in a Quarkus application.  In this post, we will interact with the REST APIs in the client side.
 
-Quarkus has built-in support of the latest [Microprofile](https://www.microprofile.io), including Rest Client. Firstly let's have a look at how to use MP RestClient to consume REST APIs.
+There a few HTTP Client libraries used to communicate with REST APIs, such as [Apache HTTPClient](http://hc.apache.org/), [OkHttp](https://square.github.io/okhttp/), etc. And Spring has specific RestTemplate, WebClient API can be used to interact with REST APIs.
+
+Quarkus has built-in support of the latest [Microprofile](https://www.microprofile.io), which includes a Rest Client spec for this purpose, the Quarkus **rest-client** supports both MP RestClient and JAX-RS Client API.
+
+First of all, let's have a look at how to use MP RestClient to consume REST APIs.
 
 Generate a simple Quarkus  application using [Quarkus Coding](https://code.quarkus.io/), remember adding **Rest Client** into dependencies.
 
@@ -47,7 +51,7 @@ com.example.PostResourceClient/mp-rest/scope=javax.inject.Singleton
 
 By default it uses the full qualified name of the Rest Client class as prefix of the config key. To change this, just set `configKey` attribute in  the `@RegisterRestClient` annotation.
 
-To use the Rest Client in your CDI bean, just inject it by `@Inject` with a Qualifier `@RestClient`.
+To use the `PostResourceClient` in your CDI bean, just inject it by `@Inject` with a CDI qualifier `@RestClient`.
 
 ```java
 @Path("/api")
@@ -72,6 +76,17 @@ public class PostController {
     }
 
 }
+```
+
+The above `getAllPosts` method is trying to combine the data and count into a new `PostPage` instance.
+
+To test if the client is working as expected. Firstly you should start [the server side application](https://github.com/hantsy/quarkus-sample/blob/master/post-service) to serve the REST APIs. Run it by `mvn quarkus:dev` command. 
+
+Then run the client application we are building by `mvn quarkus:dev` again.
+
+```bash
+$ curl http://localhost:8081/api/
+{"content":[{"content":"My second post of Quarkus","createdAt":"2020-04-02T17:02:06.453988","id":"768a980f-b617-40c1-ba07-60759045d6b7","title":"Hello Again, Quarkus"},{"content":"My first post of Quarkus","createdAt":"2020-04-02T17:02:06.452993","id":"675bf657-fce4-4724-96c3-a2e2bf38ad58","title":"Hello Quarkus"}],"count":2}
 ```
 
 In our [`PostResource`](https://github.com/hantsy/quarkus-sample/blob/master/post-service/src/main/java/com/example/PostResource.java) , to access a none existing post resource, it will return a 404 HTTP status.   Add the following method signature in the `PostResouceClient`.
@@ -100,7 +115,9 @@ public class PostController {
 }    
 ```
 
-Accessing a none existing post in this client application, it also return a  404 HTTP status. If you do not want to convert this for you, you can use `ResponseExceptionMapper` to convert the failure into  a custom exception, and that leave room for you to handle it as you expected.
+When accessing a none existing post in the client application, it also return a  404 HTTP status. 
+
+If you do not want MP Rest Client to convert it automatically, you can use `ResponseExceptionMapper` to convert the failure status into  a custom exception, and that leave room for you to handle it as you expected.
 
 ```java
 public class PostResponseExceptionMapper implements ResponseExceptionMapper<RuntimeException> {
@@ -115,14 +132,14 @@ public class PostResponseExceptionMapper implements ResponseExceptionMapper<Runt
 }
 ```
 
-And register it on the RestClient class with a `@RegisterProvider` annotation.
+And register it on the `PostResourceClient` class with a `@RegisterProvider` annotation.
 
 ```java
 @RegisterProvider(PostResponseExceptionMapper.class)
 public interface PostResourceClient {}
 ```
 
-Now, when accessing a none existing post resource, it will throw an `PostNotFoundException` in the background.
+Now, trying to accessing a none existing post resource, it will throw an `PostNotFoundException` in the background.
 
 As an example, you can handle this exception with a custom `ExceptionMapper` in our client application. Check the [`PostNotFoundExceptionMapper`](https://github.com/hantsy/quarkus-sample/blob/master/restclient/src/main/java/com/example/PostNotFoundExceptionMapper.java) yourself.
 
@@ -258,6 +275,7 @@ public class PostResourceClient {
 
 ```
 
-In the `getAllPosts` , it uses JSON-B to convert the HTTP messages.
+In the `getAllPosts` method , it uses JSON-B to convert the raw HTTP messages from String to a `List<Post>`.
 
  Get the [source codes](https://github.com/hantsy/quarkus-sample) from my Github.
+
