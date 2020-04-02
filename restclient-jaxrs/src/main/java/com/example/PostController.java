@@ -27,4 +27,11 @@ public class PostController {
                 );
     }
 
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CompletionStage<Post> getPost(@PathParam("id") String id ){
+        return this.client.getPostById(id);
+    }
+
 }
