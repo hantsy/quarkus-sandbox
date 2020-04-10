@@ -1,8 +1,8 @@
 package com.example;
 
-import io.reactivex.*;
-import io.reactivex.functions.Function;
-import io.vertx.axle.sqlclient.SqlResult;
+import io.reactivex.Flowable;
+import io.reactivex.Maybe;
+import io.reactivex.Single;
 import io.vertx.reactivex.pgclient.PgPool;
 import io.vertx.reactivex.sqlclient.Row;
 import io.vertx.reactivex.sqlclient.RowSet;
@@ -12,9 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.CompletionStage;
 
 @ApplicationScoped
 public class PostRepository {
