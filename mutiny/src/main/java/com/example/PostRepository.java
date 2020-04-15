@@ -41,7 +41,8 @@ public class PostRepository {
         return this.client
                 .preparedQuery("SELECT * FROM posts WHERE id=$1", Tuple.of(id))
                 .map(RowSet::iterator)
-                .flatMap(it -> it.hasNext() ? Uni.createFrom().item(rowToPost(it.next())) : Uni.createFrom().failure(()-> new PostNotFoundException()));
+                .map(it -> it.hasNext() ? rowToPost(it.next()) :null);
+               // .flatMap(it -> it.hasNext() ? Uni.createFrom().item(rowToPost(it.next())) : Uni.createFrom().failure(()-> new PostNotFoundException()));
     }
 
     private Post rowToPost(Row row) {

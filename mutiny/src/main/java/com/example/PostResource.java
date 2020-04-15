@@ -47,8 +47,14 @@ public class PostResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Uni<Response> getPostById(@PathParam("id") final String id) {
         return this.posts.findById(UUID.fromString(id))
-                .map(data -> ok(data).build())
-                .onFailure(PostNotFoundException.class).recoverWithItem(status(Status.NOT_FOUND).build());
+                .map(data -> {
+                    if (data == null) {
+                        return null;
+                    }
+                    return ok(data).build();
+                })
+                .onItem().ifNull().continueWith(status(Status.NOT_FOUND).build());
+        //.onFailure(PostNotFoundException.class).recoverWithItem(status(Status.NOT_FOUND).build());
     }
 
     @Path("{id}")
