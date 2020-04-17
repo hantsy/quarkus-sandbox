@@ -22,9 +22,9 @@ public Publisher<String> hello() {
 }
 ```
 
-Besides ReactiveStreams APIs, you can also use Java 8 CompletableFuture,  RxJava 2, and [SmallRye Munity](https://smallrye.io/smallrye-mutiny/).
+Besides the standard ReactiveStreams APIs, you can also use Java 8 CompletableFuture,  RxJava 2, and [SmallRye Munity](https://smallrye.io/smallrye-mutiny/).
 
-When connecting to the backend database, you can switch to the *Reactive PostgresSQL Client* or *Reactive MySQL Client*.
+For the database connecting to the underlay database, you can switch to the *Reactive PostgresSQL Client* or *Reactive MySQL Client*.
 
 > Currently Hibernate core and JPA do not support ReactiveStreams APIs, but there is a new sub project under Hibernate which is trying to do this problem, see [Hibernate RX](https://github.com/hibernate/hibernate-rx).
 
@@ -32,23 +32,23 @@ In this post, we will refactor the sample used in [the former post](https://medi
 
 We will start with SmallRye Munity which may be new to developers including me, and then we will explore the Java 8 CompletableFuture and RxJava 2.
 
-First of all, create a Quarkus project quickly using [Quarkus coding](https://code.quarkus.io) if you want to working on a new project, and add *Resteasy Munity*, *Reactive Pg Client* to dependencies.
+First of all, create a Quarkus project quickly using [Quarkus coding](https://code.quarkus.io) if you want to work on a new project, and add *Resteasy Munity*, *Reactive Pg Client* to dependencies.
 
- Or running the following command to add required Quarkus extensions to the existing  project. 
+Or running the following command to add required Quarkus extensions to the existing Quarkus project. 
 
 ```bash
 mvn quarkus:add-extension -Dextension=resteasy-mutiny 
 mvn quarkus:add-extension -Dextension=reactive-pg-client
 ```
 
-SmallRye Munity implements the ReactiveStreams specification, and provides two conventional classes `Uni` and `Multi`.
+SmallRye Munity implements the ReactiveStreams specification, and provides two conventional classes - `Uni` and `Multi`.
 
 * Uni - handle stream of *0..1* items
 * Multi - handle stream of *0..n* items (potentially unbounded)
 
-The *Reactive Pg Client* is derived from *Vertx Reactive Pg Client*, with the help of Quarkus, you can configure database connection in the `application.properties` directly, and inject the `PgClient` bean in your codes. 
+The *Reactive Pg Client* is derived from *Vertx Reactive Pg Client*, with the help of Quarkus, you can configure database connection in the `application.properties` directly, and inject the reactive Postgres Client `PgPool` bean in your codes. 
 
-Let's have a look at the `Post` class.
+Let's have a look at the `Post` class, there is no extra annotations on this version.
 
 ```java
 public class Post {
@@ -60,7 +60,7 @@ public class Post {
 }
 ```
 
-And move to the `Repository` class. 
+And move to the `Repository` class, which is use for performing CRUD operations on table `posts`.
 
 ```java
 @ApplicationScoped
@@ -126,13 +126,13 @@ public class PostRepository {
 
 In the above codes, 
 
-The `PgPool` is imported from `io.vertx.mutiny.pgclient` packages, there are several variants for different underlay implementations.
+The `PgPool` is imported from package `io.vertx.mutiny.pgclient`, there are several variants for different underlay implementations.
 
-The `preparedQuaery` method accepts a second parameters as the SQL parameters in the SQL query literals.  
+The `preparedQuaery` method accepts a second parameter and bind them to the SQL statements.  
 
-The `RowSet::rowCount` return the affected rows when perform a update or deletion queries.
+The `RowSet::rowCount` return the number of the affected rows when performing a update or deletion queries.
 
-In the `findAll` and `find` methods, use `map` to convert the `RowSet` to our custom `Post` instance.
+In the `findAll` and `find` methods, use `map` to transform a `RowSet` to our custom `Post` instance.
 
 Now let's explore the changes in `PostResource`.
 
@@ -196,7 +196,11 @@ public class PostResource {
 }
 ```
 
-Yes,  you can return a `Uni` or `Multi` type in the Jaxrs resources. Please notice the `getPostById` method, it looks a little ugly. In the above `PostRepository` classes, the `findById` return  a  `Uni`, when there is a `Post` found return back a `Uni<Post>`, else there is a `null` in the `Uni` stream. So in `getPostById`  we have to filter out it in the main flow and handle the null case in the `onItem().ifNull()`. For my opinion, it is a little tedious, currently there is no replacement of `switchIfEmpty` like methods in Munity. Of course, to make it more understandable,  use an exception in `PostRepository` like this.
+Yes, with the help of `resteasy-munity` extension,  you can return `Uni` or `Multi` types in the Jaxrs resources. 
+
+Let's take  a closer look  at the `getPostById` method in the above `PostResource`, it looks a little ugly. In our `PostRepository` class, the `findById` return  a  `Uni`, when there is a `Post` found return back a `Uni<Post>`, else there is a `null` in the `Uni` stream. So in `getPostById`  we have to filter out it in the main flow and handle the null case in the `onItem().ifNull()`. For my opinion, it is a little tedious, currently there is no replacement of `switchIfEmpty` like methods in Munity. 
+
+To make it more understandable,  use a custom exception in `PostRepository` like this.
 
 ```java
 public Uni<Post> findById(UUID id) {
@@ -207,7 +211,7 @@ public Uni<Post> findById(UUID id) {
 }
 ```
 
-And in  `PostResource` class, handle the exception in the `onFailter` event.
+And in the  `PostResource` class, handle this exception in the `onFailter` event.
 
 ```java
 @Path("{id}")
@@ -228,7 +232,9 @@ quarkus.datasource.username = user
 quarkus.datasource.password = password
 ```
 
-Like the form post, use `DataInitializer` class to insert sample data at the application startup.
+Similar with the Jdbc datasource, but here it use the prefix `vertx-reactive:` in the connection url.
+
+Like the former post, we will use a `DataInitializer` bean to insert some sample data at the application startup.
 
 ```java
 
@@ -260,21 +266,23 @@ public class DataInitializer {
 
 When the Quarkus application is started, it will raise an `StartupEvent`, the `DataInitializer` observes it and insert the data as expected.
 
-Simply use the [docker-compose file](https://github.com/hantsy/quarkus-sample/blob/master/docker-compose.yml) in  [my repos](https://github.com/hantsy/quarkus-sample/) to serve a  Postgres server in seconds.
+To start a Postgres server, simply use the [docker-compose file](https://github.com/hantsy/quarkus-sample/blob/master/docker-compose.yml)  provided in  [my repos](https://github.com/hantsy/quarkus-sample/) to serve a  Postgres server in docker.
 
 ```java
 docker-compose up postgres
 ```
 
-It uses the [initial scripts](https://github.com/hantsy/quarkus-sample/blob/master/pg-initdb.d/init.sql) to prepare the tables used in our sample.
+It uses the predefined [initial scripts](https://github.com/hantsy/quarkus-sample/blob/master/pg-initdb.d/init.sql) to prepare the tables used in our sample at the startup stage.
 
-Start up the application.
+Now, let's start up our application. 
+
+Execute the following command in the root folder of the project.
 
 ```bash
 mvn quarkus:dev
 ```
 
-And try to access the API endpoints using the `curl` command.
+Open a terminal, and try to access the sample API endpoints using the `curl` command.
 
 ```bash
 # curl http://localhost:8080/posts
@@ -398,7 +406,7 @@ public class PostRepository {
 }
 ```
 
- Note :  The `PpPool` here is from package `io.vertx.axle.pgclient`.
+ Note :  The `PgPool` here is from package `io.vertx.axle.pgclient`.
 
 The `PostResource` class.
 
