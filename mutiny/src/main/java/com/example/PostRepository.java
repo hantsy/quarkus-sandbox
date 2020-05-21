@@ -1,5 +1,6 @@
 package com.example;
 
+import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.vertx.mutiny.pgclient.PgPool;
 import io.vertx.mutiny.sqlclient.Row;
@@ -13,6 +14,7 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.StreamSupport;
 
 @ApplicationScoped
 public class PostRepository {
@@ -25,24 +27,22 @@ public class PostRepository {
         this.client = _client;
     }
 
-    public Uni<List<Post>> findAll() {
+    public Multi<Post> findAll() {
         return this.client
                 .query("SELECT * FROM posts")
-                .map(rs -> {
-                    var result = new ArrayList<Post>(rs.size());
-                    for (Row row : rs) {
-                        result.add(this.rowToPost(row));
-                    }
-                    return result;
-                });
+                .onItem().produceMulti(
+                        rs -> Multi.createFrom().items(() -> StreamSupport.stream(rs.spliterator(), false))
+                )
+                .map(this::rowToPost);
+
     }
 
     public Uni<Post> findById(UUID id) {
         return this.client
                 .preparedQuery("SELECT * FROM posts WHERE id=$1", Tuple.of(id))
                 .map(RowSet::iterator)
-                .map(it -> it.hasNext() ? rowToPost(it.next()) :null);
-               // .flatMap(it -> it.hasNext() ? Uni.createFrom().item(rowToPost(it.next())) : Uni.createFrom().failure(()-> new PostNotFoundException()));
+                .map(it -> it.hasNext() ? rowToPost(it.next()) : null);
+        // .flatMap(it -> it.hasNext() ? Uni.createFrom().item(rowToPost(it.next())) : Uni.createFrom().failure(()-> new PostNotFoundException()));
     }
 
     private Post rowToPost(Row row) {

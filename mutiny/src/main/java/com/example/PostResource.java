@@ -1,5 +1,6 @@
 package com.example;
 
+import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 
 import javax.enterprise.context.RequestScoped;
@@ -31,8 +32,8 @@ public class PostResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Uni<Response> getAllPosts() {
-        return this.posts.findAll().map(data -> ok(data).build());
+    public Multi<Post> getAllPosts() {
+        return this.posts.findAll();
     }
 
     @POST
