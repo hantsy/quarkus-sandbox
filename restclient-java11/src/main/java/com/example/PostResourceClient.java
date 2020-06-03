@@ -1,14 +1,8 @@
 package com.example;
 
-import org.apache.http.conn.HttpClientConnectionManager;
-import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.util.TypeLiteral;
-import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
