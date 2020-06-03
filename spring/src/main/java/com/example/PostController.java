@@ -1,11 +1,11 @@
 package com.example;
 
+import org.jboss.resteasy.spi.ResteasyUriBuilder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -67,11 +67,11 @@ public class PostController {
     public ResponseEntity<Void> createPost(@RequestBody @Valid PostForm post) {
         Post data = Post.of(post.getTitle(), post.getContent());
         Post saved = this.postRepository.save(data);
-        URI createdUri = UriComponentsBuilder.fromPath("/posts/{id}")
-                .buildAndExpand(saved.getId())
-                .toUri();
+//        URI createdUri = UriComponentsBuilder.fromPath("/posts/{id}")
+//                .buildAndExpand(saved.getId())
+//                .toUri();
 
-        return created(createdUri).build();
+        return created(ResteasyUriBuilder.fromTemplate("/posts/{id}").build(saved.getId()).normalize()).build();
     }
 
     @PutMapping(value = "/{id}")
