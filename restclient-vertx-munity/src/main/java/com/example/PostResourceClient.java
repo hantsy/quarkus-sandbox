@@ -9,14 +9,6 @@ import io.vertx.mutiny.ext.web.client.WebClient;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.Response;
-import java.util.List;
-import java.util.concurrent.CompletionStage;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,8 +31,10 @@ public class PostResourceClient {
     Uni<Long> countAllPosts(String q) {
         return client.get("/posts/count")
                 .send()
-                .map(resp ->
-                        resp.bodyAsJson(Long.class)
+                .map(resp -> {
+                            LOGGER.log(Level.FINE, "response of posts/count: {}", resp);
+                            return resp.bodyAsJson(Long.class);
+                        }
                 );
     }
 

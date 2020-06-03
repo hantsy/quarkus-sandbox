@@ -22,10 +22,6 @@ public class CommentRepository implements PanacheRepositoryBase<Comment, String>
         }
     }
 
-    @Transactional
-    public void deleteById(String id) {
-        this.delete("id", id);
-    }
 
     public List<Comment> allByPostId(String id) {
         return this.list("post.id", id);

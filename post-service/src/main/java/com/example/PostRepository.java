@@ -73,8 +73,4 @@ public class PostRepository implements PanacheRepositoryBase<Post, String> {
         }
     }
 
-    @Transactional
-    public void deleteById(String id) {
-        this.delete("id=?1", id);
-    }
 }

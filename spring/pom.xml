@@ -6,10 +6,10 @@
     <groupId>com.example</groupId>
     <artifactId>post-service-spring</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-	<description>Post Service using Spring DI, Spring Data JPA, Spring WebMvc</description>
+    <description>Post Service using Spring DI, Spring Data JPA, Spring WebMvc</description>
     <properties>
         <!-- quarkus -->
-        <quarkus.version>1.0.0.Final</quarkus.version>
+        <quarkus.version>1.4.2.Final</quarkus.version>
         <!-- maven plugins -->
         <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
@@ -38,16 +38,7 @@
             <version>5.4.9.Final</version>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-junit5</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <scope>test</scope>
-        </dependency>
+
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-spring-web</artifactId>
@@ -67,6 +58,17 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jdbc-postgresql</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
