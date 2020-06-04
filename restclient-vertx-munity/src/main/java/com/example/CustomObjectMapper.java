@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import io.quarkus.jackson.ObjectMapperCustomizer;
+import io.vertx.core.json.Json;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.time.LocalDateTime;
@@ -21,8 +22,9 @@ public class CustomObjectMapper implements ObjectMapperCustomizer {
         objectMapper.disable(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS);
 
         JavaTimeModule module = new JavaTimeModule();
-        LocalDateTimeDeserializer localDateTimeDeserializer =  new LocalDateTimeDeserializer(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        LocalDateTimeDeserializer localDateTimeDeserializer = new LocalDateTimeDeserializer(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         module.addDeserializer(LocalDateTime.class, localDateTimeDeserializer);
         objectMapper.registerModule(module);
+        Json.mapper = objectMapper;
     }
 }
