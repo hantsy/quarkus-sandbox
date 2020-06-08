@@ -43,6 +43,10 @@ class PostsHandler {
         this.posts.findById(UUID.fromString(id))
                 .thenAccept(post -> {
                     rc.response().end(toJson(post));
+                })
+                .exceptionally(throwable -> {
+                    rc.fail(404, throwable);
+                    return null;
                 });
 
     }

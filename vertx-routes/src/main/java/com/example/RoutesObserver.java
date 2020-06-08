@@ -15,12 +15,13 @@ public class RoutesObserver {
 
     public void routes(@Observes Router router) {
         // register BodyHandler globally.
-        //router.post().handler(BodyHandler.create());
+        //router.route().handler(BodyHandler.create());
         router.get("/posts").produces("application/json").handler(handlers::getAll);
         router.post("/posts").consumes("application/json").handler(BodyHandler.create()).handler(handlers::save);
-        router.get("/posts/:id").produces("application/json").handler(handlers::get);
+        router.get("/posts/:id").produces("application/json").handler(handlers::get).failureHandler(frc -> frc.response().setStatusCode(404).end());
         router.put("/posts/:id").consumes("application/json").handler(BodyHandler.create()).handler(handlers::update);
         router.delete("/posts/:id").handler(handlers::delete);
+
 
         router.get("/hello").handler(rc -> rc.response().end("Hello from my route"));
     }
