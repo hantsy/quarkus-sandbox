@@ -7,18 +7,19 @@ import io.vertx.ext.web.RoutingContext;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.UUID;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-class PostsHandlers {
-    private static final Logger LOGGER = Logger.getLogger(PostsHandlers.class.getSimpleName());
+class PostsHandler {
+    private static final Logger LOGGER = Logger.getLogger(PostsHandler.class.getSimpleName());
 
     PostRepository posts;
 
     ObjectMapper objectMapper;
 
     @Inject
-    public PostsHandlers(PostRepository posts, ObjectMapper objectMapper) {
+    public PostsHandler(PostRepository posts, ObjectMapper objectMapper) {
         this.posts = posts;
         this.objectMapper = objectMapper;
     }
@@ -28,14 +29,12 @@ class PostsHandlers {
 //        var q = params.get("q");
 //        var limit = params.get("limit") == null ? 10 : Integer.parseInt(params.get("q"));
 //        var offset = params.get("offset") == null ? 0 : Integer.parseInt(params.get("offset"));
-//        LOGGER.log(Level.INFO, " posts: {0}", this.posts);
 //        LOGGER.log(Level.INFO, " find by keyword: q={0}, limit={1}, offset={2}", new Object[]{q, limit, offset});
-        this.posts.findAll().thenAccept(
-                data -> rc.response()
-                        .write(toJson(data))
-                        .end()
-
-        );
+        this.posts.findAll()
+                .thenAccept(
+                        data -> rc.response()
+                                .end(toJson(data))
+                );
     }
 
     public void get(RoutingContext rc) {
@@ -51,6 +50,7 @@ class PostsHandlers {
 
     public void save(RoutingContext rc) {
         var body = rc.getBodyAsString();
+        LOGGER.log(Level.INFO, "request body: {0}", body);
         var form = fromJson(body, PostForm.class);
         this.posts.save(Post.of(form.getTitle(), form.getContent()))
                 .thenAccept(
@@ -67,6 +67,8 @@ class PostsHandlers {
         var params = rc.pathParams();
         var id = params.get("id");
         var body = rc.getBodyAsString();
+
+        LOGGER.log(Level.INFO, "\npath param id: {0}\nrequest body: {1}", new Object[]{id, body});
         var form = fromJson(body, PostForm.class);
         this.posts.findById(UUID.fromString(id))
                 .thenApply(
@@ -74,7 +76,7 @@ class PostsHandlers {
                             post.setTitle(form.getTitle());
                             post.setContent(form.getContent());
 
-                            return this.posts.save(post);
+                            return this.posts.update(UUID.fromString(id), post);
                         }
                 )
                 .thenAccept(
