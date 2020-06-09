@@ -42,9 +42,9 @@ public class PostRepository {
 
     public Maybe<Post> findById(UUID id) {
         return this.client
-                .rxPreparedQuery("SELECT * FROM posts WHERE id=$1", Tuple.of(id))
+                .preparedQuery("SELECT * FROM posts WHERE id=$1").rxExecute(Tuple.of(id))
                 .map(RowSet::iterator)
-                .flatMapMaybe(it -> it.hasNext() ? Maybe.just(rowToPost(it.next())): Maybe.empty());
+                .flatMapMaybe(it -> it.hasNext() ? Maybe.just(rowToPost(it.next())) : Maybe.empty());
     }
 
     private Post rowToPost(Row row) {
@@ -55,7 +55,7 @@ public class PostRepository {
         return this.client
                 .rxBegin()
                 .flatMap(
-                        tx -> tx.rxPreparedQuery("INSERT INTO posts (title, content) VALUES ($1, $2) RETURNING (id)", Tuple.of(data.getTitle(), data.getContent()))
+                        tx -> tx.preparedQuery("INSERT INTO posts (title, content) VALUES ($1, $2) RETURNING (id)").rxExecute(Tuple.of(data.getTitle(), data.getContent()))
                                 .toFlowable().firstOrError()
                                 .doAfterTerminate(tx::rxCommit)
                 )
@@ -65,17 +65,17 @@ public class PostRepository {
 
     public Single<Integer> update(UUID id, Post data) {
         return this.client
-                .rxPreparedQuery("UPDATE posts SET title=$1, content=$2 WHERE id=$3", Tuple.of(data.getTitle(), data.getContent(), id))
+                .preparedQuery("UPDATE posts SET title=$1, content=$2 WHERE id=$3").rxExecute(Tuple.of(data.getTitle(), data.getContent(), id))
                 .map(RowSet::rowCount);
     }
 
     public Single<Integer> deleteAll() {
-        return client.rxQuery("DELETE FROM posts")
+        return client.query("DELETE FROM posts").rxExecute()
                 .map(RowSet::rowCount);
     }
 
     public Single<Integer> delete(UUID id) {
-        return client.rxPreparedQuery("DELETE FROM posts WHERE id=$1", Tuple.of(id))
+        return client.preparedQuery("DELETE FROM posts WHERE id=$1").rxExecute(Tuple.of(id))
                 .map(RowSet::rowCount);
     }
 

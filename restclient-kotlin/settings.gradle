@@ -4,12 +4,8 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
     }
-    resolutionStrategy {
-        eachPlugin {
-            if (requested.id.id == 'io.quarkus') {
-                useModule("io.quarkus:quarkus-gradle-plugin:1.0.0.Final")
-            }
-        }
+    plugins {
+        id 'io.quarkus' version "${quarkusPluginVersion}"
     }
 }
 

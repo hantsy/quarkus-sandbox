@@ -5,7 +5,6 @@ import io.quarkus.runtime.StartupEvent;
 import io.vertx.mutiny.pgclient.PgPool;
 import io.vertx.mutiny.sqlclient.Tuple;
 
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
@@ -31,13 +30,13 @@ public class DataInitializer {
         Tuple first = Tuple.of("Hello Quarkus", "My first post of Quarkus");
         Tuple second = Tuple.of("Hello Again, Quarkus", "My second post of Quarkus");
 
-        client.query("DELETE FROM posts")
-                .flatMap(result -> client.preparedBatch("INSERT INTO posts (title, content) VALUES ($1, $2)", List.of(first, second)))
-                .flatMap(rs -> client.query("SELECT * FROM posts"))
+        client.query("DELETE FROM posts").execute()
+                .flatMap(result -> client.preparedQuery("INSERT INTO posts (title, content) VALUES ($1, $2)").executeBatch(List.of(first, second)))
+                .flatMap(rs -> client.query("SELECT * FROM posts").execute())
                 .subscribe()
                 .with(
-                        rows -> rows.forEach(r -> System.out.println(r)),
-                        err -> System.out.println(err)
+                        rows -> rows.forEach(r -> LOGGER.log(Level.INFO, "data:{0}", r)),
+                        err -> LOGGER.log(Level.SEVERE, "error:{0}", err)
                 );
 
     }

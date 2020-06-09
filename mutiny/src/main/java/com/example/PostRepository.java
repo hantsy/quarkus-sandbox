@@ -11,8 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 import java.util.stream.StreamSupport;
 
@@ -30,6 +28,7 @@ public class PostRepository {
     public Multi<Post> findAll() {
         return this.client
                 .query("SELECT * FROM posts")
+                .execute()
                 .onItem().produceMulti(
                         rs -> Multi.createFrom().items(() -> StreamSupport.stream(rs.spliterator(), false))
                 )
@@ -39,10 +38,11 @@ public class PostRepository {
 
     public Uni<Post> findById(UUID id) {
         return this.client
-                .preparedQuery("SELECT * FROM posts WHERE id=$1", Tuple.of(id))
+                .preparedQuery("SELECT * FROM posts WHERE id=$1")
+                .execute(Tuple.of(id))
                 .map(RowSet::iterator)
-                .map(it -> it.hasNext() ? rowToPost(it.next()) : null);
-        // .flatMap(it -> it.hasNext() ? Uni.createFrom().item(rowToPost(it.next())) : Uni.createFrom().failure(()-> new PostNotFoundException()));
+                // .map(it -> it.hasNext() ? rowToPost(it.next()) : null);
+                .flatMap(it -> it.hasNext() ? Uni.createFrom().item(rowToPost(it.next())) : Uni.createFrom().failure(PostNotFoundException::new));
     }
 
     private Post rowToPost(Row row) {
@@ -51,24 +51,28 @@ public class PostRepository {
 
     public Uni<UUID> save(Post data) {
         return this.client
-                .preparedQuery("INSERT INTO posts (title, content) VALUES ($1, $2) RETURNING (id)", Tuple.of(data.getTitle(), data.getContent()))
+                .preparedQuery("INSERT INTO posts (title, content) VALUES ($1, $2) RETURNING (id)")
+                .execute(Tuple.of(data.getTitle(), data.getContent()))
                 .map(RowSet::iterator)
                 .map(it -> it.hasNext() ? it.next().getUUID("id") : null);
     }
 
     public Uni<Integer> update(UUID id, Post data) {
         return this.client
-                .preparedQuery("UPDATE posts SET title=$1, content=$2 WHERE id=$3", Tuple.of(data.getTitle(), data.getContent(), id))
+                .preparedQuery("UPDATE posts SET title=$1, content=$2 WHERE id=$3")
+                .execute(Tuple.of(data.getTitle(), data.getContent(), id))
                 .map(RowSet::rowCount);
     }
 
     public Uni<Integer> deleteAll() {
         return client.query("DELETE FROM posts")
+                .execute()
                 .map(RowSet::rowCount);
     }
 
     public Uni<Integer> delete(UUID id) {
-        return client.preparedQuery("DELETE FROM posts WHERE id=$1", Tuple.of(id))
+        return client.preparedQuery("DELETE FROM posts WHERE id=$1")
+                .execute(Tuple.of(id))
                 .map(RowSet::rowCount);
     }
 

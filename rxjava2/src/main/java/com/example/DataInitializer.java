@@ -32,9 +32,9 @@ public class DataInitializer {
 
         client.rxBegin()
                 .flatMapCompletable(tx -> tx
-                        .rxQuery("DELETE FROM posts")
-                        .flatMap(result -> tx.rxPreparedBatch("INSERT INTO posts (title, content) VALUES ($1, $2)", List.of(first, second)))
-                        .flatMap(rs -> tx.rxQuery("SELECT * FROM posts"))
+                        .query("DELETE FROM posts").rxExecute()
+                        .flatMap(result -> tx.preparedQuery("INSERT INTO posts (title, content) VALUES ($1, $2)").rxExecuteBatch(List.of(first, second)))
+                        .flatMap(rs -> tx.query("SELECT * FROM posts").rxExecute())
                         .doOnSuccess(rows -> rows.forEach(row -> LOGGER.log(Level.INFO, "inserted post: {0}", row)))
                         .flatMapCompletable(result -> tx.rxCommit())
                 )
