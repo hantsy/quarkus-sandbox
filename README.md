@@ -1,6 +1,6 @@
-# Quarkus Sanbox
+# Quarkus Sandbox
 
-A  sandbox project  to practice Quarkus framework.
+A  personal sandbox project  to experience the new features of the [Quarkus framework](https://www.quarkus.io).
 
 
 
@@ -14,13 +14,18 @@ A  sandbox project  to practice Quarkus framework.
 
 ## Sample Codes
 
-* **post-service** CURD RESTful APIs using Resteasy, Hibernate
+* **post-service** Simple CURD RESTful APIs using Resteasy, Hibernate
 * **spring** CRUD RESTful APIs using Spring DI, Spring Data JPA, Spring WebMvc
-* **java8-cs**  CRUD RESTful APIs using Java 8 CompletionStage and reactive Postgre client
-* **rxjava2** CRUD RESTful APIs using RxJava 2 and reactive Postgre client
+* **java8**  Simple CRUD RESTful APIs but using Java 8 `CompletionStage` and Reactive Postgre Client
+* **rxjava2** CRUD RESTful APIs using RxJava 2 and Reactive Postgre client
+* **munity**  CRUD RESTful APIs using Smallrye Munity and Reactive Postgre client
 * **restclient** Rest Client using MP RestClient spec
 * **restclient-kolin** Rest Client using MP RestClient spec, but written in Kotlin.
 * **restclient-jaxrs** Rest Client using Jaxrs Client API.
+* **restclient-java11** Rest Client using Java 11 HttpClient API.
+* **restclient-munity** Rest Client using Vertx Muntiy WebClient API.
+* **vertx-routes**  Simple CRUD RESTful APIs using Vertx `Router` .
+* **vertx-routes-munity**  Simple CRUD RESTful APIs using Vertx `Router` and Reactive PgClient with Munity APIs.
 
 ## References
 
