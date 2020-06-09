@@ -30,6 +30,7 @@ public class PostRepository {
 
     public CompletionStage<List<Post>> findAll() {
         return client.query("SELECT * FROM posts ORDER BY id ASC")
+                .execute()
                 .thenApply(rs -> StreamSupport.stream(rs.spliterator(), false)
                         .map(this::from)
                         .collect(Collectors.toList())
@@ -41,7 +42,7 @@ public class PostRepository {
     }
 
     public CompletionStage<Post> findById(UUID id) {
-        return client.preparedQuery("SELECT * FROM posts WHERE id=$1", Tuple.of(id))
+        return client.preparedQuery("SELECT * FROM posts WHERE id=$1").execute(Tuple.of(id))
                 .thenApply(RowSet::iterator)
                 .thenApply(iterator -> iterator.hasNext() ? from(iterator.next()) : null)
                 .thenApply(Optional::ofNullable)
@@ -49,22 +50,22 @@ public class PostRepository {
     }
 
     public CompletionStage<UUID> save(Post data) {
-        return client.preparedQuery("INSERT INTO posts(title, content) VALUES ($1, $2) RETURNING (id)", Tuple.of(data.getTitle(), data.getContent()))
+        return client.preparedQuery("INSERT INTO posts(title, content) VALUES ($1, $2) RETURNING (id)").execute(Tuple.of(data.getTitle(), data.getContent()))
                 .thenApply(rs -> rs.iterator().next().getUUID("id"));
     }
 
     public CompletionStage<Integer> update(UUID id, Post data) {
-        return  client.preparedQuery("UPDATE posts SET title=$1, content=$2 WHERE id=$3", Tuple.of(data.getTitle(), data.getContent(), id))
+        return client.preparedQuery("UPDATE posts SET title=$1, content=$2 WHERE id=$3").execute(Tuple.of(data.getTitle(), data.getContent(), id))
                 .thenApply(SqlResult::rowCount);
     }
 
     public CompletionStage<Integer> deleteAll() {
-        return client.query("DELETE FROM posts")
+        return client.query("DELETE FROM posts").execute()
                 .thenApply(SqlResult::rowCount);
     }
 
     public CompletionStage<Integer> delete(String id) {
-        return client.preparedQuery("DELETE FROM posts WHERE id=$1", Tuple.of(UUID.fromString(id)))
+        return client.preparedQuery("DELETE FROM posts WHERE id=$1").execute(Tuple.of(UUID.fromString(id)))
                 .thenApply(SqlResult::rowCount);
     }
 
