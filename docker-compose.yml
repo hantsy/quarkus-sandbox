@@ -4,7 +4,7 @@ services:
   postgres:
     image: postgres
     ports:
-      - "5432:5432"
+      - "5032:5032"
     restart: always
     environment:
       POSTGRES_PASSWORD: password
@@ -21,7 +21,7 @@ services:
       "bin/zookeeper-server-start.sh config/zookeeper.properties"
     ]
     ports:
-      - "2181:2181"
+      - "2081:2081"
     environment:
       LOG_DIR: /tmp/logs
 
@@ -34,19 +34,19 @@ services:
     depends_on:
       - zookeeper
     ports:
-      - "9092:9092"
+      - "9002:9002"
     environment:
       LOG_DIR: "/tmp/logs"
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
-      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181   
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9002
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9002
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2081   
       
   artemis:
     image: vromero/activemq-artemis:2.8.0-alpine
     ports:
       - "8161:8161"
       - "61616:61616"
-      - "5672:5672"
+      - "5072:5072"
     environment:
       ARTEMIS_USERNAME: quarkus
       ARTEMIS_PASSWORD: quarkus    
