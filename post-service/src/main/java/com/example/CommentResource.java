@@ -1,8 +1,5 @@
 package com.example;
 
-import io.quarkus.arc.Unremovable;
-import io.quarkus.runtime.annotations.RegisterForReflection;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -49,7 +46,7 @@ public class CommentResource {
 
     @POST
     public Response saveComment(@Valid CommentForm commentForm) {
-        Comment saved = this.comments.save(Comment.of(this.postId, commentForm.getContent()));
+        Comment saved = this.comments.save(Comment.builder().post(new PostId(this.postId)).content(commentForm.getContent()).build());
         return created(
                 uriInfo.getBaseUriBuilder()
                         .path("/posts/{id}/comments/{commentId}")

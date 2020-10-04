@@ -35,8 +35,8 @@ public class AppInitializer {
     @Transactional
     public void onStart(@Observes StartupEvent ev) {
         LOGGER.info("The application is starting...");
-        Post first = Post.of("Hello Quarkus", "My first post of Quarkus");
-        Post second = Post.of("Hello Again, Quarkus", "My second post of Quarkus");
+        Post first = Post.builder().title("Hello Quarkus").content("My first post of Quarkus").build();
+        Post second = Post.builder().title("Hello Again, Quarkus").content("My second post of Quarkus").build();
 
         this.posts.persist(first, second);
         this.posts.flush();

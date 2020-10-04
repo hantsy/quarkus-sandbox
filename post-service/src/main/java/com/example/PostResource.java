@@ -78,7 +78,7 @@ public class PostResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response savePost(@Valid Post post) {
-        Post saved = this.posts.save(Post.of(post.getTitle(), post.getContent()));
+        Post saved = this.posts.save(Post.builder().title(post.getTitle()).content(post.getContent()).build());
         return created(
                 uriInfo.getBaseUriBuilder()
                         .path("/posts/{id}")
