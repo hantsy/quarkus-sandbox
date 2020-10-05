@@ -90,7 +90,7 @@ public class PostResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPostById(@PathParam("id") final String id) {
-        return this.posts.getById(id)
+        return this.posts.findByIdOptional(id)
                 .map(post -> ok(post).build())
                 .orElseThrow(
                         () -> new PostNotFoundException(id)
@@ -101,7 +101,7 @@ public class PostResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updatePost(@PathParam("id") final String id, @Valid Post post) {
-        return this.posts.getById(id)
+        return this.posts.findByIdOptional(id)
                 .map(existed -> {
                     existed.setTitle(post.getTitle());
                     existed.setContent(post.getContent());

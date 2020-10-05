@@ -23,14 +23,14 @@ public class PostResourceTest {
 
     @Test
     public void getNoneExistedPost_shouldReturn404() {
-        when(this.postRepository.getById(anyString()))
+        when(this.postRepository.findByIdOptional(anyString()))
                 .thenReturn(Optional.ofNullable(null));
         given()
                 .when().get("/posts/"+ UUID.randomUUID().toString())
                 .then()
                 .statusCode(404);
 
-        verify(this.postRepository, times(1)).getById(anyString());
+        verify(this.postRepository, times(1)).findByIdOptional(anyString());
         verifyNoMoreInteractions(this.postRepository);
     }
 
@@ -40,7 +40,7 @@ public class PostResourceTest {
                 .createdAt(LocalDateTime.now())
                 .id(UUID.randomUUID().toString())
                 .build();
-        when(this.postRepository.getById(anyString()))
+        when(this.postRepository.findByIdOptional(anyString()))
                 .thenReturn(Optional.ofNullable(data));
         given()
                 .when().get("/posts/test")
@@ -49,7 +49,7 @@ public class PostResourceTest {
                 .log().all()
                 .body("title", is("Hello Quarkus"));
 
-        verify(this.postRepository, times(1)).getById(anyString());
+        verify(this.postRepository, times(1)).findByIdOptional(anyString());
         verifyNoMoreInteractions(this.postRepository);
     }
 

@@ -52,15 +52,6 @@ public class PostRepository implements PanacheRepositoryBase<Post, String> {
         }
     }
 
-    public Optional<Post> getById(String id) {
-        Post post = null;
-        try {
-            post = this.find("id=:id", Parameters.with("id", id)).singleResult();
-        } catch (NoResultException e) {
-            e.printStackTrace();
-        }
-        return Optional.ofNullable(post);
-    }
 
     @Transactional
     public Post save(Post post) {

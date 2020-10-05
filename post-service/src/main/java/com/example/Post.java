@@ -28,5 +28,7 @@ public class Post implements Serializable {
     String id;
     String title;
     String content;
-    LocalDateTime createdAt;
+
+    @Builder.Default
+    LocalDateTime createdAt= LocalDateTime.now();
 }
