@@ -14,18 +14,20 @@ A  personal sandbox project  to experience the new features of the [Quarkus fram
 
 ## Sample Codes
 
-* **post-service** Simple CURD RESTful APIs using Resteasy, Hibernate
-* **spring** CRUD RESTful APIs using Spring DI, Spring Data JPA, Spring WebMvc
-* **java8**  Simple CRUD RESTful APIs but using Java 8 `CompletionStage` and Reactive Postgre Client
-* **rxjava2** CRUD RESTful APIs using RxJava 2 and Reactive Postgre client
-* **munity**  CRUD RESTful APIs using Smallrye Munity and Reactive Postgre client
-* **restclient** Rest Client using MP RestClient spec
-* **restclient-kolin** Rest Client using MP RestClient spec, but written in Kotlin.
-* **restclient-jaxrs** Rest Client using Jaxrs Client API.
-* **restclient-java11** Rest Client using Java 11 HttpClient API.
-* **restclient-munity** Rest Client using Vertx Muntiy WebClient API.
-* **vertx-routes**  Simple CRUD RESTful APIs using Vertx `Router` .
-* **vertx-routes-munity**  Simple CRUD RESTful APIs using Vertx `Router` and Reactive PgClient with Munity APIs.
+| Name | Description |
+|:----------------|--------------------------------------------------|
+|[post-service](./post-service) |Simple CURD RESTful APIs using Resteasy, Hibernate|
+|[spring](./spring) |CRUD RESTful APIs using Spring DI, Spring Data JPA, Spring WebMvc|
+|[java8](./java8)  |Simple CRUD RESTful APIs but using Java 8 `CompletionStage` and Reactive Postgre Client|
+|[rxjava2](./rxjava8) |CRUD RESTful APIs using RxJava 2 and Reactive Postgre client|
+|[munity](./munity)  |CRUD RESTful APIs using Smallrye Munity and Reactive Postgre client|
+|[restclient](./restclient)|Rest Client using MP RestClient spec|
+|[restclient-kolin](./restclient-kotlin) |Rest Client using MP RestClient spec, but written in Kotlin.|
+|[restclient-jaxrs](./restclient-jaxrs)| Rest Client using Jaxrs Client API.|
+|[restclient-java11](./restclient-java11) |Rest Client using Java 11 HttpClient API.|
+|[restclient-munity](./restclient-munity) |Rest Client using Vertx Muntiy WebClient API.|
+|[vertx-routes](./vertx-routes)  |Simple CRUD RESTful APIs using Vertx `Router` .|
+|[vertx-routes-munity](./vertx-routes-munity)  |Simple CRUD RESTful APIs using Vertx `Router` and Reactive PgClient with Munity APIs.|
 
 ## References
 
