@@ -8,12 +8,12 @@
   <description>Post Service using Spring DI, Spring Data JPA, Spring WebMvc</description>
   <properties>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-    <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
+    <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
     <maven.compiler.parameters>true</maven.compiler.parameters>
     <maven.compiler.release>11</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <quarkus.version>1.8.1.Final</quarkus.version>
+    <quarkus.version>1.8.3.Final</quarkus.version>
   </properties>
   <dependencyManagement>
     <dependencies>
