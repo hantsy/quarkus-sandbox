@@ -15,7 +15,7 @@ A  personal sandbox project  to experience the new features of the [Quarkus fram
 ## Sample Codes
 
 | Name | Description |
-|:----------------|--------------------------------------------------|
+|:-------------------|--------------------------------------------------|
 |[post-service](https://github.com/hantsy/quarkus-sample/tree/master/post-service) |Simple CURD RESTful APIs using Resteasy, Hibernate|
 |[spring](https://github.com/hantsy/quarkus-sample/tree/master/spring) |CRUD RESTful APIs using Spring DI, Spring Data JPA, Spring WebMvc|
 |[java8](https://github.com/hantsy/quarkus-sample/tree/master/java8)  |Simple CRUD RESTful APIs but using Java 8 `CompletionStage` and Reactive Postgre Client|
