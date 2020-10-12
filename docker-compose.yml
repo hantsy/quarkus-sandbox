@@ -42,11 +42,11 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181   
       
   artemis:
-    image: vromero/activemq-artemis:2.8.0-alpine
+    image: hantsy/apache-artemis:2.14.0-debian
     ports:
       - "8161:8161"
       - "61616:61616"
       - "5672:5672"
     environment:
-      ARTEMIS_USERNAME: quarkus
+      ARTEMIS_USER: quarkus
       ARTEMIS_PASSWORD: quarkus    
