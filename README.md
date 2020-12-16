@@ -26,6 +26,7 @@ A  personal sandbox project  to experience the new features of the [Quarkus fram
 |[restclient-jaxrs](https://github.com/hantsy/quarkus-sample/tree/master/restclient-jaxrs)| Rest Client using Jaxrs Client API.|
 |[restclient-java11](https://github.com/hantsy/quarkus-sample/tree/master/restclient-java11) |Rest Client using Java 11 HttpClient API.|
 |[restclient-munity](https://github.com/hantsy/quarkus-sample/tree/master/restclient-munity) |Rest Client using Vertx Muntiy WebClient API.|
+|[resteasy-reactive](https://github.com/hantsy/quarkus-sample/tree/master/resteasy-reactive) |Resteasy Reactive, Hibernate Reactive, Smallrye Munity example.|
 |[vertx-routes](https://github.com/hantsy/quarkus-sample/tree/master/vertx-routes)  |Simple CRUD RESTful APIs using Vertx `Router` .|
 |[vertx-routes-munity](https://github.com/hantsy/quarkus-sample/tree/master/vertx-routes-munity)  |Simple CRUD RESTful APIs using Vertx `Router` and Reactive PgClient with Munity APIs.|
 
