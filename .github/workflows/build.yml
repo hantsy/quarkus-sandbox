@@ -22,49 +22,49 @@ jobs:
         java-version: 11
     - name: Building amqp
       run: |
-        mvn -B package --file amqp/pom.xml -DskipTests
+        mvn -q -B package --file amqp/pom.xml -DskipTests
     - name: Building java8
       run: |    
-        mvn -B package --file java8/pom.xml -DskipTests
+        mvn -q -B package --file java8/pom.xml -DskipTests
     - name: Building java8-hibernate-reactive
       run: |      
-        mvn -B package --file java8-hibernate-reactive/pom.xml -DskipTests
+        mvn -q -B package --file java8-hibernate-reactive/pom.xml -DskipTests
     - name: Building mutiny
       run: |     
-        mvn -B package --file mutiny/pom.xml -DskipTests
+        mvn -q -B package --file mutiny/pom.xml -DskipTests
     - name: Building mutiny-hibernate-reactive
       run: |     
-        mvn -B package --file mutiny-hibernate-reactive/pom.xml -DskipTests
+        mvn -q -B package --file mutiny-hibernate-reactive/pom.xml -DskipTests
     - name: Building post-service
       run: |     
-        mvn -B package --file post-service/pom.xml -DskipTests
+        mvn -q -B package --file post-service/pom.xml -DskipTests
     - name: Building restclient
       run: |     
-        mvn -B package --file restclient/pom.xml -DskipTests
+        mvn -q -B package --file restclient/pom.xml -DskipTests
     - name: Building restclient-java11
       run: |     
-        mvn -B package --file restclient-java11/pom.xml -DskipTests
+        mvn -q -B package --file restclient-java11/pom.xml -DskipTests
     - name: Building restclient-jaxrs
       run: |     
-        mvn -B package --file restclient-jaxrs/pom.xml -DskipTests
+        mvn -q -B package --file restclient-jaxrs/pom.xml -DskipTests
     - name: Building restclient-vertx-mutiny
       run: |     
-        mvn -B package --file restclient-vertx-mutiny/pom.xml -DskipTests
+        mvn -q -B package --file restclient-vertx-mutiny/pom.xml -DskipTests
     - name: Building resteasy-reactive
       run: |     
-        mvn -B package --file resteasy-reactive/pom.xml -DskipTests
+        mvn -q -B package --file resteasy-reactive/pom.xml -DskipTests
     - name: Building rxjava2
       run: |     
-        mvn -B package --file rxjava2/pom.xml -DskipTests
+        mvn -q -B package --file rxjava2/pom.xml -DskipTests
     - name: Building spring
       run: |     
-        mvn -B package --file spring/pom.xml -DskipTests
+        mvn -q -B package --file spring/pom.xml -DskipTests
     - name: Building vertx-routes
       run: |     
-        mvn -B package --file vertx-routes/pom.xml -DskipTests
+        mvn -q -B package --file vertx-routes/pom.xml -DskipTests
     - name: Building vertx-routes-mutiny
       run: |     
-        mvn -B package --file vertx-routes-mutiny/pom.xml -DskipTests
+        mvn -q -B package --file vertx-routes-mutiny/pom.xml -DskipTests
     - name: Building restclient-kotlin
       run: |     
         //kotlin restclient using Gradle
