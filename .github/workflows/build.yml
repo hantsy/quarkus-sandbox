@@ -25,18 +25,18 @@ jobs:
         mvn -B package --file amqp/pom.xml -DskipTests
         mvn -B package --file java8/pom.xml -DskipTests
         mvn -B package --file java8-hibernate-reactive/pom.xml -DskipTests
-        mvn -B package --file munity/pom.xml -DskipTests
-        mvn -B package --file munity-hibernate-reactive/pom.xml -DskipTests
+        mvn -B package --file mutiny/pom.xml -DskipTests
+        mvn -B package --file mutiny-hibernate-reactive/pom.xml -DskipTests
         mvn -B package --file post-service/pom.xml -DskipTests
         mvn -B package --file restclient/pom.xml -DskipTests
         mvn -B package --file restclient-java11/pom.xml -DskipTests
         mvn -B package --file restclient-jaxrs/pom.xml -DskipTests
-        mvn -B package --file restclient-vertx-munity/pom.xml -DskipTests
+        mvn -B package --file restclient-vertx-mutiny/pom.xml -DskipTests
         mvn -B package --file resteasy-reactive/pom.xml -DskipTests
         mvn -B package --file rxjava2/pom.xml -DskipTests
         mvn -B package --file spring/pom.xml -DskipTests
         mvn -B package --file vertx-routes/pom.xml -DskipTests
-        mvn -B package --file vertx-routes-munity/pom.xml -DskipTests
+        mvn -B package --file vertx-routes-mutiny/pom.xml -DskipTests
         
         //kotlin restclient using Gradle
         cd restclient-kotlin
