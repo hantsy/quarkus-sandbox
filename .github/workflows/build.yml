@@ -1,0 +1,48 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+    - name: Build with Maven
+      run: |
+        mvn -B package --file amqp/pom.xml -DskipTests
+        mvn -B package --file java8/pom.xml -DskipTests
+        mvn -B package --file java8-hibernate-reactive/pom.xml -DskipTests
+        mvn -B package --file munity/pom.xml -DskipTests
+        mvn -B package --file munity-hibernate-reactive/pom.xml -DskipTests
+        mvn -B package --file post-service/pom.xml -DskipTests
+        mvn -B package --file restclient/pom.xml -DskipTests
+        mvn -B package --file restclient-java11/pom.xml -DskipTests
+        mvn -B package --file restclient-jaxrs/pom.xml -DskipTests
+        mvn -B package --file restclient-vertx-munity/pom.xml -DskipTests
+        mvn -B package --file resteasy-reactive/pom.xml -DskipTests
+        mvn -B package --file rxjava2/pom.xml -DskipTests
+        mvn -B package --file spring/pom.xml -DskipTests
+        mvn -B package --file vertx-routes/pom.xml -DskipTests
+        mvn -B package --file vertx-routes-munity/pom.xml -DskipTests
+        
+        //kotlin restclient using Gradle
+        cd restclient-kotlin
+        chomod a+x ./gradlew
+        ./gradlew build -x test 
+        
+        
+        
+        
