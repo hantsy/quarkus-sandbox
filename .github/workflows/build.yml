@@ -23,9 +23,9 @@ jobs:
     - name: Building amqp
       run: |
         mvn -q clean  package --file amqp/pom.xml -DskipTests
-    - name: Building java8
-      run: |    
-        mvn -q clean  package --file java8/pom.xml -DskipTests
+    #- name: Building java8
+    #  run: |    
+    #    mvn -q clean  package --file java8/pom.xml -DskipTests
     - name: Building java8-hibernate-reactive
       run: |      
         mvn -q clean  package --file java8-hibernate-reactive/pom.xml -DskipTests
@@ -51,9 +51,9 @@ jobs:
     - name: Building resteasy-reactive
       run: |     
         mvn -q clean  package --file resteasy-reactive/pom.xml -DskipTests
-    - name: Building rxjava2
-      run: |     
-        mvn -q clean  package --file rxjava2/pom.xml -DskipTests
+    #- name: Building rxjava2
+    #  run: |     
+    #    mvn -q clean  package --file rxjava2/pom.xml -DskipTests
     - name: Building spring
       run: |     
         mvn -q clean  package --file spring/pom.xml -DskipTests
