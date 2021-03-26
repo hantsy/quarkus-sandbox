@@ -1,0 +1,64 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  # java8, rxjava2 for Postgres Reactive is deprecated and remove in the latest Quarkus.
+  - package-ecosystem: "maven" # See documentation for possible values
+    directory: "/post-service" # Location of package manifests
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "maven" # See documentation for possible values
+    directory: "/spring" # Location of package manifests
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "maven" # See documentation for possible values
+    directory: "/java8-hibernate-reactive" # Location of package manifests
+    schedule:
+      interval: "weekly"      
+  - package-ecosystem: "maven" # See documentation for possible values
+    directory: "/mutiny" # Location of package manifests
+    schedule:
+      interval: "weekly" 
+  - package-ecosystem: "maven" # See documentation for possible values
+    directory: "/mutiny-hibernate-reactive" # Location of package manifests
+    schedule:
+      interval: "weekly" 
+  - package-ecosystem: "maven" # See documentation for possible values
+    directory: "/restclient" # Location of package manifests
+    schedule:
+      interval: "weekly" 
+  - package-ecosystem: "maven" # See documentation for possible values
+    directory: "/restclient-java11" # Location of package manifests
+    schedule:
+      interval: "weekly"      
+  - package-ecosystem: "maven" # See documentation for possible values
+    directory: "/restclient-jaxrs" # Location of package manifests
+    schedule:
+      interval: "weekly"  
+  - package-ecosystem: "maven" # See documentation for possible values
+    directory: "/restclient-kotlin" # Location of package manifests
+    schedule:
+      interval: "weekly"  
+  - package-ecosystem: "maven" # See documentation for possible values
+    directory: "/restclient-vertx-mutiny" # Location of package manifests
+    schedule:
+      interval: "weekly"  
+  - package-ecosystem: "maven" # See documentation for possible values
+    directory: "/resteasy-reactive" # Location of package manifests
+    schedule:
+      interval: "weekly"  
+
+  - package-ecosystem: "maven" # See documentation for possible values
+    directory: "/vertx-routes" # Location of package manifests
+    schedule:
+      interval: "weekly"  
+
+  - package-ecosystem: "maven" # See documentation for possible values
+    directory: "/vertx-routes-munity" # Location of package manifests
+    schedule:
+      interval: "weekly"  
+
+      
