@@ -15,6 +15,10 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "maven" # See documentation for possible values
+    directory: "/amqp" # Location of package manifests
+    schedule:
+      interval: "weekly"  
+  - package-ecosystem: "maven" # See documentation for possible values
     directory: "/java8-hibernate-reactive" # Location of package manifests
     schedule:
       interval: "weekly"      
