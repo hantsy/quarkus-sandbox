@@ -5,7 +5,7 @@
 
 version: 2
 updates:
-  # java8, rxjava2 for Postgres Reactive is deprecated and remove in the latest Quarkus.
+  # java8, rxjava2, vertx-routes used Postgres Reactive API for Java 8 and RxJava2 which are deprecated and removed in the latest Quarkus.
   - package-ecosystem: "maven" # See documentation for possible values
     directory: "/post-service" # Location of package manifests
     schedule:
@@ -49,12 +49,7 @@ updates:
   - package-ecosystem: "maven" # See documentation for possible values
     directory: "/resteasy-reactive" # Location of package manifests
     schedule:
-      interval: "weekly"  
-
-  - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/vertx-routes" # Location of package manifests
-    schedule:
-      interval: "weekly"  
+      interval: "weekly"   
 
   - package-ecosystem: "maven" # See documentation for possible values
     directory: "/vertx-routes-munity" # Location of package manifests
