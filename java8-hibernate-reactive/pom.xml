@@ -25,7 +25,7 @@
         <!-- Quarkus BOM -->
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.version>1.12.2.Final</quarkus.platform.version>
+        <quarkus.platform.version>1.13.0.Final</quarkus.platform.version>
     </properties>
     <dependencyManagement>
         <dependencies>
