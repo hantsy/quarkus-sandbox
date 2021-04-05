@@ -25,6 +25,8 @@ A  personal sandbox project  to experience the new features of the [Quarkus fram
 |[restclient-java11](https://github.com/hantsy/quarkus-sample/tree/master/restclient-java11) |Rest Client using Java 11 HttpClient API.|
 |[restclient-munity](https://github.com/hantsy/quarkus-sample/tree/master/restclient-munity) |Rest Client using Vertx Muntiy WebClient API.|
 |[resteasy-reactive](https://github.com/hantsy/quarkus-sample/tree/master/resteasy-reactive) |Resteasy Reactive, Hibernate Reactive, Smallrye Munity example.|
+|[java8-hibernate-reactive](https://github.com/hantsy/quarkus-sample/tree/master/java8-hibernate-reactive) |Java 8 CompletablFuture, Hibernate Reactive Example.|
+|[mutiny-hibernate-reactive](https://github.com/hantsy/quarkus-sample/tree/master/mutiny-hibernate-reactive) |Resteasy, Hibernate Reactive, Smallrye Munity example.|
 |[vertx-routes-munity](https://github.com/hantsy/quarkus-sample/tree/master/vertx-routes-munity)  |Simple CRUD RESTful APIs using Vertx `Router` and Reactive PgClient with Munity APIs.|
 
 The following examples used Java 8 or RxJava 2 based Reactive Postgres Client which is depreacted and not available in the latest Qukarus. 
