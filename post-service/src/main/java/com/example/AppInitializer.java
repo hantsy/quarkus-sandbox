@@ -12,9 +12,9 @@ import java.util.logging.Logger;
 @ApplicationScoped
 public class AppInitializer {
     private final static Logger LOGGER = Logger.getLogger(AppInitializer.class.getName());
-
+    
     @Inject
-    private PostRepository posts;
+    PostRepository posts;
 
 //    @Inject
 //    TransactionManager tm;
@@ -31,19 +31,19 @@ public class AppInitializer {
 //            ex.printStackTrace();
 //        }
 //    }
-
+    
     @Transactional
     public void onStart(@Observes StartupEvent ev) {
         LOGGER.info("The application is starting...");
         Post first = Post.builder().title("Hello Quarkus").content("My first post of Quarkus").build();
         Post second = Post.builder().title("Hello Again, Quarkus").content("My second post of Quarkus").build();
-
+        
         this.posts.persist(first, second);
         this.posts.flush();
-
+        
         this.posts.listAll().forEach(p -> System.out.println("Post:" + p));
     }
-
+    
     void onStop(@Observes ShutdownEvent ev) {
         LOGGER.info("The application is stopping...");
     }
