@@ -76,7 +76,7 @@ public class PostResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Authenticated
-    public Response updatePost(@PathParam("id") final String id, @Valid UpdatePostCommand post) {
+    public Response updatePost(@PathParam("id") @NotEmpty final String id, @Valid UpdatePostCommand post) {
         return this.posts.findByIdOptional(id)
                 .map(existed -> {
                     existed.setTitle(post.title());

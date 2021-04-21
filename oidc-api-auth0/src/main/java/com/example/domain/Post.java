@@ -34,6 +34,7 @@ public class Post implements Serializable {
     String content;
 
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     Status status = Status.DRAFT;
 
     @Builder.Default
