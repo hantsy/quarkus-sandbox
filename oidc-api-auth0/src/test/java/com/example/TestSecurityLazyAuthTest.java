@@ -18,7 +18,6 @@ public class TestSecurityLazyAuthTest {
 
 
     @Test
-    @TestSecurity(authorizationEnabled = false)
     public void testGetAllPostsWithoutAuth() {
         //@formatter:off
         given()
@@ -41,6 +40,20 @@ public class TestSecurityLazyAuthTest {
             .post("")
         .then()
             .statusCode(401);
+        //@formatter:on
+    }
+
+    @Test
+    @TestSecurity(user = "alice", roles = "user")
+    public void testCreatPostsWithAuth() {
+        //@formatter:off
+        given()
+                .body(Post.builder().title("test title").content("test content").build())
+                .contentType(ContentType.JSON)
+                .when()
+                .post("")
+                .then()
+                .statusCode(201);
         //@formatter:on
     }
 //TODO: SecurityAttribute is not available in the current version.
