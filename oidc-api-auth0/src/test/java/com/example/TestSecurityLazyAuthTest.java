@@ -31,7 +31,7 @@ public class TestSecurityLazyAuthTest {
     }
 
     @Test
-    @TestSecurity(authorizationEnabled = false)
+    //@TestSecurity(authorizationEnabled = false)
     public void testCreatPostsWithoutAuth() {
         //@formatter:off
         given()
