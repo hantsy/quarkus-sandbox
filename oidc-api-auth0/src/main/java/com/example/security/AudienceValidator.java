@@ -23,8 +23,8 @@ public class AudienceValidator implements ContainerRequestFilter {
     SecurityIdentity identity;
 
     public void filter(ContainerRequestContext requestContext) {
-        String aud = configMetadata.get("audience").replace("{tenant-id}", identity.getAttribute("tenant-id"));
-        if (!aud.equals(jwt.getAudience())) {
+        String aud = configMetadata.get("audience");//.replace("{tenant-id}", identity.getAttribute("tenant-id"));
+        if (!jwt.getAudience().contains(aud)) {
             requestContext.abortWith(Response.status(401).build());
         }
     }

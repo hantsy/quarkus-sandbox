@@ -4,20 +4,25 @@ import com.example.domain.Post;
 import com.example.web.PostResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.junit.TestProfile;
 import io.quarkus.test.security.TestSecurity;
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 
 @QuarkusTest
 @TestHTTPEndpoint(PostResource.class)
+@TestProfile(PropertiesFileEmbeddedUsersProfile.class)
 public class TestSecurityLazyAuthTest {
+
 
     @Test
     @TestSecurity(authorizationEnabled = false)
     public void testGetAllPostsWithoutAuth() {
         //@formatter:off
         given()
+            .accept(ContentType.JSON)
         .when()
             .get("")
         .then()
@@ -31,6 +36,7 @@ public class TestSecurityLazyAuthTest {
         //@formatter:off
         given()
             .body(Post.builder().title("test title").content("test content").build())
+            .contentType(ContentType.JSON)
         .when()
             .post("")
         .then()

@@ -1,8 +1,7 @@
 package com.example;
 
-import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.oidc.server.OidcWiremockTestResource;
+import io.quarkus.test.junit.TestProfile;
 import io.smallrye.jwt.build.Jwt;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +12,7 @@ import java.util.Set;
 import static io.restassured.RestAssured.given;
 
 @QuarkusTest
-@QuarkusTestResource(OidcWiremockTestResource.class)
+@TestProfile(MockOidcServerProfile.class)
 public class BearerTokenAuthorizationTest {
 
     @Test

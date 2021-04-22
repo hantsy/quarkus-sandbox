@@ -10,7 +10,7 @@ import io.quarkus.jackson.ObjectMapperCustomizer;
 import javax.inject.Singleton;
 
 @Singleton
-public class CustomObjectMapperCustomizer implements ObjectMapperCustomizer {
+public class ObjectMapperConfig implements ObjectMapperCustomizer {
 
     @Override
     public void customize(ObjectMapper objectMapper) {
