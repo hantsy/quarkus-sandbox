@@ -48,12 +48,12 @@ public class TestSecurityLazyAuthTest {
     public void testCreatPostsWithAuth() {
         //@formatter:off
         given()
-                .body(Post.builder().title("test title").content("test content").build())
-                .contentType(ContentType.JSON)
-                .when()
-                .post("")
-                .then()
-                .statusCode(201);
+            .body(Post.builder().title("test title").content("test content").build())
+            .contentType(ContentType.JSON)
+        .when()
+            .post("")
+        .then()
+            .statusCode(201);
         //@formatter:on
     }
 //TODO: SecurityAttribute is not available in the current version.
