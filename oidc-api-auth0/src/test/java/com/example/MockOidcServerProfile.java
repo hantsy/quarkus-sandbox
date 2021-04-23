@@ -1,6 +1,8 @@
 package com.example;
 
 import io.quarkus.test.junit.QuarkusTestProfile;
+import io.quarkus.test.oidc.server.OidcWiremockTestResource;
+import java.util.List;
 
 import java.util.Map;
 
@@ -13,12 +15,18 @@ public class MockOidcServerProfile implements QuarkusTestProfile {
                 "quarkus.oidc.credentials.secret", "secret",
                 "quarkus.oidc.token.principal-claim", "email",
                 "quarkus.oidc.tls.verification", "none",
-                "smallrye.jwt.sign.key-location","false"
+                "smallrye.jwt.sign.key-location","privateKey.pem"
         );
     }
 
     @Override
+    public List<TestResourceEntry> testResources() {
+        return List.of(new TestResourceEntry(OidcWiremockTestResource.class));
+    }
+    
+    @Override
     public String getConfigProfile() {
         return "mock-oidc-server";
     }
+
 }
