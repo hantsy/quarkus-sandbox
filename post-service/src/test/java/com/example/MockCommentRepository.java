@@ -1,6 +1,7 @@
 package com.example;
 
-import javax.enterprise.context.ApplicationScoped;
+import com.example.domain.Comment;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

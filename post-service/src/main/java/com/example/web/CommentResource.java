@@ -1,4 +1,8 @@
-package com.example;
+package com.example.web;
+
+import com.example.domain.Comment;
+import com.example.domain.PostId;
+import com.example.repository.CommentRepository;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -45,7 +49,7 @@ public class CommentResource {
     }
 
     @POST
-    public Response saveComment(@Valid CommentForm commentForm) {
+    public Response saveComment(@Valid CreateCommentCommand commentForm) {
         Comment saved = this.comments.save(Comment.builder().post(new PostId(this.postId)).content(commentForm.getContent()).build());
         return created(
                 uriInfo.getBaseUriBuilder()

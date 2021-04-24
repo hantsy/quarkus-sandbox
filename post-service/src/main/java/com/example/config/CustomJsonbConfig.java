@@ -1,4 +1,4 @@
-package com.example;
+package com.example.config;
 
 import io.quarkus.jsonb.JsonbConfigCustomizer;
 import lombok.extern.slf4j.Slf4j;

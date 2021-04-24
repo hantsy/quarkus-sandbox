@@ -1,5 +1,7 @@
 package com.example;
 
+import com.example.domain.Post;
+import com.example.repository.PostRepository;
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;
 
@@ -10,8 +12,8 @@ import javax.transaction.Transactional;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-public class AppInitializer {
-    private final static Logger LOGGER = Logger.getLogger(AppInitializer.class.getName());
+public class DataInitializer {
+    private final static Logger LOGGER = Logger.getLogger(DataInitializer.class.getName());
     
     @Inject
     PostRepository posts;

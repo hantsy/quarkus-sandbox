@@ -1,5 +1,7 @@
 package com.example;
 
+import com.example.domain.Post;
+import com.example.repository.PostRepository;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.mockito.InjectMock;
 import org.junit.jupiter.api.Test;

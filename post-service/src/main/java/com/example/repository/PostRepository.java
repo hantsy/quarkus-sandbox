@@ -1,16 +1,14 @@
-package com.example;
+package com.example.repository;
 
+import com.example.domain.Post;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import io.quarkus.hibernate.orm.panache.runtime.JpaOperations;
-import io.quarkus.panache.common.Parameters;
 import io.quarkus.panache.common.Sort;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @ApplicationScoped
 public class PostRepository implements PanacheRepositoryBase<Post, String> {

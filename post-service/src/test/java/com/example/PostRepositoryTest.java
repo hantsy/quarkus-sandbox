@@ -1,18 +1,16 @@
 package com.example;
 
-import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.h2.H2DatabaseTestResource;
+import com.example.repository.PostRepository;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
 import java.util.logging.Logger;
 
 @QuarkusTest
-@QuarkusTestResource(H2DatabaseTestResource.class)
+//@QuarkusTestResource(H2DatabaseTestResource.class)
 @TestProfile(H2Profile.class)
 public class PostRepositoryTest {
 

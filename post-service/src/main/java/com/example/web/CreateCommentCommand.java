@@ -1,15 +1,15 @@
-package com.example;
+package com.example.web;
 
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
-public class CommentForm implements Serializable {
+public class CreateCommentCommand implements Serializable {
 
     @NotEmpty
     private String content;
 
-    public static CommentForm of(String content) {
-        CommentForm form= new CommentForm();
+    public static CreateCommentCommand of(String content) {
+        CreateCommentCommand form= new CreateCommentCommand();
         form.setContent(content);
         return form;
     }

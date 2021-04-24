@@ -1,5 +1,13 @@
 package com.example;
 
+import com.example.domain.Comment;
+import com.example.domain.Post;
+import com.example.domain.PostId;
+import com.example.repository.CommentRepository;
+import com.example.repository.PostRepository;
+import com.example.service.PostService;
+import com.example.web.CreateCommentCommand;
+import com.example.web.PostNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -49,7 +57,7 @@ class PostServiceTest {
                     .thenReturn(Comment.builder().post(new PostId("testid")).content("test comment").createdAt(LocalDateTime.now()).build());
             doNothing().when(commentEvent).fire(any(Comment.class));
             
-            service.addComment(new PostId("testid"), CommentForm.of("test comment"));
+            service.addComment(new PostId("testid"), CreateCommentCommand.of("test comment"));
             verify(postRepository, times(1)).findByIdOptional(anyString());
             verify(commentRepository, times(1)).save(any(Comment.class));
             verify(commentEvent, times(1)).fire(any(Comment.class));
@@ -63,7 +71,7 @@ class PostServiceTest {
                     .thenReturn(Optional.ofNullable(null));
             
             assertThrows(PostNotFoundException.class, () -> {
-                service.addComment(new PostId("testid"), CommentForm.of("test comment"));
+                service.addComment(new PostId("testid"), CreateCommentCommand.of("test comment"));
             });
             
             verify(postRepository, times(1)).findByIdOptional(anyString());
@@ -102,7 +110,7 @@ class PostServiceTest {
                     .thenReturn(Comment.builder().post(new PostId("testid")).content("test comment").createdAt(LocalDateTime.now()).build());
             doNothing().when(commentEvent).fire(any(Comment.class));
             
-            service.addComment(new PostId("testid"), CommentForm.of("test comment"));
+            service.addComment(new PostId("testid"), CreateCommentCommand.of("test comment"));
             verify(postRepository, times(1)).findByIdOptional(anyString());
             verify(commentRepository, times(1)).save(any(Comment.class));
             verify(commentEvent, times(1)).fire(any(Comment.class));
@@ -116,7 +124,7 @@ class PostServiceTest {
                     .thenReturn(Optional.ofNullable(null));
             
             assertThrows(PostNotFoundException.class, () -> {
-                service.addComment(new PostId("testid"), CommentForm.of("test comment"));
+                service.addComment(new PostId("testid"), CreateCommentCommand.of("test comment"));
             });
             
             verify(postRepository, times(1)).findByIdOptional(anyString());

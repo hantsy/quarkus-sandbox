@@ -1,5 +1,6 @@
-package com.example;
+package com.example.service;
 
+import com.example.domain.Comment;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.enterprise.context.ApplicationScoped;

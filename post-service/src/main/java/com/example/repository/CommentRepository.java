@@ -1,5 +1,6 @@
-package com.example;
+package com.example.repository;
 
+import com.example.domain.Comment;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import io.quarkus.hibernate.orm.panache.runtime.JpaOperations;
 

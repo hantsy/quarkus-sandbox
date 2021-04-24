@@ -1,5 +1,7 @@
-package com.example;
+package com.example.web;
 
+import com.example.domain.Post;
+import com.example.repository.PostRepository;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.ParameterIn;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;

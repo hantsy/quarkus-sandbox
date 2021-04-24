@@ -1,4 +1,4 @@
-package com.example;
+package com.example.domain;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;

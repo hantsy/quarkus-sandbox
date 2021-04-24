@@ -1,4 +1,4 @@
-package com.example;
+package com.example.web;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
@@ -14,7 +14,7 @@ import java.lang.reflect.Type;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Provider
+//@Provider
 public class StreamBodyWriter implements MessageBodyWriter<Stream> {
 
     @Context

@@ -1,4 +1,4 @@
-package com.example;
+package com.example.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,10 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -19,16 +16,20 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "posts")
-public class Post implements Serializable {
+@Table(name = "comments")
+public class Comment implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    String id;
-    String title;
-    String content;
+    private String id;
 
-    @Builder.Default
-    LocalDateTime createdAt= LocalDateTime.now();
+    @Embedded
+    @AttributeOverride(
+            name = "id",
+            column = @Column(name = "post_id")
+    )
+    private PostId post;
+    private String content;
+    private LocalDateTime createdAt;
 }
