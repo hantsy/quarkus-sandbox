@@ -2,10 +2,15 @@ package com.example;
 
 import com.example.domain.Post;
 import com.example.repository.PostRepository;
+import com.example.web.CreatePostCommand;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.mockito.InjectMock;
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
+import javax.inject.Inject;
+import javax.json.bind.Jsonb;
+import javax.json.bind.annotation.JsonbCreator;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +18,7 @@ import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.*;
@@ -23,12 +29,15 @@ public class PostResourceTest {
     @InjectMock
     PostRepository postRepository;
 
+    @Inject
+    Jsonb jsonb;
+
     @Test
     public void getNoneExistedPost_shouldReturn404() {
         when(this.postRepository.findByIdOptional(anyString()))
                 .thenReturn(Optional.ofNullable(null));
         given()
-                .when().get("/posts/"+ UUID.randomUUID().toString())
+                .when().get("/posts/" + UUID.randomUUID().toString())
                 .then()
                 .statusCode(404);
 
@@ -66,7 +75,8 @@ public class PostResourceTest {
                         List.of(data)
                 );
         given()
-                .when().get("/posts?q=")
+                .queryParam("q", "")
+                .when().get("/posts")
                 .then()
                 .statusCode(200)
                 .log().all()
@@ -76,6 +86,30 @@ public class PostResourceTest {
                 );
 
         verify(this.postRepository, times(1)).findByKeyword(anyString(), isA(int.class), isA(int.class));
+        verifyNoMoreInteractions(this.postRepository);
+    }
+
+    @Test
+    public void createPost() {
+        var data = Post.builder().title("Hello Quarkus").content("My first post of Quarkus")
+                .createdAt(LocalDateTime.now())
+                .id(UUID.randomUUID().toString())
+                .build();
+        when(this.postRepository.save(any(Post.class)))
+                .thenReturn(data);
+        //@formatter:off
+        given()
+            .body(new CreatePostCommand("Hello Quarkus", "Test Content"))
+            .contentType(ContentType.JSON)
+        .when()
+            .post("/posts")
+        .then()
+            .statusCode(201)
+            .log().all()
+            .header("Location", notNullValue());
+        //@formatter:on
+
+        verify(this.postRepository, times(1)).save(any(Post.class));
         verifyNoMoreInteractions(this.postRepository);
     }
 

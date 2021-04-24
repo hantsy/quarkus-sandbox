@@ -24,7 +24,7 @@ public class PostService {
                 .ifPresentOrElse(
                         post -> {
                             var comment = Comment.builder().post(postId)
-                                    .content(commentForm.getContent())
+                                    .content(commentForm.content())
                                     .build();
                             var saved  = commentRepository.save(comment);
                             commentEvent.fire(saved);

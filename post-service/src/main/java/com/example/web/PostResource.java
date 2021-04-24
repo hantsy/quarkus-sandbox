@@ -79,8 +79,8 @@ public class PostResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response savePost(@Valid Post post) {
-        Post saved = this.posts.save(Post.builder().title(post.getTitle()).content(post.getContent()).build());
+    public Response savePost(@Valid CreatePostCommand post) {
+        Post saved = this.posts.save(Post.builder().title(post.title()).content(post.content()).build());
         return created(
                 uriInfo.getBaseUriBuilder()
                         .path("/posts/{id}")
@@ -102,11 +102,11 @@ public class PostResource {
     @Path("{id}")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updatePost(@PathParam("id") final String id, @Valid Post post) {
+    public Response updatePost(@PathParam("id") final String id, @Valid UpdatePostCommand post) {
         return this.posts.findByIdOptional(id)
                 .map(existed -> {
-                    existed.setTitle(post.getTitle());
-                    existed.setContent(post.getContent());
+                    existed.setTitle(post.title());
+                    existed.setContent(post.content());
 
                     Post saved = this.posts.save(existed);
                     return noContent().build();

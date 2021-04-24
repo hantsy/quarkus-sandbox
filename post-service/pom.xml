@@ -4,8 +4,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.example</groupId>
-    <artifactId>demo</artifactId>
+    <artifactId>quarkus-demo-post-service</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <name>quarkus-demo-post-service</name>
     <properties>
         <!-- quarkus -->
         <quarkus.version>2.0.0.Alpha1</quarkus.version>
@@ -18,6 +19,7 @@
         <!-- project encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <byte-buddy.version>1.11.0</byte-buddy.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -55,6 +57,13 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jdbc-postgresql</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/net.bytebuddy/byte-buddy -->
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>${byte-buddy.version}</version>
         </dependency>
 
         <dependency>
@@ -109,6 +118,27 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy-maven-plugin</artifactId>
+                <version>${byte-buddy.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>transform</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <transformations>
+                        <transformation>
+                            <plugin>
+                                com.example.support.RecordValidationPlugin
+                            </plugin>
+                        </transformation>
+                    </transformations>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>

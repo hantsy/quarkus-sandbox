@@ -50,7 +50,7 @@ public class CommentResource {
 
     @POST
     public Response saveComment(@Valid CreateCommentCommand commentForm) {
-        Comment saved = this.comments.save(Comment.builder().post(new PostId(this.postId)).content(commentForm.getContent()).build());
+        Comment saved = this.comments.save(Comment.builder().post(new PostId(this.postId)).content(commentForm.content()).build());
         return created(
                 uriInfo.getBaseUriBuilder()
                         .path("/posts/{id}/comments/{commentId}")
