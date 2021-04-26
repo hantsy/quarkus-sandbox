@@ -13,9 +13,10 @@ public class MockOidcServerProfile implements QuarkusTestProfile {
                 "quarkus.oidc.auth-server-url", "${keycloak.url}/realms/quarkus/",
                 "quarkus.oidc.client-id", "quarkus-service-app",
                 "quarkus.oidc.credentials.secret", "secret",
-                "quarkus.oidc.token.principal-claim", "email",
-                "quarkus.oidc.tls.verification", "none",
-                "smallrye.jwt.sign.key-location","privateKey.pem"
+                "quarkus.oidc.token.audience", "https://server.example.com",
+                "quarkus.oidc.token.principal-claim", "username",
+                //"quarkus.oidc.tls.verification", "none",
+                "smallrye.jwt.sign.key-location","privateKey.jwk"
         );
     }
 

@@ -3,6 +3,7 @@ package com.example;
 import com.example.web.CreatePostCommand;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
+import io.restassured.http.ContentType;
 import io.smallrye.jwt.build.Jwt;
 import org.junit.jupiter.api.Test;
 
@@ -22,6 +23,7 @@ public class InlinedPublicKeyAuthorizationTest {
         given()
             .auth().oauth2(getAccessToken("alice", Set.of("user")))
             .body(new CreatePostCommand("test title", "test content"))
+            .contentType(ContentType.JSON)
         .when()
             .post("/posts")
         .then()
@@ -31,6 +33,7 @@ public class InlinedPublicKeyAuthorizationTest {
         //@formatter:on
     }
 
+    //
     private String getAccessToken(String userName, Set<String> groups) {
         return Jwt.preferredUserName(userName)
                 .claim("scope", "write:posts")
@@ -39,6 +42,6 @@ public class InlinedPublicKeyAuthorizationTest {
                 .audience("https://service.example.com")
                 .jws()
                 .keyId("1")
-                .sign();
+                .sign("privateKey.jwk");
     }
 }

@@ -18,7 +18,8 @@ public class InlinedPublicKeyProfile implements QuarkusTestProfile {
                         "FIBuMmA/lE7PHKlBqcsS1EXkyI1TBGcdH+VWhUvsDVehKSlZoUCE6XrWY3M/xzyb" +
                         "gN+C9KPln+fQZ42Fnqo6PpD++NWRo8vgWxsMsqb+nltEQADfd8CFEuLt1BvObh8N" +
                         "fQIDAQAB",
-                "smallrye.jwt.sign.key-location", "privateKey.pem"
+                "quarkus.oidc.token.audience", "https://service.example.com",
+                "smallrye.jwt.sign.key-location", "privateKey.jwk"
         );
     }
 
