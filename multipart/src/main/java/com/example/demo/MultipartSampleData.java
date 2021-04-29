@@ -8,7 +8,7 @@ import javax.ws.rs.core.MediaType;
 import java.io.InputStream;
 
 @Data
-public class MultiformData {
+public class MultipartSampleData {
     @FormParam("file")
     @PartType("text/scv")
     InputStream part;

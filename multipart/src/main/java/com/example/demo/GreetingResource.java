@@ -23,10 +23,21 @@ public class GreetingResource {
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.TEXT_PLAIN)
-    public String upload(@MultipartForm MultiformData data) throws IOException {
+    public String upload(@MultipartForm MultipartSampleData data) throws IOException {
         var uploaded = data.getPart();
         var content = IOUtils.toString(uploaded, StandardCharsets.UTF_8);
         LOGGER.log(Level.INFO, "test field: {0}", data.getTest());
+        LOGGER.log(Level.INFO, "part field: {0}", content);
+        
+        return content;
+    }
+    
+    @POST()
+    @Path("/bin")
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String upload(byte[] data) throws IOException {
+        var content = IOUtils.toString(data, StandardCharsets.UTF_8.toString());
         LOGGER.log(Level.INFO, "part field: {0}", content);
         
         return content;
