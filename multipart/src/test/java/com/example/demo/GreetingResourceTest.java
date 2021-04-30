@@ -25,8 +25,8 @@ public class GreetingResourceTest {
     @Test
     public void testUploadEndpoint() {
         given().formParam("test", "a String field")
-                .formParam("checked", "true")
-                .formParam("choice", "YES")
+//                .formParam("checked", "true")
+//                .formParam("choice", "YES")
                 .multiPart("file", new File("test.csv"), "text/csv")
                 .when().post("")
                 .then()
@@ -46,8 +46,8 @@ public class GreetingResourceTest {
     @Test
     public void testUpload2Endpoint() {
         given().formParam("test", "a String field")
-                .formParam("checked", "true")
-                .formParam("choice", "YES")
+//                .formParam("checked", "true")
+//                .formParam("choice", "YES")
                 .multiPart("file", new File("test.csv"), "text/csv")
                 .when().post("upload2")
                 .then()

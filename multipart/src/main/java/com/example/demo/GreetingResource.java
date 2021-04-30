@@ -61,11 +61,11 @@ public class GreetingResource {
         });
         var test = input.getFormDataPart("test", new GenericType<String>() {
         });
-        var checked = input.getFormDataPart("checked", new GenericType<Boolean>() {
-        });
-        var choice = input.getFormDataPart("choice", new GenericType<Choice>() {
-        });
-        LOGGER.log(Level.INFO, "part:{0}, test:{1}, checked: {2}, choice: {3}", new Object[]{part, test, checked, choice});
+//        var checked = input.getFormDataPart("checked", new GenericType<Boolean>() {
+//        });
+//        var choice = input.getFormDataPart("choice", new GenericType<Choice>() {
+//        });
+//        LOGGER.log(Level.INFO, "part:{0}, test:{1}, checked: {2}, choice: {3}", new Object[]{part, test, checked, choice});
 //        input.getParts().forEach(
 //                part -> {
 //                    try {
