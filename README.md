@@ -29,6 +29,7 @@ A  personal sandbox project  to experience the new features of the [Quarkus fram
 |[mutiny-hibernate-reactive](https://github.com/hantsy/quarkus-sample/tree/master/mutiny-hibernate-reactive) |Resteasy, Hibernate Reactive, Smallrye Munity example.|
 |[vertx-routes-munity](https://github.com/hantsy/quarkus-sample/tree/master/vertx-routes-munity)  |Simple CRUD RESTful APIs using Vertx `Router` and Reactive PgClient with Munity APIs.|
 |[multipart](https://github.com/hantsy/quarkus-sample/tree/master/multipart)  |Multipart examples|
+|[amqp](https://github.com/hantsy/quarkus-sample/tree/master/amqp)  |AMQP, MP reactive messaging and JAXRS SSE examples|
 
 The following examples used Java 8 or RxJava 2 based Reactive Postgres Client which is depreacted and not available in the latest Qukarus. 
 
