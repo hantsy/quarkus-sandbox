@@ -10,7 +10,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
 public class GreetingResourceTest {
-    
+
     @Test
     public void testHelloEndpoint() {
         given()
@@ -19,7 +19,7 @@ public class GreetingResourceTest {
                 .statusCode(200)
                 .body(is("Hello RESTEasy"));
     }
-    
+
     @Test
     public void testUploadEndpoint() {
         given().formParam("test", "a String field")
@@ -28,7 +28,16 @@ public class GreetingResourceTest {
                 .then()
                 .statusCode(200).log().all(true);
     }
-    
+
+    @Test
+    public void testUpload2Endpoint() {
+        given().formParam("test", "a String field")
+                .multiPart("file", new File("test.csv"), "text/csv")
+                .when().post("upload2")
+                .then()
+                .statusCode(200).log().all(true);
+    }
+
     @Test
     public void testUploadBinEndpoint() {
         given().body(new File("test.csv"))
@@ -37,5 +46,15 @@ public class GreetingResourceTest {
                 .then()
                 .statusCode(200).log().all(true);
     }
-    
+
+
+    @Test
+    public void testMultiFormOutputEndpoint() {
+        given()
+                .when().get("/output")
+                .then()
+                .statusCode(200)
+                .log().all(true);
+    }
+
 }

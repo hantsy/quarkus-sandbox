@@ -12,9 +12,7 @@ public class MultipartSampleData {
     @FormParam("file")
     @PartType("text/scv")
     InputStream part;
-    
-    
+
     @FormParam("test")
-    @PartType(MediaType.TEXT_PLAIN)
     String test;
 }
