@@ -4,7 +4,6 @@ import lombok.Data;
 import org.jboss.resteasy.annotations.providers.multipart.PartType;
 
 import javax.ws.rs.FormParam;
-import javax.ws.rs.core.MediaType;
 import java.io.InputStream;
 
 @Data
@@ -15,4 +14,11 @@ public class MultipartSampleData {
 
     @FormParam("test")
     String test;
+
+    @FormParam("checked")
+    boolean checked = false;
+
+    @FormParam("choice")
+    Choice choice = Choice.NO;
+
 }

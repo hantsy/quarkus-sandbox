@@ -1,9 +1,11 @@
 package com.example.demo;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.time.LocalDateTime;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
@@ -23,6 +25,8 @@ public class GreetingResourceTest {
     @Test
     public void testUploadEndpoint() {
         given().formParam("test", "a String field")
+                .formParam("checked", "true")
+                .formParam("choice", "YES")
                 .multiPart("file", new File("test.csv"), "text/csv")
                 .when().post("")
                 .then()
@@ -30,8 +34,20 @@ public class GreetingResourceTest {
     }
 
     @Test
+    public void testPostPOJOEndpoint() {
+        given().body(SimplePoJo.of("a test string", true, Choice.YES, LocalDateTime.now(), null))
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .when().post("pojo")
+                .then()
+                .statusCode(200).log().all(true);
+    }
+
+    @Test
     public void testUpload2Endpoint() {
         given().formParam("test", "a String field")
+                .formParam("checked", "true")
+                .formParam("choice", "YES")
                 .multiPart("file", new File("test.csv"), "text/csv")
                 .when().post("upload2")
                 .then()
