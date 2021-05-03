@@ -38,7 +38,8 @@ public class GreetingResource {
         var content = IOUtils.toString(uploaded, StandardCharsets.UTF_8);
         LOGGER.log(Level.INFO, "test field: {0}", data.getTest());
         LOGGER.log(Level.INFO, "part field: {0}", content);
-
+        LOGGER.log(Level.INFO, "checked: {0}", data.isChecked());
+        LOGGER.log(Level.INFO, "choice: {0}", data.getChoice());
         return content;
     }
 
@@ -57,15 +58,19 @@ public class GreetingResource {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.TEXT_PLAIN)
     public String upload2(MultipartFormDataInput input) throws IOException {
-        var part = input.getFormDataPart("part", new GenericType<byte[]>() {
+        var part = input.getFormDataPart("file", new GenericType<byte[]>() {
         });
         var test = input.getFormDataPart("test", new GenericType<String>() {
         });
-//        var checked = input.getFormDataPart("checked", new GenericType<Boolean>() {
-//        });
-//        var choice = input.getFormDataPart("choice", new GenericType<Choice>() {
-//        });
-//        LOGGER.log(Level.INFO, "part:{0}, test:{1}, checked: {2}, choice: {3}", new Object[]{part, test, checked, choice});
+        var checked = input.getFormDataPart("checked", new GenericType<Boolean>() {
+        });
+        var choice = input.getFormDataPart("choice", new GenericType<Choice>() {
+        });
+        LOGGER.log(Level.INFO, "part:{0}, test:{1}, checked: {2}, choice: {3}", new Object[]{
+                IOUtils.toString(part, StandardCharsets.UTF_8.toString()),
+                test,
+                checked,
+                choice});
 //        input.getParts().forEach(
 //                part -> {
 //                    try {

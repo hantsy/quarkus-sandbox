@@ -15,10 +15,10 @@ public class MultipartSampleData {
     @FormParam("test")
     String test;
 
-//    @FormParam("checked")
-//    boolean checked = false;
-//
-//    @FormParam("choice")
-//    Choice choice = Choice.NO;
+    @FormParam("checked")
+    boolean checked = false;
+
+    @FormParam("choice")
+    Choice choice = Choice.NO;
 
 }
