@@ -9,7 +9,7 @@ import java.io.InputStream;
 @Data
 public class MultipartSampleData {
     @FormParam("file")
-    @PartType("text/scv")
+    @PartType("text/csv")
     InputStream part;
 
     @FormParam("test")
