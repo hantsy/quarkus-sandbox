@@ -4,7 +4,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.example.demo</groupId>
-    <artifactId>quartz</artifactId>
+    <artifactId>quarkus-examples-quartz</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <properties>
         <!-- Project setting -->
