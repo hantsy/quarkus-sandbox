@@ -57,7 +57,7 @@ class PostServiceTest {
                     .thenReturn(Comment.builder().post(new PostId("testid")).content("test comment").createdAt(LocalDateTime.now()).build());
             doNothing().when(commentEvent).fire(any(Comment.class));
             
-            service.addComment(new PostId("testid"), CreateCommentCommand.of("test comment"));
+            service.addComment("testid", CreateCommentCommand.of("test comment"));
             verify(postRepository, times(1)).findByIdOptional(anyString());
             verify(commentRepository, times(1)).save(any(Comment.class));
             verify(commentEvent, times(1)).fire(any(Comment.class));
@@ -71,7 +71,7 @@ class PostServiceTest {
                     .thenReturn(Optional.ofNullable(null));
             
             assertThrows(PostNotFoundException.class, () -> {
-                service.addComment(new PostId("testid"), CreateCommentCommand.of("test comment"));
+                service.addComment("testid", CreateCommentCommand.of("test comment"));
             });
             
             verify(postRepository, times(1)).findByIdOptional(anyString());
@@ -110,7 +110,7 @@ class PostServiceTest {
                     .thenReturn(Comment.builder().post(new PostId("testid")).content("test comment").createdAt(LocalDateTime.now()).build());
             doNothing().when(commentEvent).fire(any(Comment.class));
             
-            service.addComment(new PostId("testid"), CreateCommentCommand.of("test comment"));
+            service.addComment("testid", CreateCommentCommand.of("test comment"));
             verify(postRepository, times(1)).findByIdOptional(anyString());
             verify(commentRepository, times(1)).save(any(Comment.class));
             verify(commentEvent, times(1)).fire(any(Comment.class));
@@ -124,7 +124,7 @@ class PostServiceTest {
                     .thenReturn(Optional.ofNullable(null));
             
             assertThrows(PostNotFoundException.class, () -> {
-                service.addComment(new PostId("testid"), CreateCommentCommand.of("test comment"));
+                service.addComment("testid", CreateCommentCommand.of("test comment"));
             });
             
             verify(postRepository, times(1)).findByIdOptional(anyString());
