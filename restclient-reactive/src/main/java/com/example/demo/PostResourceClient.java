@@ -22,7 +22,7 @@ public interface PostResourceClient {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    Multi<List<Post>> getAllPosts(
+    Multi<Post> getAllPosts(
             @QueryParam("q") String q,
             @QueryParam("offset") @DefaultValue("0") int offset,
             @QueryParam("limit") @DefaultValue("10") int limit
