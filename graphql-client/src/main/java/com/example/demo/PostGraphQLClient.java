@@ -9,10 +9,11 @@ import java.util.List;
 
 @GraphQLClientApi
 public interface PostGraphQLClient {
-
-    @Query
-    @Description("Get all posts")
+    @Query()
     public List<Post> getAllPosts() ;
+
+    @Query("allPosts")
+    public List<PostSummary> getAllPostSummaries() ;
 
     public int countOfComments(@Source Post post);
 

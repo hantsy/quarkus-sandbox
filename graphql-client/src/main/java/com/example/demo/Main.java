@@ -45,6 +45,10 @@ public class Main implements QuarkusApplication {
                 p -> LOGGER.log(Level.INFO, "post: {0}", p)
         );
 
+        this.clientApi.getAllPostSummaries().forEach(
+                p -> LOGGER.log(Level.INFO, "post summary: {0}", p)
+        );
+
         return 0;
     }
 }
