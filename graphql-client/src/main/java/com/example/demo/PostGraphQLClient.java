@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import io.smallrye.graphql.client.typesafe.api.GraphQLClientApi;
-import io.smallrye.graphql.client.typesafe.api.GraphQLClientError;
 import org.eclipse.microprofile.graphql.*;
 
 import javax.validation.Valid;
