@@ -18,19 +18,25 @@ public class GraphQLResource {
         return this.postService.getAllPosts();
     }
 
-    public int countOfComments(@Source Post post){
+    public int countOfComments(@Source Post post) {
         return post.comments.size();
     }
 
     @Query
     @Description("Get a specific post by providing an id")
-    public Optional<Post> getPostById(@Name("postId") String id) {
-        return this.postService.getPostById(id);
+    public Post getPostById(@Name("postId") String id) {
+        // result:
+        //      data: {
+        //          postById : null
+        //      }
+        // return this.postService.getPostById(id);
+
+        return this.postService.getPostById(id).orElseThrow(() -> new PostNotFoundException(id));
     }
 
     @Mutation
     @Description("Create a new post")
-    public Post createPost(@Valid CreatePost createPostInput){
+    public Post createPost(@Valid CreatePost createPostInput) {
         return this.postService.createPost(createPostInput);
     }
 }
