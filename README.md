@@ -30,6 +30,8 @@ A  personal sandbox project  to experience the new features of the [Quarkus fram
 |[vertx-routes-munity](https://github.com/hantsy/quarkus-sample/tree/master/vertx-routes-munity)  |Simple CRUD RESTful APIs using Vertx `Router` and Reactive PgClient with Munity APIs.|
 |[multipart](https://github.com/hantsy/quarkus-sample/tree/master/multipart)  |Multipart examples|
 |[amqp](https://github.com/hantsy/quarkus-sample/tree/master/amqp)  |AMQP, MP reactive messaging and JAXRS SSE examples|
+|[GraphQL](https://github.com/hantsy/quarkus-sample/tree/master/graphql)  |GraphQL example using MP GraphQL/Smallrye GraphQL|
+|[GraphQL Client](https://github.com/hantsy/quarkus-sample/tree/master/graphql-client)  |GraphQL Client example using MP GraphQL/Smallrye GraphQL|
 
 The following examples used Java 8 or RxJava 2 based Reactive Postgres Client which is depreacted and not available in the latest Qukarus. 
 
