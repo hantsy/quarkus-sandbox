@@ -21,7 +21,6 @@ public class PostService {
     }
 
     Optional<Post> getPostById(String id) {
-        Post ret = null;
         return STORE.stream().filter(p -> p.id.equals(id)).findFirst();
     }
 

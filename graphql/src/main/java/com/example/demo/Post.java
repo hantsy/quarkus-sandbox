@@ -19,6 +19,8 @@ public class Post {
     String title;
     String content;
 
+    int countOfComments;
+
     @Builder.Default
     List<Comment> comments = new ArrayList<>();
 }

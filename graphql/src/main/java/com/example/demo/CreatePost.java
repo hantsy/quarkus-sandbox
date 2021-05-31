@@ -1,26 +1,24 @@
 package com.example.demo;
 
 
-import io.smallrye.common.constraint.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.eclipse.microprofile.graphql.Input;
-import org.eclipse.microprofile.graphql.NonNull;
-import org.eclipse.microprofile.graphql.Type;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 
 @Data
 @Builder
-@Input
 @NoArgsConstructor
 @AllArgsConstructor
+@Input
 public class CreatePost {
 
     @NotEmpty// bean validation dose not work.
-    @NonNull
+    @Length(min = 5)
     String title;
 
     String content;

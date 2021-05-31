@@ -3,6 +3,7 @@ package com.example.demo;
 import lombok.RequiredArgsConstructor;
 import org.eclipse.microprofile.graphql.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,10 @@ public class GraphQLResource {
         return this.postService.getAllPosts();
     }
 
+    public int countOfComments(@Source Post post){
+        return post.comments.size();
+    }
+
     @Query
     @Description("Get a specific post by providing an id")
     public Optional<Post> getPostById(@Name("postId") String id) {
@@ -25,7 +30,7 @@ public class GraphQLResource {
 
     @Mutation
     @Description("Create a new post")
-    public Post createPost(CreatePost createPostInput){
+    public Post createPost(@Valid CreatePost createPostInput){
         return this.postService.createPost(createPostInput);
     }
 }

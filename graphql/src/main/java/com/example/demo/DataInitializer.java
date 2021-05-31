@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
+import java.util.Random;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +24,7 @@ public class DataInitializer {
 
         var initData = IntStream.range(1, 5).mapToObj(
                 i -> {
-                    var comments = IntStream.range(1, 3).mapToObj(c -> Comment.builder().id(UUID.randomUUID().toString()).content("comment #" + c).build())
+                    var comments = IntStream.range(1, new Random().nextInt(5)+1).mapToObj(c -> Comment.builder().id(UUID.randomUUID().toString()).content("comment #" + c).build())
                             .toList();
                     var data = Post.builder().title("title #" + i)
                             .id(UUID.randomUUID().toString())
