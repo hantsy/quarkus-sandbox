@@ -18,20 +18,32 @@ public class Main implements QuarkusApplication {
 
     @Override
     public int run(String... args) throws Exception {
+        String id = UUID.randomUUID().toString();
+        // catch a GraphQLClientException.
+//        try {
+//            var p = this.clientApi.getPostById(id);
+//            LOGGER.log(Level.INFO, "post: {0}", p);
+//        } catch (GraphQLClientException e) {
+//            if (e.getErrors().stream().anyMatch(error -> error.getErrorCode().equals("POST_NOT_FOUND"))) {
+//                throw new PostNotFoundException(id);
+//            }
+//        }
+
+        // return a `ErrorOr` instead.
+        var post = this.clientApi.getPostById(id);
+        if (post.isPresent()) {
+            LOGGER.log(Level.INFO, "found: {0}", post.get());
+        }
+        if (post.isError()) {
+            post.getErrors().forEach(
+                    error -> LOGGER.log(Level.INFO, "error: code={0}, message={1}", new Object[]{error.getErrorCode(), error.getMessage()})
+            );
+        }
+
 
         this.clientApi.getAllPosts().forEach(
                 p -> LOGGER.log(Level.INFO, "post: {0}", p)
         );
-
-        String id = UUID.randomUUID().toString();
-        try {
-            var p = this.clientApi.getPostById(id);
-            LOGGER.log(Level.INFO, "post: {0}", p);
-        } catch (GraphQLClientException e) {
-            if (e.getErrors().stream().anyMatch(error -> error.getErrorCode().equals("POST_NOT_FOUND"))) {
-                throw new PostNotFoundException(id);
-            }
-        }
 
         return 0;
     }

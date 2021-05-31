@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import io.smallrye.graphql.client.typesafe.api.ErrorOr;
 import io.smallrye.graphql.client.typesafe.api.GraphQLClientApi;
 import org.eclipse.microprofile.graphql.*;
 
@@ -17,7 +18,7 @@ public interface PostGraphQLClient {
 
     @Query
     @Description("Get a specific post by providing an id")
-    public Post getPostById(@Name("postId") String id);
+    public ErrorOr<Post> getPostById(@Name("postId") String id);
 
     @Mutation
     @Description("Create a new post")
