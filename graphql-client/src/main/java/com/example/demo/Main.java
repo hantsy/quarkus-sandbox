@@ -4,6 +4,7 @@ import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
 
 import javax.inject.Inject;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,6 +17,7 @@ public class Main implements QuarkusApplication {
 
     @Override
     public int run(String... args) throws Exception {
+        this.clientApi.getPostById(UUID.randomUUID().toString());
 
         this.clientApi.getAllPosts().forEach(
                 p -> LOGGER.log(Level.INFO, "post: {0}", p)
