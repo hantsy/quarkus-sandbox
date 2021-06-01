@@ -308,7 +308,7 @@ You can apply some bean validation annotations on the input type to ensure it sa
 ```java
 public class CreatePost {
 
-    @NotEmpty// bean validation dose not work.
+    @NotEmpty// add hibernate-validator, else bean validation dose not work.
     @Length(min = 5)
     String title;
 
@@ -316,7 +316,7 @@ public class CreatePost {
 }
 ```
 
-And do not forget to add the *hibernate-validator* into the project deps.
+And do not forget to add the `hibernate-validator` extension into the project deps.
 
 ```bash
 mvn quarkus:add-extension -Dextensions="hibernate-validator"
