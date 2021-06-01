@@ -1,28 +1,27 @@
 # Building GraphQL APIs with Quarkus
 
-As an alternative of REST  to building Web APIs, [GraphQL](https://graphql.org/) is becoming more and more popular in these days.
-
+[GraphQL](https://graphql.org/) is used as an alternative of REST to build Web APIs and becomes more and more popular in these days.
 
 
 ## What is GraphQL?
 
 The initial GraphQL protocol is created by Facebook, and now it is maintained by the GraphQL Foundation.
 
-In the GraphQL website,  it describes GraphQL as the following .
+In the official GraphQL website, GraphQL was described as:
 
 >GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data. GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.
 
-Go to the GraphQL [Code](https://graphql.org/code) page, you will find the current GraphQL tools and libraries implemented in different languages.
+Go to the GraphQL [Code](https://graphql.org/code) page, it lists the current GraphQL tools and libraries implemented in different languages.
 
-In the latest Quarkus, it updated the GraphQL implementation (via SmallRye GraphQL) to replace the original Vertx implementation.
+In the latest Quarkus, it provides another MicroProfile GraphQL implementation (via SmallRye GraphQL) to replace the original Vertx implementation.
 
-Next let's create a Quarkus project and experience the built-in GraphQL feature.
+In this post, we will create a Quarkus project and experience this built-in GraphQL feature.
 
 
 
 ## Generating Project Skeleton
 
-Go to [Quarkus Code](https://code.quarkus.io)  page,  add *SmallRye GraphQL* into the project dependencies, then hit the  *Generate your application* to generate the project skeleton. Then download and extract the files, and import them into your IDE.
+Go to [Quarkus Code](https://code.quarkus.io) page, add *SmallRye GraphQL* into the project dependencies, then hit the  *Generate your application* to generate the project skeleton. Download the generated archive and extract the files in your disc, and import the project into your IDE.
 
 For the existing Quarkus project,  open a terminal and switch to the project root folder, and run the following command to add *SmallRye GraphQL* extension.
 
@@ -30,7 +29,7 @@ For the existing Quarkus project,  open a terminal and switch to the project roo
 mvn quarkus:add-extension -Dextensions="smallrye-graphql"
 ```
 
-Finally, you will find the following dependency added in the *pom.xml* file.
+Finally, you will find the following dependency is added in the *pom.xml* file.
 
 ```xml
 <dependency>
@@ -39,9 +38,11 @@ Finally, you will find the following dependency added in the *pom.xml* file.
 </dependency>
 ```
 
-Now let's cook the GraphQL API. Like building RESTful APIs, there two approaches to complete the work,  **code first** or **schema first**. 
+Next, let's cook the GraphQL API. 
 
-Here, let's follow the **code first** principle, and generate the GraphQL schema  from code.
+Like building RESTful APIs, there are two approaches to archive the purpose,  **code first** or **schema first**. 
+
+Here, let's follow the **code first** principle, and generate the GraphQL schema from codes.
 
 
 
@@ -77,13 +78,13 @@ public class GraphQLResource {
 
 In the above code snippets, `@RequiredArgsConstructor` is a [Lombok](https://projectlombok.org/) annotation(do not forget add `org.projectlombok:lombok` into your dependencies). 
 
-The `PostService` is a CDI bean to handle the certain business.
+The `PostService` is a CDI bean to handle the certain business logic.
 
-The `@Query` defines a `query` operation, `Post` is mapped to a GraphQL *ObjectType*,   `@Name("postId")` defines the name of a GraphQL *Argument*,  and `@Mutation` is a `mutation` operation, `CreatePost` is mapped to a GraphQL *Input* type.
+The `@Query` defines a `query` operation, `Post` is mapped to a GraphQL *ObjectType*,  `@Name("postId")` defines the name of a GraphQL *Argument*,  and `@Mutation` is a `mutation` operation, `CreatePost` is mapped to a GraphQL *Input* type.
 
-More about the concept of  *Query*, *Mutation*, *Object Type*, and *Input Type*, see the [GraphQL Learn page](https://graphql.org/learn/).
+More about the concept of GraphQL, such as *Query*, *Mutation*, *Object Type*, and *Input Type*, see the [GraphQL Learn page](https://graphql.org/learn/).
 
-Let's have a  look at the `Post`, `Comment`, and `CreatePost`.
+Let's have a  look at the content of `Post`, `Comment`, and `CreatePost`.
 
 ```java
 @Data
@@ -300,7 +301,32 @@ public boolean voted(@Source Post post, @Context context) {
 }
 ```
 
-In this, we have not explored the `Subscription` type - the messaging contract in the GraphQL specification. We will discuss it in the further posts.
+## Input Data Validation
+
+You can apply some bean validation annotations on the input type to ensure it satisfies your requirements.
+
+```java
+public class CreatePost {
+
+    @NotEmpty// bean validation dose not work.
+    @Length(min = 5)
+    String title;
+
+    String content;
+}
+```
+
+And do not forget to add the *hibernate-validator* into the project deps.
+
+```bash
+mvn quarkus:add-extension -Dextensions="hibernate-validator"
+```
+
+Run the application and have a try.
+
+![Create a post](./graphui-createpost-error.png)
+
+In this post, we have not explored the `Subscription` type - the messaging contract in the GraphQL specification. We will discuss it in the further posts.
 
 [Grab the source codes from my Github](https://github.com/hantsy/quarkus-sandbox/tree/master/graphql).
 
