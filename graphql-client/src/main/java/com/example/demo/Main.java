@@ -16,6 +16,12 @@ public class Main implements QuarkusApplication {
     @Inject
     PostGraphQLClient clientApi;
 
+    @Inject
+    PostDynamicClient dynamicClient;
+
+    @Inject
+    JvmClient jvmClient;
+
     @Override
     public int run(String... args) throws Exception {
         String id = UUID.randomUUID().toString();
@@ -48,6 +54,18 @@ public class Main implements QuarkusApplication {
         this.clientApi.getAllPostSummaries().forEach(
                 p -> LOGGER.log(Level.INFO, "post summary: {0}", p)
         );
+
+        this.dynamicClient.getAllPosts().forEach(
+                p -> LOGGER.log(Level.INFO, "post from dynamic client: {0}", p)
+        );
+
+        this.jvmClient.getAllPosts()
+                .thenAccept(
+                        p -> LOGGER.log(Level.INFO, "post from jvm client: {0}", p)
+                )
+                .whenComplete((d, e) -> LOGGER.info("The request is done in the jvm client."))
+                .toCompletableFuture()
+                .join();
 
         return 0;
     }

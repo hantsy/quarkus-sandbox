@@ -17,7 +17,7 @@ import javax.validation.constraints.NotEmpty;
 @Input
 public class CreatePost {
 
-    @NotEmpty// bean validation dose not work.
+    @NotEmpty// add hibernate-validator extension, else bean validation dose not work.
     @Length(min = 5)
     String title;
 

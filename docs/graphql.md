@@ -5,15 +5,13 @@
 
 ## What is GraphQL?
 
-The initial GraphQL protocol is created by Facebook, and now it is maintained by the GraphQL Foundation.
-
-In the official GraphQL website, GraphQL was described as:
+The initial GraphQL protocol is created by Facebook, and now it is maintained by the GraphQL Foundation. From the home page of the official GraphQL website, GraphQL was described as:
 
 >GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data. GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.
 
 Go to the GraphQL [Code](https://graphql.org/code) page, it lists the current GraphQL tools and libraries implemented in different languages.
 
-In the latest Quarkus, it provides another MicroProfile GraphQL implementation (via SmallRye GraphQL) to replace the original Vertx implementation.
+The latest Quarkus adds an extra MicroProfile GraphQL implementation (via SmallRye GraphQL) to replace the original Vertx implementation.
 
 In this post, we will create a Quarkus project and experience this built-in GraphQL feature.
 
@@ -21,7 +19,7 @@ In this post, we will create a Quarkus project and experience this built-in Grap
 
 ## Generating Project Skeleton
 
-Go to [Quarkus Code](https://code.quarkus.io) page, add *SmallRye GraphQL* into the project dependencies, then hit the  *Generate your application* to generate the project skeleton. Download the generated archive and extract the files in your disc, and import the project into your IDE.
+Open your browser,  navigate to [Quarkus Code](https://code.quarkus.io) page, add *SmallRye GraphQL* into the project dependencies, then hit the  *Generate your application* to generate the project skeleton. Download the generated archive and extract the files in your disc, and import the project into your IDE.
 
 For the existing Quarkus project,  open a terminal and switch to the project root folder, and run the following command to add *SmallRye GraphQL* extension.
 
@@ -40,9 +38,9 @@ Finally, you will find the following dependency is added in the *pom.xml* file.
 
 Next, let's cook the GraphQL API. 
 
-Like building RESTful APIs, there are two approaches to archive the purpose,  **code first** or **schema first**. 
+Similar to building RESTful APIs, there are two principles to choose,  **code first** or **schema first**. 
 
-Here, let's follow the **code first** principle, and generate the GraphQL schema from codes.
+SmallRye GraphQL follows the **code first** principle and generate the GraphQL schema from codes at runtime.
 
 
 
@@ -82,7 +80,7 @@ The `PostService` is a CDI bean to handle the certain business logic.
 
 The `@Query` defines a `query` operation, `Post` is mapped to a GraphQL *ObjectType*,  `@Name("postId")` defines the name of a GraphQL *Argument*,  and `@Mutation` is a `mutation` operation, `CreatePost` is mapped to a GraphQL *Input* type.
 
-More about the concept of GraphQL, such as *Query*, *Mutation*, *Object Type*, and *Input Type*, see the [GraphQL Learn page](https://graphql.org/learn/).
+More about the concept of GraphQL, such as *Query*, *Mutation*, *Object Type*, and *Input Type*, please refer to the [GraphQL Learn page](https://graphql.org/learn/).
 
 Let's have a  look at the content of `Post`, `Comment`, and `CreatePost`.
 
@@ -226,11 +224,11 @@ Try to perform an *allPosts* query and click the execute button, you will will t
 
 ![allPosts](./graphui-allposts.png)
 
-To get a post by ID, try the following query instead, it requires to set up an argument for the query. Set the `postId` variable in the *Query variables* input box.
+To get a post by ID, try the following query instead, it requires an extra argument. Set the `postId` variable in the *Query variables* input box, it is `JSON` format.
 
 ![PostByID](./graphui-postbyid.png)
 
-If the passed `postId` is a non-existing id, it will return a null result like this.
+If the `postId` is a non-existing id, it will return a `null` result like this.
 
 ```json
 {
@@ -240,7 +238,7 @@ If the passed `postId` is a non-existing id, it will return a null result like t
 }
 ```
 
-You can define an Exception and convert it into a GraphQL error.
+You can define a custom Exception and convert it into a GraphQL error.
 
 ## Exception Handling
 
@@ -266,13 +264,13 @@ mp.graphql.showErrorMessage=com.example.demo.PostNotFoundException
 smallrye.graphql.errorExtensionFields=exception,classification,code,description,validationErrorType,queryPath
 ```
 
-Run the application again, and provide a non-existing post ID, execute the query, you will find the errors is added into the  query result.
+Run the application again, and provide a non-existing post ID, then execute the query. As you see the errors is added into the query result, it includes the code and message you have defined in your exception class.
 
 ![Post by id](./graphui-postbyid-error.png)
 
 ## Resolving Fields
 
-In our former example, a `Post` includes the `comments` fields directly, it is an *eager* approach. In a  real world application, you could want to fetch data of the related comments on demand. When a *comments* field is set in the result field list of a query string, it will hit the backend database and return the result for the specified post ID.
+In our former example, a `Post` includes the `comments` fields directly, it is an *eager* approach. In a  real world application, you could want to fetch data of the related comments on demand. When a *comments* field is set in the result field list of a query string, it could hit the backend database or retrieve from cache and return the result for the specified post ID.
 
 ```java
 @GraphQLApi
@@ -286,7 +284,7 @@ public class GraphQLResource {
 }
 ```
 
- You can also apply the resolving rule on some *virtual* fields( here I mean those are not existed in the backend database and computed at runtime),  some examples :
+ You can also apply the resolving rule on some *virtual* fields( here I mean those are not existed in the backend database and evaluated at runtime),  there are some examples :
 
 ```java
 // calculate the comments count of a specified post
@@ -301,14 +299,14 @@ public boolean voted(@Source Post post, @Context context) {
 }
 ```
 
-## Input Data Validation
+## Input Validation
 
-You can apply some bean validation annotations on the input type to ensure it satisfies your requirements.
+You can apply some bean validation annotations on the input type to check if it satisfies your requirements.
 
 ```java
 public class CreatePost {
 
-    @NotEmpty// add hibernate-validator, else bean validation dose not work.
+    @NotEmpty//add hibernate-validator, else bean validation dose not work.
     @Length(min = 5)
     String title;
 
@@ -322,7 +320,7 @@ And do not forget to add the `hibernate-validator` extension into the project de
 mvn quarkus:add-extension -Dextensions="hibernate-validator"
 ```
 
-Run the application and have a try.
+Run the application and have a try.  Leave the *title* empty , hit the *execute* button, the validation exceptions are converted into  GraphQL errors.
 
 ![Create a post](./graphui-createpost-error.png)
 
