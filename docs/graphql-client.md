@@ -280,6 +280,15 @@ Run the application and you can see the following info.
 
 In Quarkus, the GraphQL client is shaking hands with the backend GraphQL API over HTTP protocol. Ideally if you are familiar with GraphQL interexchange format(json), you can use any HttpClient to send a *POST* request to perform the GraphQL query, such as, cURL, Resteasy Client/JAXRS Client or the simple Java 11 HttpClient. 
 
+The following is a `cUrl`command example.
+
+```bash 
+curl http://localhost:8080/graphql -H "Accept: application/json" -H "Content-Type: application/json" -d "{\"query\": \"query {  allPosts {  id title content comments { id  content } } }\" }"
+{"data":{"allPosts":[{"id":"5049edc2-58a0-4a0a-9204-753fc4541fa0","title":"title #1","content":"test content of #1","comments":[{"id":"1124e65f-bf4b-41a1-9f34-4daab83b3a31","content":"comment #1"},{"id":"cc68bc61-3769-4a9c-a572-fdd66f6ebffe","content":"comment #2"},{"id":"3d9164d1-9da9-4483-abcb-6d29ffc3b938","content":"comment #3"},{"id":"fbba10b4-9309-442b-8b25-c2ef6e25023c","content":"comment #4"}]},{"id":"d3c130ea-f537-4b77-8125-70b620469c9f","title":"title #2","content":"test content of #2","comments":[{"id":"a28d8b31-65fe-4058-a9bc-739731f5b7d6","content":"comment #1"},{"id":"855b6773-305d-488a-932e-5cc12eb51c93","content":"comment #2"},{"id":"74b1e329-2b85-4e3e-82e8-2b49cc3d387b","content":"comment #3"}]},{"id":"2325744b-46ef-4061-bc03-8f0ca5d7c955","title":"title #3","content":"test content of #3","comments":[{"id":"54217aae-9db1-4403-bbd5-f341e4a53d84","content":"comment #1"}]},{"id":"407dd60c-966c-4d82-b260-f58edba7db14","title":"title #4","content":"test content of #4","comments":[{"id":"f46c8c3e-ddbc-48eb-8a0f-952081bf6d35","content":"comment #1"},{"id":"394a8bec-5e0c-4a69-8b82-a71a4f856778","content":"comment #2"}]}]}}
+```
+
+In Java 11, a new `HttpClient` is added, the following is an example using this HttpClient.
+
 ```java
 @ApplicationScoped
 public class JvmClient {
