@@ -22,6 +22,9 @@ public class Main implements QuarkusApplication {
     @Inject
     JvmClient jvmClient;
 
+    @Inject
+    JaxrsClient jaxrsClient;
+
     @Override
     public int run(String... args) throws Exception {
         String id = UUID.randomUUID().toString();
@@ -64,6 +67,14 @@ public class Main implements QuarkusApplication {
                         p -> LOGGER.log(Level.INFO, "post from jvm client: {0}", p)
                 )
                 .whenComplete((d, e) -> LOGGER.info("The request is done in the jvm client."))
+                .toCompletableFuture()
+                .join();
+
+        this.jaxrsClient.getAllPosts()
+                .thenAccept(
+                        p -> LOGGER.log(Level.INFO, "post from Jaxrs client: {0}", p)
+                )
+                .whenComplete((d, e) -> LOGGER.info("The request is done in the Jaxrs client."))
                 .toCompletableFuture()
                 .join();
 
