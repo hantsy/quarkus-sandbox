@@ -6,7 +6,7 @@ In [the last post](https://hantsy.medium.com/building-graphql-apis-with-quarkus-
 
 ## Generating Project Skeleton
 
-Create a  Quarkus project using [Quarkus Code Generator](https://code.quarkus.io), import the source codes into your IDE.
+Create a Quarkus project using [Quarkus Code Generator](https://code.quarkus.io), import the source codes into your IDE.
 
 Open *pom.xml* file, add the following dependencies.
 
@@ -62,7 +62,7 @@ To locate which remote GraphQL API will be connected, similar to the MP RestClie
 com.example.demo.PostGraphQLClient/mp-graphql/url=http://localhost:8080/graphql
 ```
 
-Now let's try to call the `getAllPosts` of `PostGraphQLClient` to print out all posts.  
+Now let's try to call the `getAllPosts` of `PostGraphQLClient` and print out all posts.  
 
 Create a class implements `QuarkusApplication` and annotated it with `@QuarkusMain`, it will work like the main class in a general Java application.
 
@@ -84,8 +84,8 @@ public class Main implements QuarkusApplication {
 }
 ```
 
-Open the terminal and switch to the project root folder. Run `mvn quarkus:dev` to start the application in debug mode.
-When it is started, you will see the following info in the console log.
+Open your terminal and switch to the project root folder. Run `mvn quarkus:dev` to start the application in dev mode.
+After it is started, you will see the following info in the console log.
 
 ```bash 
 2021-06-03 20:21:00,505 INFO  [io.sma.gra.cli.typ.jax.JaxRsTypesafeGraphQLClientProxy] (Quarkus Main Thread) request graphql: query allPosts { allPosts {id title content countOfComment
@@ -100,9 +100,9 @@ s comments {id content}} }
 , comments=[Comment(id=5963588f-fbe0-4c82-88f6-1011bb7538fe, content=comment #1), Comment(id=feaf4d21-e78b-4701-91bb-ea665a9a034c, content=comment #2)])
 ```
 
-Comparing to REST APIs, the most attractive feature of GraphQL is it only returns the required fields that are declared by client.  In the above the codes it returns all fields of a `Post`. 
+Comparing to REST APIs, the most attractive feature of GraphQL is it only returns the required fields that are requested by client.  In the above the codes it returns all fields of a `Post`. 
 
-Assume you just want to retrieve the *title* field in the result of executing the `allPosts` query, create a new POJO class just includes a *title* property.
+Assume you just want to retrieve the *title* field in the result when executing the `allPosts` query, try to create a new POJO class just includes a *title* property.
 
 ```java
 @Getter
@@ -139,7 +139,7 @@ You can see the following info from the application log.
 2021-06-03 20:21:00,533 INFO  [com.exa.dem.Main] (Quarkus Main Thread) post summary: PostSummary(title=title #3)
 2021-06-03 20:21:00,533 INFO  [com.exa.dem.Main] (Quarkus Main Thread) post summary: PostSummary(title=title #4)
 ```
-Yeah, it only request a *title* field in the GraphQL request, and return the exact fields in the fetched data.
+As you expected, it only requests the *title* field in the GraphQL query, and return the exact fields in the response.
 
 
 ## Handling Client Exceptions
@@ -162,7 +162,7 @@ try {
 ```
 In the above codes, if the postId is not existed, it will throw a `GraphQLClientException`.
 
-Besides this, wrapping your response with `ErrorOr` class is an alternative approach.
+Besides this, wrapping your response with `ErrorOr` class is an alternative solution.
 
 ```java
 @Query
@@ -195,7 +195,7 @@ d title content countOfComments comments {id content}} }
 2021-06-03 20:21:00,505 INFO  [com.exa.dem.Main] (Quarkus Main Thread) error: code=POST_NOT_FOUND, message=Post: 8c46ca01-530e-47c1-a257-e86333bcb69b was not found.
 ```
 
-## Dynamic  Client
+## Dynamic Client
 
 We have discussed the client using `@GraphQLClientApi`, Quarkus also provide a  **dynamic client**.  It is more like a Java translation of the GraphQL request form.
 
@@ -278,9 +278,9 @@ Run the application and you can see the following info.
 
 ## HttpClient
 
-In Quarkus, the GraphQL client is shaking hands with the backend GraphQL API over HTTP protocol. Ideally if you are familiar with GraphQL interexchange format(json), you can use any HttpClient to send a *POST* request to perform the GraphQL query, such as, cURL, Resteasy Client/JAXRS Client or the simple Java 11 HttpClient. 
+In Quarkus, the GraphQL client is shaking hands with the backend GraphQL API over HTTP protocol. Ideally if you are familiar with GraphQL interexchange format(json), you can use any HttpClient to send a *POST* request to perform the GraphQL query, including cURL, Resteasy Client/JAXRS Client or the simple Java 11 HttpClient. 
 
-The following is a `cUrl`command example.
+The following is an example using `cUrl`command.
 
 ```bash 
 curl http://localhost:8080/graphql -H "Accept: application/json" -H "Content-Type: application/json" -d "{\"query\": \"query {  allPosts {  id title content comments { id  content } } }\" }"
@@ -364,15 +364,15 @@ public class JvmClient {
 }
 ```
 
-To extract posts data from the GraphQL client response, I use JSONP Pointer to locate the JSON array, and convert it to `List<Post>` by JsonB. Add jsonp to the project deps.
+To extract posts data from the GraphQL client response, I use JSONP Pointer to locate the *posts* JSON array, and convert it to `List<Post>` by JsonB. Add the `jsonp` extension to the project deps.
 
 ```bash 
 mvn quarkus:add-extension -Dextensions="jsonp"
 ```
 
->The *text block* is great to compose a multiline string, but there is [an issue](https://github.com/quarkusio/quarkus/issues/17667) which caused the schema parsing failed. I added a `replaceAll` method to erase the newline breaks.
+>The *text block* is great to compose a multiline string, but there is [an issue](https://github.com/quarkusio/quarkus/issues/17667) which causes the GraphQL schema parsing failed. Finally I add a `replaceAll` method to erase the newline breaks to overcome this issue temporarily.
 
-Try to call the `getAllPosts` in this client.
+Try to call the `getAllPosts` of this client.
 
 ```java
 @Inject
@@ -397,9 +397,9 @@ f-36360732a919, content=comment #1}, {id=165d6743-fd74-4ad5-8997-3853fb076403, c
 f4d21-e78b-4701-91bb-ea665a9a034c, content=comment #2}], id=37e28b7d-11fc-4587-920f-9415da1d93a3, title=title #4, content=test content of #4}]
 2021-06-03 20:21:01,662 INFO  [com.exa.dem.Main] (ForkJoinPool.commonPool-worker-7) The request is done in the jvm client.
 ```
-In the source codes I also include a version implemented by Jaxrs Client. If you are interested in it, explored the [JaxrsClient](https://github.com/hantsy/quarkus-sandbox/blob/master/graphql-client/src/main/java/com/example/demo/JaxrsClient.java) yourself.
+There is another version implemented by Jaxrs Client included in the source codes. If you are interested in it, explored the [JaxrsClient](https://github.com/hantsy/quarkus-sandbox/blob/master/graphql-client/src/main/java/com/example/demo/JaxrsClient.java) example yourself.
 
-[Get the source codes from my Github](https://github.com/hantsy/quarkus-sandbox/blob/master/graphql-client).
+[Get the complete source codes from my Github](https://github.com/hantsy/quarkus-sandbox/blob/master/graphql-client).
 
 
 
