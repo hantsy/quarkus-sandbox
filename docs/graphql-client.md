@@ -397,7 +397,7 @@ f-36360732a919, content=comment #1}, {id=165d6743-fd74-4ad5-8997-3853fb076403, c
 f4d21-e78b-4701-91bb-ea665a9a034c, content=comment #2}], id=37e28b7d-11fc-4587-920f-9415da1d93a3, title=title #4, content=test content of #4}]
 2021-06-03 20:21:01,662 INFO  [com.exa.dem.Main] (ForkJoinPool.commonPool-worker-7) The request is done in the jvm client.
 ```
-There is another version implemented by Jaxrs Client included in the source codes. If you are interested in it, explored the [JaxrsClient](https://github.com/hantsy/quarkus-sandbox/blob/master/graphql-client/src/main/java/com/example/demo/JaxrsClient.java) example yourself.
+There is another version implemented by Jaxrs Client included in the source codes. If you are interested in it, explore the [JaxrsClient example](https://github.com/hantsy/quarkus-sandbox/blob/master/graphql-client/src/main/java/com/example/demo/JaxrsClient.java) yourself.
 
 [Get the complete source codes from my Github](https://github.com/hantsy/quarkus-sandbox/blob/master/graphql-client).
 
