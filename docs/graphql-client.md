@@ -6,7 +6,7 @@ In [the last post](https://hantsy.medium.com/building-graphql-apis-with-quarkus-
 
 ## Generating Project Skeleton
 
-Unlike what we have done in the last post, you should prepare a project skeleton firstly.
+Like what we have done in the past posts, you should prepare a project skeleton firstly.
 
 Create a Quarkus project using [Quarkus Code Generator](https://code.quarkus.io), import the source codes into your IDE.
 
