@@ -6,6 +6,8 @@ In [the last post](https://hantsy.medium.com/building-graphql-apis-with-quarkus-
 
 ## Generating Project Skeleton
 
+Unlike what we have done in the last post, you should prepare a project skeleton firstly.
+
 Create a Quarkus project using [Quarkus Code Generator](https://code.quarkus.io), import the source codes into your IDE.
 
 Open *pom.xml* file, add the following dependencies.
@@ -30,7 +32,7 @@ Open *pom.xml* file, add the following dependencies.
  </dependency>
  ```
 
-Lombok is used to erase the setters, getters, hashCode, equals, toString etc. for your POJO classes. I have used it for many years in my projects.
+Lombok is used to erase the setters, getters, hashCode, equals, toString etc. in your POJO classes and make it looks clean. 
 
 ## Declaring  GraphQL Client API
 
