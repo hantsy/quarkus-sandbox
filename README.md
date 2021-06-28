@@ -10,7 +10,8 @@ A  personal sandbox project  to experience the new features of the [Quarkus fram
 * [Building a Spring web application with Quarkus](./docs/02-spring.md)
 * [Interacting with REST APIs ](./docs/restclient.md)
 * [Building reactive APIs with Quarkus](./docs/reactive.md)
-
+* [Building GraphQL APIs with Quarkus](./docs/graphql.md)
+* [Consuming GraphQL APIs with Quarkus](./docs/graphql-client.md)
 
 ## Sample Codes
 
