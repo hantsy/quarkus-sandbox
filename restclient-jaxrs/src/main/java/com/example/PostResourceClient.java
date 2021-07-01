@@ -22,7 +22,7 @@ public class PostResourceClient {
 
     @Inject
     public PostResourceClient(PostServiceProperties properties) {
-        baseUrl = properties.getBaseUrl();
+        baseUrl = properties.baseUrl();
         client = ClientBuilder.newBuilder()
                 .executorService(executorService)
                 .build();

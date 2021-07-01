@@ -1,16 +1,9 @@
 package com.example;
 
-import io.quarkus.arc.config.ConfigProperties;
+import io.smallrye.config.ConfigMapping;
+import org.eclipse.microprofile.config.inject.ConfigProperties;
 
-@ConfigProperties(prefix = "post-service")
-public class PostServiceProperties {
-    private String baseUrl;
-
-    public String getBaseUrl() {
-        return baseUrl;
-    }
-
-    public void setBaseUrl(String baseUrl) {
-        this.baseUrl = baseUrl;
-    }
+@ConfigMapping(prefix = "post-service", namingStrategy = ConfigMapping.NamingStrategy.SNAKE_CASE)
+public interface PostServiceProperties {
+     String baseUrl();
 }

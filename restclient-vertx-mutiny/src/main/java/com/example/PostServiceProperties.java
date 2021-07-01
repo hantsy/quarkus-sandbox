@@ -1,25 +1,10 @@
 package com.example;
 
-import io.quarkus.arc.config.ConfigProperties;
+import io.smallrye.config.ConfigMapping;
 
-@ConfigProperties(prefix = "post-service")
-public class PostServiceProperties {
-    private String host = "localhost";
-    private int port = 8080;
+@ConfigMapping(prefix = "post-service")
+public interface PostServiceProperties {
+    String host();
 
-    public String getHost() {
-        return host;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
+    int port();
 }

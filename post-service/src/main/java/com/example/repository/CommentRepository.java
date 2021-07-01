@@ -14,7 +14,7 @@ public class CommentRepository implements PanacheRepositoryBase<Comment, String>
 
     @Transactional
     public Comment save(Comment comment) {
-        EntityManager em = JpaOperations.getEntityManager();
+        EntityManager em = JpaOperations.INSTANCE.getEntityManager();
         if (comment.getId() == null || comment.getId().trim().isEmpty()) {
             em.persist(comment);
             return comment;

@@ -53,7 +53,7 @@ public class PostRepository implements PanacheRepositoryBase<Post, String> {
 
     @Transactional
     public Post save(Post post) {
-        EntityManager em = JpaOperations.getEntityManager();
+        EntityManager em = JpaOperations.INSTANCE.getEntityManager();
         if (post.getId() == null) {
             em.persist(post);
             return post;

@@ -19,13 +19,11 @@ public class PostResourceClient {
 
     @Inject
     public PostResourceClient(PostServiceProperties properties, Vertx vertx) {
-        this.client = WebClient.create(
-                vertx,
-                new WebClientOptions()
-                        .setDefaultHost(properties.getHost())
-                        .setDefaultPort(properties.getPort())
-                        .setSsl(false)
-        );
+        WebClientOptions options = new WebClientOptions()
+                .setDefaultHost(properties.host())
+                .setDefaultPort(properties.port())
+                .setSsl(false);
+        this.client = WebClient.create(vertx, options);
     }
 
     Uni<Long> countAllPosts(String q) {
@@ -48,10 +46,10 @@ public class PostResourceClient {
                 .addQueryParam("offset", "" + offset)
                 .addQueryParam("limit", "" + limit)
                 .send()
-                .onItem().produceMulti(resp ->
+                .onItem().transformToMulti(resp ->
                         Multi.createFrom().items(resp.bodyAsJsonArray().stream())
                 )
-                .onItem().apply(o -> ((JsonObject) o).mapTo(Post.class));
+                .onItem().transform(o -> ((JsonObject) o).mapTo(Post.class));
     }
 
 

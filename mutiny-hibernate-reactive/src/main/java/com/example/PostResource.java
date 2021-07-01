@@ -52,8 +52,8 @@ public class PostResource {
                     }
                     return ok(data).build();
                 })
-                .onItem().ifNull().continueWith(status(Status.NOT_FOUND).build());
-        //.onFailure(PostNotFoundException.class).recoverWithItem(status(Status.NOT_FOUND).build());
+        //        .onItem().ifNull().continueWith(status(Status.NOT_FOUND).build());
+        .onFailure(PostNotFoundException.class).recoverWithItem(status(Status.NOT_FOUND).build());
     }
 
     @Path("{id}")

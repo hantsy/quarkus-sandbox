@@ -31,7 +31,7 @@ class PostsHandler {
 //        var offset = params.get("offset") == null ? 0 : Integer.parseInt(params.get("offset"));
 //        LOGGER.log(Level.INFO, " find by keyword: q={0}, limit={1}, offset={2}", new Object[]{q, limit, offset});
         this.posts.findAll()
-                .collectItems().asList()
+                .collect().asList()
                 .subscribe().with(data -> rc.response().end(toJson(data)));
     }
 

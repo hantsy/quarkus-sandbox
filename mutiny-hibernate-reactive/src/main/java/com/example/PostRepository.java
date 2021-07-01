@@ -29,7 +29,7 @@ public class PostRepository {
         return this.client
                 .query("SELECT * FROM posts")
                 .execute()
-                .onItem().produceMulti(
+                .onItem().transformToMulti(
                         rs -> Multi.createFrom().items(() -> StreamSupport.stream(rs.spliterator(), false))
                 )
                 .map(this::rowToPost);
