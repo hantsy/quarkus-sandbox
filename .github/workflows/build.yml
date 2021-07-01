@@ -65,15 +65,20 @@ jobs:
         ./gradlew build -x test 
 
     # The following samples used deprecated APIs and not updated to the latest Quarkus. 
+
+    - name: Building java8-hibernate-reactive
+      run: |    
+        mvn -q clean  package --file legacy/java8-hibernate-reactive/pom.xml -DskipTests   
+
     - name: Building java8
       run: |    
-        mvn -q clean  package --file java8/pom.xml -DskipTests    
+        mvn -q clean  package --file legacy/java8/pom.xml -DskipTests    
     - name: Building rxjava2
       run: |     
-        mvn -q clean  package --file rxjava2/pom.xml -DskipTests
+        mvn -q clean  package --file legacy/rxjava2/pom.xml -DskipTests
     - name: Building vertx-routes
       run: |     
-        mvn -q clean  package --file vertx-routes/pom.xml -DskipTests        
+        mvn -q clean  package --file legacy/vertx-routes/pom.xml -DskipTests        
         
         
         
