@@ -157,7 +157,7 @@ jobs:
         run: |
           # kotlin restclient using Gradle
           cd restclient-kotlin
-          chomod a+x ./gradlew
+          chmod a+x ./gradlew
           ./gradlew build -x test
 
     # The following samples used deprecated APIs and not updated to the latest Quarkus.
