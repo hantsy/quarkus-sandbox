@@ -17,47 +17,45 @@ updates:
   - package-ecosystem: "maven" # See documentation for possible values
     directory: "/amqp" # Location of package manifests
     schedule:
-      interval: "weekly"  
+      interval: "weekly"
   - package-ecosystem: "maven" # See documentation for possible values
     directory: "/java8-hibernate-reactive" # Location of package manifests
     schedule:
-      interval: "weekly"      
+      interval: "weekly"
   - package-ecosystem: "maven" # See documentation for possible values
     directory: "/mutiny" # Location of package manifests
     schedule:
-      interval: "weekly" 
+      interval: "weekly"
   - package-ecosystem: "maven" # See documentation for possible values
     directory: "/mutiny-hibernate-reactive" # Location of package manifests
     schedule:
-      interval: "weekly" 
+      interval: "weekly"
   - package-ecosystem: "maven" # See documentation for possible values
     directory: "/restclient" # Location of package manifests
     schedule:
-      interval: "weekly" 
+      interval: "weekly"
   - package-ecosystem: "maven" # See documentation for possible values
     directory: "/restclient-java11" # Location of package manifests
     schedule:
-      interval: "weekly"      
+      interval: "weekly"
   - package-ecosystem: "maven" # See documentation for possible values
     directory: "/restclient-jaxrs" # Location of package manifests
     schedule:
-      interval: "weekly"  
+      interval: "weekly"
   - package-ecosystem: "gradle" # See documentation for possible values
     directory: "/restclient-kotlin" # Location of package manifests
     schedule:
-      interval: "weekly"  
+      interval: "weekly"
   - package-ecosystem: "maven" # See documentation for possible values
     directory: "/restclient-vertx-mutiny" # Location of package manifests
     schedule:
-      interval: "weekly"  
+      interval: "weekly"
   - package-ecosystem: "maven" # See documentation for possible values
     directory: "/resteasy-reactive" # Location of package manifests
     schedule:
-      interval: "weekly"   
+      interval: "weekly"
 
   - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/vertx-routes-munity" # Location of package manifests
+    directory: "/vertx-routes-mutiny" # Location of package manifests
     schedule:
-      interval: "weekly"  
-
-      
+      interval: "weekly"
