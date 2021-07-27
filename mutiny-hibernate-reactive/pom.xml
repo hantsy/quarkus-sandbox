@@ -22,7 +22,7 @@
 
         <!-- Quarkus BOM and Maven plugin -->
         <quarkus-plugin.version>2.1.0.Final</quarkus-plugin.version>
-        <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
+        <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.version>2.1.0.Final</quarkus.platform.version>
     </properties>
