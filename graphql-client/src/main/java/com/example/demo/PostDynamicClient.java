@@ -1,13 +1,12 @@
 package com.example.demo;
 
-import io.smallrye.graphql.client.NamedClient;
+import io.smallrye.graphql.client.GraphQLClient;
 import io.smallrye.graphql.client.Response;
 import io.smallrye.graphql.client.core.Document;
 import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClient;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.core.GenericType;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -19,7 +18,7 @@ import static io.smallrye.graphql.client.core.Operation.operation;
 public class PostDynamicClient {
 
     @Inject
-    @NamedClient("post-dynamic-client")
+    @GraphQLClient("post-dynamic-client")
     DynamicGraphQLClient dynamicClient;
 
     public List<Post> getAllPosts() throws ExecutionException, InterruptedException {

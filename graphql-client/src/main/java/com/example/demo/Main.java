@@ -43,7 +43,7 @@ public class Main implements QuarkusApplication {
         if (post.isPresent()) {
             LOGGER.log(Level.INFO, "found: {0}", post.get());
         }
-        if (post.isError()) {
+        if (post.hasErrors()) {
             post.getErrors().forEach(
                     error -> LOGGER.log(Level.INFO, "error: code={0}, message={1}", new Object[]{error.getErrorCode(), error.getMessage()})
             );
