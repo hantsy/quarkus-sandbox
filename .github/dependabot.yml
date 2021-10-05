@@ -59,3 +59,11 @@ updates:
     directory: "/vertx-routes-mutiny" # Location of package manifests
     schedule:
       interval: "weekly"
+  - package-ecosystem: "maven" # See documentation for possible values
+    directory: "/graphql" # Location of package manifests
+    schedule:
+      interval: "weekly"      
+  - package-ecosystem: "maven" # See documentation for possible values
+    directory: "/graphql-client" # Location of package manifests
+    schedule:
+      interval: "weekly"  

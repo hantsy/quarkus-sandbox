@@ -1,0 +1,36 @@
+name: graphql-client
+
+on:
+  push:
+    paths:
+      - "graphql-client/**"
+    branches:
+      - master
+  pull_request:
+    paths:
+      - "graphql-client/**"
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: 11
+
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+                     
+      - name: Build with Maven
+        run: mvn clean install --file graphql-client/pom.xml -Dmaven.test.skip=true -DskipTests  
