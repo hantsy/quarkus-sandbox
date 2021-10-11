@@ -19,7 +19,7 @@
         <!-- project encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <byte-buddy.version>1.11.18</byte-buddy.version>
+        <byte-buddy.version>1.11.20</byte-buddy.version>
     </properties>
     <dependencyManagement>
         <dependencies>
