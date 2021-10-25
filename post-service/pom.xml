@@ -9,7 +9,7 @@
     <name>quarkus-demo-post-service</name>
     <properties>
         <!-- quarkus -->
-        <quarkus.version>2.3.0.Final</quarkus.version>
+        <quarkus.version>2.4.0.Final</quarkus.version>
         <!-- maven plugins -->
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
