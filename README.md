@@ -2,8 +2,6 @@
 
 A  personal sandbox project  to experience the new features of the [Quarkus framework](https://www.quarkus.io).
 
-![build](https://github.com/hantsy/quarkus-sandbox/workflows/build/badge.svg)
-
 ## Docs
 
 * [Kickstart your first Quarkus application](./docs/01-start.md)
