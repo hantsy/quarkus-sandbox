@@ -1,166 +1,25 @@
 # This workflow will build a Java project with Maven
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: build
+name: build-legacy-codes
 
 on:
   push:
-    branches: [master]
+    paths:
+      - "legacy/**"
+    branches:
+      - master
   pull_request:
-    branches: [master]
+    paths:
+      - "legacy/**"
+    types:
+      - opened
+      - synchronize
+      - reopened
 
 jobs:
-  amqp:
-    runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - name: Building amqp
-        run: |
-          mvn -q clean  package --file amqp/pom.xml -DskipTests
-
-  mutiny:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - name: Building mutiny
-        run: |
-          mvn -q clean  package --file mutiny/pom.xml -DskipTests
-
-  mutiny-hibernate-reactive:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - name: Building mutiny-hibernate-reactive
-        run: |
-          mvn -q clean  package --file mutiny-hibernate-reactive/pom.xml -DskipTests
-
-  restclient:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - name: Building restclient
-        run: |
-          mvn -q clean  package --file restclient/pom.xml -DskipTests
-
-  restclient-java11:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - name: Building restclient-java11
-        run: |
-          mvn -q clean  package --file restclient-java11/pom.xml -DskipTests
-
-  restclient-jaxrs:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - name: Building restclient-jaxrs
-        run: |
-          mvn -q clean  package --file restclient-jaxrs/pom.xml -DskipTests
-
-  restclient-vertx-mutiny:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-
-      - name: Building restclient-vertx-mutiny
-        run: |
-          mvn -q clean  package --file restclient-vertx-mutiny/pom.xml -DskipTests
-
-  resteasy-reactive:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - name: Building resteasy-reactive
-        run: |
-          mvn -q clean  package --file resteasy-reactive/pom.xml -DskipTests
-
-  spring:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - name: Building spring
-        run: |
-          mvn -q clean  package --file spring/pom.xml -DskipTests
-
-  vertx-routes-mutiny:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-
-      - name: Building vertx-routes-mutiny
-        run: |
-          mvn -q clean  package --file vertx-routes-mutiny/pom.xml -DskipTests
-
-  post-service:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 16
-      - name: Building post-service
-        run: |
-          mvn -q clean  package --file post-service/pom.xml -DskipTests
-
-  restclient-kotlin:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - name: Building restclient-kotlin
-        run: |
-          # kotlin restclient using Gradle
-          cd restclient-kotlin
-          chmod a+x ./gradlew
-          ./gradlew build -x test
-
-    # The following samples used deprecated APIs and not updated to the latest Quarkus.
+  # The following samples used deprecated APIs and not updated to the latest Quarkus.
   java8-hibernate-reactive:
     runs-on: ubuntu-latest
     steps:
