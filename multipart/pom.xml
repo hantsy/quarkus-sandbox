@@ -18,8 +18,8 @@
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
 
         <!-- deps -->
-        <quarkus-plugin.version>2.4.1.Final</quarkus-plugin.version>
-        <quarkus.platform.version>2.4.1.Final</quarkus.platform.version>
+        <quarkus-plugin.version>2.4.2.Final</quarkus-plugin.version>
+        <quarkus.platform.version>2.4.2.Final</quarkus.platform.version>
 
     </properties>
     <dependencyManagement>
