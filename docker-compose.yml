@@ -11,9 +11,15 @@ services:
       POSTGRES_DB: blogdb
       POSTGRES_USER: user
     volumes:
-      - ./data:/var/lib/postgresql
+      - ./data/pg:/var/lib/postgresql
       - ./pg-initdb.d:/docker-entrypoint-initdb.d
-  
+  mongodb: 
+    image: mongo 
+    volumes:
+      - ./data/mongo:/data/db
+    ports:
+      - "27017:27017"
+      
   zookeeper:
     image: strimzi/kafka:0.11.3-kafka-2.1.0
     command: [

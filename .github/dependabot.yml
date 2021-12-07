@@ -67,3 +67,7 @@ updates:
     directory: "/graphql-client" # Location of package manifests
     schedule:
       interval: "weekly"  
+  - package-ecosystem: "maven" 
+    directory: "/mongodb-panache-kotlin" 
+    schedule:
+      interval: "weekly"        
