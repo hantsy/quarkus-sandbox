@@ -9,7 +9,7 @@
     <name>quarkus-demo-post-service</name>
     <properties>
         <!-- quarkus -->
-        <quarkus.version>2.4.2.Final</quarkus.version>
+        <quarkus.version>2.5.0.Final</quarkus.version>
         <!-- maven plugins -->
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
@@ -19,7 +19,7 @@
         <!-- project encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <byte-buddy.version>1.11.21</byte-buddy.version>
+        <byte-buddy.version>1.12.2</byte-buddy.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -97,7 +97,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <version>4.0.0</version>
+            <version>4.1.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
