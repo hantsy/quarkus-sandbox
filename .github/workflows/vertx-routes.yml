@@ -1,17 +1,17 @@
 # This workflow will build a Java project with Maven
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: mutiny-hibernate-reactive
+name: vertx-routes
 
 on:
   push:
     paths:
-      - "mutiny-hibernate-reactive/**"
+      - "vertx-routes/**"
     branches:
       - master
   pull_request:
     paths:
-      - "mutiny-hibernate-reactive/**"
+      - "vertx-routes/**"
     types:
       - opened
       - synchronize
@@ -41,4 +41,4 @@ jobs:
             docker ps -a        
       - name: Build with Maven
         run: |
-          mvn -q clean  package --file mutiny-hibernate-reactive/pom.xml -DskipTests
+          mvn -q clean  package --file vertx-routes/pom.xml -DskipTests

@@ -14,7 +14,9 @@
         <!-- official maven plugins -->
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven.compiler.release>17</maven.compiler.release>
+        <maven.compiler.parameters>true</maven.compiler.parameters>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
 
         <!-- kotlin -->
         <kotlin.version>1.6.0</kotlin.version>
@@ -100,9 +102,6 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
-                <configuration>
-                    <parameters>true</parameters>
-                </configuration>
                 <executions>
                     <execution>
                         <id>compile</id>
@@ -181,7 +180,7 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
+                        <version>${maven-failsafe-plugin.version}</version>
                         <executions>
                             <execution>
                                 <goals>

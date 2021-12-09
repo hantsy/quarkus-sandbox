@@ -18,16 +18,9 @@ updates:
     directory: "/amqp" # Location of package manifests
     schedule:
       interval: "weekly"
+
   - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/java8-hibernate-reactive" # Location of package manifests
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/mutiny" # Location of package manifests
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/mutiny-hibernate-reactive" # Location of package manifests
+    directory: "/hibernate-reactive" # Location of package manifests
     schedule:
       interval: "weekly"
   - package-ecosystem: "maven" # See documentation for possible values
@@ -47,16 +40,19 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/restclient-vertx-mutiny" # Location of package manifests
+    directory: "/restclient-vertx" # Location of package manifests
     schedule:
       interval: "weekly"
   - package-ecosystem: "maven" # See documentation for possible values
     directory: "/resteasy-reactive" # Location of package manifests
     schedule:
       interval: "weekly"
-
   - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/vertx-routes-mutiny" # Location of package manifests
+    directory: "/resteasy-mutiny" # Location of package manifests
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "maven" # See documentation for possible values
+    directory: "/vertx-routes" # Location of package manifests
     schedule:
       interval: "weekly"
   - package-ecosystem: "maven" # See documentation for possible values

@@ -20,7 +20,7 @@ on:
 jobs:
 
   # The following samples used deprecated APIs and not updated to the latest Quarkus.
-  java8-hibernate-reactive:
+  hibernate-reactive-java8:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -28,9 +28,9 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: Building java8-hibernate-reactive
+      - name: Building with Maven
         run: |
-          mvn -q clean  package --file legacy/java8-hibernate-reactive/pom.xml -DskipTests
+          mvn -q clean  package --file legacy/hibernate-reactive-java8/pom.xml -DskipTests
 
   java8:
     runs-on: ubuntu-latest
@@ -40,7 +40,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: Building java8
+      - name: Building with Maven
         run: |
           mvn -q clean  package --file legacy/java8/pom.xml -DskipTests
 
@@ -52,11 +52,11 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: Building rxjava2
+      - name: Building with Maven
         run: |
           mvn -q clean  package --file legacy/rxjava2/pom.xml -DskipTests
 
-  vertx-routes:
+  vertx-routes-java8:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -64,6 +64,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: Building vertx-routes
+      - name: Building with Maven
         run: |
-          mvn -q clean  package --file legacy/vertx-routes/pom.xml -DskipTests
+          mvn -q clean  package --file legacy/vertx-routes-java8/pom.xml -DskipTests
