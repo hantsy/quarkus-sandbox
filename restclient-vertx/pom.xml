@@ -16,7 +16,7 @@
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
 
         <!-- Quarkus BOM -->
-        <quarkus.version>2.5.1.Final</quarkus.version>
+        <quarkus.version>2.5.2.Final</quarkus.version>
     </properties>
     <dependencyManagement>
         <dependencies>
