@@ -19,7 +19,7 @@
         <maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
 
         <!-- kotlin -->
-        <kotlin.version>1.6.0</kotlin.version>
+        <kotlin.version>1.6.10</kotlin.version>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
 
         <!-- dependencies-->
