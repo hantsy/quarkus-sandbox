@@ -39,6 +39,7 @@ jobs:
         run: |
             docker-compose up -d postgres
             docker ps -a        
-      - name: Build with Maven
+      - name: Build with Gradle
         run: |
-          mvn -q clean  package --file restclient-kotlin/pom.xml -DskipTests
+          cd restclient-kotlin
+          ./gradlew build  -x test 
