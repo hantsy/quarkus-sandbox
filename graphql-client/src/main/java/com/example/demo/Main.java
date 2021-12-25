@@ -2,7 +2,6 @@ package com.example.demo;
 
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
-import io.smallrye.graphql.client.typesafe.api.GraphQLClientException;
 
 import javax.inject.Inject;
 import java.util.UUID;
@@ -45,7 +44,7 @@ public class Main implements QuarkusApplication {
         }
         if (post.hasErrors()) {
             post.getErrors().forEach(
-                    error -> LOGGER.log(Level.INFO, "error: code={0}, message={1}", new Object[]{error.getErrorCode(), error.getMessage()})
+                    error -> LOGGER.log(Level.INFO, "error: path={0}, message={1}", new Object[]{error.getPath(), error.getMessage()})
             );
         }
 
