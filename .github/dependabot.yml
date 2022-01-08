@@ -66,4 +66,8 @@ updates:
   - package-ecosystem: "maven" 
     directory: "/mongodb-panache-kotlin" 
     schedule:
-      interval: "weekly"        
+      interval: "weekly"
+  - package-ecosystem: "maven" 
+    directory: "/quartz" 
+    schedule:
+      interval: "weekly"       
