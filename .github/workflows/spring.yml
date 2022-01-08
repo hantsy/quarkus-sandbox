@@ -41,4 +41,5 @@ jobs:
             docker ps -a        
       - name: Build with Maven
         run: |
-          mvn -q clean  package --file spring/pom.xml -DskipTests
+          cd spring
+          mvn -q clean  package -DskipTests
