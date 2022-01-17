@@ -13,7 +13,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Maven plugins -->
-        <compiler-plugin.version>3.8.1</compiler-plugin.version>
+        <compiler-plugin.version>3.9.0</compiler-plugin.version>
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
 
         <!-- Settings of maven compiler plugin -->
