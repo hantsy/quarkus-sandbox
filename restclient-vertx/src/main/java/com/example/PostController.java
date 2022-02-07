@@ -24,7 +24,7 @@ public class PostController {
             @QueryParam("limit") @DefaultValue("10") int limit
     ) {
         return Uni.combine().all().unis(
-                this.client.getAllPosts(q, offset, limit).collectItems().asList(),
+                this.client.getAllPosts(q, offset, limit).collect().asList(),
                 this.client.countAllPosts(q)
                 )
                 .combinedWith(
