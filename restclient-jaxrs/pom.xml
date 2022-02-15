@@ -10,13 +10,13 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- maven plugins -->
-        <maven-compiler-plugin.version>3.9.0</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.10.0</maven-compiler-plugin.version>
         <maven.compiler.release>17</maven.compiler.release>
         <maven.compiler.parameters>true</maven.compiler.parameters>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
 
         <!-- Quarkus BOM -->
-        <quarkus.version>2.7.0.Final</quarkus.version>
+        <quarkus.version>2.7.1.Final</quarkus.version>
     </properties>
     <dependencyManagement>
         <dependencies>
