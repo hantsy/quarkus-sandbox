@@ -23,7 +23,7 @@
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
 
         <!-- dependencies-->
-        <quarkus.version>2.8.1.Final</quarkus.version>
+        <quarkus.version>2.9.0.Final</quarkus.version>
     </properties>
     <dependencyManagement>
         <dependencies>
