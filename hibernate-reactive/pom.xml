@@ -14,14 +14,14 @@
 
         <!-- Maven plugins -->
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
-        <maven-surefire-plugin.version>3.0.0-M6</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
 
         <!-- Settings of maven compiler plugin -->
         <maven.compiler.parameters>true</maven.compiler.parameters>
         <maven.compiler.release>17</maven.compiler.release>
 
         <!-- dependencies -->
-        <quarkus.version>2.9.1.Final</quarkus.version>
+        <quarkus.version>2.11.0.Final</quarkus.version>
     </properties>
     <dependencyManagement>
         <dependencies>

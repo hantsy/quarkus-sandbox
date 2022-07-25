@@ -14,7 +14,7 @@
 
         <!-- Maven plugins -->
         <compiler-plugin.version>3.10.1</compiler-plugin.version>
-        <surefire-plugin.version>3.0.0-M6</surefire-plugin.version>
+        <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
 
         <!-- Settings of maven compiler plugin -->
         <maven.compiler.parameters>true</maven.compiler.parameters>
