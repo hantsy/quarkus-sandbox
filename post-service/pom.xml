@@ -18,7 +18,7 @@
 
         <!-- dependencies -->
         <quarkus.version>2.9.1.Final</quarkus.version>
-        <byte-buddy.version>1.12.10</byte-buddy.version>
+        <byte-buddy.version>1.12.14</byte-buddy.version>
     </properties>
     <dependencyManagement>
         <dependencies>
