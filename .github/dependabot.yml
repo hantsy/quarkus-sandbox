@@ -35,7 +35,7 @@ updates:
     directory: "/restclient-jaxrs" # Location of package manifests
     schedule:
       interval: "weekly"
-  - package-ecosystem: "gradle" # See documentation for possible values
+  - package-ecosystem: "maven" # See documentation for possible values
     directory: "/restclient-kotlin" # Location of package manifests
     schedule:
       interval: "weekly"
