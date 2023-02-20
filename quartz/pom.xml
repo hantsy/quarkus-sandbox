@@ -19,7 +19,7 @@
         <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
 
         <!-- deps -->
-        <quarkus.version>2.14.1.Final</quarkus.version>
+        <quarkus.version>2.16.3.Final</quarkus.version>
     </properties>
 
     <dependencyManagement>
