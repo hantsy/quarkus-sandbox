@@ -9,7 +9,7 @@ import net.bytebuddy.implementation.MethodDelegation;
 import net.bytebuddy.implementation.SuperMethodCall;
 import net.bytebuddy.dynamic.DynamicType.Builder;
 
-import javax.validation.Constraint;
+import jakarta.validation.Constraint;
 
 import java.io.IOException;
 

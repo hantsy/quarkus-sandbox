@@ -3,7 +3,7 @@ package com.example.demo;
 import lombok.Data;
 import org.jboss.resteasy.annotations.providers.multipart.PartType;
 
-import javax.ws.rs.FormParam;
+import jakarta.ws.rs.FormParam;
 import java.io.InputStream;
 
 @Data

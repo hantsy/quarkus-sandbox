@@ -4,20 +4,20 @@ import com.example.domain.Comment;
 import com.example.domain.PostId;
 import com.example.repository.CommentRepository;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.validation.Valid;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.container.ResourceContext;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.validation.Valid;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.container.ResourceContext;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.UriInfo;
 import java.util.logging.Logger;
 
-import static javax.ws.rs.core.Response.created;
-import static javax.ws.rs.core.Response.ok;
+import static jakarta.ws.rs.core.Response.created;
+import static jakarta.ws.rs.core.Response.ok;
 
 
 // see: https://stackoverflow.com/questions/57820428/jax-rs-subresource-issue-in-quarkus

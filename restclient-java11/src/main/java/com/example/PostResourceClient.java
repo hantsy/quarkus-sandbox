@@ -1,8 +1,8 @@
 package com.example;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.util.TypeLiteral;
-import javax.json.bind.JsonbBuilder;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.util.TypeLiteral;
+import jakarta.json.bind.JsonbBuilder;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;

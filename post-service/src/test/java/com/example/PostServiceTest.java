@@ -18,7 +18,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.enterprise.event.Event;
+import jakarta.enterprise.event.Event;
 import java.time.LocalDateTime;
 import java.util.Optional;
 

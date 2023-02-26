@@ -3,9 +3,9 @@ package com.example.config;
 import io.quarkus.jsonb.JsonbConfigCustomizer;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.inject.Singleton;
-import javax.json.bind.JsonbConfig;
-import javax.json.bind.config.PropertyVisibilityStrategy;
+import jakarta.inject.Singleton;
+import jakarta.json.bind.JsonbConfig;
+import jakarta.json.bind.config.PropertyVisibilityStrategy;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 

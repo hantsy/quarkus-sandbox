@@ -4,8 +4,8 @@ package com.example.demo;
 import io.quarkus.runtime.StartupEvent;
 import lombok.RequiredArgsConstructor;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
 import java.util.Random;
 import java.util.UUID;
 import java.util.logging.Level;

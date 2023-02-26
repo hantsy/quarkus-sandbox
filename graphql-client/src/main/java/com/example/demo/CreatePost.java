@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import org.eclipse.microprofile.graphql.Input;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotEmpty;
 
 @Data
 @Builder

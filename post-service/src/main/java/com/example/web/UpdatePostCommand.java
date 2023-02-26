@@ -1,7 +1,7 @@
 package com.example.web;
 
-import javax.json.bind.annotation.JsonbCreator;
-import javax.validation.constraints.NotEmpty;
+import jakarta.json.bind.annotation.JsonbCreator;
+import jakarta.validation.constraints.NotEmpty;
 
 public record UpdatePostCommand(@NotEmpty String title,
                                 @NotEmpty String content) {

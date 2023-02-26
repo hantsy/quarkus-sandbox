@@ -8,10 +8,10 @@ import com.example.web.CreateCommentCommand;
 import com.example.web.PostNotFoundException;
 import lombok.RequiredArgsConstructor;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Event;
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Event;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 
 @ApplicationScoped
 @RequiredArgsConstructor

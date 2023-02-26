@@ -3,7 +3,7 @@ package com.example.demo;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;

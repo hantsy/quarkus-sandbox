@@ -1,11 +1,11 @@
 package com.example.demo;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.util.TypeLiteral;
-import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.bind.Jsonb;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.util.TypeLiteral;
+import jakarta.inject.Inject;
+import jakarta.json.Json;
+import jakarta.json.JsonArray;
+import jakarta.json.bind.Jsonb;
 import java.io.StringReader;
 import java.net.URI;
 import java.net.http.HttpClient;

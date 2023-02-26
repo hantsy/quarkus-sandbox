@@ -8,7 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import io.quarkus.jackson.ObjectMapperCustomizer;
 import io.vertx.core.json.Json;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

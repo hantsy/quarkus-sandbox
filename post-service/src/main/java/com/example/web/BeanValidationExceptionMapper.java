@@ -1,15 +1,15 @@
 package com.example.web;
 
-import javax.validation.ConstraintViolationException;
-import javax.validation.Path;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Path;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.ext.ExceptionMapper;
+import jakarta.ws.rs.ext.Provider;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import static javax.ws.rs.core.Response.status;
+import static jakarta.ws.rs.core.Response.status;
 
 @Provider
 public class BeanValidationExceptionMapper implements ExceptionMapper<ConstraintViolationException> {

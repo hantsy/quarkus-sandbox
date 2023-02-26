@@ -3,7 +3,7 @@ package com.example.demo;
 import lombok.RequiredArgsConstructor;
 import org.eclipse.microprofile.graphql.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 

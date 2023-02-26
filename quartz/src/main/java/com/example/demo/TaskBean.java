@@ -2,8 +2,8 @@ package com.example.demo;
 
 import io.quarkus.scheduler.Scheduled;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.transaction.Transactional;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.transaction.Transactional;
 
 @ApplicationScoped
 public class TaskBean {

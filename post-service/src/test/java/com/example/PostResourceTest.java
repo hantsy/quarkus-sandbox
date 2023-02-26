@@ -8,9 +8,9 @@ import io.quarkus.test.junit.mockito.InjectMock;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
-import javax.inject.Inject;
-import javax.json.bind.Jsonb;
-import javax.json.bind.annotation.JsonbCreator;
+import jakarta.inject.Inject;
+import jakarta.json.bind.Jsonb;
+import jakarta.json.bind.annotation.JsonbCreator;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

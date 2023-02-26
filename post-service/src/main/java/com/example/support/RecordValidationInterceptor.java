@@ -3,7 +3,7 @@ package com.example.support;
 import net.bytebuddy.implementation.bind.annotation.AllArguments;
 import net.bytebuddy.implementation.bind.annotation.Origin;
 
-import javax.validation.*;
+import jakarta.validation.*;
 import java.lang.reflect.Constructor;
 import java.util.Iterator;
 import java.util.Set;
