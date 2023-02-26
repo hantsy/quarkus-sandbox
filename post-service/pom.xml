@@ -18,7 +18,7 @@
 
         <!-- dependencies -->
         <quarkus.version>3.0.0.Alpha4</quarkus.version>
-        <byte-buddy.version>1.12.18</byte-buddy.version>
+        <byte-buddy.version>1.14.0</byte-buddy.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -68,7 +68,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
+            <version>1.18.26</version>
             <optional>true</optional>
         </dependency>
 
@@ -96,7 +96,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <version>4.9.0</version>
+            <version>5.1.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

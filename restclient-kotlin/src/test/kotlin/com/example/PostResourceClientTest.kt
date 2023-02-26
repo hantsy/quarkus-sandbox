@@ -26,6 +26,7 @@ class PostResourceClientTest {
                 .withHeader("Accept", equalTo("application/json"))
                 .willReturn(
                     aResponse()
+                        .withStatus(200)
                         .withHeader("Content-Type", "application/json")
                         .withBody(
                             """
@@ -68,6 +69,7 @@ class PostResourceClientTest {
                     aResponse()
                         .withHeader("Content-Type", "text/plain")
                         .withBody("10")
+                        .withStatus(200)
                 )
         )
 
