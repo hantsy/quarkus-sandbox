@@ -1,16 +1,16 @@
 package com.example
 
 import org.eclipse.microprofile.rest.client.inject.RestClient
-import javax.enterprise.context.RequestScoped
-import javax.inject.Inject
-import javax.ws.rs.*
-import javax.ws.rs.core.MediaType
-import javax.ws.rs.core.Response
-import javax.ws.rs.core.Response.ok
+import jakarta.enterprise.context.RequestScoped
+import jakarta.inject.Inject
+import jakarta.ws.rs.*
+import jakarta.ws.rs.core.MediaType
+import jakarta.ws.rs.core.Response
+import jakarta.ws.rs.core.Response.ok
 
 @Path("/api")
 @RequestScoped
-class PostController {
+class PostController() {
 
     // see: https://stackoverflow.com/questions/59086151/rest-client-interface-can-not-be-injected-in-quarkus-kotlin-app
     // and https://github.com/quarkusio/quarkus/issues/5413

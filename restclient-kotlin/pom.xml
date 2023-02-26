@@ -24,6 +24,8 @@
 
         <!-- dependencies-->
         <quarkus.version>3.0.0.Alpha4</quarkus.version>
+        <wiremock.version>2.35.0</wiremock.version>
+        <jackson.version>2.14.2</jackson.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -51,7 +53,12 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-jsonb</artifactId>
+            <artifactId>quarkus-rest-client-jackson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-kotlin</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
 		<dependency>
             <groupId>io.quarkus</groupId>
@@ -69,7 +76,7 @@
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jdk8</artifactId>
+            <artifactId>kotlin-stdlib</artifactId>
             <version>${kotlin.version}</version>
         </dependency>
         <dependency>
@@ -78,6 +85,20 @@
             <version>${kotlin.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock-jre8</artifactId>
+            <scope>test</scope>
+            <version>${wiremock.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.kotest/kotest-assertions-core -->
+        <dependency>
+            <groupId>io.kotest</groupId>
+            <artifactId>kotest-assertions-core-jvm</artifactId>
+            <version>5.5.5</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
     <build>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
