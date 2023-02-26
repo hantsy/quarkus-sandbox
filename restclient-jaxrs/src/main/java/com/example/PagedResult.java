@@ -3,12 +3,13 @@ package com.example;
 import java.io.Serializable;
 import java.util.List;
 
-public class PostPage implements Serializable {
+public class PagedResult implements Serializable {
+
     private List<Post> content;
     private Long count;
 
-    public static PostPage of(List<Post> content, Long count) {
-        PostPage page = new PostPage();
+    public static PagedResult of(List<Post> content, Long count) {
+        PagedResult page = new PagedResult();
         page.setContent(content);
         page.setCount(count);
 

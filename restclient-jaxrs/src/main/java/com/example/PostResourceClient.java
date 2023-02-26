@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @ApplicationScoped
@@ -47,8 +46,7 @@ public class PostResourceClient {
                 .queryParam("limit", limit)
                 .request()
                 .rx()
-                .get(new GenericType<List<Post>>() {
-                });
+                .get(new GenericType<List<Post>>() { });
     }
 
     Post getPostById(String id) {

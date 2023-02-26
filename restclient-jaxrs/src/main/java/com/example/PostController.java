@@ -15,7 +15,7 @@ public class PostController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public CompletionStage<PostPage> getAllPosts(
+    public CompletionStage<PagedResult> getAllPosts(
             @QueryParam("q") String q,
             @QueryParam("offset") @DefaultValue("0") int offset,
             @QueryParam("limit") @DefaultValue("10") int limit
@@ -23,7 +23,7 @@ public class PostController {
         return this.client.getAllPosts(q, offset, limit)
                 .thenCombine(
                         this.client.countAllPosts(q),
-                        (data, count) -> PostPage.of(data, count)
+                        (data, count) -> PagedResult.of(data, count)
                 );
     }
 
