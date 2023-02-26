@@ -8,7 +8,6 @@ import jakarta.inject.Inject
 import jakarta.ws.rs.core.GenericType
 import org.eclipse.microprofile.rest.client.inject.RestClient
 import org.junit.jupiter.api.Test
-import java.lang.reflect.ParameterizedType
 
 @WireMockTest(httpPort = 8080)
 @QuarkusTest
@@ -50,7 +49,7 @@ class PostResourceClientTest {
         )
 
         val countResponse = client.getAllPosts("")
-        countResponse.readEntity(object:GenericType<List<Post>>(){}).size shouldBe 2
+        countResponse.readEntity(object : GenericType<List<Post>>() {}).size shouldBe 2
 
         verify(
             getRequestedFor(urlEqualTo(url))
