@@ -16,7 +16,7 @@
         <maven.compiler.parameters>true</maven.compiler.parameters>
 
         <!-- dependencies -->
-        <quarkus.version>3.0.0.Alpha4</quarkus.version>
+        <quarkus.version>3.0.0.Alpha5</quarkus.version>
     </properties>
     <dependencyManagement>
         <dependencies>
