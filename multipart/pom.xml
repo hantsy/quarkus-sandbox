@@ -18,7 +18,7 @@
         <surefire-plugin.version>3.0.0</surefire-plugin.version>
 
         <!-- deps -->
-        <quarkus.version>3.0.0.CR2</quarkus.version>
+        <quarkus.version>3.0.1.Final</quarkus.version>
 
     </properties>
     <dependencyManagement>
