@@ -3,27 +3,14 @@ package org.example;
 import io.quarkus.hibernate.reactive.panache.PanacheRepositoryBase;
 import io.quarkus.panache.common.Sort;
 import io.smallrye.mutiny.Uni;
-
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
+
 import java.util.List;
 import java.util.UUID;
 
 @ApplicationScoped
 public class PostRepository implements PanacheRepositoryBase<Post, UUID> {
-
-//    public Stream<Post> findByKeyword(String q, int offset, int limit) {
-//        if (q == null || q.trim().isEmpty()) {
-//            return this.streamAll(Sort.descending("createdAt"))
-//                    .skip(offset)
-//                    .limit(limit);
-//        } else {
-//            return this.streamAll(Sort.descending("createdAt"))
-//                    .filter(p -> p.title.contains(q) || p.content.contains(q))
-//                    .skip(offset)
-//                    .limit(limit);
-//        }
-//    }
 
     public Uni<List<Post>> findByKeyword(String q, int offset, int limit) {
         if (q == null || q.trim().isEmpty()) {
