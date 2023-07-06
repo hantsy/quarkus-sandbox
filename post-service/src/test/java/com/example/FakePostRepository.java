@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 
-public class MockPostRepository {
+public class FakePostRepository {
 
     static Map<String, Post> data = new ConcurrentHashMap<>();
 

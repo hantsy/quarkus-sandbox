@@ -1,7 +1,7 @@
 package com.example;
 
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit.mockito.InjectMock;
+import io.quarkus.test.InjectMock;
 import org.junit.jupiter.api.Test;
 
 import jakarta.enterprise.context.ApplicationScoped;

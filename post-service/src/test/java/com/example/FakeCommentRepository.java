@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static java.util.stream.Collectors.toList;
 
-public class MockCommentRepository {
+public class FakeCommentRepository {
     static Map<String, Comment> data = new ConcurrentHashMap<>();
 
     public List<Comment> all() {
