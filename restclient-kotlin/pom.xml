@@ -25,7 +25,7 @@
         <!-- dependencies-->
         <quarkus.version>3.0.1.Final</quarkus.version>
         <wiremock.version>2.35.0</wiremock.version>
-        <jackson.version>2.14.2</jackson.version>
+        <jackson.version>2.15.2</jackson.version>
     </properties>
     <dependencyManagement>
         <dependencies>
