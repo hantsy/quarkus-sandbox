@@ -3,12 +3,12 @@ name: mongodb-panache-kotlin
 on:
   push:
     paths:
-      - "mongodb-panache-kotlin/**"
+      - "mongodb-kotlin/**"
     branches:
       - master
   pull_request:
     paths:
-      - "mongodb-panache-kotlin/**"
+      - "mongodb-kotlin/**"
     types:
       - opened
       - synchronize
@@ -31,4 +31,4 @@ jobs:
             docker-compose up -d mongodb
             docker ps -a              
       - name: Build with Maven
-        run: mvn clean install --file mongodb-panache-kotlin/pom.xml
+        run: mvn clean install --file mongodb-kotlin/pom.xml
