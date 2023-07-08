@@ -39,8 +39,8 @@ public class PostResources {
     @Consumes(MediaType.APPLICATION_JSON)
     public Uni<Response> savePost(@Valid CreatePostRequest formData) {
         var post = Post.builder()
-                .title(formData.getTitle())
-                .content(formData.getContent())
+                .title(formData.title())
+                .content(formData.content())
                 .build();
         return this.posts.save(post)
                 .map(id -> created(URI.create("/posts/" + id)).build());
@@ -67,7 +67,7 @@ public class PostResources {
     public Uni<Response> updatePost(@PathParam("id") final UUID id, @Valid UpdatePostRequest updateForm) {
         return this.posts.findById(id)
                 .onItem().ifNull().failWith(() -> new PostNotFoundException(id))
-                .map(data -> Post.builder().id(id).title(updateForm.getTitle()).content(updateForm.getContent()).build())
+                .map(data -> Post.builder().id(id).title(updateForm.title()).content(updateForm.content()).build())
                 .flatMap(this.posts::update)
                 .map(updated -> updated > 0 ? Status.NO_CONTENT : Status.NOT_FOUND)
                 .map(status -> status(status).build())

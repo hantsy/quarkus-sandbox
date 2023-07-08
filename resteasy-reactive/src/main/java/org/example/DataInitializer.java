@@ -1,6 +1,8 @@
 package org.example;
 
+import io.quarkus.arc.profile.IfBuildProfile;
 import io.quarkus.runtime.ShutdownEvent;
+import io.quarkus.runtime.Startup;
 import io.quarkus.runtime.StartupEvent;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -11,8 +13,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @ApplicationScoped
+@Startup
+@IfBuildProfile("dev")
 public class DataInitializer {
-    private final static Logger LOGGER = Logger.getLogger(DataInitializer.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(DataInitializer.class.getName());
 
     @Inject
     PostRepository posts;
