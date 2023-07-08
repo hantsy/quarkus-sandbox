@@ -1,13 +1,28 @@
 package com.example;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class Post {
+@Entity
+public class Post implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
     String title;
     String content;
+
+    @CreationTimestamp
     LocalDateTime createdAt;
+
+    public Post() {
+    }
 
     public static Post of(String title, String content) {
         return Post.of(null, title, content, null);

@@ -1,6 +1,5 @@
 package com.example;
 
-import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 
 import jakarta.enterprise.context.RequestScoped;
@@ -9,8 +8,9 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.Response.*;
+
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -30,7 +30,7 @@ public class PostResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Multi<Post> getAllPosts() {
+    public Uni<List<Post>> getAllPosts() {
         return this.posts.findAll();
     }
 
