@@ -1,26 +1,28 @@
 package com.example;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 public class Post implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    String id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    UUID id;
     String title;
     String content;
     LocalDateTime createdAt;
 
-    public static Post of(String title, String content) {
+
+    public static Post of(UUID id, String title, String content) {
         Post post = new Post();
+        post.setId(id);
         post.setCreatedAt(LocalDateTime.now());
         post.setTitle(title);
         post.setContent(content);
@@ -28,11 +30,15 @@ public class Post implements Serializable {
         return post;
     }
 
-    public String getId() {
+    public static Post of(String title, String content) {
+        return Post.of(null, title, content);
+    }
+
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

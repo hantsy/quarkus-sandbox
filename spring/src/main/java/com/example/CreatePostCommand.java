@@ -9,15 +9,15 @@ import java.io.Serializable;
  * @author Hantsy Bai<hantsy@gmail.com>
  *
  */
-public class PostForm implements Serializable {
+public class CreatePostCommand implements Serializable {
 
     /**
      *
      */
     private static final long serialVersionUID = 1L;
 
-    public static PostForm of(String title, String content) {
-        PostForm _postForm = new PostForm();
+    public static CreatePostCommand of(String title, String content) {
+        CreatePostCommand _postForm = new CreatePostCommand();
         _postForm.setTitle(title);
         _postForm.setContent(content);
         return _postForm;

@@ -5,21 +5,21 @@
  */
 package com.example;
 
+import java.util.UUID;
+
 /**
  *
  * @author hantsy
  */
 public class PostNotFoundException extends RuntimeException {
 
-    private String slug;
-
-    public PostNotFoundException(String slug) {
-        super("post:" + slug + " was not found");
-        this.slug = slug;
+    UUID id;
+    public PostNotFoundException(UUID id) {
+        super("Post #" + id + " was not found");
     }
 
-    public String getSlug() {
-        return slug;
+
+    public UUID getId() {
+        return id;
     }
-    
 }

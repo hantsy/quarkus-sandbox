@@ -8,8 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
-import java.net.URI;
+
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -54,7 +55,7 @@ public class PostController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Post> getPost(@PathVariable("id") String id) {
+    public ResponseEntity<Post> getPost(@PathVariable("id") UUID id) {
 
         Post post = this.postRepository.findById(id).orElseThrow(
                 () -> new PostNotFoundException(id)
@@ -64,7 +65,7 @@ public class PostController {
     }
 
     @PostMapping()
-    public ResponseEntity<Void> createPost(@RequestBody @Valid PostForm post) {
+    public ResponseEntity<Void> createPost(@RequestBody @Valid CreatePostCommand post) {
         Post data = Post.of(post.getTitle(), post.getContent());
         Post saved = this.postRepository.save(data);
 //        URI createdUri = UriComponentsBuilder.fromPath("/posts/{id}")
@@ -75,7 +76,7 @@ public class PostController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> updatePost(@PathVariable("id") String id, @RequestBody @Valid PostForm form) {
+    public ResponseEntity<Void> updatePost(@PathVariable("id") UUID id, @RequestBody @Valid CreatePostCommand form) {
         Post post = this.postRepository.findById(id).orElseThrow(
                 () -> new PostNotFoundException(id)
         );
@@ -87,7 +88,7 @@ public class PostController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deletePostById(@PathVariable("id") String id) {
+    public ResponseEntity<Void> deletePostById(@PathVariable("id") UUID id) {
         this.postRepository.deleteById(id);
         return noContent().build();
     }

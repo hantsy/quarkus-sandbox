@@ -22,7 +22,7 @@ public class PostExceptionHandler {
     public ResponseEntity notFound(PostNotFoundException ex/*, WebRequest req*/) {
         Map<String, String> errors = new HashMap<>();
         errors.put("entity", "POST");
-        errors.put("id", "" + ex.getSlug());
+        errors.put("id", "" + ex.getId());
         errors.put("code", "not_found");
         errors.put("message", ex.getMessage());
 
