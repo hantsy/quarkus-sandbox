@@ -12,7 +12,7 @@ import jakarta.ws.rs.ext.Provider;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
-@Provider
+//@Provider
 public class ServerVertxBufferMessageBodyWriter extends VertxBufferMessageBodyWriter
         implements ServerMessageBodyWriter<Buffer> {
 

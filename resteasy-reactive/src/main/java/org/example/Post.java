@@ -27,6 +27,7 @@ public class Post implements Serializable {
     String content;
 
     @CreationTimestamp
+    @Column(name = "created_at")
     LocalDateTime createdAt;
 
     public static Post of(String title, String content) {
