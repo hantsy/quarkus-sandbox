@@ -24,9 +24,15 @@ public class PostRepository {
     public Uni<List<Post>> findAll() {
 
         return this.sessionFactory.withSession(session -> {
+                    // create CriteriaBuilder
                     var cb = this.sessionFactory.getCriteriaBuilder();
+
+                    // create Query
                     var query = cb.createQuery(Post.class);
+
+                    // create root
                     var root = query.from(Post.class);
+
                     return session.createQuery(query).getResultList();
                 }
         );
@@ -66,8 +72,13 @@ public class PostRepository {
 
     public Uni<Integer> deleteAll() {
         return this.sessionFactory.withTransaction((session, transaction) -> {
+            // create CriteriaBuilder
             var cb = this.sessionFactory.getCriteriaBuilder();
+
+            // create CriteriaDelete
             var delete = cb.createCriteriaDelete(Post.class);
+
+            // root
             var root = delete.from(Post.class);
 
             return session.createQuery(delete).executeUpdate();
