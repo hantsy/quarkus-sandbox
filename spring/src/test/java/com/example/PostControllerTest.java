@@ -25,7 +25,7 @@ public class PostControllerTest {
     public void testGetAll() {
         when(this.postRepository.findAll(isA(Pageable.class)))
                 .thenReturn(
-                        new PageImpl<Post>(
+                        new PageImpl<>(
                                 List.of(
                                         Post.of(UUID.randomUUID(), "foo", "bar"),
                                         Post.of(UUID.randomUUID(), "foo2", "bar2")

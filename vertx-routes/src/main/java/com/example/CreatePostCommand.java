@@ -3,13 +3,13 @@ package com.example;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class PostForm implements Serializable {
+public class CreatePostCommand implements Serializable {
 
     String title;
     String content;
 
-    public static PostForm of(String title, String content) {
-        PostForm post = new PostForm();
+    public static CreatePostCommand of(String title, String content) {
+        CreatePostCommand post = new CreatePostCommand();
         post.setTitle(title);
         post.setContent(content);
 
@@ -37,7 +37,7 @@ public class PostForm implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PostForm postForm = (PostForm) o;
+        CreatePostCommand postForm = (CreatePostCommand) o;
         return title.equals(postForm.title) &&
                 content.equals(postForm.content);
     }

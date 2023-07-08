@@ -51,7 +51,7 @@ class PostsHandler {
     public void save(RoutingContext rc) {
         var body = rc.getBodyAsString();
         LOGGER.log(Level.INFO, "request body: {0}", body);
-        var form = fromJson(body, PostForm.class);
+        var form = fromJson(body, CreatePostCommand.class);
         this.posts.save(Post.of(form.getTitle(), form.getContent()))
                 .subscribe()
                 .with(savedId -> {
@@ -69,15 +69,13 @@ class PostsHandler {
         var body = rc.getBodyAsString();
 
         LOGGER.log(Level.INFO, "\npath param id: {0}\nrequest body: {1}", new Object[]{id, body});
-        var form = fromJson(body, PostForm.class);
+        var form = fromJson(body, CreatePostCommand.class);
         this.posts.findById(UUID.fromString(id))
                 .onFailure(PostNotFoundException.class).invoke(ex -> rc.response().setStatusCode(404).end())
                 .map(
                         post -> {
-                            post.setTitle(form.getTitle());
-                            post.setContent(form.getContent());
-
-                            return this.posts.update(UUID.fromString(id), post);
+                            var data = Post.of(post.id(), form.title, form.content, post.createdAt());
+                            return this.posts.update(UUID.fromString(id), data);
                         }
                 )
                 .subscribe()
