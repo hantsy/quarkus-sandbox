@@ -1,7 +1,6 @@
-package com.example.repository
+package com.example
 
 import io.quarkus.mongodb.panache.kotlin.PanacheMongoRepository
-import io.quarkus.mongodb.panache.kotlin.PanacheMongoRepositoryBase
 import jakarta.enterprise.context.ApplicationScoped
 
 @ApplicationScoped

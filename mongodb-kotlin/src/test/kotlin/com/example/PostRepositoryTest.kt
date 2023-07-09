@@ -1,7 +1,5 @@
-package com.example.entity
+package com.example
 
-import com.example.repository.Post
-import com.example.repository.PostRepository
 import io.quarkus.test.junit.QuarkusTest
 import jakarta.inject.Inject
 import org.assertj.core.api.Assertions.assertThat
@@ -23,6 +21,8 @@ class PostRepositoryTest {
     fun `test save and query`() {
         val entity = Post(title = "foo", body = "bar")
         postRepository.persist(entity)
+
+        log.log(Level.INFO, "entity: $entity")
         assertThat(entity).isNotNull()
 
         val post = postRepository.findByTitle("foo")

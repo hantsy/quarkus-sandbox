@@ -1,4 +1,4 @@
-package com.example.entity
+package com.example
 
 import io.quarkus.mongodb.panache.kotlin.PanacheMongoCompanion
 import io.quarkus.mongodb.panache.kotlin.PanacheMongoEntity
