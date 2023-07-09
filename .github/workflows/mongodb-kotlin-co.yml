@@ -1,0 +1,34 @@
+name: mongodb-panache-kotlin
+
+on:
+  push:
+    paths:
+      - "mongodb-kotlin-co/**"
+    branches:
+      - master
+  pull_request:
+    paths:
+      - "mongodb-kotlin-co/**"
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: 17
+          cache: "maven"
+          
+      - name: Start up databases via Docker Compose 
+        run: |
+            docker-compose up -d mongodb
+            docker ps -a              
+      - name: Build with Maven
+        run: mvn clean install --file mongodb-kotlin-co/pom.xml
