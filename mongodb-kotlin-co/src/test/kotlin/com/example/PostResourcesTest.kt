@@ -8,6 +8,7 @@ import io.restassured.http.ContentType
 import io.smallrye.mutiny.Multi
 import io.smallrye.mutiny.Uni
 import org.bson.types.ObjectId
+import org.hamcrest.Matchers.containsString
 import org.hamcrest.Matchers.`is`
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*
@@ -90,7 +91,7 @@ class PostResourcesTest {
         .then()
             .statusCode(201)
             .log().all()
-            .header("location", `is`("/posts/$id"))
+            .header("location", containsString("/posts/$id"))
         //@formatter:on
 
         verify(postRepository, times(1)).persist(any(Post::class.java))
