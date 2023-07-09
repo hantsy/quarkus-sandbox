@@ -71,7 +71,7 @@ updates:
     directory: "/mongodb-kotlin" 
     schedule:
       interval: "weekly"
-   - package-ecosystem: "maven" 
+  - package-ecosystem: "maven" 
     directory: "/mongodb-kotlin-co" 
     schedule:
       interval: "weekly"     
