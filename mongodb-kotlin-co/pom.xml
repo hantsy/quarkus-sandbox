@@ -114,7 +114,7 @@
         <dependency>
             <groupId>org.jetbrains.kotlinx</groupId>
             <artifactId>kotlinx-coroutines-test</artifactId>
-            <scope>true</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.kotest</groupId>
