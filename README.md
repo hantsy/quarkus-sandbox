@@ -15,7 +15,7 @@ A  personal sandbox project  to experience the new features of the [Quarkus fram
 
 | Name | Description |
 |:-------------------|--------------------------------------------------|
-|[post-service](https://github.com/hantsy/quarkus-sample/tree/master/post-service) |Simple CURD RESTful APIs using Resteasy, Hibernate|
+|[resteasy-classic](https://github.com/hantsy/quarkus-sample/tree/master/resteasy-classic) |Simple CURD RESTful APIs using tranditional Resteasy, Hibernate/JPA|
 |[spring](https://github.com/hantsy/quarkus-sample/tree/master/spring) |CRUD RESTful APIs using Spring DI, Spring Data JPA, Spring WebMvc|
 |[mutiny](https://github.com/hantsy/quarkus-sample/tree/master/mutiny)  |CRUD RESTful APIs using Smallrye Mutiny and Reactive Postgre client|
 |[restclient](https://github.com/hantsy/quarkus-sample/tree/master/restclient)|Rest Client using MP RestClient spec|
