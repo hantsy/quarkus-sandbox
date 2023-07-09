@@ -17,19 +17,19 @@ A  personal sandbox project  to experience the new features of the [Quarkus fram
 |:-------------------|--------------------------------------------------|
 |[resteasy-classic](https://github.com/hantsy/quarkus-sample/tree/master/resteasy-classic) |Simple CURD RESTful APIs using tranditional Resteasy, Hibernate/JPA|
 |[spring](https://github.com/hantsy/quarkus-sample/tree/master/spring) |CRUD RESTful APIs using Spring DI, Spring Data JPA, Spring WebMvc|
-|[mutiny](https://github.com/hantsy/quarkus-sample/tree/master/mutiny)  |CRUD RESTful APIs using Smallrye Mutiny and Reactive Postgre client|
-|[restclient](https://github.com/hantsy/quarkus-sample/tree/master/restclient)|Rest Client using MP RestClient spec|
-|[restclient-kotlin](https://github.com/hantsy/quarkus-sample/tree/master/restclient-kotlin) |Rest Client using MP RestClient spec, but written in Kotlin.|
-|[restclient-jaxrs](https://github.com/hantsy/quarkus-sample/tree/master/restclient-jaxrs)| Rest Client using Jaxrs Client API.|
-|[restclient-java11](https://github.com/hantsy/quarkus-sample/tree/master/restclient-java11) |Rest Client using Java 11 HttpClient API.|
-|[restclient-mutiny](https://github.com/hantsy/quarkus-sample/tree/master/restclient-mutiny) |Rest Client using Vertx Mutiny WebClient API.|
+|[resteasy-mutiny](https://github.com/hantsy/quarkus-sample/tree/master/resteasy-mutiny)  |CRUD RESTful APIs using Smallrye Mutiny and Reactive Postgre client|
 |[resteasy-reactive](https://github.com/hantsy/quarkus-sample/tree/master/resteasy-reactive) |Resteasy Reactive, Hibernate Reactive, Smallrye Mutiny example.|
-|[mutiny-hibernate-reactive](https://github.com/hantsy/quarkus-sample/tree/master/mutiny-hibernate-reactive) |Resteasy, Hibernate Reactive, Smallrye Mutiny example.|
+|[hibernate-reactive](https://github.com/hantsy/quarkus-sample/tree/master/hibernate-reactive) |Resteasy, Hibernate Reactive, Smallrye Mutiny example.|
 |[vertx-routes-mutiny](https://github.com/hantsy/quarkus-sample/tree/master/vertx-routes-mutiny)  |Simple CRUD RESTful APIs using Vertx `Router` and Reactive PgClient with Mutiny APIs.|
 |[multipart](https://github.com/hantsy/quarkus-sample/tree/master/multipart)  |Multipart examples|
 |[amqp](https://github.com/hantsy/quarkus-sample/tree/master/amqp)  |AMQP, MP reactive messaging and JAXRS SSE examples|
 |[GraphQL](https://github.com/hantsy/quarkus-sample/tree/master/graphql)  |GraphQL example using MP GraphQL/Smallrye GraphQL|
 |[GraphQL Client](https://github.com/hantsy/quarkus-sample/tree/master/graphql-client)  |GraphQL Client example using MP GraphQL/Smallrye GraphQL|
+|[restclient](https://github.com/hantsy/quarkus-sample/tree/master/restclient)|Rest Client using MP RestClient spec|
+|[restclient-kotlin](https://github.com/hantsy/quarkus-sample/tree/master/restclient-kotlin) |Rest Client using MP RestClient spec, but written in Kotlin.|
+|[restclient-jaxrs](https://github.com/hantsy/quarkus-sample/tree/master/restclient-jaxrs)| Rest Client using Jaxrs Client API.|
+|[restclient-java11](https://github.com/hantsy/quarkus-sample/tree/master/restclient-java11) |Rest Client using Java 11 HttpClient API.|
+|[restclient-mutiny](https://github.com/hantsy/quarkus-sample/tree/master/restclient-mutiny) |Rest Client using Vertx Mutiny WebClient API.|
 
 The following examples used Java 8 or RxJava 2 based Reactive Postgres Client which is depreacted and not available in the latest Qukarus. 
 
