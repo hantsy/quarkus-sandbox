@@ -1,17 +1,17 @@
 # This workflow will build a Java project with Maven
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: post-service
+name: resteasy-classic
 
 on:
   push:
     paths:
-      - "post-service/**"
+      - "resteasy-classic/**"
     branches:
       - master
   pull_request:
     paths:
-      - "post-service/**"
+      - "resteasy-classic/**"
     types:
       - opened
       - synchronize
@@ -35,4 +35,4 @@ jobs:
             docker ps -a        
       - name: Build with Maven
         run: |
-          mvn -q clean  test --file post-service/pom.xml
+          mvn -q clean  test --file resteasy-classic/pom.xml

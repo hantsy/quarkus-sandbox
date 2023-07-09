@@ -11,7 +11,7 @@ updates:
       interval: "daily"
   # java8, rxjava2, vertx-routes used Postgres Reactive API for Java 8 and RxJava2 which are deprecated and removed in the latest Quarkus.
   - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/post-service" # Location of package manifests
+    directory: "/resteasy-classic" # Location of package manifests
     schedule:
       interval: "weekly"
   - package-ecosystem: "maven" # See documentation for possible values
