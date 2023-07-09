@@ -1,34 +1,47 @@
 package com.example
 
-import io.quarkus.test.InjectMock
+
+import io.kotest.matchers.comparables.shouldNotBeEqualComparingTo
+import io.kotest.matchers.equals.shouldBeEqual
+import io.kotest.matchers.shouldNotBe
+import io.mockk.*
+import io.quarkus.test.junit.QuarkusMock
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
 import org.bson.types.ObjectId
-import org.hamcrest.Matchers
 import org.hamcrest.Matchers.*
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito.*
-import org.mockito.Mockito.any
 import java.time.LocalDateTime
 import java.util.stream.Stream
 
 
 @QuarkusTest
-class PostResourcesTest {
+class PostResourcesWithMockkTest {
 
-    @InjectMock
-    lateinit var postRepository: PostRepository
+    companion object {
+        val postRepository: PostRepository = mockk()
+
+        @BeforeAll
+        @JvmStatic
+        fun setupAll() {
+            QuarkusMock.installMockForType(postRepository, PostRepository::class.java)
+        }
+    }
+
+    @BeforeEach
+    fun setup() {
+        clearMocks(postRepository)
+    }
 
     @Test
     fun `get all posts`() {
-        `when`(postRepository.streamAll())
-            .thenReturn(
-                Stream.of(
-                    Post(ObjectId(), "foo", "bar", LocalDateTime.now()),
-                    Post(ObjectId(), "foo2", "bar2", LocalDateTime.now())
-                )
-            )
+        every { postRepository.streamAll() } returns Stream.of(
+            Post(ObjectId(), "foo", "bar", LocalDateTime.now()),
+            Post(ObjectId(), "foo2", "bar2", LocalDateTime.now())
+        )
 
         //@formatter:off
         given()
@@ -43,17 +56,13 @@ class PostResourcesTest {
             )
         //@formatter:on
 
-        verify(postRepository, times(1)).streamAll()
-        verifyNoMoreInteractions(postRepository)
+        verify(exactly = 1) { postRepository.streamAll() }
     }
 
     @Test
     fun `get post by id`() {
         val id = ObjectId()
-        `when`(postRepository.findById(any(ObjectId::class.java)))
-            .thenReturn(
-                Post(id, "foo", "bar", LocalDateTime.now()),
-            )
+        every { postRepository.findById(any()) } returns Post(id, "foo", "bar", LocalDateTime.now())
 
         //@formatter:off
         given()
@@ -66,18 +75,17 @@ class PostResourcesTest {
             .body( "title", `is`("foo"))
         //@formatter:on
 
-        verify(postRepository, times(1)).findById(any(ObjectId::class.java))
-        verifyNoMoreInteractions(postRepository)
+        verify(exactly = 1) { postRepository.findById(any()) }
     }
 
     @Test
     fun `save post`() {
         val id = ObjectId()
-        doAnswer {
-            val post: Post = it.arguments[0] as Post
+        val slot = slot<Post>()
+        every { postRepository.persist(capture(slot)) } answers {
+            val post = firstArg<Post>()
             post.id = id
-            null
-        }.`when`(postRepository).persist(any(Post::class.java))
+        }
 
         //@formatter:off
         given()
@@ -91,7 +99,8 @@ class PostResourcesTest {
             .header("location", containsString("/posts/$id"))
         //@formatter:on
 
-        verify(postRepository, times(1)).persist(any(Post::class.java))
-        verifyNoMoreInteractions(postRepository)
+        slot.captured.id?.shouldBeEqual(id)
+
+        verify(exactly = 1) { postRepository.persist(any<Post>()) }
     }
 }

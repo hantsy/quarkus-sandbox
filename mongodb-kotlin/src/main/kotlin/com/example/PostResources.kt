@@ -23,7 +23,7 @@ class PostResources(val postRepository: PostRepository) {
 
     @POST
     fun save(@Valid body: Post): Response {
-        val saved = postRepository.persist(body)
+        postRepository.persist(body)
 
         return Response
             .created(
