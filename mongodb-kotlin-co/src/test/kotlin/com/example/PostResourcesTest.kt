@@ -41,8 +41,8 @@ class PostResourcesTest {
             .body("size()", `is`(2),
                 "[0].title", `is`("foo")
             )
-
         //@formatter:on
+
         verify(postRepository, times(1)).streamAll()
         verifyNoMoreInteractions(postRepository)
     }
