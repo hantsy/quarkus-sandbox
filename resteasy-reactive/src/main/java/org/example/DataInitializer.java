@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 
 @ApplicationScoped
 @Startup
-@ActivateRequestContext
 @IfBuildProfile("dev")
 public class DataInitializer {
     private static final Logger LOGGER = Logger.getLogger(DataInitializer.class.getName());
@@ -25,6 +24,7 @@ public class DataInitializer {
 
     // There is an issue call reactive opertions in the blocking codes.
     // see: https://github.com/quarkusio/quarkus/issues/14044
+    @ActivateRequestContext
     public void onStart(@Observes StartupEvent ev) {
         LOGGER.info("The application is starting...");
 
