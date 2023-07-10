@@ -1,7 +1,7 @@
 package com.example
 
 import com.example.repository.Post
-import io.smallrye.mutiny.coroutines.asFlow
+import kotlinx.coroutines.jdk9.asFlow
 import io.smallrye.mutiny.coroutines.awaitSuspending
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
@@ -10,6 +10,8 @@ import jakarta.ws.rs.GET
 import jakarta.ws.rs.POST
 import jakarta.ws.rs.Path
 import jakarta.ws.rs.PathParam
+import jakarta.ws.rs.Produces
+import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.UriInfo
 import org.bson.types.ObjectId
@@ -22,7 +24,8 @@ class PostResources(val postRepository: PostRepository) {
     lateinit var uriInfo: UriInfo
 
     @GET
-    suspend fun all() = postRepository.streamAll().asFlow()
+    @Produces(MediaType.APPLICATION_JSON)
+    fun all() = postRepository.streamAll().asFlow()
 
     @POST
     suspend fun save(@Valid body: Post): Response {
