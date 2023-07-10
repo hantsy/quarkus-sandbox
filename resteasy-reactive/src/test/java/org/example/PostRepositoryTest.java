@@ -20,6 +20,7 @@ public class PostRepositoryTest {
         var assertSubscriber = postRepository.save(Post.of("test", "test"))
                 .invoke(p -> assertThat(p.id).isNotNull())
                 .subscribe().withSubscriber(UniAssertSubscriber.create());
+
         assertSubscriber.awaitItem().assertCompleted();
     }
 }
