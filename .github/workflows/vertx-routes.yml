@@ -27,18 +27,8 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 17
-      
-      - name: Cache Maven packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
-          
-      - name: Start up databases via Docker Compose 
-        run: |
-            docker-compose up -d postgres
-            docker ps -a        
+          cache: "maven"
+                
       - name: Build with Maven
         run: |
-          mvn -q clean  package --file vertx-routes/pom.xml -DskipTests
+          mvn -q --file vertx-routes/pom.xml clean test
