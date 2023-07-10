@@ -35,4 +35,4 @@ jobs:
             docker ps -a        
       - name: Build with Maven
         run: |
-          mvn -q clean  package --file hibernate-reactive/pom.xml -DskipTests
+          mvn -q clean test --file hibernate-reactive/pom.xml
