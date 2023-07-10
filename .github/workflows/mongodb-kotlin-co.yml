@@ -1,4 +1,4 @@
-name: mongodb-panache-kotlin
+name: mongodb-kotlin-co
 
 on:
   push:
