@@ -4,19 +4,11 @@ import io.quarkus.arc.profile.IfBuildProfile;
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.Startup;
 import io.quarkus.runtime.StartupEvent;
-import io.vertx.mutiny.pgclient.PgPool;
-import io.vertx.mutiny.sqlclient.Tuple;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,8 +31,8 @@ public class DataInitializer {
 
         this.posts.deleteAll()
                 .onItem().invoke(l -> LOGGER.log(Level.INFO, "deleted {0} posts.", new Object[]{l}))
-                .flatMap(d -> this.posts.persist(List.of(first, second)))
-                .flatMap(v -> this.posts.findAll().list())
+                .chain(d -> this.posts.persist(List.of(first, second)))
+                .chain(v -> this.posts.findAll().list())
                 .subscribe()
                 .with(
                         rows -> rows.forEach(r -> LOGGER.log(Level.INFO, "data:{0}", r)),
