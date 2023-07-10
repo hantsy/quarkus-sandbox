@@ -1,12 +1,12 @@
-package org.example;
+package com.example;
 
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import lombok.RequiredArgsConstructor;
 
 import java.net.URI;
 import java.util.UUID;
@@ -16,16 +16,13 @@ import static jakarta.ws.rs.core.Response.*;
 
 @Path("/posts")
 @ApplicationScoped
+@RequiredArgsConstructor
 public class PostResources {
 
     private final static Logger LOGGER = Logger.getLogger(PostResources.class.getName());
 
     private final PostRepository posts;
 
-    @Inject
-    public PostResources(PostRepository posts) {
-        this.posts = posts;
-    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

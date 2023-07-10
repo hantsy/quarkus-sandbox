@@ -1,10 +1,9 @@
-package org.example;
+package com.example;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public record UpdatePostRequest(
-
+public record CreatePostRequest(
         @NotBlank
         @Size(max = 100)
         String title,
@@ -12,5 +11,4 @@ public record UpdatePostRequest(
         @NotBlank
         String content
 ) {
-
 }

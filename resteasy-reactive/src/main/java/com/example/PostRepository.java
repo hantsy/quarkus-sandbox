@@ -1,4 +1,4 @@
-package org.example;
+package com.example;
 
 import io.quarkus.hibernate.reactive.panache.PanacheRepositoryBase;
 import io.quarkus.panache.common.Sort;

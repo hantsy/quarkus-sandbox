@@ -12,7 +12,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Maven plugins -->
-        <compiler-plugin.version>3.11.0</compiler-plugin.version>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <maven.compiler.parameters>true</maven.compiler.parameters>
         <maven.compiler.release>17</maven.compiler.release>
         <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
@@ -20,6 +20,8 @@
 
         <!-- deps -->
         <quarkus.version>3.2.0.Final</quarkus.version>
+        <lombok.version>1.18.20</lombok.version>
+
 		<skipITs>true</skipITs>
     </properties>
     <dependencyManagement>
@@ -49,7 +51,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.20</version>
+            <version>${lombok.version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>
