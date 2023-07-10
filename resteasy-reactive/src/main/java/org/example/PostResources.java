@@ -1,8 +1,7 @@
 package org.example;
 
 import io.smallrye.mutiny.Uni;
-
-import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -10,14 +9,13 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.net.URI;
-import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
 import static jakarta.ws.rs.core.Response.*;
 
 @Path("/posts")
-@RequestScoped
+@ApplicationScoped
 public class PostResources {
 
     private final static Logger LOGGER = Logger.getLogger(PostResources.class.getName());
@@ -31,8 +29,8 @@ public class PostResources {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Uni<List<Post>> getAllPosts() {
-        return this.posts.listAll();
+    public Uni<Response> getAllPosts() {
+        return this.posts.listAll().map(data -> Response.ok(data).build());
     }
 
     @POST
@@ -42,8 +40,8 @@ public class PostResources {
                 .title(formData.title())
                 .content(formData.content())
                 .build();
-        return this.posts.save(post)
-                .map(id -> created(URI.create("/posts/" + id)).build());
+        return this.posts.persist(post)
+                .map(saved -> created(URI.create("/posts/" + saved.id)).build());
     }
 
     @Path("{id}")

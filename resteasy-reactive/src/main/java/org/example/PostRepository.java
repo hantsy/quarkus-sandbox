@@ -4,7 +4,6 @@ import io.quarkus.hibernate.reactive.panache.PanacheRepositoryBase;
 import io.quarkus.panache.common.Sort;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.transaction.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -32,14 +31,6 @@ public class PostRepository implements PanacheRepositoryBase<Post, UUID> {
         }
     }
 
-
-    @Transactional
-    public Uni<Post> save(Post post) {
-        return this.persist(post)
-                .map(v -> post);
-    }
-
-    @Transactional
     public Uni<Integer> update(Post post) {
         return this.update("update Post p set p.title=? and p.content=? where p.id=?", List.of(post.getTitle(), post.getContent(), post.getId()));
     }

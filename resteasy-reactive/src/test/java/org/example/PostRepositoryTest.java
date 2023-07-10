@@ -17,7 +17,7 @@ public class PostRepositoryTest {
 
     @Test
     public void testSave() {
-        var assertSubscriber = postRepository.save(Post.of("test", "test"))
+        var assertSubscriber = postRepository.persist(Post.of("test", "test"))
                 .invoke(p -> assertThat(p.id).isNotNull())
                 .subscribe().withSubscriber(UniAssertSubscriber.create());
 
