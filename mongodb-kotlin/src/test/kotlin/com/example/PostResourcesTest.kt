@@ -1,18 +1,16 @@
 package com.example
 
-import io.kotest.matchers.equals.shouldBeEqual
 import io.quarkus.test.InjectMock
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
 import org.assertj.core.api.Assertions.assertThat
 import org.bson.types.ObjectId
-import org.hamcrest.Matchers
-import org.hamcrest.Matchers.*
+import org.hamcrest.Matchers.containsString
+import org.hamcrest.Matchers.`is`
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentCaptor
 import org.mockito.Mockito.*
-import org.mockito.Mockito.any
 import java.time.LocalDateTime
 import java.util.stream.Stream
 
@@ -95,7 +93,7 @@ class PostResourcesTest {
             .header("location", containsString("/posts/$id"))
         //@formatter:on
 
-        assertThat( postCaptor.value.id).isEqualTo(id)
+        assertThat(postCaptor.value.id).isEqualTo(id)
         verify(postRepository, times(1)).persist(any(Post::class.java))
         verifyNoMoreInteractions(postRepository)
     }
