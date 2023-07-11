@@ -37,8 +37,8 @@ public class PostRepositoryTest {
     @RunOnVertxContext // required to inject UniAsserter
     public void testSave(UniAsserter asserter) {
         var transactionalAsserter = new TransactionalUniAsserterInterceptor(asserter);
-        transactionalAsserter.assertThat(() ->
-                        postRepository.persist(Post.of("test", "test")),
+        transactionalAsserter.assertThat(
+                () -> postRepository.persist(Post.of("test", "test")),
                 post -> assertThat(post.id).isNotNull()
         );
     }
