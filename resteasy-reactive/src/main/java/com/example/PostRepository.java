@@ -1,6 +1,7 @@
 package com.example;
 
 import io.quarkus.hibernate.reactive.panache.PanacheRepositoryBase;
+import io.quarkus.hibernate.reactive.panache.common.WithSession;
 import io.quarkus.panache.common.Sort;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @ApplicationScoped
+@WithSession
 public class PostRepository implements PanacheRepositoryBase<Post, UUID> {
 
     public Uni<List<Post>> findByKeyword(String q, int offset, int limit) {
