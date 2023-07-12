@@ -34,10 +34,14 @@ public class PostResourceTest {
     public void getNoneExistedPost_shouldReturn404() {
         when(this.postRepository.findByIdOptional(anyString()))
                 .thenReturn(Optional.ofNullable(null));
+        //@formatter:off
         given()
-                .when().get("/posts/" + UUID.randomUUID().toString())
-                .then()
-                .statusCode(404);
+            .accept(ContentType.JSON)
+        .when()
+            .get("/posts/" + UUID.randomUUID().toString())
+        .then()
+            .statusCode(404);
+        //@formatter:on
 
         verify(this.postRepository, times(1)).findByIdOptional(anyString());
         verifyNoMoreInteractions(this.postRepository);
@@ -51,12 +55,17 @@ public class PostResourceTest {
                 .build();
         when(this.postRepository.findByIdOptional(anyString()))
                 .thenReturn(Optional.ofNullable(data));
+
+        //@formatter:off
         given()
-                .when().get("/posts/test")
-                .then()
-                .statusCode(200)
-                .log().all()
-                .body("title", is("Hello Quarkus"));
+            .accept(ContentType.JSON)
+        .when()
+            .get("/posts/test")
+        .then()
+            .statusCode(200)
+            .log().all()
+            .body("title", is("Hello Quarkus"));
+        //@formatter:on
 
         verify(this.postRepository, times(1)).findByIdOptional(anyString());
         verifyNoMoreInteractions(this.postRepository);
@@ -69,17 +78,22 @@ public class PostResourceTest {
                 .id(UUID.randomUUID().toString())
                 .build();
         when(this.postRepository.findByKeyword(anyString(), isA(int.class), isA(int.class)))
-                .thenReturn(
-                        List.of(data));
+                .thenReturn(                        List.of(data));
+
+        //@formatter:off
         given()
-                .queryParam("q", "")
-                .when().get("/posts")
-                .then()
-                .statusCode(200)
-                .log().all()
-                .body(
-                        "size()", is(1),
-                        "[0].title", is("Hello Quarkus"));
+            .accept(ContentType.JSON)
+            .queryParam("q", "")
+        .when()
+            .get("/posts")
+        .then()
+            .statusCode(200)
+            .log().all()
+            .body(
+                    "size()", is(1),
+                    "[0].title", is("Hello Quarkus")
+            );
+        //@formatter:on
 
         verify(this.postRepository, times(1)).findByKeyword(anyString(), isA(int.class), isA(int.class));
         verifyNoMoreInteractions(this.postRepository);
