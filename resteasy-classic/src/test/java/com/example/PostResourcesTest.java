@@ -6,6 +6,7 @@ import com.example.web.CreatePostCommand;
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -26,14 +27,14 @@ public class PostResourcesTest {
     PostRepository postRepository;
 
     @Test
+    @DisplayName("get post by id(id does not exist)")
     public void getNoneExistedPost_shouldReturn404() {
-        when(this.postRepository.findByIdOptional(any(UUID.class)))
-                .thenReturn(Optional.ofNullable(null));
+        when(this.postRepository.findByIdOptional(any(UUID.class))).thenReturn(Optional.ofNullable(null));
         //@formatter:off
         given()
             .accept(ContentType.JSON)
         .when()
-            .get("/posts/" + UUID.randomUUID().toString())
+            .get("/posts/{id}", UUID.randomUUID())
         .then()
             .statusCode(404);
         //@formatter:on
@@ -43,14 +44,11 @@ public class PostResourcesTest {
     }
 
     @Test
+    @DisplayName("get post by id")
     public void getExistedPost_shouldReturn200() {
         var id = UUID.randomUUID();
-        var data = Post.builder().title("Hello Quarkus").content("My first post of Quarkus")
-                .createdAt(LocalDateTime.now())
-                .id(id)
-                .build();
-        when(this.postRepository.findByIdOptional(any(UUID.class)))
-                .thenReturn(Optional.ofNullable(data));
+        var data = Post.builder().title("Hello Quarkus").content("My first post of Quarkus").createdAt(LocalDateTime.now()).id(id).build();
+        when(this.postRepository.findByIdOptional(any(UUID.class))).thenReturn(Optional.ofNullable(data));
 
         //@formatter:off
         given()
@@ -68,13 +66,10 @@ public class PostResourcesTest {
     }
 
     @Test
-    public void testPostsEndpoint() {
-        var data = Post.builder().title("Hello Quarkus").content("My first post of Quarkus")
-                .createdAt(LocalDateTime.now())
-                .id(UUID.randomUUID())
-                .build();
-        when(this.postRepository.findByKeyword(anyString(), isA(int.class), isA(int.class)))
-                .thenReturn(List.of(data));
+    @DisplayName("find all posts")
+    public void testFindPostsEndpoint() {
+        var data = Post.builder().title("Hello Quarkus").content("My first post of Quarkus").createdAt(LocalDateTime.now()).id(UUID.randomUUID()).build();
+        when(this.postRepository.findByKeyword(anyString(), isA(int.class), isA(int.class))).thenReturn(List.of(data));
 
         //@formatter:off
         given()
@@ -96,12 +91,9 @@ public class PostResourcesTest {
     }
 
     @Test
+    @DisplayName("create new post")
     public void createPost() {
         UUID id = UUID.randomUUID();
-        var data = Post.builder().title("Hello Quarkus").content("My first post of Quarkus")
-                .createdAt(LocalDateTime.now())
-                .id(id)
-                .build();
         doAnswer(invocation -> {
             var p = (Post) (invocation.getArguments()[0]);
             p.setId(id);
@@ -122,6 +114,30 @@ public class PostResourcesTest {
 
         verify(this.postRepository, times(1)).persist(any(Post.class));
         verifyNoMoreInteractions(this.postRepository);
+    }
+
+    @Test
+    @DisplayName("create new post(invalid input data)")
+    public void createPost_invalidInput() {
+        UUID id = UUID.randomUUID();
+        doAnswer(invocation -> {
+            var p = (Post) (invocation.getArguments()[0]);
+            p.setId(id);
+            return null;
+        }).when(this.postRepository).persist(any(Post.class));
+
+        //@formatter:off
+        given()
+            .body(new CreatePostCommand(null, null))
+            .contentType(ContentType.JSON)
+        .when()
+            .post("/posts")
+        .then()
+            .statusCode(400)
+            .log().all();
+        //@formatter:on
+
+       verifyNoInteractions(this.postRepository);
     }
 
 }

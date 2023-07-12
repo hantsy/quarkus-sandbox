@@ -3,8 +3,10 @@ package com.example;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTestProfile;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class H2Profile implements QuarkusTestProfile {
 
@@ -22,6 +24,36 @@ public class H2Profile implements QuarkusTestProfile {
     @Override
     public List<TestResourceEntry> testResources() {
         return List.of(new TestResourceEntry(H2DatabaseTestResource.class));
+    }
+
+    @Override
+    public Set<Class<?>> getEnabledAlternatives() {
+        return Collections.emptySet();
+    }
+
+    @Override
+    public boolean disableGlobalTestResources() {
+        return true;
+    }
+
+    @Override
+    public Set<String> tags() {
+        return Collections.emptySet();
+    }
+
+    @Override
+    public String[] commandLineParameters() {
+        return new String[0];
+    }
+
+    @Override
+    public boolean runMainMethod() {
+        return false;
+    }
+
+    @Override
+    public boolean disableApplicationLifecycleObservers() {
+        return false;
     }
 
     @Override

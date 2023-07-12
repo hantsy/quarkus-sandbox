@@ -7,7 +7,12 @@ import com.example.repository.PostRepository;
 import com.example.service.PostService;
 import com.example.web.CreateCommentCommand;
 import com.example.web.PostNotFoundException;
+import io.quarkus.deployment.annotations.Produce;
+import io.quarkus.test.junit.QuarkusTest;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Event;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Inject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -18,9 +23,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;

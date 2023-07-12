@@ -23,6 +23,9 @@
         <quarkus.version>3.2.0.Final</quarkus.version>
         <mockito.version>5.4.0</mockito.version>
         <lombok.version>1.18.28</lombok.version>
+        <assertj.version>3.24.2</assertj.version>
+
+        <skipITs>true</skipITs>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -83,14 +86,19 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-test-h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-test-h2</artifactId>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
