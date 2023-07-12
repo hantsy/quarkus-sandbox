@@ -1,24 +1,9 @@
 package com.example.domain;
 
 import jakarta.persistence.Embeddable;
-import java.io.Serializable;
+
+import java.util.UUID;
 
 @Embeddable
-public class PostId implements Serializable {
-    private String id;
-
-    public PostId() {
-    }
-
-    public PostId(String id) {
-        this.id = id;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+public record PostId(UUID id) {
 }

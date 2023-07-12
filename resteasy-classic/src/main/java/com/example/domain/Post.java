@@ -1,17 +1,16 @@
 package com.example.domain;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 
 @Data
@@ -23,12 +22,14 @@ import java.time.LocalDateTime;
 public class Post implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    String id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    UUID id;
     String title;
     String content;
 
-    @Builder.Default
-    LocalDateTime createdAt= LocalDateTime.now();
+    @CreationTimestamp
+    LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    LocalDateTime lastModifiedAt;
 }

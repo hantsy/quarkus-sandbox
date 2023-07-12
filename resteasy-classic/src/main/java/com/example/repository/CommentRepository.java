@@ -1,30 +1,24 @@
 package com.example.repository;
 
 import com.example.domain.Comment;
+import com.example.domain.PostId;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
-import io.quarkus.hibernate.orm.panache.runtime.JpaOperations;
-
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
+
 import java.util.List;
+import java.util.UUID;
 
 @ApplicationScoped
-public class CommentRepository implements PanacheRepositoryBase<Comment, String> {
+public class CommentRepository implements PanacheRepositoryBase<Comment, UUID> {
+
 
     @Transactional
-    public Comment save(Comment comment) {
-        EntityManager em = JpaOperations.INSTANCE.getEntityManager();
-        if (comment.getId() == null || comment.getId().trim().isEmpty()) {
-            em.persist(comment);
-            return comment;
-        } else {
-            return em.merge(comment);
-        }
+    public int update(Comment comment) {
+        return this.update("content =?1 where id=?2", comment.getContent(), comment.getId());
     }
 
-
-    public List<Comment> allByPostId(String id) {
-        return this.list("post.id", id);
+    public List<Comment> allByPostId(UUID id) {
+        return this.list("post", new PostId(id));
     }
 }

@@ -3,8 +3,7 @@ package com.example.web;
 import com.example.domain.Comment;
 import com.example.domain.PostId;
 import com.example.repository.CommentRepository;
-
-import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.GET;
@@ -14,6 +13,11 @@ import jakarta.ws.rs.container.ResourceContext;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
+import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+import java.util.UUID;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static jakarta.ws.rs.core.Response.created;
@@ -24,37 +28,37 @@ import static jakarta.ws.rs.core.Response.ok;
 // and Quarkus issue#3919: https://github.com/quarkusio/quarkus/issues/3919
 //@Unremovable
 //@RegisterForReflection
-@RequestScoped
-public class CommentResource {
-    private final static Logger LOGGER = Logger.getLogger(CommentResource.class.getName());
+@ApplicationScoped
+@RequiredArgsConstructor
+public class PostCommentResource {
+    private final static Logger LOGGER = Logger.getLogger(PostCommentResource.class.getName());
     private final CommentRepository comments;
 
-    @Context
+    @Inject
     UriInfo uriInfo;
 
-    @Context
+    @Inject
     ResourceContext resourceContext;
 
     @PathParam("id")
-    String postId;
-
-    @Inject
-    public CommentResource(CommentRepository commentRepository) {
-        this.comments = commentRepository;
-    }
+    UUID postId;
 
     @GET
     public Response getAllComments() {
-        return ok(this.comments.allByPostId(this.postId)).build();
+        LOGGER.log(Level.INFO, "get comments of post id: {0}", postId);
+        List<Comment> comments = this.comments.allByPostId(this.postId);
+        LOGGER.log(Level.INFO, "comments data:{0}", comments);
+        return ok(comments).build();
     }
 
     @POST
     public Response saveComment(@Valid CreateCommentCommand commentForm) {
-        Comment saved = this.comments.save(Comment.builder().post(new PostId(this.postId)).content(commentForm.content()).build());
+        Comment comment = Comment.builder().post(new PostId(this.postId)).content(commentForm.content()).build();
+        this.comments.persist(comment);
         return created(
                 uriInfo.getBaseUriBuilder()
-                        .path("/posts/{id}/comments/{commentId}")
-                        .build(this.postId, saved.getId())
+                        .path("/comments/{commentId}")
+                        .build(this.postId, comment.getId())
         ).build();
     }
 }

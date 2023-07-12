@@ -2,33 +2,19 @@ package com.example.repository;
 
 import com.example.domain.Post;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
-import io.quarkus.hibernate.orm.panache.runtime.JpaOperations;
 import io.quarkus.panache.common.Sort;
-
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
+
 import java.util.List;
+import java.util.UUID;
 
 @ApplicationScoped
-public class PostRepository implements PanacheRepositoryBase<Post, String> {
+public class PostRepository implements PanacheRepositoryBase<Post, UUID> {
 
     public List<Post> findAllPosts() {
         return this.listAll(Sort.descending("createdAt"));
     }
-
-//    public Stream<Post> findByKeyword(String q, int offset, int limit) {
-//        if (q == null || q.trim().isEmpty()) {
-//            return this.streamAll(Sort.descending("createdAt"))
-//                    .skip(offset)
-//                    .limit(limit);
-//        } else {
-//            return this.streamAll(Sort.descending("createdAt"))
-//                    .filter(p -> p.title.contains(q) || p.content.contains(q))
-//                    .skip(offset)
-//                    .limit(limit);
-//        }
-//    }
 
     public List<Post> findByKeyword(String q, int offset, int limit) {
         if (q == null || q.trim().isEmpty()) {
@@ -52,14 +38,8 @@ public class PostRepository implements PanacheRepositoryBase<Post, String> {
 
 
     @Transactional
-    public Post save(Post post) {
-        EntityManager em = JpaOperations.INSTANCE.getEntityManager();
-        if (post.getId() == null) {
-            em.persist(post);
-            return post;
-        } else {
-            return em.merge(post);
-        }
+    public int update(Post post) {
+        return this.update("title=?1 and content=?2 where id=?3", post.getTitle(), post.getContent(), post.getId());
     }
 
 }

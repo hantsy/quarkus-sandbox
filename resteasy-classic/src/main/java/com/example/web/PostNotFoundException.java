@@ -1,7 +1,9 @@
 package com.example.web;
 
+import java.util.UUID;
+
 public class PostNotFoundException extends RuntimeException {
-    public PostNotFoundException(String id) {
+    public PostNotFoundException(UUID id) {
         super("Post:" + id + " was not found!");
     }
 }

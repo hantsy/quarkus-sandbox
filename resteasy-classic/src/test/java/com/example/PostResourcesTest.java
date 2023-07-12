@@ -22,7 +22,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 @QuarkusTest
-public class PostResourceTest {
+public class PostResourcesTest {
 
     @InjectMock
     PostRepository postRepository;
@@ -32,33 +32,44 @@ public class PostResourceTest {
 
     @Test
     public void getNoneExistedPost_shouldReturn404() {
-        when(this.postRepository.findByIdOptional(anyString()))
+        when(this.postRepository.findByIdOptional(any(UUID.class)))
                 .thenReturn(Optional.ofNullable(null));
-        given()
-                .when().get("/posts/" + UUID.randomUUID().toString())
-                .then()
-                .statusCode(404);
 
-        verify(this.postRepository, times(1)).findByIdOptional(anyString());
+        //@formatter:off
+        given()
+                .accept(ContentType.JSON)
+        .when()
+            .get("/posts/" + UUID.randomUUID().toString())
+        .then()
+            .statusCode(404);
+        //@formatter:on
+
+        verify(this.postRepository, times(1)).findByIdOptional(any(UUID.class));
         verifyNoMoreInteractions(this.postRepository);
     }
 
     @Test
     public void getExistedPost_shouldReturn200() {
+        var id = UUID.randomUUID();
         var data = Post.builder().title("Hello Quarkus").content("My first post of Quarkus")
                 .createdAt(LocalDateTime.now())
-                .id(UUID.randomUUID().toString())
+                .id(id)
                 .build();
-        when(this.postRepository.findByIdOptional(anyString()))
+        when(this.postRepository.findByIdOptional(any(UUID.class)))
                 .thenReturn(Optional.ofNullable(data));
-        given()
-                .when().get("/posts/test")
-                .then()
-                .statusCode(200)
-                .log().all()
-                .body("title", is("Hello Quarkus"));
 
-        verify(this.postRepository, times(1)).findByIdOptional(anyString());
+        //@formatter:off
+        given()
+            .accept(ContentType.JSON)
+        .when()
+            .get("/posts/{id}", id)
+        .then()
+            .statusCode(200)
+            .log().all()
+            .body("title", is("Hello Quarkus"));
+        //@formatter:on
+
+        verify(this.postRepository, times(1)).findByIdOptional(any(UUID.class));
         verifyNoMoreInteractions(this.postRepository);
     }
 
@@ -66,20 +77,26 @@ public class PostResourceTest {
     public void testPostsEndpoint() {
         var data = Post.builder().title("Hello Quarkus").content("My first post of Quarkus")
                 .createdAt(LocalDateTime.now())
-                .id(UUID.randomUUID().toString())
+                .id(UUID.randomUUID())
                 .build();
         when(this.postRepository.findByKeyword(anyString(), isA(int.class), isA(int.class)))
                 .thenReturn(
                         List.of(data));
+
+        //@formatter:off
         given()
-                .queryParam("q", "")
-                .when().get("/posts")
-                .then()
-                .statusCode(200)
-                .log().all()
-                .body(
-                        "size()", is(1),
-                        "[0].title", is("Hello Quarkus"));
+            .accept(ContentType.JSON)
+            .queryParam("q", "")
+        .when()
+            .get("/posts")
+        .then()
+            .statusCode(200)
+            .log().all()
+            .body(
+                    "size()", is(1),
+                    "[0].title", is("Hello Quarkus")
+            );
+        //@formatter:on
 
         verify(this.postRepository, times(1)).findByKeyword(anyString(), isA(int.class), isA(int.class));
         verifyNoMoreInteractions(this.postRepository);
@@ -87,12 +104,17 @@ public class PostResourceTest {
 
     @Test
     public void createPost() {
+        UUID id = UUID.randomUUID();
         var data = Post.builder().title("Hello Quarkus").content("My first post of Quarkus")
                 .createdAt(LocalDateTime.now())
-                .id(UUID.randomUUID().toString())
+                .id(id)
                 .build();
-        when(this.postRepository.save(any(Post.class)))
-                .thenReturn(data);
+        doAnswer(invocation -> {
+            var p = (Post) (invocation.getArguments()[0]);
+            p.setId(id);
+            return null;
+        }).when(this.postRepository).persist(any(Post.class));
+
         //@formatter:off
         given()
             .body(new CreatePostCommand("Hello Quarkus", "Test Content"))
@@ -105,7 +127,7 @@ public class PostResourceTest {
             .header("Location", notNullValue());
         //@formatter:on
 
-        verify(this.postRepository, times(1)).save(any(Post.class));
+        verify(this.postRepository, times(1)).persist(any(Post.class));
         verifyNoMoreInteractions(this.postRepository);
     }
 

@@ -1,14 +1,15 @@
 package com.example.domain;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.CreationTimestamp;
 
-import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 
 @Data
@@ -20,9 +21,8 @@ import java.time.LocalDateTime;
 public class Comment implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    UUID id;
 
     @Embedded
     @AttributeOverride(
@@ -31,5 +31,6 @@ public class Comment implements Serializable {
     )
     private PostId post;
     private String content;
+    @CreationTimestamp
     private LocalDateTime createdAt;
 }

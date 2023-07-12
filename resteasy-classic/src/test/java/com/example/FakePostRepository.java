@@ -5,12 +5,13 @@ import com.example.domain.Post;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 
 public class FakePostRepository {
 
-    static Map<String, Post> data = new ConcurrentHashMap<>();
+    static Map<UUID, Post> data = new ConcurrentHashMap<>();
 
     public List<Post> all() {
         return new ArrayList<>(data.values());

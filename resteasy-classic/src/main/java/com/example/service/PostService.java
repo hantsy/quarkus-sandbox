@@ -13,6 +13,8 @@ import jakarta.enterprise.event.Event;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 
+import java.util.UUID;
+
 @ApplicationScoped
 @RequiredArgsConstructor
 public class PostService {
@@ -20,15 +22,15 @@ public class PostService {
     final CommentRepository commentRepository;
     final Event<Comment> commentEvent;
     
-    public void addComment(@NotEmpty String postId, @Valid CreateCommentCommand commentForm) {
+    public void addComment(@NotEmpty UUID postId, @Valid CreateCommentCommand commentForm) {
         this.postRepository.findByIdOptional(postId)
                 .ifPresentOrElse(
                         post -> {
                             var comment = Comment.builder().post(new PostId(postId))
                                     .content(commentForm.content())
                                     .build();
-                            var saved  = commentRepository.save(comment);
-                            commentEvent.fire(saved);
+                            commentRepository.persist(comment);
+                            commentEvent.fire(comment);
                         },
                         () -> {
                             throw new PostNotFoundException(postId);

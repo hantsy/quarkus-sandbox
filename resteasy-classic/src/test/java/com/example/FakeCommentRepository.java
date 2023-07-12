@@ -5,12 +5,13 @@ import com.example.domain.Comment;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static java.util.stream.Collectors.toList;
 
 public class FakeCommentRepository {
-    static Map<String, Comment> data = new ConcurrentHashMap<>();
+    static Map<UUID, Comment> data = new ConcurrentHashMap<>();
 
     public List<Comment> all() {
         return new ArrayList<>(data.values());
