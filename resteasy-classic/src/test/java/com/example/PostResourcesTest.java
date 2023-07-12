@@ -6,8 +6,6 @@ import com.example.web.CreatePostCommand;
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
-import jakarta.inject.Inject;
-import jakarta.json.bind.Jsonb;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -27,17 +25,13 @@ public class PostResourcesTest {
     @InjectMock
     PostRepository postRepository;
 
-    @Inject
-    Jsonb jsonb;
-
     @Test
     public void getNoneExistedPost_shouldReturn404() {
         when(this.postRepository.findByIdOptional(any(UUID.class)))
                 .thenReturn(Optional.ofNullable(null));
-
         //@formatter:off
         given()
-                .accept(ContentType.JSON)
+            .accept(ContentType.JSON)
         .when()
             .get("/posts/" + UUID.randomUUID().toString())
         .then()
@@ -80,8 +74,7 @@ public class PostResourcesTest {
                 .id(UUID.randomUUID())
                 .build();
         when(this.postRepository.findByKeyword(anyString(), isA(int.class), isA(int.class)))
-                .thenReturn(
-                        List.of(data));
+                .thenReturn(List.of(data));
 
         //@formatter:off
         given()
