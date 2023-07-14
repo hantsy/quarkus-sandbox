@@ -7,12 +7,16 @@ import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
 import io.smallrye.mutiny.Multi
 import io.smallrye.mutiny.Uni
+import java.time.LocalDateTime
 import org.bson.types.ObjectId
 import org.hamcrest.Matchers.containsString
 import org.hamcrest.Matchers.`is`
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito.*
-import java.time.LocalDateTime
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
+import org.mockito.Mockito.verifyNoMoreInteractions
+import org.mockito.Mockito.`when`
+import org.mockito.kotlin.any
 
 
 @QuarkusTest
@@ -51,7 +55,7 @@ class PostResourcesTest {
     @Test
     fun `get post by id`() {
         val id = ObjectId()
-        `when`(postRepository.findById(any(ObjectId::class.java)))
+        `when`(postRepository.findById(any()))
             .thenReturn(
                 Uni.createFrom().item(
                     Post(id, "foo", "bar", LocalDateTime.now()),
@@ -69,7 +73,7 @@ class PostResourcesTest {
             .body( "title", `is`("foo"))
         //@formatter:on
 
-        verify(postRepository, times(1)).findById(any(ObjectId::class.java))
+        verify(postRepository, times(1)).findById(any())
         verifyNoMoreInteractions(postRepository)
     }
 
@@ -77,7 +81,7 @@ class PostResourcesTest {
     fun `save post`() {
         val id = ObjectId()
         val post = Post(id, "foo", "bar", LocalDateTime.now())
-        `when`(postRepository.persist(any(Post::class.java)))
+        `when`(postRepository.persist(any<Post>()))
             .thenReturn(
                 Uni.createFrom().item(post)
             )
@@ -94,7 +98,7 @@ class PostResourcesTest {
             .header("location", containsString("/posts/$id"))
         //@formatter:on
 
-        verify(postRepository, times(1)).persist(any(Post::class.java))
+        verify(postRepository, times(1)).persist(any<Post>())
         verifyNoMoreInteractions(postRepository)
     }
 }
