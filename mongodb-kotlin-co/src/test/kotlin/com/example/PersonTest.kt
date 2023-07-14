@@ -54,13 +54,15 @@ class PersonTest {
     fun `find alive persons`() = runTest {
         val alivePersons = Person.findAlive().awaitSuspending()
         assertEquals(1, alivePersons.size)
-        val updated = Person.update("name = 'Mortal' where status = ?1", Status.Alive).all()
+        val updated = Person.update("name = 'Mortal' where status = ?1", Status.Alive)
+            .all()
+            .awaitSuspending()
         assertEquals(1, updated)
 
         val alivePerson2 = Person.findAlive().awaitSuspending()
         assertEquals(1, alivePerson2.size)
 
-        val found = Person.findByName("Stef")
+        val found = Person.findByName("Stef").awaitSuspending()
         assertNull(found)
     }
 
