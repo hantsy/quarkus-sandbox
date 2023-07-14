@@ -46,7 +46,7 @@ class PersonTest {
 
     @Test
     fun `find by name`() = runTest {
-        val found = Person.findByName("Stef")
+        val found = Person.findByName("Stef").awaitSuspending()
         assertNotNull(found)
     }
 
