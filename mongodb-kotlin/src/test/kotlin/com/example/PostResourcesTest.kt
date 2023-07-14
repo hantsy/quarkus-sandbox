@@ -4,15 +4,20 @@ import io.quarkus.test.InjectMock
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
+import java.time.LocalDateTime
+import java.util.stream.Stream
 import org.assertj.core.api.Assertions.assertThat
 import org.bson.types.ObjectId
 import org.hamcrest.Matchers.containsString
 import org.hamcrest.Matchers.`is`
 import org.junit.jupiter.api.Test
-import org.mockito.ArgumentCaptor
-import org.mockito.Mockito.*
-import java.time.LocalDateTime
-import java.util.stream.Stream
+import org.mockito.Mockito.doAnswer
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
+import org.mockito.Mockito.verifyNoMoreInteractions
+import org.mockito.Mockito.`when`
+import org.mockito.kotlin.any
+import org.mockito.kotlin.argumentCaptor
 
 
 @QuarkusTest
@@ -51,7 +56,7 @@ class PostResourcesTest {
     @Test
     fun `get post by id`() {
         val id = ObjectId()
-        `when`(postRepository.findById(any(ObjectId::class.java)))
+        `when`(postRepository.findById(any()))
             .thenReturn(
                 Post(id, "foo", "bar", LocalDateTime.now()),
             )
@@ -67,14 +72,14 @@ class PostResourcesTest {
             .body( "title", `is`("foo"))
         //@formatter:on
 
-        verify(postRepository, times(1)).findById(any(ObjectId::class.java))
+        verify(postRepository, times(1)).findById(any())
         verifyNoMoreInteractions(postRepository)
     }
 
     @Test
     fun `save post`() {
         val id = ObjectId()
-        val postCaptor = ArgumentCaptor.forClass(Post::class.java)
+        val postCaptor = argumentCaptor<Post>()
         doAnswer {
             val post = it.arguments[0] as Post
             post.id = id
@@ -93,8 +98,8 @@ class PostResourcesTest {
             .header("location", containsString("/posts/$id"))
         //@formatter:on
 
-        assertThat(postCaptor.value.id).isEqualTo(id)
-        verify(postRepository, times(1)).persist(any(Post::class.java))
+        assertThat(postCaptor.firstValue.id).isEqualTo(id)
+        verify(postRepository, times(1)).persist(any<Post>())
         verifyNoMoreInteractions(postRepository)
     }
 }
