@@ -1,19 +1,15 @@
 package com.example
 
 import com.example.repository.Post
-import kotlinx.coroutines.jdk9.asFlow
 import io.smallrye.mutiny.coroutines.awaitSuspending
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import jakarta.validation.Valid
-import jakarta.ws.rs.GET
-import jakarta.ws.rs.POST
-import jakarta.ws.rs.Path
-import jakarta.ws.rs.PathParam
-import jakarta.ws.rs.Produces
+import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.UriInfo
+import kotlinx.coroutines.jdk9.asFlow
 import org.bson.types.ObjectId
 
 @ApplicationScoped
@@ -28,8 +24,9 @@ class PostResources(val postRepository: PostRepository) {
     fun all() = postRepository.streamAll().asFlow()
 
     @POST
-    suspend fun save(@Valid body: Post): Response {
-        val saved = postRepository.persist(body).awaitSuspending()
+    suspend fun save(@Valid post: CreatePostCommand): Response {
+        val data = Post(title = post.title, body = post.body)
+        val saved = postRepository.persist(data).awaitSuspending()
 
         return Response
             .created(

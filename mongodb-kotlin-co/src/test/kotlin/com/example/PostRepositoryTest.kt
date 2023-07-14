@@ -1,17 +1,18 @@
-package com.example.entity
+package com.example
 
 import com.example.repository.Post
-import com.example.PostRepository
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.quarkus.test.junit.QuarkusTest
 import io.smallrye.mutiny.coroutines.awaitSuspending
 import jakarta.inject.Inject
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import java.util.logging.Level
 import java.util.logging.Logger
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @QuarkusTest
 class PostRepositoryTest {
     companion object {

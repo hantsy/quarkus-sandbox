@@ -3,6 +3,7 @@ package com.example
 import io.quarkus.test.junit.QuarkusTest
 import io.smallrye.mutiny.coroutines.asFlow
 import io.smallrye.mutiny.coroutines.awaitSuspending
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.test.runTest
@@ -14,6 +15,7 @@ import java.time.Month
 import java.util.logging.Level
 import java.util.logging.Logger
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @QuarkusTest
 class PersonTest {
     companion object {
