@@ -1,16 +1,16 @@
 package com.example.demo;
 
-import lombok.Data;
-import org.jboss.resteasy.annotations.providers.multipart.PartType;
-
 import jakarta.ws.rs.FormParam;
-import java.io.InputStream;
+import lombok.Data;
+import org.jboss.resteasy.reactive.PartType;
+
+import java.io.File;
 
 @Data
-public class MultipartSampleData {
+public class MultipartBody {
     @FormParam("file")
     @PartType("text/csv")
-    InputStream part;
+    File part;
 
     @FormParam("test")
     String test;
