@@ -1,22 +1,19 @@
 package com.example;
 
-import lombok.extern.slf4j.Slf4j;
-import org.eclipse.microprofile.reactive.messaging.Channel;
-import org.eclipse.microprofile.reactive.messaging.Emitter;
-import org.jboss.resteasy.annotations.SseElementType;
-import org.reactivestreams.Publisher;
-
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import lombok.extern.slf4j.Slf4j;
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.jboss.resteasy.annotations.SseElementType;
+import org.reactivestreams.Publisher;
 
 @Path("/messages")
 @Slf4j
 public class MessageResource {
 
     @Inject
-    @Channel("send")
-    Emitter<String> emitter;
+    MessageHandler handler;
 
     @Inject
     @Channel("data-stream")
@@ -26,7 +23,7 @@ public class MessageResource {
     @Consumes(MediaType.TEXT_PLAIN)
     public void send(String message) {
         log.info("sending: {}", message);
-        emitter.send(message);
+        handler.send(message);
     }
 
     @GET
