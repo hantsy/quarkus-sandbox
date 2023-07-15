@@ -17,7 +17,7 @@ public interface PostResourceClient {
 
     @Path("count")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     Uni<Long> countAllPosts(@QueryParam("q") String q);
 
     @GET

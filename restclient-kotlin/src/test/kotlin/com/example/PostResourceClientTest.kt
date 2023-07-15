@@ -18,7 +18,7 @@ class PostResourceClientTest {
     lateinit var client: PostResourceClient
 
     @Test
-    fun `get all psts`() {
+    fun `get all posts`() {
         val url = "/posts?q=&offset=0&limit=10"
         stubFor(
             get(url)
@@ -54,7 +54,7 @@ class PostResourceClientTest {
         verify(
             getRequestedFor(urlEqualTo(url))
                 .withHeader("Accept", equalTo("application/json"))
-        );
+        )
 
     }
 
