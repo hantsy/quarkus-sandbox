@@ -15,13 +15,14 @@
         <!-- Maven plugins -->
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <maven.compiler.parameters>true</maven.compiler.parameters>
-        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
         <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
-		<maven-failsafe-plugin.version>3.1.2</maven-failsafe-plugin.version>
+        <maven-failsafe-plugin.version>3.1.2</maven-failsafe-plugin.version>
 
         <!-- deps -->
         <quarkus.version>3.2.0.Final</quarkus.version>
-		<skipITs>true</skipITs>
+
+        <skipITs>true</skipITs>
     </properties>
 
     <dependencyManagement>
@@ -94,7 +95,7 @@
                     </execution>
                 </executions>
             </plugin>
-                        <plugin>
+            <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
@@ -116,7 +117,8 @@
                         <configuration>
                             <systemPropertyVariables>
                                 <native.image.path>
-                                    ${project.build.directory}/${project.build.finalName}-runner</native.image.path>
+                                    ${project.build.directory}/${project.build.finalName}-runner
+                                </native.image.path>
                                 <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                                 <maven.home>${maven.home}</maven.home>
                             </systemPropertyVariables>
