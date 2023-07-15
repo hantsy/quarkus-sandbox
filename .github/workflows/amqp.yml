@@ -35,4 +35,4 @@ jobs:
             docker ps -a        
       - name: Build with Maven
         run: |
-          mvn -q clean  package --file amqp/pom.xml -DskipTests
+          mvn -q clean test --file amqp/pom.xml 
