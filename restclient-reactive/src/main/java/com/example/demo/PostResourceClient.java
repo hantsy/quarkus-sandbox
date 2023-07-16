@@ -15,11 +15,13 @@ import java.util.concurrent.CompletionStage;
 @RegisterProvider(PostResponseExceptionMapper.class)
 public interface PostResourceClient {
 
+    //see: https://github.com/quarkusio/quarkus/issues/34777
     @Path("count")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     Uni<Long> countAllPosts(@QueryParam("q") String q);
 
+    // see: https://github.com/quarkusio/quarkus/issues/34771
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     Multi<Post> getAllPosts(
