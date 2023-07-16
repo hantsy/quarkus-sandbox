@@ -1,11 +1,14 @@
-package com.example;
+package com.example.demo;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.core.GenericType;
-import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.MediaType;
+import org.jboss.resteasy.plugins.providers.StringTextStar;
+import org.jboss.resteasy.plugins.providers.jackson.ResteasyJackson2Provider;
+
 import java.util.List;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutorService;
@@ -23,6 +26,8 @@ public class PostResourceClient {
     public PostResourceClient(PostServiceProperties properties) {
         baseUrl = properties.baseUrl();
         client = ClientBuilder.newBuilder()
+                .register(ResteasyJackson2Provider.class)
+                .register(StringTextStar.class)
                 .executorService(executorService)
                 .build();
     }
@@ -30,7 +35,7 @@ public class PostResourceClient {
     CompletionStage<Long> countAllPosts(String q) {
         return client.target(baseUrl + "/posts/count")
                 .queryParam("q", q)
-                .request()
+                .request().accept(MediaType.TEXT_PLAIN_TYPE)
                 .rx()
                 .get(Long.class);
     }
@@ -44,21 +49,23 @@ public class PostResourceClient {
                 .queryParam("q", q)
                 .queryParam("offset", offset)
                 .queryParam("limit", limit)
-                .request()
+                .request().accept(MediaType.APPLICATION_JSON_TYPE)
                 .rx()
-                .get(new GenericType<List<Post>>() { });
+                .get(new GenericType<List<Post>>() {
+                });
     }
 
-    Post getPostById(String id) {
-        try (Response getPostByIdResponse = client.target(baseUrl + "/posts/" + id)
-                .request().get()) {
-            if (getPostByIdResponse.getStatus() == 404) {
-                throw new PostNotFoundException(id);
-            }
-
-            return getPostByIdResponse.readEntity(Post.class);
-        }
-
+    CompletionStage<Post> getPostById(String id) {
+        return client.target(baseUrl + "/posts/" + id)
+                .request().accept(MediaType.APPLICATION_JSON_TYPE)
+                .rx()
+                .get()
+                .thenApply(response -> {
+                    if (response.getStatus() == 404) {
+                        throw new PostNotFoundException(id);
+                    }
+                    return response.readEntity(Post.class);
+                });
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example;
+package com.example.demo;
 
 import io.smallrye.config.ConfigMapping;
 

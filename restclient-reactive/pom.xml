@@ -22,6 +22,8 @@
         <quarkus.version>3.2.0.Final</quarkus.version>
         <wiremock.version>2.35.0</wiremock.version>
         <assertj.version>3.24.2</assertj.version>
+
+        <skipITs>true</skipITs>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -114,7 +116,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
+                <version>${maven-failsafe-plugin.version}</version>
                 <executions>
                     <execution>
                         <goals>

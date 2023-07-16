@@ -78,7 +78,7 @@ class PostResourceClientTest {
         verify(
             getRequestedFor(urlEqualTo(url))
                 .withHeader("Accept", equalTo("text/plain"))
-        );
+        )
 
     }
 }
