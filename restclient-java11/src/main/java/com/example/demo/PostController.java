@@ -1,6 +1,4 @@
-package com.example;
-
-import org.eclipse.microprofile.rest.client.inject.RestClient;
+package com.example.demo;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -20,7 +18,7 @@ public class PostController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public CompletionStage<PostPage> getAllPosts(
+    public CompletionStage<Page> getAllPosts(
             @QueryParam("q") @DefaultValue("") String q,
             @QueryParam("offset") @DefaultValue("0") int offset,
             @QueryParam("limit") @DefaultValue("10") int limit
@@ -29,8 +27,16 @@ public class PostController {
         return this.client.getAllPosts(q, offset, limit)
                 .thenCombine(
                         this.client.countAllPosts(q),
-                        (data, count) -> PostPage.of(data, count)
+                        Page::new
                 );
     }
+
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CompletionStage<Post> getPost(@PathParam("id") String id ){
+        return this.client.getPostById(id);
+    }
+
 
 }
