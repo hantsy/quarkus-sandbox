@@ -23,7 +23,7 @@ public class PostController {
     ) {
         return Uni.combine().all()
                 .unis(
-                        this.client.getAllPosts(q, offset, limit).collect().asList(),
+                        this.client.getAllPosts(q, offset, limit),
                         this.client.countAllPosts(q)
                 )
                 .combinedWith(Page::new);

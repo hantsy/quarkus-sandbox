@@ -97,7 +97,7 @@ class PostResourceClientTest {
                                                             {
                                                                 "id":2,
                                                                 "title":"test post 2",
-                                                                "content":"test content of post 2",s
+                                                                "content":"test content of post 2",
                                                                 "createdAt":"2023-03-26T10:15:30"
                                                             }
                                                         ]
@@ -110,7 +110,7 @@ class PostResourceClientTest {
                 client.getAllPosts("", 0, 10)
                         .onItem().invoke(c -> LOGGER.log(Level.INFO, "post is: {0}", c))
                         .onFailure().invoke(error -> LOGGER.log(Level.INFO, "error: {0}", error.getMessage()))
-                        .collect().asList()
+
         );
 
         assertThat(postList.size()).isEqualTo(2);
