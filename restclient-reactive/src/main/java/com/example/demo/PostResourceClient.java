@@ -22,9 +22,10 @@ public interface PostResourceClient {
     Uni<Long> countAllPosts(@QueryParam("q") String q);
 
     // see: https://github.com/quarkusio/quarkus/issues/34771
+    // can not use return type Multi<Post>
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    Multi<Post> getAllPosts(
+    Uni<List<Post>> getAllPosts(
             @QueryParam("q") String q,
             @QueryParam("offset") @DefaultValue("0") int offset,
             @QueryParam("limit") @DefaultValue("10") int limit
