@@ -2,10 +2,10 @@ package com.example.demo
 
 import io.mockk.coEvery
 import io.mockk.coVerify
+import io.quarkiverse.test.junit.mockk.InjectMock
 import io.quarkus.test.junit.QuarkusTest
-import io.restassured.RestAssured
+import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
-import jakarta.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.eclipse.microprofile.rest.client.inject.RestClient
@@ -18,7 +18,7 @@ import java.util.*
 @QuarkusTest
 class PostControllerTest {
 
-    @Inject
+    @InjectMock
     @field:RestClient
     lateinit var client: PostResourceClient
 
@@ -30,12 +30,16 @@ class PostControllerTest {
         )
         coEvery { client.countAllPosts(any()) } returns 15L
 
-        RestAssured.given()
+        //@formatter:off
+        given()
             .accept(ContentType.JSON)
-            .`when`().get("/api")
-            .then()
+        .`when`()
+            .get("/api")
+        .then()
+            .log().all()
             .statusCode(200)
-            .body("$.count", equalTo(15L))
+            .body("count", equalTo(15))
+        //@formatter:on
 
         coVerify(exactly = 1) { client.getAllPosts(any(), any(), any()) }
         coVerify(exactly = 1) { client.countAllPosts(any()) }

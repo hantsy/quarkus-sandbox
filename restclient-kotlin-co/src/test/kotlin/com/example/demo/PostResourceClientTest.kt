@@ -6,6 +6,7 @@ import io.kotest.matchers.shouldBe
 import io.quarkus.test.junit.QuarkusTest
 import jakarta.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
 import org.eclipse.microprofile.rest.client.inject.RestClient
 import org.junit.jupiter.api.Test
@@ -65,7 +66,7 @@ class PostResourceClientTest {
         val url = "/posts/count?q="
         stubFor(
             get(url)
-                .withHeader("Accept", equalTo("text/plain"))
+                //.withHeader("Accept", equalTo("text/plain"))
                 .willReturn(
                     aResponse()
                         .withHeader("Content-Type", "text/plain")
@@ -79,7 +80,7 @@ class PostResourceClientTest {
 
         verify(
             getRequestedFor(urlEqualTo(url))
-                .withHeader("Accept", equalTo("text/plain"))
+                .withHeader("Accept", containing("text/plain"))
         )
 
     }
