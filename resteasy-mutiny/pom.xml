@@ -4,7 +4,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.example</groupId>
-    <artifactId>post-service-mutiny</artifactId>
+    <artifactId>resteasy-reactive-pgclient</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <description>Post Service implemented by SmallRye Mutiny</description>
     <properties>
