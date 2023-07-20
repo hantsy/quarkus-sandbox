@@ -16,11 +16,11 @@ A  personal sandbox project  to experience the new features of the [Quarkus fram
 | Name | Description |
 |:-------------------|--------------------------------------------------|
 |[resteasy-classic](https://github.com/hantsy/quarkus-sample/tree/master/resteasy-classic) |Simple CURD RESTful APIs using tranditional Resteasy, Hibernate/JPA|
-|[spring](https://github.com/hantsy/quarkus-sample/tree/master/spring) |CRUD RESTful APIs using Spring DI, Spring Data JPA, Spring WebMvc|
-|[resteasy-mutiny](https://github.com/hantsy/quarkus-sample/tree/master/resteasy-mutiny)  |CRUD RESTful APIs using Smallrye Mutiny and Reactive Postgre client|
-|[resteasy-reactive](https://github.com/hantsy/quarkus-sample/tree/master/resteasy-reactive) |Resteasy Reactive, Hibernate Reactive, Smallrye Mutiny example.|
-|[hibernate-reactive](https://github.com/hantsy/quarkus-sample/tree/master/hibernate-reactive) |Resteasy, Hibernate Reactive, Smallrye Mutiny example.|
+|[resteasy-reactive-pgclient](https://github.com/hantsy/quarkus-sample/tree/master/resteasy-reactive-pgclient)  |Resteasy Reactive and Reactive Postgre client|
+|[resteasy-reactive](https://github.com/hantsy/quarkus-sample/tree/master/resteasy-reactive) |Resteasy Reactive, Hibernate Reactive Repository, Smallrye Mutiny example.|
+|[resteasy-reactive-hibernate](https://github.com/hantsy/quarkus-sample/tree/master/resteasy-reactive-hibernate) |Resteasy Reactive, Hibernate Reactive Session API, Smallrye Mutiny example.|
 |[vertx-routes](https://github.com/hantsy/quarkus-sample/tree/master/vertx-routes)  |Simple CRUD RESTful APIs using Vertx `Router` and Reactive PgClient with Mutiny APIs.|
+|[spring](https://github.com/hantsy/quarkus-sample/tree/master/spring) |CRUD RESTful APIs using Spring DI, Spring Data JPA, Spring WebMvc|
 |[multipart](https://github.com/hantsy/quarkus-sample/tree/master/multipart)  |Multipart examples|
 |[amqp](https://github.com/hantsy/quarkus-sample/tree/master/amqp)  |AMQP, MP reactive messaging and JAXRS SSE examples|
 |[GraphQL](https://github.com/hantsy/quarkus-sample/tree/master/graphql)  |GraphQL example using MP GraphQL/Smallrye GraphQL|
