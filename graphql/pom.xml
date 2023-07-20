@@ -10,15 +10,17 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- maven plugins -->
+	<maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
+	<maven-failsafe-plugin.version>3.1.2</maven-failsafe-plugin.version>    
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <maven.compiler.parameters>true</maven.compiler.parameters>
         <maven.compiler.release>17</maven.compiler.release>
-		<maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
+		
 
         <!-- dependencies -->
         <quarkus.version>3.2.0.Final</quarkus.version>
 		
-		<skipITs>true</skipITs>
+	<skipITs>true</skipITs>
     </properties>
     <dependencyManagement>
         <dependencies>
