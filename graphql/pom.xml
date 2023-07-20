@@ -18,7 +18,7 @@
 		
 
         <!-- dependencies -->
-        <quarkus.version>3.2.0.Final</quarkus.version>
+        <quarkus.version>3.2.1.Final</quarkus.version>
 		
 	<skipITs>true</skipITs>
     </properties>
