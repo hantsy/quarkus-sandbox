@@ -10,61 +10,67 @@ updates:
     schedule:
       interval: "daily"
   # java8, rxjava2, vertx-routes used Postgres Reactive API for Java 8 and RxJava2 which are deprecated and removed in the latest Quarkus.
-  - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/resteasy-classic" # Location of package manifests
+  - package-ecosystem: "maven"
+    directory: "/resteasy-classic"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/spring" # Location of package manifests
+  - package-ecosystem: "maven"
+    directory: "/spring"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/amqp" # Location of package manifests
+  - package-ecosystem: "maven"
+    directory: "/amqp"
     schedule:
       interval: "weekly"
-
-  - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/hibernate-reactive" # Location of package manifests
+  - package-ecosystem: "maven"
+    directory: "/hibernate-reactive"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/restclient" # Location of package manifests
+  - package-ecosystem: "maven"
+    directory: "/restclient-classic"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/restclient-java11" # Location of package manifests
+  - package-ecosystem: "maven"
+    directory: "/restclient-mutiny" 
+    schedule:
+      interval: "weekly"     
+  - package-ecosystem: "maven"
+    directory: "/restclient-java11"
+      interval: "weekly"
+  - package-ecosystem: "maven" 
+    directory: "/restclient-jaxrs"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/restclient-jaxrs" # Location of package manifests
+  - package-ecosystem: "maven" 
+    directory: "/restclient-kotlin"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/restclient-kotlin" # Location of package manifests
+  - package-ecosystem: "maven" 
+    directory: "/restclient-kotlin-co" 
+    schedule:
+      interval: "weekly"    
+  - package-ecosystem: "maven"
+    directory: "/restclient-vertx"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/restclient-vertx" # Location of package manifests
+  - package-ecosystem: "maven"
+    directory: "/resteasy-reactive"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/resteasy-reactive" # Location of package manifests
+  - package-ecosystem: "maven"
+    directory: "/resteasy-mutiny"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/resteasy-mutiny" # Location of package manifests
+  - package-ecosystem: "maven"
+    directory: "/vertx-routes"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/vertx-routes" # Location of package manifests
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/graphql" # Location of package manifests
+  - package-ecosystem: "maven"
+    directory: "/graphql"
     schedule:
       interval: "weekly"      
-  - package-ecosystem: "maven" # See documentation for possible values
-    directory: "/graphql-client" # Location of package manifests
+  - package-ecosystem: "maven"
+    directory: "/graphql-client"
     schedule:
       interval: "weekly"  
   - package-ecosystem: "maven" 
