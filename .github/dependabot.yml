@@ -36,6 +36,7 @@ updates:
       interval: "weekly"     
   - package-ecosystem: "maven"
     directory: "/restclient-java11"
+    schedule:
       interval: "weekly"
   - package-ecosystem: "maven" 
     directory: "/restclient-jaxrs"
