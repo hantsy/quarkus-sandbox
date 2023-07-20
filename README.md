@@ -28,10 +28,12 @@ A  personal sandbox project  to experience the new features of the [Quarkus fram
 |[mongodb-kotlin](https://github.com/hantsy/quarkus-sample/tree/master/mongodb-kotlin) |MongoDb/Resteasy/Kotlin/Mockk example|
 |[mongodb-kotlin-co](https://github.com/hantsy/quarkus-sample/tree/master/mongodb-kotlin-co) |MongoDb Reactive/Resteasy Reactive/Kotlin Coroutines example|
 |[restclient](https://github.com/hantsy/quarkus-sample/tree/master/restclient)|Rest Client using MP RestClient spec|
-|[restclient-kotlin](https://github.com/hantsy/quarkus-sample/tree/master/restclient-kotlin) |Rest Client using MP RestClient spec, but written in Kotlin.|
-|[restclient-jaxrs](https://github.com/hantsy/quarkus-sample/tree/master/restclient-jaxrs)| Rest Client using Jaxrs Client API.|
-|[restclient-java11](https://github.com/hantsy/quarkus-sample/tree/master/restclient-java11) |Rest Client using Java 11 HttpClient API.|
-|[restclient-mutiny](https://github.com/hantsy/quarkus-sample/tree/master/restclient-mutiny) |Rest Client using Vertx Mutiny WebClient API.|
+|[restclient-reactive](https://github.com/hantsy/quarkus-sample/tree/master/restclient-reactive)|Rest Client Reactive Example|
+|[restclient-kotlin](https://github.com/hantsy/quarkus-sample/tree/master/restclient-kotlin) |Rest Client using MP RestClient spec, but written in Kotlin|
+|[restclient-kotlin-co](https://github.com/hantsy/quarkus-sample/tree/master/restclient-kotlin-co) |Rest Client Reactive/Kotlin Coroutines|
+|[restclient-jaxrs](https://github.com/hantsy/quarkus-sample/tree/master/restclient-jaxrs)| Rest Client using classic Jaxrs Client API|
+|[restclient-java11](https://github.com/hantsy/quarkus-sample/tree/master/restclient-java11) |Rest Client using Java 11 HttpClient API|
+|[restclient-vertx](https://github.com/hantsy/quarkus-sample/tree/master/restclient-vertx) |Rest Client using Vertx Mutiny WebClient API|
 
 The following examples used Java 8 or RxJava 2 based Reactive Postgres Client which is depreacted and not available in the latest Qukarus. 
 
