@@ -27,7 +27,8 @@ A  personal sandbox project  to experience the new features of the [Quarkus fram
 |[GraphQL Client](https://github.com/hantsy/quarkus-sample/tree/master/graphql-client)  |GraphQL Client example using MP GraphQL/Smallrye GraphQL|
 |[mongodb-kotlin](https://github.com/hantsy/quarkus-sample/tree/master/mongodb-kotlin) |MongoDb/Resteasy/Kotlin/Mockk example|
 |[mongodb-kotlin-co](https://github.com/hantsy/quarkus-sample/tree/master/mongodb-kotlin-co) |MongoDb Reactive/Resteasy Reactive/Kotlin Coroutines example|
-|[restclient](https://github.com/hantsy/quarkus-sample/tree/master/restclient)|Rest Client using MP RestClient spec|
+|[restclient-classic](https://github.com/hantsy/quarkus-sample/tree/master/restclient-classic)|Rest Client Classic Example|
+|[restclient-mutiny](https://github.com/hantsy/quarkus-sample/tree/master/restclient-mutiny)|Rest Client Classic with Mutiny Example|
 |[restclient-reactive](https://github.com/hantsy/quarkus-sample/tree/master/restclient-reactive)|Rest Client Reactive Example|
 |[restclient-kotlin](https://github.com/hantsy/quarkus-sample/tree/master/restclient-kotlin) |Rest Client using MP RestClient spec, but written in Kotlin|
 |[restclient-kotlin-co](https://github.com/hantsy/quarkus-sample/tree/master/restclient-kotlin-co) |Rest Client Reactive/Kotlin Coroutines|
