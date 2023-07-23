@@ -23,7 +23,7 @@ A  personal sandbox project  to experience the new features of the [Quarkus fram
 |[vertx-routes](https://github.com/hantsy/quarkus-sample/tree/master/vertx-routes)  |Simple CRUD RESTful APIs using Vertx `Router` and Reactive PgClient with Mutiny APIs.|
 |[spring](https://github.com/hantsy/quarkus-sample/tree/master/spring) |CRUD RESTful APIs using Spring DI, Spring Data JPA, Spring WebMvc|
 |[multipart](https://github.com/hantsy/quarkus-sample/tree/master/multipart)  |Multipart examples|
-|[amqp](https://github.com/hantsy/quarkus-sample/tree/master/amqp)  |Reactive messaging with AMQP connector and JAXRS SSE examples|
+|[amqp](https://github.com/hantsy/quarkus-sample/tree/master/amqp)  |Reactive Messaging with AMQP connector and JAXRS SSE examples|
 |[GraphQL](https://github.com/hantsy/quarkus-sample/tree/master/graphql)  |GraphQL example using MP GraphQL/Smallrye GraphQL|
 |[GraphQL Client](https://github.com/hantsy/quarkus-sample/tree/master/graphql-client)  |GraphQL Client example using MP GraphQL/Smallrye GraphQL|
 |[mongodb-kotlin](https://github.com/hantsy/quarkus-sample/tree/master/mongodb-kotlin) |MongoDb/Resteasy/Kotlin/Mockk example|
