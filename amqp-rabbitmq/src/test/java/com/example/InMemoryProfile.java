@@ -25,7 +25,7 @@ public class InMemoryProfile implements QuarkusTestProfile {
 
     @Override
     public boolean runMainMethod() {
-        return true;
+        return false;
     }
 
     @Override
