@@ -18,6 +18,7 @@ A  personal sandbox project  to experience the new features of the [Quarkus fram
 |[resteasy-classic](https://github.com/hantsy/quarkus-sample/tree/master/resteasy-classic) |Simple CURD RESTful APIs using tranditional Resteasy, Hibernate/JPA|
 |[resteasy-reactive-pgclient](https://github.com/hantsy/quarkus-sample/tree/master/resteasy-reactive-pgclient)  |Resteasy Reactive and Reactive Postgre client|
 |[resteasy-reactive](https://github.com/hantsy/quarkus-sample/tree/master/resteasy-reactive) |Resteasy Reactive, Hibernate Reactive Repository, Smallrye Mutiny example.|
+|[resteasy-kotlin-co](https://github.com/hantsy/quarkus-sample/tree/master/resteasy-kotlin-co) |Resteasy Reactive/Kotlin Coroutines, Hibernate Reactive Repository, Smallrye Mutiny example.|
 |[resteasy-reactive-hibernate](https://github.com/hantsy/quarkus-sample/tree/master/resteasy-reactive-hibernate) |Resteasy Reactive, Hibernate Reactive Session API, Smallrye Mutiny example.|
 |[vertx-routes](https://github.com/hantsy/quarkus-sample/tree/master/vertx-routes)  |Simple CRUD RESTful APIs using Vertx `Router` and Reactive PgClient with Mutiny APIs.|
 |[spring](https://github.com/hantsy/quarkus-sample/tree/master/spring) |CRUD RESTful APIs using Spring DI, Spring Data JPA, Spring WebMvc|
