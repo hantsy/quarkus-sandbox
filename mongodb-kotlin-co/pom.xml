@@ -24,7 +24,7 @@
         <coroutines.version>1.7.2</coroutines.version>
 
         <!-- dependencies-->
-        <quarkus.version>3.2.1.Final</quarkus.version>
+        <quarkus.version>3.2.2.Final</quarkus.version>
         <assertj.version>3.24.2</assertj.version>
 
         <skipITs>true</skipITs>
