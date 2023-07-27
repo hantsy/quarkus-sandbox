@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  rabbit:
+    image: rabbitmq:3.12-management-alpine
+    labels:
+      - quarkus-dev-service-amqp=amqp
+    ports:
+      - '5671'
+      - '15671'
+      - '5672'
+      - '15672'
+    environment:
+      - RABBITMQ_DEFAULT_USER=quarkus
+      - RABBITMQ_DEFAULT_PASS=quarkus
+    volumes:
+      - './enabled_plugins:/etc/rabbitmq/enabled_plugins:ro'
+     # - './custom_rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf'
