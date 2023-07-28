@@ -9,10 +9,12 @@ import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.sse.SseEventSource;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.net.URL;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,9 +36,12 @@ class MessageResourceTest {
         this.client = ClientBuilder.newClient();
     }
 
+    @SneakyThrows
     @Test
     void testSendAndReceiveMessages() {
         LOGGER.log(Level.INFO, "base url: {0}", url);
+
+        var latch = new CountDownLatch(1);
         try (SseEventSource sse = SseEventSource.target(this.client.target(url.toExternalForm()))
                 .reconnectingEvery(2, TimeUnit.SECONDS)
                 .build()) {
@@ -44,6 +49,7 @@ class MessageResourceTest {
                     event -> {
                         var message = event.readData(Message.class);
                         assertThat(message.body()).isEqualTo("hello");
+                        latch.countDown();
                     },
                     error -> LOGGER.log(Level.SEVERE, "error: {}", error),
                     () -> LOGGER.log(Level.INFO, "done")
@@ -55,6 +61,8 @@ class MessageResourceTest {
                     .post(Entity.entity("hello", MediaType.TEXT_PLAIN_TYPE))) {
                 assertThat(sendMessageResponse.getStatus()).isEqualTo(204);
             }
+
+            latch.await(500, TimeUnit.MILLISECONDS);
         }
     }
 }
