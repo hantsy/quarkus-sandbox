@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -41,18 +42,26 @@ class MessageResourceTest {
     void testSendAndReceiveMessages() {
         LOGGER.log(Level.INFO, "base url: {0}", url);
 
+        var messageReplay = new ArrayList<Message>();
         var latch = new CountDownLatch(1);
         try (SseEventSource sse = SseEventSource.target(this.client.target(url.toExternalForm()))
-                .reconnectingEvery(2, TimeUnit.SECONDS)
+                //.reconnectingEvery(2, TimeUnit.SECONDS)
                 .build()) {
             sse.register(
                     event -> {
-                        var message = event.readData(Message.class);
-                        assertThat(message.body()).isEqualTo("hello");
+                        LOGGER.log(Level.INFO, "handling event: {0}", event);
+                        var message = event.readData(Message.class, MediaType.APPLICATION_JSON_TYPE);
+                        LOGGER.log(Level.INFO, "reading event data: {0}", message);
+                        messageReplay.add(message);
+                    },
+                    error -> {
+                        LOGGER.log(Level.SEVERE, "error: {}", error);
                         latch.countDown();
                     },
-                    error -> LOGGER.log(Level.SEVERE, "error: {}", error),
-                    () -> LOGGER.log(Level.INFO, "done")
+                    () -> {
+                        LOGGER.log(Level.INFO, "done");
+                        latch.countDown();
+                    }
             );
             sse.open();
 
@@ -64,5 +73,8 @@ class MessageResourceTest {
 
             latch.await(500, TimeUnit.MILLISECONDS);
         }
+
+        assertThat(messageReplay.size()).isEqualTo(1);
+        assertThat(messageReplay.get(0).body()).isEqualTo("hello");
     }
 }
