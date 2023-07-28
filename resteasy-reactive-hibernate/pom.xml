@@ -21,11 +21,11 @@
         <maven-failsafe-plugin.version>3.1.2</maven-failsafe-plugin.version>
 
         <!-- dependencies -->
-        <quarkus.version>3.2.1.Final</quarkus.version>
+        <quarkus.version>3.2.2.Final</quarkus.version>
         <assertj.version>3.24.2</assertj.version>
 
         <skipITs>true</skipITs>
-        <hibernate.version>6.2.6.Final</hibernate.version>
+        <hibernate.version>6.2.7.Final</hibernate.version>
     </properties>
     <dependencyManagement>
         <dependencies>
