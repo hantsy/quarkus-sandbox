@@ -17,12 +17,12 @@ public class RabbitMQTestResource implements QuarkusTestResourceLifecycleManager
     @Override
     public Map<String, String> start() {
         container.start();
-        Wait.forHealthcheck()
-                .withStartupTimeout(Duration.ofMillis(30000))
-                .waitUntilReady(container);
+//        Wait.defaultWaitStrategy()
+//                .withStartupTimeout(Duration.ofMillis(30000))
+//                .waitUntilReady(container);
         return Map.of(
                 "amqp-host", container.getHost(),
-                "amqp-port",container.getFirstMappedPort()+"",
+                "amqp-port",container.getAmqpPort()+"",
                 "user-username",container.getAdminUsername(),
                 "user-password", container.getAdminPassword()
         );
