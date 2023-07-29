@@ -6,13 +6,13 @@ services:
     labels:
       - quarkus-dev-service-amqp=amqp
     ports:
-      - '5671'
-      - '15671'
-      - '5672'
-      - '15672'
+      # AMQP protocol port
+      - '5672:5672'
+      # HTTP management UI
+      - '15672:15672'
     environment:
       - RABBITMQ_DEFAULT_USER=quarkus
       - RABBITMQ_DEFAULT_PASS=quarkus
     volumes:
       - './enabled_plugins:/etc/rabbitmq/enabled_plugins:ro'
-     # - './custom_rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf'
+      # - './custom_rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf'
