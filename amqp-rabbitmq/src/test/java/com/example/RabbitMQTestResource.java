@@ -23,8 +23,8 @@ public class RabbitMQTestResource implements QuarkusTestResourceLifecycleManager
         return Map.of(
                 "amqp-host", container.getHost(),
                 "amqp-port",container.getAmqpPort()+"",
-                "user-username",container.getAdminUsername(),
-                "user-password", container.getAdminPassword()
+                "amqp-username",container.getAdminUsername(),
+                "amqp-password", container.getAdminPassword()
         );
     }
 
