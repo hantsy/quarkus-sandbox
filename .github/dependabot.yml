@@ -51,7 +51,10 @@ updates:
     directory: "/kafka"
     schedule:
       interval: "weekly"  
-      
+   - package-ecosystem: "maven"
+    directory: "/jms"
+    schedule:
+      interval: "weekly"      
   - package-ecosystem: "maven"
     directory: "/restclient-classic"
     schedule:
