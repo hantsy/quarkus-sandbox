@@ -159,4 +159,38 @@ class PostResourceClientTest {
                         .withHeader("Accept", equalTo("application/json"))
         );
     }
+
+    @Test
+    void getEvents() throws Throwable {
+        var url = "/posts/events";
+        String dataStream = """
+                id:1
+                event:random
+                data:{"id":"test post 1", "createdAt":"2023-03-26T10:15:30"}
+                                                     
+                id:2
+                event:random
+                data:{"id":"test post 2", "createdAt":"2023-03-26T10:15:31"}
+                
+                """;
+        stubFor(
+                get(url)
+                        .withHeader("Accept", equalTo("text/event-stream"))
+                        .willReturn(okForContentType("text/event-stream", dataStream))
+        );
+
+        var events = VertxContextSupport.subscribeAndAwait(() ->
+                client.events()
+                        .onItem().invoke(c -> LOGGER.log(Level.INFO, "item is: " + c))
+                        .onFailure().invoke(error -> LOGGER.log(Level.INFO, "error: " + error.getMessage()))
+                        .collect().asList()
+        );
+
+        assertThat(events.get(0).id()).isEqualTo("test post 1");
+
+        verify(
+                getRequestedFor(urlEqualTo(url))
+                        .withHeader("Accept", equalTo("text/event-stream"))
+        );
+    }
 }
