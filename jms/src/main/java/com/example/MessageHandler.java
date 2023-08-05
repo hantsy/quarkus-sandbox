@@ -2,7 +2,6 @@ package com.example;
 
 import io.quarkus.scheduler.Scheduled;
 import io.smallrye.mutiny.helpers.MultiEmitterProcessor;
-import io.smallrye.mutiny.operators.multi.processors.UnicastProcessor;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.jms.*;
@@ -51,7 +50,7 @@ public class MessageHandler {
         producer.send(helloQueue, jsonb.toJson(new Message(message, Instant.now())));
     }
 
-    MultiEmitterProcessor emitterProcessor = MultiEmitterProcessor.create();
+    MultiEmitterProcessor<Message> emitterProcessor = MultiEmitterProcessor.create();
 
 
     @Scheduled(delay = 500L, delayUnit = TimeUnit.MILLISECONDS, every = "1s")
