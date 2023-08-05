@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  artemis:
+    image: quay.io/artemiscloud/activemq-artemis-broker
+    ports:
+      - '5672'
+      - '61616'
+      - '8161'
+    environment:
+      - AMQ_USER=quarkus
+      - AMQ_PASSWORD=quarkus
