@@ -26,6 +26,6 @@ public class MessageResource {
     @RestStreamElementType(MediaType.APPLICATION_JSON)
     public Multi<Message> stream() {
         // see: https://github.com/quarkusio/quarkus/issues/35220
-        return handler.emitterProcessor.toMulti();
+        return handler.emitterProcessor.toMulti().toHotStream();
     }
 }
