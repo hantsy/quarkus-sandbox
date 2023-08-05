@@ -29,8 +29,7 @@ public class MessageResource {
     @Produces(MediaType.SERVER_SENT_EVENTS)
     @SseElementType(MediaType.APPLICATION_JSON)
     public Multi<Message> stream() {
+        // see: https://github.com/quarkusio/quarkus/issues/35220
         return handler.emitterProcessor.toMulti();
-        // see:
-        // return FlowAdapters.toPublisher( handler.emitterProcessor.toMulti());
     }
 }
