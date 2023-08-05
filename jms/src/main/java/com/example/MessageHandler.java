@@ -4,7 +4,10 @@ import io.quarkus.scheduler.Scheduled;
 import io.smallrye.mutiny.helpers.MultiEmitterProcessor;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.jms.*;
+import jakarta.jms.CompletionListener;
+import jakarta.jms.JMSContext;
+import jakarta.jms.JMSException;
+import jakarta.jms.Queue;
 import jakarta.json.bind.Jsonb;
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,7 +37,7 @@ public class MessageHandler {
             @Override
             public void onCompletion(jakarta.jms.Message message) {
                 try {
-                    LOGGER.log(Level.INFO, "onCompletion: {0}",  message.getBody(String.class));
+                    LOGGER.log(Level.INFO, "onCompletion: {0}", message.getBody(String.class));
                 } catch (JMSException e) {
                     throw new RuntimeException(e);
                 }
@@ -56,16 +59,22 @@ public class MessageHandler {
     @Scheduled(delay = 500L, delayUnit = TimeUnit.MILLISECONDS, every = "1s")
     void receive() {
         var consumer = jmsContext.createConsumer(helloQueue);
-        consumer.setMessageListener(
-                msg -> {
-                    try {
-                        var received = jsonb.fromJson(msg.getBody(String.class), Message.class);
-                        LOGGER.log(Level.INFO, "consuming message: {0}", received);
-                        emitterProcessor.emit(received);
-                    } catch (JMSException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-        );
+//        consumer.setMessageListener(
+//                msg -> {
+//                    try {
+//                        var received = jsonb.fromJson(msg.getBody(String.class), Message.class);
+//                        LOGGER.log(Level.INFO, "consuming message: {0}", received);
+//                        emitterProcessor.emit(received);
+//                    } catch (JMSException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//                }
+//        );
+        var message = consumer.receiveBody(String.class, 1000);
+        if (message != null) {
+            var received = jsonb.fromJson(message, Message.class);
+            LOGGER.log(Level.INFO, "received message: {0}", received);
+            emitterProcessor.emit(received);
+        }
     }
 }
