@@ -45,8 +45,8 @@ public class MessageHandler {
 
             @Override
             public void onException(jakarta.jms.Message message, Exception exception) {
-                LOGGER.log(Level.INFO, "onCompletion: {0}, exception: {1}",
-                        new Object[]{message, exception}
+                LOGGER.log(Level.INFO, "exception: {0}",
+                        new Object[]{exception}
                 );
             }
         });
@@ -70,7 +70,7 @@ public class MessageHandler {
 //                    }
 //                }
 //        );
-        var message = consumer.receiveBody(String.class, 1000);
+        var message = consumer.receiveBody(String.class, 500);
         if (message != null) {
             var received = jsonb.fromJson(message, Message.class);
             LOGGER.log(Level.INFO, "received message: {0}", received);
