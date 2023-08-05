@@ -5,11 +5,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import lombok.extern.slf4j.Slf4j;
-import org.jboss.resteasy.annotations.SseElementType;
-import org.reactivestreams.FlowAdapters;
-import org.reactivestreams.Publisher;
-
-import java.util.concurrent.Flow;
+import org.jboss.resteasy.reactive.RestStreamElementType;
 
 @Path("/messages")
 @Slf4j
@@ -27,7 +23,7 @@ public class MessageResource {
 
     @GET
     @Produces(MediaType.SERVER_SENT_EVENTS)
-    @SseElementType(MediaType.APPLICATION_JSON)
+    @RestStreamElementType(MediaType.APPLICATION_JSON)
     public Multi<Message> stream() {
         // see: https://github.com/quarkusio/quarkus/issues/35220
         return handler.emitterProcessor.toMulti();
