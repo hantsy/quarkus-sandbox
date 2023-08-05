@@ -5,8 +5,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.reactive.messaging.Channel;
-import org.jboss.resteasy.annotations.SseElementType;
-import org.reactivestreams.Publisher;
+import org.jboss.resteasy.reactive.RestStreamElementType;
 
 import java.util.concurrent.Flow;
 
@@ -17,9 +16,9 @@ public class MessageResource {
     MessageHandler handler;
     @Inject
     @Channel("data-stream")
-    Publisher<Message> stream;
+    // Publisher<Message> stream;
     // see: https://github.com/quarkusio/quarkus/issues/35219
-    // Flow.Publisher<Message> stream;
+    Flow.Publisher<Message> stream;
 
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
@@ -30,8 +29,8 @@ public class MessageResource {
 
     @GET
     @Produces(MediaType.SERVER_SENT_EVENTS)
-    @SseElementType(MediaType.APPLICATION_JSON)
-    public Publisher<Message> stream() {
+    @RestStreamElementType(MediaType.APPLICATION_JSON)
+    public Flow.Publisher<Message> stream() {
         return stream;
     }
 }
