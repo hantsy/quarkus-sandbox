@@ -8,6 +8,8 @@ import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.jboss.resteasy.annotations.SseElementType;
 import org.reactivestreams.Publisher;
 
+import java.util.concurrent.Flow;
+
 @Path("/messages")
 @Slf4j
 public class MessageResource {
@@ -17,7 +19,7 @@ public class MessageResource {
 
     @Inject
     @Channel("data-stream")
-    Publisher<Message> stream;
+    Flow.Publisher<Message> stream;
 
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
@@ -29,7 +31,7 @@ public class MessageResource {
     @GET
     @Produces(MediaType.SERVER_SENT_EVENTS)
     @SseElementType(MediaType.APPLICATION_JSON)
-    public Publisher<Message> stream() {
+    public Flow.Publisher<Message> stream() {
         return stream;
     }
 }
