@@ -166,13 +166,20 @@ class PostResourceClientTest {
         String dataStream = """
                 id:1
                 event:random
-                data:{"id":"test post 1", "createdAt":"2023-03-26T10:15:30"}
+                data:{"id":"test post 1","createdAt":"2023-03-26T10:15:30"}
                                                      
                 id:2
                 event:random
-                data:{"id":"test post 2", "createdAt":"2023-03-26T10:15:31"}
+                data:{"id":"test post 2","createdAt":"2023-03-26T10:15:31"}
                 
-                """;
+                """.stripIndent().stripLeading();
+
+//        String dataStream = "id:1\n" +
+//                "event:random\n" +
+//                "data:{\"id\":\"test post 1\", \"createdAt\":\"2023-03-26T10:15:30\"}\n\n" +
+//                "id:2\n" +
+//                "event:random\n" +
+//                "data:{\"id\":\"test post 2\", \"createdAt\":\"2023-03-26T10:15:31\"}\n\n";
         stubFor(
                 get(url)
                         .withHeader("Accept", equalTo("text/event-stream"))
