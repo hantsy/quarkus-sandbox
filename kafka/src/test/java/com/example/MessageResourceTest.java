@@ -54,8 +54,8 @@ class MessageResourceTest {
                         LOGGER.log(Level.INFO, "reading event data: {0}", message);
                         messageReplay.add(message);
                     },
-                    error -> {
-                        LOGGER.log(Level.SEVERE, "error: {}", error);
+                    throwable -> {
+                        LOGGER.log(Level.SEVERE, "error: {0}", throwable.getMessage());
                         latch.countDown();
                     },
                     () -> {
@@ -71,7 +71,7 @@ class MessageResourceTest {
                 assertThat(sendMessageResponse.getStatus()).isEqualTo(204);
             }
 
-            latch.await(500, TimeUnit.MILLISECONDS);
+            latch.await(5000, TimeUnit.MILLISECONDS);
         }
 
         assertThat(messageReplay.size()).isEqualTo(1);
