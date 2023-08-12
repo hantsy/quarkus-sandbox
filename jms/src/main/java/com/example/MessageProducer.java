@@ -1,7 +1,5 @@
 package com.example;
 
-import io.quarkus.scheduler.Scheduled;
-import io.smallrye.mutiny.helpers.MultiEmitterProcessor;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.jms.CompletionListener;
@@ -12,15 +10,14 @@ import jakarta.json.bind.Jsonb;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Instant;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @ApplicationScoped
 @Slf4j
-public class MessageHandler {
+public class MessageProducer {
 
-    private static final Logger LOGGER = Logger.getLogger(MessageHandler.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(MessageProducer.class.getName());
 
     @Inject
     JMSContext jmsContext;
@@ -51,30 +48,5 @@ public class MessageHandler {
             }
         });
         producer.send(helloQueue, jsonb.toJson(new Message(message, Instant.now())));
-    }
-
-    MultiEmitterProcessor<Message> emitterProcessor = MultiEmitterProcessor.create();
-
-
-    @Scheduled(delay = 500L, delayUnit = TimeUnit.MILLISECONDS, every = "1s")
-    void receive() {
-        var consumer = jmsContext.createConsumer(helloQueue);
-//        consumer.setMessageListener(
-//                msg -> {
-//                    try {
-//                        var received = jsonb.fromJson(msg.getBody(String.class), Message.class);
-//                        LOGGER.log(Level.INFO, "consuming message: {0}", received);
-//                        emitterProcessor.emit(received);
-//                    } catch (JMSException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                }
-//        );
-        var message = consumer.receiveBody(String.class, 500);
-        if (message != null) {
-            var received = jsonb.fromJson(message, Message.class);
-            LOGGER.log(Level.INFO, "received message: {0}", received);
-            emitterProcessor.emit(received);
-        }
     }
 }

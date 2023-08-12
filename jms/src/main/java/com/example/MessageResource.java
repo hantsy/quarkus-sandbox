@@ -12,13 +12,16 @@ import org.jboss.resteasy.reactive.RestStreamElementType;
 public class MessageResource {
 
     @Inject
-    MessageHandler handler;
+    MessageProducer sender;
+
+    @Inject
+    MessageConsumer consumer;
 
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     public void send(String message) {
         log.info("sending: {}", message);
-        handler.send(message);
+        sender.send(message);
     }
 
     @GET
@@ -26,6 +29,6 @@ public class MessageResource {
     @RestStreamElementType(MediaType.APPLICATION_JSON)
     public Multi<Message> stream() {
         // see: https://github.com/quarkusio/quarkus/issues/35220
-        return handler.emitterProcessor.toMulti().toHotStream();
+        return consumer.emitterProcessor.toMulti().toHotStream();
     }
 }
