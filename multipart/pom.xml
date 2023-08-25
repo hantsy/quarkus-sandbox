@@ -16,13 +16,13 @@
         <maven.compiler.parameters>true</maven.compiler.parameters>
         <maven.compiler.release>17</maven.compiler.release>
         <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
-		<maven-failsafe-plugin.version>3.1.2</maven-failsafe-plugin.version>
+	<maven-failsafe-plugin.version>3.1.2</maven-failsafe-plugin.version>
 
         <!-- deps -->
-        <quarkus.version>3.2.0.Final</quarkus.version>
+        <quarkus.version>3.3.0</quarkus.version>
         <lombok.version>1.18.20</lombok.version>
 
-		<skipITs>true</skipITs>
+	<skipITs>true</skipITs>
     </properties>
     <dependencyManagement>
         <dependencies>
