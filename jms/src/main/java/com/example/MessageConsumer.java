@@ -1,7 +1,8 @@
 package com.example;
 
 import io.quarkus.runtime.StartupEvent;
-import io.smallrye.mutiny.helpers.MultiEmitterProcessor;
+import io.smallrye.mutiny.Multi;
+import io.smallrye.mutiny.operators.multi.processors.UnicastProcessor;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
@@ -29,16 +30,17 @@ public class MessageConsumer {
     @Inject
     Jsonb jsonb;
 
-    MultiEmitterProcessor<Message> emitterProcessor = MultiEmitterProcessor.create();
+    UnicastProcessor<Message> processor = UnicastProcessor.create();
 
-    void receive(@Observes StartupEvent startupEvent) {
+    Multi<Message> messageStream = processor.toHotStream();
+    public void receive(@Observes StartupEvent startupEvent) {
         var consumer = jmsContext.createConsumer(helloQueue);
         consumer.setMessageListener(
                 msg -> {
                     try {
                         var received = jsonb.fromJson(msg.getBody(String.class), Message.class);
                         LOGGER.log(Level.INFO, "consuming message: {0}", received);
-                        emitterProcessor.emit(received);
+                        processor.onNext(received);
                     } catch (JMSException e) {
                         throw new RuntimeException(e);
                     }
