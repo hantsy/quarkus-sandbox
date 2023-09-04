@@ -25,7 +25,7 @@
         <assertj.version>3.24.2</assertj.version>
 
         <skipITs>true</skipITs>
-        <hibernate.version>6.2.7.Final</hibernate.version>
+        <hibernate.version>6.3.0.Final</hibernate.version>
     </properties>
     <dependencyManagement>
         <dependencies>
