@@ -26,7 +26,7 @@
         <quarkus.version>3.3.1</quarkus.version>
         <wiremock.version>2.35.0</wiremock.version>
         <jackson.version>2.15.2</jackson.version>
-        <kotest.version>5.7.1</kotest.version>
+        <kotest.version>5.7.2</kotest.version>
         <kotlinx-coroutines.version>1.7.3</kotlinx-coroutines.version>
     </properties>
     <dependencyManagement>
