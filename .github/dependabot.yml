@@ -30,9 +30,12 @@ updates:
     directory: "/vertx-routes"
     schedule:
       interval: "weekly"
-      
   - package-ecosystem: "maven"
     directory: "/spring"
+    schedule:
+      interval: "weekly"      
+  - package-ecosystem: "maven"
+    directory: "/multipart"
     schedule:
       interval: "weekly"
   - package-ecosystem: "maven"
