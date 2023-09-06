@@ -56,6 +56,10 @@ updates:
     schedule:
       interval: "weekly"      
   - package-ecosystem: "maven"
+    directory: "/pulsar"
+    schedule:
+      interval: "weekly"  
+  - package-ecosystem: "maven"
     directory: "/restclient-classic"
     schedule:
       interval: "weekly"
