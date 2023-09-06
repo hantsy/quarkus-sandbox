@@ -23,6 +23,10 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "maven"
+    directory: "/resteasy-kotlin-co"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "maven"
     directory: "/resteasy-reactive-pgclient"
     schedule:
       interval: "weekly"
