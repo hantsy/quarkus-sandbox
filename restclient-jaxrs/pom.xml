@@ -19,7 +19,7 @@
 
         <!-- Quarkus BOM -->
         <quarkus.version>3.3.2</quarkus.version>
-        <wiremock.version>2.35.0</wiremock.version>
+        <wiremock.version>2.35.1</wiremock.version>
         <assertj.version>3.24.2</assertj.version>
 
         <skipITs>true</skipITs>
