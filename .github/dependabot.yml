@@ -67,6 +67,10 @@ updates:
     schedule:
       interval: "weekly"  
   - package-ecosystem: "maven"
+    directory: "/restclient-reactive"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "maven"
     directory: "/restclient-classic"
     schedule:
       interval: "weekly"
