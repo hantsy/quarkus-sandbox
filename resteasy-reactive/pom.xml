@@ -19,7 +19,7 @@
         <maven-failsafe-plugin.version>3.1.2</maven-failsafe-plugin.version>
 
         <!-- Quarkus BOM -->
-        <quarkus.version>3.3.1</quarkus.version>
+        <quarkus.version>3.3.2</quarkus.version>
         <hibernate.version>6.2.6.Final</hibernate.version>
         <lombok.version>1.18.28</lombok.version>
         <assertj.version>3.24.2</assertj.version>
