@@ -22,7 +22,7 @@
         <!-- dependencies -->
         <quarkus.version>3.4.1</quarkus.version>
         <mockito.version>5.5.0</mockito.version>
-        <lombok.version>1.18.28</lombok.version>
+        <lombok.version>1.18.30</lombok.version>
         <assertj.version>3.24.2</assertj.version>
 
         <skipITs>true</skipITs>
