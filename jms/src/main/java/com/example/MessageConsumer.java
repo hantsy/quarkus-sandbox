@@ -34,7 +34,7 @@ public class MessageConsumer {
     MultiEmitterProcessor<Message> processor = MultiEmitterProcessor.create();
 
     public Multi<Message> stream() {
-        return processor.toMulti();
+        return processor.toMulti().broadcast().toAllSubscribers();
     }
 
     public void receive(@Observes StartupEvent startupEvent) {
