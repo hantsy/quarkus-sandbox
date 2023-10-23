@@ -36,6 +36,7 @@ public class MessageConsumer {
     public Multi<Message> stream() {
         return processor.toMulti();
     }
+
     public void receive(@Observes StartupEvent startupEvent) {
         var consumer = jmsContext.createConsumer(helloQueue);
         consumer.setMessageListener(
