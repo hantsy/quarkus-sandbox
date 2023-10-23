@@ -29,6 +29,6 @@ public class MessageResource {
     @RestStreamElementType(MediaType.APPLICATION_JSON)
     public Multi<Message> stream() {
         // see: https://github.com/quarkusio/quarkus/issues/35220
-        return consumer.messageStream;
+        return consumer.stream();
     }
 }
