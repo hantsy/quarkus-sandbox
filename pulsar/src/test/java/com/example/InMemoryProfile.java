@@ -14,6 +14,8 @@ public class InMemoryProfile implements QuarkusTestProfile {
                 "mp.messaging.outgoing.send.connector","smallrye-in-memory",
                 "mp.messaging.incoming.messages.connector","smallrye-in-memory",
                 "mp.messaging.outgoing.data-stream.connector","smallrye-in-memory"
+//                "pulsar.client.serviceUrl", "",
+//                "pulsar.admin.serviceUrl", ""
         );
     }
 
