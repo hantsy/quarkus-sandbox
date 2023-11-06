@@ -27,7 +27,7 @@
         <quarkus.version>3.5.0</quarkus.version>
         <hibernate.version>6.2.6.Final</hibernate.version>
         <assertj.version>3.24.2</assertj.version>
-        <kotest.version>5.7.2</kotest.version>
+        <kotest.version>5.8.0</kotest.version>
 
         <skipITs>true</skipITs>
     </properties>
