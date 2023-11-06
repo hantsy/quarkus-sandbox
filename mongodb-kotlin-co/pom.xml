@@ -28,7 +28,7 @@
         <assertj.version>3.24.2</assertj.version>
 
         <skipITs>true</skipITs>
-        <kotest.version>5.7.2</kotest.version>
+        <kotest.version>5.8.0</kotest.version>
     </properties>
     <dependencyManagement>
         <dependencies>
