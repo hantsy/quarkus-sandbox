@@ -20,7 +20,7 @@
         <maven-failsafe-plugin.version>3.2.1</maven-failsafe-plugin.version>
 
         <!-- deps -->
-        <quarkus.version>3.5.0</quarkus.version>
+        <quarkus.version>3.5.1</quarkus.version>
 
         <skipITs>true</skipITs>
     </properties>
