@@ -13,14 +13,14 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- maven plugins-->
-        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.12.0</maven-compiler-plugin.version>
         <maven.compiler.release>21</maven.compiler.release>
         <maven.compiler.parameters>true</maven.compiler.parameters>
         <maven-surefire-plugin.version>3.2.3</maven-surefire-plugin.version>
         <maven-failsafe-plugin.version>3.2.3</maven-failsafe-plugin.version>
 
         <!-- dependencies -->
-        <quarkus.version>3.6.3</quarkus.version>
+        <quarkus.version>3.6.4</quarkus.version>
         <assertj.version>3.24.2</assertj.version>
 
         <skipITs>true</skipITs>

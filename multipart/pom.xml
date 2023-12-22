@@ -12,14 +12,14 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Maven plugins -->
-        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.12.0</maven-compiler-plugin.version>
         <maven.compiler.parameters>true</maven.compiler.parameters>
         <maven.compiler.release>21</maven.compiler.release>
         <maven-surefire-plugin.version>3.2.3</maven-surefire-plugin.version>
 	<maven-failsafe-plugin.version>3.2.3</maven-failsafe-plugin.version>
 
         <!-- deps -->
-        <quarkus.version>3.6.3</quarkus.version>
+        <quarkus.version>3.6.4</quarkus.version>
         <lombok.version>1.18.30</lombok.version>
 
 	<skipITs>true</skipITs>
