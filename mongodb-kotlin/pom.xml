@@ -15,7 +15,7 @@
         <maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
         <maven.compiler.release>21</maven.compiler.release>
         <maven.compiler.parameters>true</maven.compiler.parameters>
-        <maven-surefire-plugin.version>3.2.3</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
         <maven-failsafe-plugin.version>3.2.3</maven-failsafe-plugin.version>
 
         <!-- kotlin -->
@@ -23,7 +23,7 @@
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
 
         <!-- dependencies-->
-        <quarkus.version>3.6.4</quarkus.version>
+        <quarkus.version>3.7.0.CR1</quarkus.version>
         <assertj.version>3.25.1</assertj.version>
         <kotest.version>5.8.0</kotest.version>
         <quarkus-junit5-mockk.version>2.1.0</quarkus-junit5-mockk.version>
