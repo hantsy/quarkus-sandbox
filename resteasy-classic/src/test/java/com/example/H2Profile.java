@@ -10,14 +10,15 @@ import java.util.Set;
 
 public class H2Profile implements QuarkusTestProfile {
 
+    // get the h2 properties from application-h2.properties instead
     @Override
     public Map<String, String> getConfigOverrides() {
         return Map.of(
-//                "quarkus.datasource.db-kind", "h2",
-//                "quarkus.datasource.jdbc.url", "jdbc:h2:tcp://localhost/mem:test",
-//                "quarkus.datasource.jdbc.driver", "org.h2.Driver",
-//                "quarkus.hibernate-orm.database.generation", "drop-and-create",
-//                "quarkus.hibernate-orm.log.sql", "true"
+    //                "quarkus.datasource.db-kind", "h2",
+    //                "quarkus.datasource.jdbc.url", "jdbc:h2:tcp://localhost/mem:test",
+    //                "quarkus.datasource.jdbc.driver", "org.h2.Driver",
+    //                "quarkus.hibernate-orm.database.generation", "drop-and-create",
+    //                "quarkus.hibernate-orm.log.sql", "true"
         );
     }
 
