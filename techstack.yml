@@ -1,0 +1,351 @@
+repo_name: hantsy/quarkus-sandbox
+report_id: 8d26720e5776c72507712f5eebec07dc
+version: 0.1
+repo_type: Public
+timestamp: '2024-01-31T08:50:13+00:00'
+requested_by: yrodiere
+provider: github
+branch: master
+detected_tools_count: 28
+tools:
+- name: Java
+  description: A concurrent, class-based, object-oriented, language specifically designed
+    to have as few implementation dependencies as possible
+  website_url: https://www.java.com
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/995/K85ZWV2F.png
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox
+  detection_source: Repo Metadata
+- name: Kotlin
+  description: Statically typed Programming Language targeting JVM and JavaScript
+  website_url: https://kotlinlang.org/
+  open_source: true
+  hosted_saas: true
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/3750/pCfEzr6L.png
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox
+  detection_source: Repo Metadata
+- name: SQL
+  description: It is a domain-specific language used in programming
+  website_url: https://en.wikipedia.org/wiki/SQL
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/2271/default_068d33483bba6b81ee13fbd4dc7aab9780896a54.png
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/pg-initdb.d/init.sql
+  detection_source: pg-initdb.d/init.sql
+  last_updated_by: hantsy
+  last_updated_on: 2020-02-29 14:08:12.000000000 Z
+- name: ActiveMQ
+  description: A message broker written in Java together with a full JMS client
+  website_url: http://activemq.apache.org/
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Data Stores
+  sub_category: Message Queue
+  image_url: https://img.stackshare.io/service/1062/default_08edb6f82e2c79424efc1e297ab096e50acd8e0b.jpg
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/jms/docker-compose.yaml
+  detection_source: jms/docker-compose.yaml
+  last_updated_by: hantsy
+  last_updated_on: 2023-08-05 02:37:14.000000000 Z
+- name: Kafka
+  description: Distributed, fault tolerant, high throughput pub-sub messaging system
+  website_url: http://kafka.apache.org/
+  version: 0.11.3
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Data Stores
+  sub_category: Message Queue
+  image_url: https://img.stackshare.io/service/1063/kazUJooF_400x400.jpg
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/docker-compose.yml
+  detection_source: docker-compose.yml
+  last_updated_by: hantsy
+  last_updated_on: 2019-12-24 11:47:49.000000000 Z
+- name: MongoDB
+  description: The database for giant ideas
+  website_url: http://www.mongodb.com/
+  open_source: true
+  hosted_saas: false
+  category: Data Stores
+  sub_category: Databases
+  image_url: https://img.stackshare.io/service/1030/leaf-360x360.png
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/docker-compose.yml
+  detection_source: docker-compose.yml
+  last_updated_by: hantsy
+  last_updated_on: 2021-12-07 07:53:12.000000000 Z
+- name: PostgreSQL
+  description: A powerful, open source object-relational database system
+  website_url: http://www.postgresql.org/
+  open_source: true
+  hosted_saas: false
+  category: Data Stores
+  sub_category: Databases
+  image_url: https://img.stackshare.io/service/1028/ASOhU5xJ.png
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/docker-compose.yml
+  detection_source: docker-compose.yml
+  last_updated_by: hantsy
+  last_updated_on: 2021-12-07 07:53:12.000000000 Z
+- name: RabbitMQ
+  description: Open source multiprotocol messaging broker
+  website_url: http://www.rabbitmq.com/
+  open_source: true
+  hosted_saas: false
+  category: Data Stores
+  sub_category: Message Queue
+  image_url: https://img.stackshare.io/service/1061/default_df93e9a30d27519161b39d8c1d5c223c1642d187.jpg
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/amqp-rabbitmq/docker-compose.yaml
+  detection_source: amqp-rabbitmq/docker-compose.yaml
+  last_updated_by: hantsy
+  last_updated_on: 2023-07-29 04:40:45.000000000 Z
+- name: Docker
+  description: Enterprise Container Platform for High-Velocity Innovation.
+  website_url: https://www.docker.com/
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Virtual Machine Platforms & Containers
+  image_url: https://img.stackshare.io/service/586/n4u37v9t_400x400.png
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/docker-compose.yml
+  detection_source: docker-compose.yml
+  last_updated_by: hantsy
+  last_updated_on: 2020-02-29 14:08:12.000000000 Z
+- name: Docker Compose
+  description: Define and run multi-container applications with Docker
+  website_url: https://github.com/docker/compose
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Container Tools
+  image_url: https://img.stackshare.io/service/3136/docker-compose.png
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/docker-compose.yml
+  detection_source: docker-compose.yml
+  last_updated_by: hantsy
+  last_updated_on: 2020-02-29 14:08:12.000000000 Z
+- name: Git
+  description: Fast, scalable, distributed revision control system
+  website_url: http://git-scm.com/
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Version Control System
+  image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox
+  detection_source: Repo Metadata
+- name: GitHub Actions
+  description: Automate your workflow from idea to production
+  website_url: https://github.com/features/actions
+  open_source: false
+  hosted_saas: true
+  category: Build, Test, Deploy
+  sub_category: Continuous Integration
+  image_url: https://img.stackshare.io/service/11563/actions.png
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/.github/workflows/amqp-rabbitmq.yml
+  detection_source: ".github/workflows/amqp-rabbitmq.yml"
+  last_updated_by: dependabot[bot]
+  last_updated_on: 2023-12-04 13:00:45.000000000 Z
+- name: NGINX
+  description: A high performance free open source web server powering busiest sites
+    on the Internet.
+  website_url: http://nginx.org
+  open_source: false
+  hosted_saas: false
+  category: Application Hosting
+  sub_category: Web Servers
+  image_url: https://img.stackshare.io/service/1052/YMxUfyWf.png
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/quartz/docker-compose.yml
+  detection_source: quartz/docker-compose.yml
+  last_updated_by: Hantsy Bai
+  last_updated_on: 2021-05-04 06:51:18.000000000 Z
+- name: Apache Camel
+  description: A versatile open source integration framework
+  website_url: https://camel.apache.org/
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Application Hosting
+  sub_category: Platform as a Service
+  image_url: https://img.stackshare.io/service/3276/xWt1RFo6_400x400.jpg
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/amqp-rabbitmq/src/main/resources/application.properties
+  detection_source: amqp-rabbitmq/src/main/resources/application.properties
+  last_updated_by: hantsy
+  last_updated_on: 2023-07-23 03:54:24.000000000 Z
+- name: Alpine Linux
+  description: Security-oriented, lightweight Linux distribution based on musl libc
+    and busybox
+  website_url: https://www.alpinelinux.org/
+  open_source: false
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Operating Systems
+  image_url: https://img.stackshare.io/service/6429/alpine_linux.png
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/amqp-rabbitmq/docker-compose.yaml
+  detection_source: amqp-rabbitmq/docker-compose.yaml
+  last_updated_by: hantsy
+  last_updated_on: 2023-07-27 05:57:11.000000000 Z
+- name: Mongo
+  description: Heroku provides services and tools to build, run, and scale web applications.
+    Follow @herokustatus for platform updates. A @salesforce company.
+  website_url: http://wedesignapps.herokuapp.com
+  open_source: false
+  hosted_saas: false
+  image_url: https://img.stackshare.io/service/3519/3wgIDj3j_normal.png
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/docker-compose.yml
+  detection_source: docker-compose.yml
+  last_updated_by: hantsy
+  last_updated_on: 2021-12-07 07:53:12.000000000 Z
+- name: Quartz
+  description: Provider of In-Memory Data Management software. Part of @SoftwareAG.
+    Company behind popular open source projects such as @Ehcache and Quartz.
+  website_url: http://quartz-scheduler.org/
+  open_source: false
+  hosted_saas: false
+  image_url: https://img.stackshare.io/service/2433/GbbbRD1V_normal.jpeg
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/quartz/docker-compose.yml
+  detection_source: quartz/docker-compose.yml
+  last_updated_by: Hantsy Bai
+  last_updated_on: 2021-05-04 06:51:18.000000000 Z
+- name: Shell
+  description: A shell is a text-based terminal, used for manipulating programs and
+    files. Shell scripts typically manage program execution.
+  website_url: https://en.wikipedia.org/wiki/Shell_script
+  open_source: false
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/4631/default_c2062d40130562bdc836c13dbca02d318205a962.png
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox
+  detection_source: Repo Metadata
+- name: com.fasterxml.jackson.module:jackson-module-kotlin
+  description: Add-on module for Jackson
+  version: 2.16.1
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/restclient-kotlin/pom.xml
+  detection_source: mongodb-kotlin-co/pom.xml
+  last_updated_by: hantsy
+  last_updated_on: 2024-01-01 11:20:58.000000000 Z
+- name: io.rest-assured:rest-assured
+  description: Java DSL for easy testing of REST services
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/graphql-client/pom.xml
+  detection_source: graphql-client/pom.xml
+  last_updated_by: hantsy
+  last_updated_on: 2024-01-18 06:42:38.000000000 Z
+- name: org.assertj:assertj-core
+  description: Rich and fluent assertions for testing for Java
+  version: 3.25.1
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/amqp-rabbitmq/pom.xml
+  detection_source: amqp-rabbitmq/pom.xml
+  last_updated_by: hantsy
+  last_updated_on: 2023-07-23 09:15:17.000000000 Z
+- name: org.hibernate:hibernate-jpamodelgen
+  description: Annotation Processor to generate JPA 2 static metamodel classes
+  license: LGPL-2.0-only,GPL-3.0-or-later
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/legacy/hibernate-reactive-java8/pom.xml
+  detection_source: legacy/hibernate-reactive-java8/pom.xml
+  last_updated_by: Hantsy Bai
+  last_updated_on: 2021-01-09 08:30:51.000000000 Z
+- name: org.jetbrains.kotlin:kotlin-stdlib
+  description: Kotlin Standard Library for JVM
+  version: 1.9.22
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/mongodb-kotlin/pom.xml
+  detection_source: mongodb-kotlin-co/pom.xml
+  last_updated_by: hantsy
+  last_updated_on: 2024-01-01 11:20:58.000000000 Z
+- name: org.jetbrains.kotlin:kotlin-stdlib-jdk8
+  description: Kotlin Standard Library JDK 8 extension
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/restclient-kotlin-co/pom.xml
+  detection_source: restclient-kotlin-co/pom.xml
+  last_updated_by: hantsy
+  last_updated_on: 2024-01-01 11:20:58.000000000 Z
+- name: org.jetbrains.kotlin:kotlin-test
+  description: Kotlin Test
+  version: 1.9.22
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/mongodb-kotlin/pom.xml
+  detection_source: mongodb-kotlin/pom.xml
+  last_updated_by: dependabot[bot]
+  last_updated_on: 2023-12-25 10:29:14.000000000 Z
+- name: org.jetbrains.kotlinx:kotlinx-coroutines-core
+  version: 1.7.3
+  open_source: false
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/restclient-kotlin-co/pom.xml
+  detection_source: mongodb-kotlin-co/pom.xml
+  last_updated_by: hantsy
+  last_updated_on: 2024-01-01 11:20:58.000000000 Z
+- name: org.mockito:mockito-junit-jupiter
+  description: Mockito JUnit 5 support
+  version: 5.9.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/resteasy-classic/pom.xml
+  detection_source: resteasy-classic/pom.xml
+  last_updated_by: hantsy
+  last_updated_on: 2024-01-18 06:42:38.000000000 Z
+- name: org.projectlombok:lombok
+  description: 'Spice up your java: Automatic Resource Management'
+  version: 1.18.30
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/hantsy/quarkus-sandbox/blob/master/amqp-rabbitmq/pom.xml
+  detection_source: amqp-rabbitmq/pom.xml
+  last_updated_by: hantsy
+  last_updated_on: 2023-07-23 09:15:17.000000000 Z
