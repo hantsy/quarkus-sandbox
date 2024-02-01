@@ -20,7 +20,7 @@
         <maven.compiler.release>21</maven.compiler.release>
 
         <!-- dependencies -->
-        <quarkus.version>3.7.0.CR1</quarkus.version>
+        <quarkus.version>3.7.1</quarkus.version>
         <mockito.version>5.9.0</mockito.version>
         <lombok.version>1.18.30</lombok.version>
         <assertj.version>3.25.1</assertj.version>
