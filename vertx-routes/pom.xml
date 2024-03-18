@@ -17,7 +17,7 @@
         <maven-failsafe-plugin.version>3.2.5</maven-failsafe-plugin.version>
 
         <!-- dependencies-->
-        <quarkus.version>3.8.0.CR1</quarkus.version>
+        <quarkus.version>3.9.0.CR2</quarkus.version>
 		
 		<skipITs>true</skipITs>
     </properties>
