@@ -20,7 +20,7 @@
 
         <!-- deps -->
         <quarkus.version>3.9.0.CR2</quarkus.version>
-        <lombok.version>1.18.30</lombok.version>
+        <lombok.version>1.18.32</lombok.version>
 
 	<skipITs>true</skipITs>
     </properties>
