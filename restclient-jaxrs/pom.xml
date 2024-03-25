@@ -19,7 +19,7 @@
 
         <!-- Quarkus BOM -->
         <quarkus.version>3.9.0.CR2</quarkus.version>
-        <wiremock.version>2.35.1</wiremock.version>
+        <wiremock.version>3.4.2</wiremock.version>
         <assertj.version>3.25.3</assertj.version>
 
         <skipITs>true</skipITs>
@@ -73,8 +73,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.tomakehurst</groupId>
-            <artifactId>wiremock-jre8</artifactId>
+            <groupId>org.wiremock</groupId>
+            <artifactId>wiremock</artifactId>
             <scope>test</scope>
             <version>${wiremock.version}</version>
         </dependency>

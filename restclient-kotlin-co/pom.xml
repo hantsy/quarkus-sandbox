@@ -24,7 +24,7 @@
 
         <!-- dependencies-->
         <quarkus.version>3.9.0.CR2</quarkus.version>
-        <wiremock.version>2.35.1</wiremock.version>
+        <wiremock.version>3.4.2</wiremock.version>
         <jackson.version>2.15.2</jackson.version>
         <kotest.version>5.8.1</kotest.version>
         <kotlinx-coroutines.version>1.8.0</kotlinx-coroutines.version>
@@ -113,8 +113,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.tomakehurst</groupId>
-            <artifactId>wiremock-jre8</artifactId>
+            <groupId>org.wiremock</groupId>
+            <artifactId>wiremock</artifactId>
             <scope>test</scope>
             <version>${wiremock.version}</version>
         </dependency>
