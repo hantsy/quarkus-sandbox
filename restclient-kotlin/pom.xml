@@ -24,8 +24,13 @@
 
         <!-- dependencies-->
         <quarkus.version>3.9.0.CR2</quarkus.version>
+<<<<<<< HEAD
         <wiremock.version>3.4.2</wiremock.version>
         <jackson.version>2.16.1</jackson.version>
+=======
+        <wiremock.version>2.35.1</wiremock.version>
+        <jackson.version>2.17.0</jackson.version>
+>>>>>>> 4f846b59757bbbc2529bfff88f845dfb4a85f88f
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -95,7 +100,7 @@
         <dependency>
             <groupId>io.kotest</groupId>
             <artifactId>kotest-assertions-core-jvm</artifactId>
-            <version>5.8.0</version>
+            <version>5.8.1</version>
             <scope>test</scope>
         </dependency>
 
