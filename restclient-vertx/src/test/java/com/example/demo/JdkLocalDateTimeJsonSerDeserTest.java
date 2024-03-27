@@ -61,6 +61,7 @@ class  JsonbLocalDateTimeSerializer implements JsonbSerializer<TestObject>{
     }
 }
 
+// see: https://github.com/eclipse-ee4j/yasson/issues/629
 class TestObject {
     public LocalDateTime occured = LocalDateTime.now();
 
