@@ -26,7 +26,7 @@
         <quarkus.version>3.9.1</quarkus.version>
 <<<<<<< HEAD
         <wiremock.version>3.5.2</wiremock.version>
-        <jackson.version>2.16.1</jackson.version>
+        <jackson.version>2.17.0</jackson.version>
 =======
         <wiremock.version>2.35.1</wiremock.version>
         <jackson.version>2.17.0</jackson.version>
