@@ -23,7 +23,7 @@
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
 
         <!-- dependencies-->
-        <quarkus.version>3.9.1</quarkus.version>
+        <quarkus.version>3.9.2</quarkus.version>
 <<<<<<< HEAD
         <wiremock.version>3.5.2</wiremock.version>
         <jackson.version>2.17.0</jackson.version>
