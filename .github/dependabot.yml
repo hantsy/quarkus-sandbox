@@ -73,11 +73,7 @@ updates:
   - package-ecosystem: "maven"
     directory: "/restclient-classic"
     schedule:
-      interval: "weekly"
-  - package-ecosystem: "maven"
-    directory: "/restclient-mutiny" 
-    schedule:
-      interval: "weekly"     
+      interval: "weekly"    
   - package-ecosystem: "maven"
     directory: "/restclient-java11"
     schedule:
