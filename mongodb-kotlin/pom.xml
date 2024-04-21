@@ -23,7 +23,7 @@
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
 
         <!-- dependencies-->
-        <quarkus.version>3.9.1</quarkus.version>
+        <quarkus.version>3.10.0.CR1</quarkus.version>
         <assertj.version>3.25.3</assertj.version>
         <kotest.version>5.8.1</kotest.version>
         <quarkus-junit5-mockk.version>2.1.0</quarkus-junit5-mockk.version>
