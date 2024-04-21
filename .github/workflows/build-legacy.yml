@@ -67,3 +67,16 @@ jobs:
       - name: Building with Maven
         run: |
           mvn -q clean  package --file legacy/vertx-routes-java8/pom.xml -DskipTests
+          
+  restclient-mutiny:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: "21"      
+      - name: Build with Maven
+        run: |
+          mvn -q clean  package --file legacy/restclient-mutiny/pom.xml        
