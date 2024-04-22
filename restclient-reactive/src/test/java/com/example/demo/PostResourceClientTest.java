@@ -8,6 +8,7 @@ import io.quarkus.vertx.VertxContextSupport;
 import jakarta.inject.Inject;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.logging.Level;
@@ -160,6 +161,7 @@ class PostResourceClientTest {
         );
     }
 
+    @Disabled("Wiremock sse does not work in Quakrus")
     @Test
     void getEvents() throws Throwable {
         var url = "/posts/events";
