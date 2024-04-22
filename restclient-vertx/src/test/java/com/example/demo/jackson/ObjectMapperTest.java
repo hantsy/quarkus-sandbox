@@ -6,7 +6,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 
 import jakarta.inject.Inject;
-import java.time.LocalDateTime;
+
 import java.util.logging.Logger;
 
 @QuarkusTest
@@ -38,21 +38,3 @@ public class ObjectMapperTest {
     }
 }
 
-class TestLocalObject {
-    public LocalDateTime occured = LocalDateTime.now();
-
-    public LocalDateTime getOccured() {
-        return occured;
-    }
-
-    public void setOccured(LocalDateTime occured) {
-        this.occured = occured;
-    }
-
-    @Override
-    public String toString() {
-        return "TestObject{" +
-                "occured=" + occured +
-                '}';
-    }
-}

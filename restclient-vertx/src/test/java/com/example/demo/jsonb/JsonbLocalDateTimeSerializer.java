@@ -1,5 +1,9 @@
 package com.example.demo.jsonb;
 
+import jakarta.json.bind.serializer.JsonbSerializer;
+import jakarta.json.bind.serializer.SerializationContext;
+import jakarta.json.stream.JsonGenerator;
+
 import java.util.logging.Logger;
 
 class JsonbLocalDateTimeSerializer implements JsonbSerializer<TestObject> {
