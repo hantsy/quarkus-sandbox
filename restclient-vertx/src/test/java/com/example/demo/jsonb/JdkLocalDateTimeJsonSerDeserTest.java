@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.jsonb;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -50,33 +50,3 @@ public class JdkLocalDateTimeJsonSerDeserTest {
     }
 }
 
-class  JsonbLocalDateTimeSerializer implements JsonbSerializer<TestObject>{
-    private static final Logger LOGGER = Logger.getLogger(JsonbLocalDateTimeSerializer.class.getSimpleName());
-    @Override
-    public void serialize(TestObject a, JsonGenerator generator, SerializationContext ctx) {
-        LOGGER.info("LocalDateTime:" + a);
-        generator.writeStartObject();
-        generator.write("occured", a.getOccured().toString());
-        generator.writeEnd();
-    }
-}
-
-// see: https://github.com/eclipse-ee4j/yasson/issues/629
-class TestObject {
-    public LocalDateTime occured = LocalDateTime.now();
-
-    public LocalDateTime getOccured() {
-        return occured;
-    }
-
-    public void setOccured(LocalDateTime occured) {
-        this.occured = occured;
-    }
-
-    @Override
-    public String toString() {
-        return "TestObject{" +
-                "occured=" + occured +
-                '}';
-    }
-}
