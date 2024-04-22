@@ -11,7 +11,6 @@ import kotlinx.coroutines.test.runTest
 import org.eclipse.microprofile.rest.client.inject.RestClient
 import org.junit.jupiter.api.Test
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @WireMockTest(httpPort = 8080)
 @QuarkusTest
 class PostResourceClientTest {

@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 import java.util.*
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @QuarkusTest
 class PostControllerTest {
 
