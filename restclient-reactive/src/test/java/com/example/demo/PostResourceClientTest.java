@@ -161,6 +161,7 @@ class PostResourceClientTest {
         );
     }
 
+    // see: https://github.com/quarkusio/quarkus/discussions/35224
     @Disabled("Wiremock sse does not work in Quakrus")
     @Test
     void getEvents() throws Throwable {
