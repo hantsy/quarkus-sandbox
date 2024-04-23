@@ -20,6 +20,7 @@
         <quarkus.version>3.10.0.CR1</quarkus.version>
 		
 	<skipITs>true</skipITs>
+        <lombok.version>1.18.32</lombok.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -39,16 +40,13 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-arc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.32</version>
+            <version>${lombok.version}</version>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
