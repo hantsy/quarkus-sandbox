@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.example.demo</groupId>
     <artifactId>quarkus-examples-graphql</artifactId>
@@ -10,16 +11,16 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- maven plugins -->
-	<maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
-	<maven-failsafe-plugin.version>3.2.5</maven-failsafe-plugin.version>    
+        <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>3.2.5</maven-failsafe-plugin.version>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
         <maven.compiler.parameters>true</maven.compiler.parameters>
         <maven.compiler.release>21</maven.compiler.release>
 
         <!-- dependencies -->
         <quarkus.version>3.10.0.CR1</quarkus.version>
-		
-	<skipITs>true</skipITs>
+
+        <skipITs>true</skipITs>
         <lombok.version>1.18.32</lombok.version>
     </properties>
     <dependencyManagement>
@@ -106,7 +107,8 @@
                         <configuration>
                             <systemPropertyVariables>
                                 <native.image.path>
-                                    ${project.build.directory}/${project.build.finalName}-runner</native.image.path>
+                                    ${project.build.directory}/${project.build.finalName}-runner
+                                </native.image.path>
                                 <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                                 <maven.home>${maven.home}</maven.home>
                             </systemPropertyVariables>
