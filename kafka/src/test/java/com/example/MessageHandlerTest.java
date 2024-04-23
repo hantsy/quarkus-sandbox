@@ -35,9 +35,9 @@ class MessageHandlerTest {
 
 
         handler.send("hello");
-        assertThat(sink.received().get(0).getPayload()).isEqualTo("hello");
+        assertThat(sink.received().getFirst().getPayload()).isEqualTo("hello");
 
         messages.send("hello-123");
-        assertThat(dataStream.received().get(0).getPayload().body()).isEqualTo("hello-123");
+        assertThat(dataStream.received().getFirst().getPayload().body()).isEqualTo("hello-123");
     }
 }
