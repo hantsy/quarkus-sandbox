@@ -28,10 +28,10 @@ class PostResourceClientTest {
         var url = "/posts/count?q=";
         stubFor(
                 get(url)
-                        .withHeader("Accept", equalTo("text/plain"))
+                        .withHeader("Accept", equalTo("application/json"))
                         .willReturn(
                                 aResponse()
-                                        .withHeader("Content-Type", "text/plain")
+                                        .withHeader("Content-Type", "application/json")
                                         .withBody("10")
                                         .withStatus(200)
                         )
@@ -45,7 +45,7 @@ class PostResourceClientTest {
 
         verify(
                 getRequestedFor(urlEqualTo(url))
-                        .withHeader("Accept", equalTo("text/plain"))
+                        .withHeader("Accept", equalTo("application/json"))
         );
 
     }

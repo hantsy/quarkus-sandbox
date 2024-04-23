@@ -35,7 +35,7 @@ public class PostResourceClient {
     CompletionStage<Long> countAllPosts(String q) {
         return client.target(baseUrl + "/posts/count")
                 .queryParam("q", q)
-                .request().accept(MediaType.TEXT_PLAIN_TYPE)
+                .request().accept(MediaType.APPLICATION_JSON_TYPE)
                 .rx()
                 .get(Long.class);
     }
