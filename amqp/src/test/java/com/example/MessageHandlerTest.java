@@ -10,7 +10,10 @@ import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
 @TestProfile(InMemoryProfile.class)
@@ -32,12 +35,15 @@ class MessageHandlerTest {
         InMemorySource<String> messages = connector.source("messages");
         InMemorySink<String> sink = connector.sink("send");
         InMemorySink<Message> dataStream = connector.sink("data-stream");
-
-
+        
         handler.send("hello");
-        assertThat(sink.received().get(0).getPayload()).isEqualTo("hello");
+        await().atMost(Duration.ofMillis(1000)).untilAsserted(() ->
+                assertThat(sink.received().get(0).getPayload()).isEqualTo("hello")
+        );
 
         messages.send("hello-123");
-        assertThat(dataStream.received().get(0).getPayload().body()).isEqualTo("hello-123");
+        await().atMost(Duration.ofMillis(1000)).untilAsserted(() ->
+                assertThat(dataStream.received().get(0).getPayload().body()).isEqualTo("hello-123")
+        );
     }
 }

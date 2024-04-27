@@ -12,7 +12,10 @@ import org.eclipse.microprofile.config.Config;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
 @TestProfile(InMemoryProfile.class)
@@ -44,11 +47,14 @@ class MessageHandlerTest {
         InMemorySink<String> sink = connector.sink("send");
         InMemorySink<Message> dataStream = connector.sink("data-stream");
 
-
         handler.send("hello");
-        assertThat(sink.received().getFirst().getPayload()).isEqualTo("hello");
+        await().atMost(Duration.ofMillis(1000)).untilAsserted(() ->
+                assertThat(sink.received().getFirst().getPayload()).isEqualTo("hello")
+        );
 
         messages.send("hello-123");
-        assertThat(dataStream.received().getFirst().getPayload().body()).isEqualTo("hello-123");
+        await().atMost(Duration.ofMillis(1000)).untilAsserted(() ->
+                assertThat(dataStream.received().getFirst().getPayload().body()).isEqualTo("hello-123")
+        );
     }
 }

@@ -11,9 +11,10 @@ public class InMemoryProfile implements QuarkusTestProfile {
     @Override
     public Map<String, String> getConfigOverrides() {
         return Map.of(
-                "mp.messaging.outgoing.send.connector","smallrye-in-memory",
-                "mp.messaging.incoming.messages.connector","smallrye-in-memory",
-                "mp.messaging.outgoing.data-stream.connector","smallrye-in-memory"
+                "quarkus.amqp.devservices.enabled", "false",
+                "mp.messaging.outgoing.send.connector", "smallrye-in-memory",
+                "mp.messaging.incoming.messages.connector", "smallrye-in-memory",
+                "mp.messaging.outgoing.data-stream.connector", "smallrye-in-memory"
         );
     }
 

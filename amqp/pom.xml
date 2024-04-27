@@ -20,10 +20,11 @@
 
         <!-- dependencies -->
         <quarkus.version>3.10.0.CR1</quarkus.version>
-
-        <skipITs>true</skipITs>
         <lombok.version>1.18.32</lombok.version>
         <assertj.version>3.25.3</assertj.version>
+        <awaitility.version>4.2.0</awaitility.version>
+
+        <skipITs>true</skipITs>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -88,6 +89,12 @@
         <dependency>
             <groupId>io.smallrye.reactive</groupId>
             <artifactId>smallrye-reactive-messaging-in-memory</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <version>${awaitility.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
