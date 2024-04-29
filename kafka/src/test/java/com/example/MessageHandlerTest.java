@@ -34,7 +34,7 @@ class MessageHandlerTest {
     void receive() {
         InMemorySource<String> messages = connector.source("messages");
         InMemorySink<String> sink = connector.sink("send");
-        InMemorySink<Message> dataStream = connector.sink("data-stream");
+        InMemorySink<Message> dataStream = connector.sink("data-result");
 
         handler.send("hello");
         await().atMost(Duration.ofMillis(1000)).untilAsserted(() ->

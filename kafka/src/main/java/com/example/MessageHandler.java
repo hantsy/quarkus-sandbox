@@ -23,7 +23,7 @@ public class MessageHandler {
     }
 
     @Incoming("messages")
-    @Outgoing("data-stream")
+    @Outgoing("data-result")
     @Broadcast
     Message receive(String message) {
         log.info("received: {}", message);
