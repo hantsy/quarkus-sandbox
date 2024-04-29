@@ -12,9 +12,10 @@ public class InMemoryProfile implements QuarkusTestProfile {
     public Map<String, String> getConfigOverrides() {
         return Map.of(
                 "quarkus.pulsar.devservices.enabled", "false",
+                "quarkus.messaging.pulsar.schema-autodetection.enabled","false",
                 "mp.messaging.outgoing.send.connector","smallrye-in-memory",
                 "mp.messaging.incoming.messages.connector","smallrye-in-memory",
-                "mp.messaging.outgoing.data-result.connector","smallrye-in-memory"
+                "mp.messaging.outgoing.messages-stream.connector","smallrye-in-memory"
 //                "pulsar.client.serviceUrl", "",
 //                "pulsar.admin.serviceUrl", ""
         );

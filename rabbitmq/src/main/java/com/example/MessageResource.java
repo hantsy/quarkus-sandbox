@@ -18,7 +18,7 @@ public class MessageResource {
     MessageHandler handler;
 
     @Inject
-    @Channel("data-stream")
+    @Channel("messages-stream")
     Flow.Publisher<Message> stream;
 
     @POST

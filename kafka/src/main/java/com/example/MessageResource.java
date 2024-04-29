@@ -15,7 +15,7 @@ public class MessageResource {
     @Inject
     MessageHandler handler;
     @Inject
-    @Channel("data-stream")
+    @Channel("messages-stream")
     // Publisher<Message> stream;
     // see: https://github.com/quarkusio/quarkus/issues/35219
     Flow.Publisher<Message> stream;

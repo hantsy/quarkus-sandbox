@@ -14,7 +14,7 @@ public class InMemoryProfile implements QuarkusTestProfile {
                 "quarkus.amqp.devservices.enabled", "false",
                 "mp.messaging.outgoing.send.connector","smallrye-in-memory",
                 "mp.messaging.incoming.messages.connector","smallrye-in-memory",
-                "mp.messaging.outgoing.data-stream.connector","smallrye-in-memory"
+                "mp.messaging.outgoing.messages-stream.connector","smallrye-in-memory"
         );
     }
 

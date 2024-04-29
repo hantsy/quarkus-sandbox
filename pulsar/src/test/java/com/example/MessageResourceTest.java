@@ -75,6 +75,6 @@ class MessageResourceTest {
         }
 
         assertThat(messageReplay.size()).isEqualTo(1);
-        assertThat(messageReplay.get(0).body()).isEqualTo("hello");
+        assertThat(messageReplay.getFirst().body()).isEqualTo("hello");
     }
 }
