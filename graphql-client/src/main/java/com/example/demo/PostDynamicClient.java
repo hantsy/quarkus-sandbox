@@ -4,9 +4,9 @@ import io.smallrye.graphql.client.GraphQLClient;
 import io.smallrye.graphql.client.Response;
 import io.smallrye.graphql.client.core.Document;
 import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClient;
-
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -18,7 +18,7 @@ import static io.smallrye.graphql.client.core.Operation.operation;
 public class PostDynamicClient {
 
     @Inject
-    @GraphQLClient("post-dynamic-client")
+    @GraphQLClient("post-client-dynamic")
     DynamicGraphQLClient dynamicClient;
 
     public List<Post> getAllPosts() throws ExecutionException, InterruptedException {
@@ -28,6 +28,7 @@ public class PostDynamicClient {
                                 field("id"),
                                 field("title"),
                                 field("content"),
+                                field("countOfComments"),
                                 field("comments",
                                         field("id"),
                                         field("content")

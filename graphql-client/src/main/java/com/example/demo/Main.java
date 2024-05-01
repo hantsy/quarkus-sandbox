@@ -2,15 +2,14 @@ package com.example.demo;
 
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
-
 import jakarta.inject.Inject;
-import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.UUID;
+
+@Slf4j
 @QuarkusMain
 public class Main implements QuarkusApplication {
-    public static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
     @Inject
     PostGraphQLClient clientApi;
@@ -40,40 +39,40 @@ public class Main implements QuarkusApplication {
         // return a `ErrorOr` instead.
         var post = this.clientApi.getPostById(id);
         if (post.isPresent()) {
-            LOGGER.log(Level.INFO, "found: {0}", post.get());
+            log.debug("found: {}", post.get());
         }
         if (post.hasErrors()) {
             post.getErrors().forEach(
-                    error -> LOGGER.log(Level.INFO, "error: path={0}, message={1}", new Object[]{error.getPath(), error.getMessage()})
+                    error -> log.error("error: path={}, message={}", error.getPath(), error.getMessage())
             );
         }
 
 
         this.clientApi.getAllPosts().forEach(
-                p -> LOGGER.log(Level.INFO, "post: {0}", p)
+                p -> log.debug("posts from clientApi: {}", p)
         );
 
         this.clientApi.getAllPostSummaries().forEach(
-                p -> LOGGER.log(Level.INFO, "post summary: {0}", p)
+                p -> log.debug("post summary from clientApi: {}", p)
         );
 
         this.dynamicClient.getAllPosts().forEach(
-                p -> LOGGER.log(Level.INFO, "post from dynamic client: {0}", p)
+                p -> log.debug("post from dynamicClient: {}", p)
         );
 
         this.jvmClient.getAllPosts()
                 .thenAccept(
-                        p -> LOGGER.log(Level.INFO, "post from jvm client: {0}", p)
+                        p -> log.debug("post from jvmClient: {}", p)
                 )
-                .whenComplete((d, e) -> LOGGER.info("The request is done in the jvm client."))
+                .whenComplete((d, e) -> log.debug("The request is done in the jvm client."))
                 .toCompletableFuture()
                 .join();
 
         this.jaxrsClient.getAllPosts()
                 .thenAccept(
-                        p -> LOGGER.log(Level.INFO, "post from Jaxrs client: {0}", p)
+                        p -> log.debug("post from JaxrsClient: {}", p)
                 )
-                .whenComplete((d, e) -> LOGGER.info("The request is done in the Jaxrs client."))
+                .whenComplete((d, e) -> log.debug("The request is done in the Jaxrs client."))
                 .toCompletableFuture()
                 .join();
 

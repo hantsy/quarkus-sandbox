@@ -1,15 +1,19 @@
 package com.example.demo;
 
+import io.smallrye.mutiny.Multi;
+import io.smallrye.mutiny.operators.multi.processors.BroadcastProcessor;
 import jakarta.enterprise.context.ApplicationScoped;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @ApplicationScoped
 public class PostService {
 
-    static List<Post> STORE = new ArrayList<>();
+    private final static List<Post> STORE = new ArrayList<>();
+    private final BroadcastProcessor<PostCreated> processor = BroadcastProcessor.create();
 
     public void init(List<Post> data) {
         STORE.clear();
@@ -20,16 +24,25 @@ public class PostService {
         return STORE;
     }
 
-    Optional<Post> getPostById(String id) {
-        return STORE.stream().filter(p -> p.id.equals(id)).findFirst();
+    Post getPostById(String id) {
+        return STORE.stream()
+                .filter(p -> p.id().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new PostNotFoundException(id));
     }
 
     Post createPost(CreatePost postInput) {
-        var data = Post.builder().id(UUID.randomUUID().toString())
-                .title(postInput.title)
-                .content(postInput.content)
-                .build();
+        var data = new Post(UUID.randomUUID().toString(),
+                postInput.title(),
+                postInput.content(),
+                null
+        );
         STORE.add(data);
+        processor.onNext(new PostCreated(data.id(), LocalDateTime.now()));
         return data;
+    }
+
+    public Multi<PostCreated> postCreated() {
+        return processor;
     }
 }

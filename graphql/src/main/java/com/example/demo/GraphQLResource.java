@@ -1,11 +1,12 @@
 package com.example.demo;
 
+import io.smallrye.graphql.api.Subscription;
+import io.smallrye.mutiny.Multi;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.eclipse.microprofile.graphql.*;
 
-import jakarta.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @GraphQLApi
 @RequiredArgsConstructor
@@ -19,7 +20,11 @@ public class GraphQLResource {
     }
 
     public int countOfComments(@Source Post post) {
-        return post.comments.size();
+        if (post.comments() != null) {
+            return post.comments().size();
+        }
+
+        return 0;
     }
 
     @Query
@@ -31,12 +36,18 @@ public class GraphQLResource {
         //      }
         // return this.postService.getPostById(id);
 
-        return this.postService.getPostById(id).orElseThrow(() -> new PostNotFoundException(id));
+        return this.postService.getPostById(id);
     }
 
     @Mutation
     @Description("Create a new post")
     public Post createPost(@Valid CreatePost createPostInput) {
         return this.postService.createPost(createPostInput);
+    }
+
+    @Subscription
+    @Description("Notify when post was created")
+    public Multi<PostCreated> postCreated(){
+        return this.postService.postCreated();
     }
 }
