@@ -27,8 +27,8 @@ public class PostDynamicClient {
                         field("allPosts",
                                 field("id"),
                                 field("title"),
-                                field("content"),
-                                field("countOfComments"),
+                                // field("content"),
+                                // field("countOfComments"),
                                 field("comments",
                                         field("id"),
                                         field("content")

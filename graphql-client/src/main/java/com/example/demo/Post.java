@@ -6,7 +6,7 @@ public record Post(
         String id,
         String title,
         String content,
-        int countOfComments,
+        Integer countOfComments,
         List<Comment> comments
 ) {
 
