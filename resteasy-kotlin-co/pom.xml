@@ -19,7 +19,7 @@
         <maven-failsafe-plugin.version>3.2.5</maven-failsafe-plugin.version>
 
         <!-- kotlin -->
-        <kotlin.version>1.9.23</kotlin.version>
+        <kotlin.version>1.9.24</kotlin.version>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
         <coroutines.version>1.8.0</coroutines.version>
 
