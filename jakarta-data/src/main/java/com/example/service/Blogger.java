@@ -5,6 +5,9 @@ import com.example.domain.Post;
 import com.example.domain.PostSummary;
 import com.example.domain.Status;
 import com.example.web.PostNotFoundException;
+import jakarta.data.Limit;
+import jakarta.data.Order;
+import jakarta.data.Sort;
 import jakarta.data.page.Page;
 import jakarta.data.page.PageRequest;
 import jakarta.data.repository.*;
@@ -38,7 +41,7 @@ public interface Blogger {
 
     @Find
     @OrderBy("createdAt")
-    List<Post> byStatus(Status status);
+    List<Post> byStatus(Status status, Order<Post> order,  Limit limit);
 
     @Find
     Optional<Post> byId(UUID id);

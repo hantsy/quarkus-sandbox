@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
-//@QuarkusTestResource(H2DatabaseTestResource.class)
 @TestProfile(H2Profile.class)
 public class PostRepositoryTest {
 
