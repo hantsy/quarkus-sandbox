@@ -4,4 +4,5 @@
 * [Building reactive APIs with Quarkus](./reactive.md)
 * [Building GraphQL APIs with Quarkus](./graphql.md)
 * [Consuming GraphQL APIs with Quarkus](./graphql-client.md)
+* [Integrating Jakarta Data with Quarkus](./jakarta-data.md)
 
