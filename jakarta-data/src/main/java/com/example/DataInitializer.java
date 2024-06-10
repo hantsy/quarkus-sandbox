@@ -43,7 +43,7 @@ public class DataInitializer {
                     this.comments.insert(comment);
                 });
 
-
+        this.posts.findAll().forEach(p -> LOGGER.log(Level.INFO, "Post: {0}", new Object[]{p}));
         this.comments.findAll().forEach(c -> LOGGER.log(Level.INFO, "Comment: {0}", new Object[]{c}));
     }
 

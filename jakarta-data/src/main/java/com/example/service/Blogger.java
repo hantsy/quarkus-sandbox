@@ -7,7 +7,6 @@ import com.example.domain.Status;
 import com.example.web.PostNotFoundException;
 import jakarta.data.Limit;
 import jakarta.data.Order;
-import jakarta.data.Sort;
 import jakarta.data.page.Page;
 import jakarta.data.page.PageRequest;
 import jakarta.data.repository.*;
@@ -18,9 +17,10 @@ import org.hibernate.annotations.processing.Pattern;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
-@Transactional
+
 @Repository
 public interface Blogger {
 
@@ -37,10 +37,10 @@ public interface Blogger {
     Page<PostSummary> allPosts(@Param("title") String title, PageRequest page);
 
     @Find
+    @OrderBy("createdAt")
     Page<Post> byTitle(@Pattern String title, PageRequest page);
 
     @Find
-    @OrderBy("createdAt")
     List<Post> byStatus(Status status, Order<Post> order,  Limit limit);
 
     @Find
@@ -48,6 +48,9 @@ public interface Blogger {
 
     @Insert
     Post insert(Post post);
+
+    @Insert
+    Comment insert(Comment comment);
 
     @Update
     Post update(Post post);
@@ -57,9 +60,10 @@ public interface Blogger {
 
     // see: https://hibernate.zulipchat.com/#narrow/stream/132096-hibernate-user/topic/Jakarta.20Data.20cascade.20does.20not.20work.20in.20custom.20deletion.20Query/near/441874793
     @Query("delete from Post")
+    @Transactional
     long deleteAllPosts();
 
-    default List<Comment> getCommentsOfPost(@NotEmpty UUID postId) {
+    default List<Comment> getCommentsOfPost( UUID postId) {
         var post = this.byId(postId).orElseThrow(() -> new PostNotFoundException(postId));
         session().fetch(post.getComments());
         return post.getComments();
