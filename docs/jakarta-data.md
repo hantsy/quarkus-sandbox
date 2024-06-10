@@ -1,16 +1,16 @@
 # Integrating Jakarta Data with Quarkus 
 
-For relational database persistence support, Quarkus provides several built-in extensions for developers, including [Hibernate ORM](https://quarkus.io/guides/hibernate-orm), [Hibernate Reactive](https://quarkus.io/guides/hibernate-reactive), and [Hibernate ORM Panache](https://quarkus.io/guides/hibernate-orm-panache). And Hibernate ORM Panache provides a generic `Repository` pattern that similar to the existing popular frameworks, such as [Spring Data JPA](https://spring.io/projects/spring-data-jpa), [Micronaut Data](https://micronaut-projects.github.io/micronaut-data/latest/guide/), etc. Quarkus expands this Panache Repository pattern to none-relational world, such as MongoDb etc. But they do not share the common APIs as Spring Data Commons.
+For relational database persistence support, Quarkus provides several extensions for developers, including [Hibernate ORM](https://quarkus.io/guides/hibernate-orm), [Hibernate Reactive](https://quarkus.io/guides/hibernate-reactive) and [Hibernate ORM Panache](https://quarkus.io/guides/hibernate-orm-panache). And Hibernate ORM Panache provides a generic `Repository` pattern that similar to the existing popular frameworks, such as [Spring Data JPA](https://spring.io/projects/spring-data-jpa), [Micronaut Data](https://micronaut-projects.github.io/micronaut-data/latest/guide/), etc. Quarkus expanded this Panache Repository pattern to none-relational world, such as MongoDb etc. But they do not share the common APIs as Spring Data Commons.
 
 [Jakarta Data specification](https://jakarta.ee/specifications/data/) tries to define a collection of common APIs to access relational databases and none-relational databases. As planned, Jakarta Data 1.0 will be part of the upcoming [Jakarta EE 11](https://jakarta.ee/specifications/platform/11/). 
 
-> [Jakarta Data 1.0 was just released](https://x.com/1ovthafew/status/1799120632694665660), check Jakarta Data specification documentation [here](https://jakarta.ee/specifications/data/1.0/jakarta-data-1.0).
+> [Jakarta Data 1.0 was just released](https://x.com/1ovthafew/status/1799120632694665660), check the final Jakarta Data 1.0 specification documentation [here](https://jakarta.ee/specifications/data/1.0/jakarta-data-1.0).
 
-> If you are looking an integration solution for Spring framework, check [Integrating Jakarta Data with Spring](https://medium.com/itnext/integrating-jakarta-data-with-spring-0beb5c215f5f).
+> If you are looking for an integration solution for Spring framework, check [Integrating Jakarta Data with Spring](https://medium.com/itnext/integrating-jakarta-data-with-spring-0beb5c215f5f).
 
 In this post, we will utilize the existing Hibernate ORM extension and try to integrate Jakarta Data with Quarkus.
 
-Firstly create a simple Quarkus project via Quarkus Code. Open your browser, navigate to https://code.quarkus.io/, add the following extensions.
+Firstly create a simple Quarkus project via Quarkus Code. Open your browser, navigate to https://code.quarkus.io/, add the following extensions and keep other options as it is.
 
 * Hibernate ORM
 * JDBC Drivers-Postgres
@@ -19,7 +19,7 @@ Firstly create a simple Quarkus project via Quarkus Code. Open your browser, nav
 
 Hint the *Generate your application* button, then download the generated project archive, and extract the files into your local disk, then import into your favorite IDE, eg. JetBrains Intellij IDEA. 
 
-Open the *pom.xml* file in the project root, and add the following dependencies.
+Expands the project folder, open the *pom.xml* file in the project root, and add the following dependencies.
 
 ```xml
 <properties>
@@ -55,11 +55,13 @@ Open the *pom.xml* file in the project root, and add the following dependencies.
 </dependencies>
 ```
 
-We add the Jakarta Data API into the dependency, we will use the new Jakarta Data APIs to implement data persistence. 
+Here we add Jakarta Data API explicitly and we will use the new Jakarta Data APIs to implement data persistence. 
 
-Here we update Hibernate ORM to the latest `6.6.0.Alpha1` to replace the one by managed by Quarkus BOM. And also add [Lombok](https://lombokproject.org) to erase the tedious getters/betters, `equals`/`hashCode`, `toString` methods, append builder, etc. for POJO classes.
+We also update Hibernate ORM to the latest `6.6.0.Alpha1` to align with Jakarta Data 1.0 specification. Including [Lombok](https://lombokproject.org) is to erase the tedious getters/betters, `equals`/`hashCode`, `toString` methods, append builder, etc. for POJO classes.
 
-Add Lombok and Hiberante jpamodelgen annotation processors into the `configuration/annotationProcessorPaths` node in the Maven compiler plugin. 
+For multiple annotation processors in the same project, we could have to configure them in a certain order. 
+
+Add `lombok` and Hiberante `jpamodelgen` into the `configuration/annotationProcessorPaths` node in the Maven compiler plugin. 
 
 ```xml
 <build>
@@ -85,9 +87,7 @@ Add Lombok and Hiberante jpamodelgen annotation processors into the `configurati
         </plugin>
 ```
 
-Ok, let's create some example codes.
-
-Firstly, create two `@Entity` classes, `Post` and `Comment`, which are a one-to-many relation.
+Now let's create two `@Entity` classes, `Post` and `Comment` which are a one-to-many relation.
 
 ```java
 @Data
@@ -161,7 +161,7 @@ public class Comment implements Serializable {
 }
 ```
 
-Next, create two `Repository` classes for these `@Entity` classes respectively. The Repository interfaces extend from the Jakarta Data `CrudRepository`. 
+Next, create two `Repository` classes for these `@Entity` classes respectively. The Repository interfaces are extended from the Jakarta Data `CrudRepository`. 
 
 ```java
 @Repository
@@ -200,9 +200,9 @@ public class PostRepository_ implements PostRepository {
 }
 ```
 
-In Quarkus, all `@Repository` classes are recognized by the built-in CDI container at runtime, and they can be injected like other CDI beans, no need extra bean registration as we have done in Spring integration. 
+In Quarkus, all `@Repository` implementation classes are annotated with a `@RequestScoped`, which means the `Repository` beans are shortly lived in a request lifecycle.  Like other CDI beans in the project, the `Repository` beans can be recoginized by Quarkus Arc container and can be injected into other beans freely. No need extra bean registration as we'v done in Spring integration. 
 
-Let's create a `DataInitializer` bean to initialize sample data at the application startup. Inject the `PostRepository` and `CommentRepository` via `@Inject`, observes a `StartupEvent` to ensure it is called at the application startup.
+Let's create a `DataInitializer` bean as following to initialize sample data at the application startup. Firstly inject `PostRepository` and `CommentRepository` beans via `@Inject`, the `onStart` method observes a `StartupEvent` to ensure it will be called at the application startup.
 
 ```java
 @ApplicationScoped
@@ -270,13 +270,13 @@ this.posts.findAll().forEach(p -> LOGGER.log(Level.INFO, "Post:{0}", p));
 assertEquals(2, this.posts.findAll().toList().size(), "result list size is 2");
 ```
 
-> Check the complete sample codes in [`PostRepositoryTest`](https://github.com/hantsy/quarkus-sandbox/blob/master/jakarta-data/src/test/java/com/example/PostRepositoryTest.java).
+> For the complete sample codes, please check [`PostRepositoryTest`](https://github.com/hantsy/quarkus-sandbox/blob/master/jakarta-data/src/test/java/com/example/PostRepositoryTest.java).
 
-In the [Integrating Jakarta Data with Spring](https://medium.com/itnext/integrating-jakarta-data-with-spring-0beb5c215f5f)we encountered the transaction management issue when using Jakarta Data with Spring because Spring has not handled the transaction case of using Hibernate `StatelessSession`. 
+In the [Integrating Jakarta Data with Spring](https://medium.com/itnext/integrating-jakarta-data-with-spring-0beb5c215f5f), we've encountered Spring transaction management because Spring lacks transaction support when using Hibernate `StatelessSession`. 
 
 In Quarkus, the transaction management works seamlessly with the Jakarta Data Repository interfaces.
 
-Add a `@Transactional` annotation on the `PostRepository` interface or on the certain methods, eg. `deleteAll()`, when it is compiled, it will be added in the generated implementation class too.
+To enable transaction, add a `@Transactional` annotation on the `PostRepository` interface or on the certain methods, eg. `deleteAll()`, when it is compiled, it will be added in the generated implementation class too.
 
 ```java
 @Repository
