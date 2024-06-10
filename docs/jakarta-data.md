@@ -199,7 +199,7 @@ public class PostRepository_ implements PostRepository {
 
 In Quarkus, all `@Repository` classes are recognized by the built-in CDI container at runtime, and they can be injected like other CDI beans. 
 
-Create a `DataInitializer` bean to initialize sample data at the application startup.
+For example, create a `DataInitializer` bean to initialize sample data at the application startup.
 
 ```java
 @ApplicationScoped
@@ -247,9 +247,11 @@ mvn clean quarkus:dev
 
 We do not configure the datasource connection info in the *application.properties* file, when starting the application in development mode, Quarkus will startup a Postgres dev service firstly, and setup the datasource connection in the background. 
 
+> To use Quarkus Dev Services, ensure you have installed [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Podman](https://podman.io/). More details, check [Quarkus Dev Services](https://quarkus.io/guides/dev-services).
+
 > I encountered a weird issue when upgrading to use Quarkus 3.11 here, check [quarkus#40932](https://github.com/quarkusio/quarkus/issues/40932). Add a property `quarkus.hibernate-orm.dialect=org.hibernate.dialect.PostgreSQLDialect` into the *application.properties* explicitly to overcome this issue temporarily.
 
-In a CDI bean, inject a `Repository` bean, and insert some sample data.
+The following codes demonstrate using the `Repository` built-in methods to insert some sample data and display the saved data.
 
 ```java
 @Inject
@@ -267,9 +269,11 @@ assertEquals(2, this.posts.findAll().toList().size(), "result list size is 2");
 
 > Check the complete sample codes in [`PostRepositoryTest`](https://github.com/hantsy/quarkus-sandbox/blob/master/jakarta-data/src/test/java/com/example/PostRepositoryTest.java).
 
-In the [Integrating Jakarta Data with Spring](https://medium.com/itnext/integrating-jakarta-data-with-spring-0beb5c215f5f)we encountered the transaction management issue when using Jakarta Data with Spring. In Quarkus, the transaction works seamlessly with the Jakarta Data Repository interfaces.
+In the [Integrating Jakarta Data with Spring](https://medium.com/itnext/integrating-jakarta-data-with-spring-0beb5c215f5f)we encountered the transaction management issue when using Jakarta Data with Spring because Spring has not handled the transaction case of using Hibernate `StatelessSession`. 
 
-Add a `@Transactional` annotation on the `PostRepository` interface or on the certain method, eg. `deleteAll()`, it will be added in the implementation class.
+In Quarkus, the transaction management works seamlessly with the Jakarta Data Repository interfaces.
+
+Add a `@Transactional` annotation on the `PostRepository` interface or on the certain methods, eg. `deleteAll()`, it will be added in the implementation class.
 
 ```java
 @Repository
@@ -290,7 +294,7 @@ public void setup() {
 }
 ```
 
-We have set `@OneToMany(cascade = CascadeType.ALL...` on the `comments`, but this does not work when using Jakarta Data Repository because `StatelessSession` is lack of cascade support. If there are some `Comment` sample data existed,  the above invoking `deleteAll()` will be failed due to the foreign key constraints in the `comments` table.
+We have set `@OneToMany(cascade = CascadeType.ALL...` on the `comments`, but this does not work when using Jakarta Data Repository because `StatelessSession` is lack of cascade support. If there are some `Comment` dirty data existed,  the above invoking `deleteAll()` will fail the tests due to the foreign key constraints in the `comments` table.
 
 > More details about Jakarta Data implementation in Hibernate, check [Hibernate Data Repositories](https://docs.jboss.org/hibernate/orm/6.6/repositories/html_single/Hibernate_Data_Repositories.html).
 
@@ -307,9 +311,9 @@ alter table if exists comments
 ```
 As you see, it adds a `on delete cascade` clause on the foreign key constraint. 
 
-Mentioned in the [Integrating Jakarta Data with Spring](https://medium.com/itnext/integrating-jakarta-data-with-spring-0beb5c215f5f), utilizes the Jakarta Data built-in annotations, eg. `@Query`, `@Find`(and `@By`, `@Param`, `@OrderBy`, and `Order`, `Limit`, `PageRequest` method parameters), `@Insert`/`@Save`/`@Update`, `@Delete`, etc., Jakarta Data allows you create custom methods freely in the Repository interface or a standalone interface.
+As I mentioned in the post [Integrating Jakarta Data with Spring](https://medium.com/itnext/integrating-jakarta-data-with-spring-0beb5c215f5f), utilizing the Jakarta Data built-in annotations, eg. `@Query`, `@Find`(and `@By`, `@Param`, `@OrderBy`, and `Order`, `Limit`, `PageRequest` method parameters), `@Insert`/`@Save`/`@Update`, `@Delete`, etc., Jakarta Data allows you create custom methods freely in the Repository interface or a standalone interface.
 
-Create a simple interface `Blogger` which is used to manage the blog posts and comments, do not forget to annotate it with the Jakarta Data `@Repository`.
+Let's create a simple interface `Blogger` which is used to manage the blog posts and comments, do not forget to annotate it with the Jakarta Data `@Repository`.
 
 ```java
 @Transactional
@@ -319,7 +323,7 @@ public interface Blogger {
 }
 ```
 
-You can use `@Find`, `@Insert`, `@Update`, `@Delete` to perform operations on Entity classes that matches the input parameter or result type.
+To perform basic CRUD operations on Entity classes, just need to add `@Find`, `@Insert`, `@Update`, `@Delete` annotations on the methods that Entity type matches the input parameter or result type.
 
 ```java
 @Find
@@ -348,14 +352,14 @@ Page<Post> byTitle(@Pattern String title, PageRequest page);
 
 The `@OrderBy` will sort the result by the specified property in the background query.
 
-Alternatively, you can get a chunk of result by specifying sort with `Order` parameter, and `Limit` with the result range.
+Alternatively, you can get a chunk of result by specifying sort with `Order` parameter, and `Limit` with the data range.
 
 ```java
 @Find
 List<Post> byStatus(Status status, Order<Post> order,  Limit limit);
 ```
 
-The following is an example using `@Query` and [JDQL(Jakarta Data Query Language)](https://jakarta.ee/specifications/data/1.0/jakarta-data-1.0#_jakarta_data_query_language). This method accept a parameter named *title* and an extra `PageRequest` for pagination, and return a paginated result, and map the result to custom `PostSummary` automatically.
+The following is an example using `@Query` and [JDQL(Jakarta Data Query Language)](https://jakarta.ee/specifications/data/1.0/jakarta-data-1.0#_jakarta_data_query_language). This method accept a parameter named *title* and an extra `PageRequest` for pagination request, and return a paginated result, and map the query result to result parameterized type `PostSummary` automatically.
 
 ```java
 @Query("""
@@ -368,7 +372,7 @@ The following is an example using `@Query` and [JDQL(Jakarta Data Query Language
         """)
 Page<PostSummary> allPosts(@Param("title") String title, PageRequest page);
 ```
-The [`BloggerTest`](https://github.com/hantsy/quarkus-sandbox/blob/master/jakarta-data/src/test/java/com/example/BloggerTest.java) demonstrates the usage of these custom methods.
+The [`BloggerTest`](https://github.com/hantsy/quarkus-sandbox/blob/master/jakarta-data/src/test/java/com/example/BloggerTest.java) shows the usage of these custom methods.
 
 ```java
  var blog = blogger.insert(Post.builder().title("Jakarta Data").content("content of Jakarta Data").build());
