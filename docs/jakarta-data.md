@@ -1,13 +1,12 @@
 # Integrating Jakarta Data with Quarkus 
 
-For relational database persistence support, Quarkus has already integrated [Hibernate ORM](https://quarkus.io/guides/hibernate-orm), [Hibernate Reactive](https://quarkus.io/guides/hibernate-reactive), and [Hibernate ORM Panache](https://quarkus.io/guides/hibernate-orm-panache).
-Hibernate ORM Panache provides a generic `Repository` pattern that similar to the existing popular frameworks, such as [Spring Data JPA](https://spring.io/projects/spring-data-jpa), [Micronaut Data](https://micronaut-projects.github.io/micronaut-data/latest/guide/), etc.  Quarkus expands the Panache Repository pattern to none-relational database, such as MongoDb etc. But they do not has the common APIs as Spring Data Commons.
+For relational database persistence support, Quarkus provides several built-in extensions for developers, including [Hibernate ORM](https://quarkus.io/guides/hibernate-orm), [Hibernate Reactive](https://quarkus.io/guides/hibernate-reactive), and [Hibernate ORM Panache](https://quarkus.io/guides/hibernate-orm-panache). And Hibernate ORM Panache provides a generic `Repository` pattern that similar to the existing popular frameworks, such as [Spring Data JPA](https://spring.io/projects/spring-data-jpa), [Micronaut Data](https://micronaut-projects.github.io/micronaut-data/latest/guide/), etc. Quarkus expands this Panache Repository pattern to none-relational world, such as MongoDb etc. But they do not share the common APIs as Spring Data Commons.
 
 [Jakarta Data specification](https://jakarta.ee/specifications/data/) tries to define a collection of common APIs to access relational databases and none-relational databases. As planned, Jakarta Data 1.0 is part of [Jakarta EE 11](https://jakarta.ee/specifications/platform/11/). 
 
 > [Jakarta Data 1.0 was just released](https://x.com/1ovthafew/status/1799120632694665660), check [specification documentation](https://jakarta.ee/specifications/data/1.0/jakarta-data-1.0).
 
-> If you are looking an integration solution for Spring framework, check [Integrating Jakarta Data with Spring](https://medium.com/itnext/integrating-jakarta-data-with-spring-0beb5c215f5f) instead.
+> If you are looking an integration solution for Spring framework, check [Integrating Jakarta Data with Spring](https://medium.com/itnext/integrating-jakarta-data-with-spring-0beb5c215f5f).
 
 In this post, we will utilize the existing Hibernate ORM extension and try to integrate Jakarta Data with Quarkus.
 
