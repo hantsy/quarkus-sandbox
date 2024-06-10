@@ -56,9 +56,11 @@ Open the *pom.xml* file in the project root, and add the following dependencies.
 </dependencies>
 ```
 
-Here we add the Jakarta Data API into the dependency, we will use the Jakarta Data to implement data persistence. And we update the Hibernate ORM to the latest `6.6.0.Alpha1`. And also add [Lombok](https://lombokproject.org) to erase the tedious getters/betters, equals/hashCode, etc for POJO classes.
+We add the Jakarta Data API into the dependency, we will use the new Jakarta Data APIs to implement data persistence. 
 
-Add Lombok and Hiberante jpamodelgen into the `configuration/annotationProcessorPaths` in the Maven compiler plugin. 
+Here we update Hibernate ORM to the latest `6.6.0.Alpha1` to replace the one by managed by Quarkus BOM. And also add [Lombok](https://lombokproject.org) to erase the tedious getters/betters, `equals`/`hashCode`, `toString` methods, append builder, etc. for POJO classes.
+
+Add Lombok and Hiberante jpamodelgen annotation processors into the `configuration/annotationProcessorPaths` node in the Maven compiler plugin. 
 
 ```xml
 <build>
@@ -84,7 +86,9 @@ Add Lombok and Hiberante jpamodelgen into the `configuration/annotationProcessor
         </plugin>
 ```
 
-Create two `@Entity` classes, `Post` and `Comment`, which are a one-to-many relation.
+Ok, let's create some example codes.
+
+Firstly, create two `@Entity` classes, `Post` and `Comment`, which are a one-to-many relation.
 
 ```java
 @Data
@@ -158,7 +162,7 @@ public class Comment implements Serializable {
 }
 ```
 
-Create two `Repository` classes for the `@Entity` classes respectively. The Repository interfaces extend from the Jakarta Data `CrudRepository`. 
+Next, create two `Repository` classes for these `@Entity` classes respectively. The Repository interfaces extend from the Jakarta Data `CrudRepository`. 
 
 ```java
 @Repository
@@ -172,15 +176,15 @@ public interface CommentRepository extends CrudRepository<Comment, UUID> {
 }
 ```
 
-Open `application.properties`, add the following property to specify the database we will use.
+Open `application.properties` in your editor, add the following property to specify the database type we will use.
 
 ```properties
 quarkus.datasource.db-kind=postgresql
 ```
 
-Compile the project, it will generate the two `Repository` implementation classes in the *target/generated-sources/annotations* folder.
+Now compile the project, it will generate the two `Repository` implementation classes in the *target/generated-sources/annotations* folder.
 
-Open the `PostRepository_.java`, you will find unlike the Quarkus Panache or Spring Data JPA, it uses the Hibernate `StatelessSession` to implement the `PostRepository` interface.
+Open the `PostRepository_.java`, you will see, unlike the Quarkus Panache or Spring Data JPA, here it uses the Hibernate `StatelessSession` to implement the `PostRepository` interface.
 
 ```java
 @RequestScoped
@@ -197,9 +201,9 @@ public class PostRepository_ implements PostRepository {
 }
 ```
 
-In Quarkus, all `@Repository` classes are recognized by the built-in CDI container at runtime, and they can be injected like other CDI beans. 
+In Quarkus, all `@Repository` classes are recognized by the built-in CDI container at runtime, and they can be injected like other CDI beans, no need extra bean registration as we have done in Spring integration. 
 
-For example, create a `DataInitializer` bean to initialize sample data at the application startup.
+Let's create a `DataInitializer` bean to initialize sample data at the application startup. Inject the `PostRepository` and `CommentRepository` via `@Inject`, observes a `StartupEvent` to ensure it is called at the application startup.
 
 ```java
 @ApplicationScoped
@@ -239,7 +243,7 @@ public class DataInitializer {
 }
 ```
 
-Run the following command to start up the application in development mode.
+Open your terminal, switch to the project root folder, run the following command to start up the application in development mode.
 
 ```bash 
 mvn clean quarkus:dev
@@ -273,7 +277,7 @@ In the [Integrating Jakarta Data with Spring](https://medium.com/itnext/integrat
 
 In Quarkus, the transaction management works seamlessly with the Jakarta Data Repository interfaces.
 
-Add a `@Transactional` annotation on the `PostRepository` interface or on the certain methods, eg. `deleteAll()`, it will be added in the implementation class.
+Add a `@Transactional` annotation on the `PostRepository` interface or on the certain methods, eg. `deleteAll()`, when it is compiled, it will be added in the generated implementation class too.
 
 ```java
 @Repository
@@ -285,7 +289,7 @@ public interface PostRepository extends CrudRepository<Post, UUID> {
 }
 ```
 
-In `PostRepositoryTest`, we can add a `@BeforeEach` hook method to clean up the sample data for all tests.
+In `PostRepositoryTest`, create a `@BeforeEach` hook method, we can use it to clean up the sample data for all tests.
 
 ```java
 @BeforeEach
@@ -294,13 +298,15 @@ public void setup() {
 }
 ```
 
-We have set `@OneToMany(cascade = CascadeType.ALL...` on the `comments`, but this does not work when using Jakarta Data Repository because `StatelessSession` is lack of cascade support. If there are some `Comment` dirty data existed,  the above invoking `deleteAll()` will fail the tests due to the foreign key constraints in the `comments` table.
+We have set `@OneToMany(cascade = CascadeType.ALL...` on the `comments` field, but this does not work when using Jakarta Data Repository because `StatelessSession` is lack of cascade support. If there are some `Comment` dirty data that exists in the `comments` table, the above invoking `deleteAll()` will fail the tests due to the foreign key constraints in the `comments` table.
 
 > More details about Jakarta Data implementation in Hibernate, check [Hibernate Data Repositories](https://docs.jboss.org/hibernate/orm/6.6/repositories/html_single/Hibernate_Data_Repositories.html).
 
-To enable *on delete* cascade on `comments`, add a Hibernate specific `@OnDelete(action = OnDeleteAction.CASCADE)` on the `comments` field. The `PostRepository.deleteAll()` will work well as expected.
+To enable *on delete* cascade on `comments` foreign key(`post_id`), add a Hibernate specific `@OnDelete(action = OnDeleteAction.CASCADE)` on the `comments` field. 
 
-When enabling Hibernate SQL log by adding `quarkus.hibernate-orm.log.sql=true` to the *application.properties* file and running `PostRepositoryTest`, you will see the following sql is executed after creating the `posts` and `comments` tables.
+Then `PostRepository.deleteAll()` will work well as expected. Let's enable Hibernate SQL log to check what happened.
+
+Add `quarkus.hibernate-orm.log.sql=true` to the *application.properties* file. And then run `PostRepositoryTest`, watch the logs in the IDE console, the following sql is executed after the `posts` and `comments` tables are created.
 
 ```sql
 alter table if exists comments 
@@ -323,7 +329,7 @@ public interface Blogger {
 }
 ```
 
-To perform basic CRUD operations on Entity classes, just need to add `@Find`, `@Insert`, `@Update`, `@Delete` annotations on the methods that Entity type matches the input parameter or result type.
+To perform basic CRUD operations on Entity classes, just need to add `@Find`, `@Insert`, `@Update`, `@Delete` annotations on the methods that the input parameter or result type matches Entity type.
 
 ```java
 @Find
@@ -342,7 +348,7 @@ Post update(Post post);
 void delete(Post post);
 ```
 
-To get a pageable result, use `Page` as result type, and set `PageRequest` as one of parameters.
+To return a pageable result, use `Page` as result type instead which accepts parameter type to indicate the result data type. And set `PageRequest` as one of the method parameters.
 
 ```java
 @Find
@@ -350,16 +356,18 @@ To get a pageable result, use `Page` as result type, and set `PageRequest` as on
 Page<Post> byTitle(@Pattern String title, PageRequest page);
 ```
 
-The `@OrderBy` will sort the result by the specified property in the background query.
+The `@OrderBy` will sort the query result by the specified property in the generated query.
 
-Alternatively, you can get a chunk of result by specifying sort with `Order` parameter, and `Limit` with the data range.
+Alternatively, you can specify an `Order` parameter to the query result data.  
+
+To get a smaller chunk of a large result list, you can use a `Limit` parameter to specify the data range by position.
 
 ```java
 @Find
 List<Post> byStatus(Status status, Order<Post> order,  Limit limit);
 ```
 
-The following is an example using `@Query` and [JDQL(Jakarta Data Query Language)](https://jakarta.ee/specifications/data/1.0/jakarta-data-1.0#_jakarta_data_query_language). This method accept a parameter named *title* and an extra `PageRequest` for pagination request, and return a paginated result, and map the query result to result parameterized type `PostSummary` automatically.
+The following is an example using `@Query` and [JDQL(Jakarta Data Query Language)](https://jakarta.ee/specifications/data/1.0/jakarta-data-1.0#_jakarta_data_query_language). This method accepts a parameter named *title* and an extra `PageRequest` for pagination request, and return a paginated result. The query result will be mapped to result parameterized type `PostSummary` automatically.
 
 ```java
 @Query("""
