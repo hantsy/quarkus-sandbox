@@ -347,7 +347,7 @@ Post update(Post post);
 void delete(Post post);
 ```
 
-To return a pageable result, use `Page` as result type instead which accepts parameter type to indicate the result data type. And set `PageRequest` as one of the method parameters.
+To return a pageable result, use `Page` as result type which includes parameterized type to indicate the result data type. And add a `PageRequest` as method parameter to accept pagintion settings for the client.
 
 ```java
 @Find
