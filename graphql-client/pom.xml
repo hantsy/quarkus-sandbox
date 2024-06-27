@@ -16,7 +16,7 @@
         <maven.compiler.parameters>true</maven.compiler.parameters>
 
         <!-- dependencies -->
-        <quarkus.version>3.12.0.CR1</quarkus.version>
+        <quarkus.version>3.12.0</quarkus.version>
         <lombok.version>1.18.32</lombok.version>
     </properties>
     <dependencyManagement>
