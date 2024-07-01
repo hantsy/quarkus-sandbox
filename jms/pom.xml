@@ -23,7 +23,7 @@
 
         <skipITs>true</skipITs>
         <assertj.version>3.26.0</assertj.version>
-        <lombok.version>1.18.32</lombok.version>
+        <lombok.version>1.18.34</lombok.version>
     </properties>
     <dependencyManagement>
         <dependencies>
