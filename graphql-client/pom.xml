@@ -17,7 +17,7 @@
 
         <!-- dependencies -->
         <quarkus.version>3.12.0</quarkus.version>
-        <lombok.version>1.18.32</lombok.version>
+        <lombok.version>1.18.34</lombok.version>
     </properties>
     <dependencyManagement>
         <dependencies>
