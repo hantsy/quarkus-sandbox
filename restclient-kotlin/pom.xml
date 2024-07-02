@@ -24,7 +24,7 @@
 
         <!-- dependencies-->
         <quarkus.version>3.12.0</quarkus.version>
-        <wiremock.version>3.7.0</wiremock.version>
+        <wiremock.version>3.8.0</wiremock.version>
         <jackson.version>2.17.1</jackson.version>
         <kotest.version>5.9.1</kotest.version>
     </properties>
