@@ -5,6 +5,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -29,7 +30,9 @@ public class PostControllerTest {
                                 List.of(
                                         Post.of(UUID.randomUUID(), "foo", "bar"),
                                         Post.of(UUID.randomUUID(), "foo2", "bar2")
-                                )
+                                ),
+                                PageRequest.of(0, 10),
+                                15
                         )
                 );
 
