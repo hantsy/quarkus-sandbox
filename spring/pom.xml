@@ -19,7 +19,7 @@
         <maven-failsafe-plugin.version>3.3.0</maven-failsafe-plugin.version>
 
         <!--deps -->
-        <quarkus.version>3.12.0</quarkus.version>
+        <quarkus.version>3.12.1</quarkus.version>
         <hibernate.version>6.2.6.Final</hibernate.version>
         <assertj.version>3.26.0</assertj.version>
 
