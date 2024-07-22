@@ -20,7 +20,7 @@
         <maven-failsafe-plugin.version>3.3.0</maven-failsafe-plugin.version>
 
         <!-- dependencies -->
-        <quarkus.version>3.12.2</quarkus.version>
+        <quarkus.version>3.12.3</quarkus.version>
         <assertj.version>3.26.0</assertj.version>
 
         <skipITs>true</skipITs>
