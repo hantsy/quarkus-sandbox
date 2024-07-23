@@ -13,11 +13,11 @@
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
         <maven.compiler.parameters>true</maven.compiler.parameters>
         <maven.compiler.release>21</maven.compiler.release>
-        <maven-surefire-plugin.version>3.3.0</maven-surefire-plugin.version>
-        <maven-failsafe-plugin.version>3.3.0</maven-failsafe-plugin.version>
+        <maven-surefire-plugin.version>3.3.1</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>3.3.1</maven-failsafe-plugin.version>
 
         <!-- dependencies-->
-        <quarkus.version>3.12.2</quarkus.version>
+        <quarkus.version>3.12.3</quarkus.version>
 		
 		<skipITs>true</skipITs>
     </properties>
