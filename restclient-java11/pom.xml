@@ -20,7 +20,7 @@
 
         <!-- dependencies -->
         <quarkus.version>3.12.3</quarkus.version>
-        <wiremock.version>3.9.0</wiremock.version>
+        <wiremock.version>3.9.1</wiremock.version>
         <assertj.version>3.26.3</assertj.version>
 
         <skipITs>true</skipITs>
