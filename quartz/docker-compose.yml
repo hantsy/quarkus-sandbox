@@ -1,6 +1,6 @@
 version: '3'
 # to scale up tasks.
-# docker-compose up --scale tasks=2 --scale nginx=1
+# docker compose up --scale tasks=2 --scale nginx=1
 services:
   tasks:
     image: quarkus-quickstarts/quartz:latest

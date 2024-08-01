@@ -1,5 +1,3 @@
-version: '3.7' # specify docker-compose version
-
 services:
   post-service: 
     image: hantsy/quarkus-post-service

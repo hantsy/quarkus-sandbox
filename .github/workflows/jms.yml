@@ -31,7 +31,7 @@ jobs:
              
       - name: Start up Atemis
         run: |
-            docker-compose up -d --file jms/docker-compose.yaml
+            docker compose --file jms/docker-compose.yaml up -d artemis
             docker ps -a        
       - name: Build with Maven
         run: |
