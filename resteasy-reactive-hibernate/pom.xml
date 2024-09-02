@@ -17,7 +17,7 @@
         <!-- Settings of maven compiler plugin -->
         <maven.compiler.parameters>true</maven.compiler.parameters>
         <maven.compiler.release>21</maven.compiler.release>
-        <maven-surefire-plugin.version>3.4.0</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.5.0</maven-surefire-plugin.version>
         <maven-failsafe-plugin.version>3.4.0</maven-failsafe-plugin.version>
 
         <!-- dependencies -->
