@@ -15,11 +15,11 @@
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
         <maven.compiler.release>21</maven.compiler.release>
         <maven.compiler.parameters>true</maven.compiler.parameters>
-        <maven-surefire-plugin.version>3.4.0</maven-surefire-plugin.version>
-        <maven-failsafe-plugin.version>3.4.0</maven-failsafe-plugin.version>
+        <maven-surefire-plugin.version>3.5.0</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>3.5.0</maven-failsafe-plugin.version>
 
         <!-- Quarkus BOM -->
-        <quarkus.version>3.14.0.CR1</quarkus.version>
+        <quarkus.version>3.14.2</quarkus.version>
         <hibernate.version>6.2.6.Final</hibernate.version>
         <lombok.version>1.18.34</lombok.version>
         <assertj.version>3.26.3</assertj.version>
