@@ -19,7 +19,7 @@
         <maven.compiler.release>21</maven.compiler.release>
 
         <!-- dependencies -->
-        <quarkus.version>3.14.2</quarkus.version>
+        <quarkus.version>3.14.4</quarkus.version>
         <wiremock.version>3.9.1</wiremock.version>
         <assertj.version>3.26.3</assertj.version>
 
