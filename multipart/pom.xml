@@ -19,7 +19,7 @@
 	<maven-failsafe-plugin.version>3.5.0</maven-failsafe-plugin.version>
 
         <!-- deps -->
-        <quarkus.version>3.14.2</quarkus.version>
+        <quarkus.version>3.15.1</quarkus.version>
         <lombok.version>1.18.34</lombok.version>
 
 	<skipITs>true</skipITs>
