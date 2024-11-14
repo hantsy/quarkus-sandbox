@@ -18,7 +18,7 @@
         <maven.compiler.parameters>true</maven.compiler.parameters>
 
         <!-- Quarkus BOM -->
-        <quarkus.version>3.16.2</quarkus.version>
+        <quarkus.version>3.17.0.CR1</quarkus.version>
         <wiremock.version>3.9.2</wiremock.version>
         <assertj.version>3.26.3</assertj.version>
 
