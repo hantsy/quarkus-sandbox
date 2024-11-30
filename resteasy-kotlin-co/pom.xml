@@ -15,8 +15,8 @@
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
         <maven.compiler.release>21</maven.compiler.release>
         <maven.compiler.parameters>true</maven.compiler.parameters>
-        <maven-surefire-plugin.version>3.5.1</maven-surefire-plugin.version>
-        <maven-failsafe-plugin.version>3.5.1</maven-failsafe-plugin.version>
+        <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>3.5.2</maven-failsafe-plugin.version>
 
         <!-- kotlin -->
         <kotlin.version>2.0.21</kotlin.version>
@@ -24,7 +24,7 @@
         <coroutines.version>1.9.0</coroutines.version>
 
         <!-- deps -->
-        <quarkus.version>3.15.1</quarkus.version>
+        <quarkus.version>3.17.2</quarkus.version>
         <hibernate.version>6.2.6.Final</hibernate.version>
         <assertj.version>3.25.2</assertj.version>
         <kotest.version>5.9.1</kotest.version>
@@ -75,11 +75,11 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-reactive</artifactId>
+            <artifactId>quarkus-rest</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-reactive-jackson</artifactId>
+            <artifactId>quarkus-rest-jackson</artifactId>
         </dependency>
 
         <dependency>
@@ -88,7 +88,7 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-reactive-kotlin</artifactId>
+            <artifactId>quarkus-rest-kotlin</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
