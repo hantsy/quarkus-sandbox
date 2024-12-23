@@ -24,7 +24,7 @@
         <coroutines.version>1.9.0</coroutines.version>
 
         <!-- deps -->
-        <quarkus.version>3.17.4</quarkus.version>
+        <quarkus.version>3.17.5</quarkus.version>
         <hibernate.version>6.2.6.Final</hibernate.version>
         <assertj.version>3.25.2</assertj.version>
         <kotest.version>5.9.1</kotest.version>
