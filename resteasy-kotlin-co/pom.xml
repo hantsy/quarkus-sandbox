@@ -21,7 +21,7 @@
         <!-- kotlin -->
         <kotlin.version>2.1.0</kotlin.version>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
-        <coroutines.version>1.9.0</coroutines.version>
+        <coroutines.version>1.10.1</coroutines.version>
 
         <!-- deps -->
         <quarkus.version>3.17.6</quarkus.version>
