@@ -27,7 +27,7 @@
         <wiremock.version>3.10.0</wiremock.version>
         <jackson.version>2.15.2</jackson.version>
         <kotest.version>5.9.1</kotest.version>
-        <kotlinx-coroutines.version>1.9.0</kotlinx-coroutines.version>
+        <kotlinx-coroutines.version>1.10.1</kotlinx-coroutines.version>
     </properties>
     <dependencyManagement>
         <dependencies>
