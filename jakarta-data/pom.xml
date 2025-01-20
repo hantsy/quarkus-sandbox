@@ -24,7 +24,7 @@
         <hibernate.version>6.6.4.Final</hibernate.version>
         <mockito.version>5.15.2</mockito.version>
         <lombok.version>1.18.36</lombok.version>
-        <assertj.version>3.27.2</assertj.version>
+        <assertj.version>3.27.3</assertj.version>
 
         <skipITs>true</skipITs>
     </properties>
