@@ -21,7 +21,7 @@
         <quarkus.version>3.19.0.CR1</quarkus.version>
 
         <skipITs>true</skipITs>
-        <lombok.version>1.18.36</lombok.version>
+        <lombok.version>1.18.38</lombok.version>
     </properties>
     <dependencyManagement>
         <dependencies>
