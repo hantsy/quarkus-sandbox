@@ -13,7 +13,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Maven plugins -->
-        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+       <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
         <!-- Settings of maven compiler plugin -->
         <maven.compiler.parameters>true</maven.compiler.parameters>
         <maven.compiler.release>21</maven.compiler.release>
