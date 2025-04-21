@@ -22,7 +22,7 @@
         <quarkus.version>3.22.0.CR1</quarkus.version>
         <lombok.version>1.18.38</lombok.version>
         <assertj.version>3.27.2</assertj.version>
-        <awaitility.version>4.2.2</awaitility.version>
+        <awaitility.version>4.3.0</awaitility.version>
 
         <skipITs>true</skipITs>
     </properties>
