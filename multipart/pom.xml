@@ -12,14 +12,14 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Maven plugins -->
-       <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
+       <maven-compiler-plugin.version>3.15.0</maven-compiler-plugin.version>
         <maven.compiler.parameters>true</maven.compiler.parameters>
-        <maven.compiler.release>21</maven.compiler.release>
-        <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
-	<maven-failsafe-plugin.version>3.5.3</maven-failsafe-plugin.version>
+        <maven.compiler.release>25</maven.compiler.release>
+        <maven-surefire-plugin.version>3.5.5</maven-surefire-plugin.version>
+	<maven-failsafe-plugin.version>3.5.5</maven-failsafe-plugin.version>
 
         <!-- deps -->
-        <quarkus.version>3.26.2</quarkus.version>
+        <quarkus.version>3.31.4</quarkus.version>
         <lombok.version>1.18.38</lombok.version>
 
 	<skipITs>true</skipITs>
@@ -64,7 +64,7 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-junit5</artifactId>
+            <artifactId>quarkus-junit</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
