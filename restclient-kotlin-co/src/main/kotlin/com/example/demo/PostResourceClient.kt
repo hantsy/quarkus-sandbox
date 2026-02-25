@@ -2,7 +2,6 @@ package com.example.demo
 
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
-import kotlinx.coroutines.flow.Flow
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient
 
 @Path("/posts")

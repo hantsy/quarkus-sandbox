@@ -2,18 +2,17 @@ package com.example;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.testcontainers.containers.Network;
-import org.testcontainers.containers.RabbitMQContainer;
-import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.rabbitmq.RabbitMQContainer;
 
-import java.time.Duration;
 import java.util.Map;
 
 public class RabbitMQTestResource implements QuarkusTestResourceLifecycleManager {
-    static RabbitMQContainer container = new RabbitMQContainer("rabbitmq:3-management-alpine")
+    static RabbitMQContainer container = new RabbitMQContainer("rabbitmq:4-management-alpine")
             .withNetwork(Network.SHARED)
             .withNetworkAliases("rabbitmq")
-            .withUser("quarkus","quarkus")
-            .withPluginsEnabled("rabbitmq_amqp1_0");
+            .withAdminUser("quarkus")
+            .withAdminPassword("quarkus");
+
     @Override
     public Map<String, String> start() {
         container.start();
@@ -22,15 +21,15 @@ public class RabbitMQTestResource implements QuarkusTestResourceLifecycleManager
 //                .waitUntilReady(container);
         return Map.of(
                 "amqp-host", container.getHost(),
-                "amqp-port",container.getAmqpPort()+"",
-                "amqp-username",container.getAdminUsername(),
+                "amqp-port", container.getAmqpPort() + "",
+                "amqp-username", container.getAdminUsername(),
                 "amqp-password", container.getAdminPassword()
         );
     }
 
     @Override
     public void stop() {
-        if(container.isRunning()) {
+        if (container.isRunning()) {
             container.stop();
         }
     }

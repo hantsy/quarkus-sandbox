@@ -26,7 +26,7 @@ public class PostController {
                         this.client.getAllPosts(q, offset, limit),
                         this.client.countAllPosts(q)
                 )
-                .combinedWith(Page::new);
+                .with(Page::new);
     }
 
     @GET
