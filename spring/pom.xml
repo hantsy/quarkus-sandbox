@@ -22,7 +22,7 @@
         <!--deps -->
         <quarkus.version>3.32.1</quarkus.version>
         <lombok.version>1.18.42</lombok.version>
-        <assertj.version>3.27.3</assertj.version>
+        <assertj.version>3.27.7</assertj.version>
 
         <!-- configs -->
 		<skipITs>true</skipITs>
