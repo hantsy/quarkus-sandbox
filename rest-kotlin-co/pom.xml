@@ -27,7 +27,7 @@
         <!-- deps -->
         <quarkus.version>3.32.1</quarkus.version>
         <assertj.version>3.25.2</assertj.version>
-        <kotest.version>5.9.1</kotest.version>
+        <kotest.version>6.1.4</kotest.version>
         <quarkus-junit5-mockk.version>3.1.0</quarkus-junit5-mockk.version>
 
         <skipITs>true</skipITs>
