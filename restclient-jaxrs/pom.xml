@@ -19,7 +19,7 @@
         <maven-failsafe-plugin.version>3.5.5</maven-failsafe-plugin.version>
 
         <!-- Quarkus BOM -->
-        <quarkus.version>3.31.4</quarkus.version>
+        <quarkus.version>3.32.1</quarkus.version>
         <wiremock.version>3.10.0</wiremock.version>
         <assertj.version>3.27.3</assertj.version>
 

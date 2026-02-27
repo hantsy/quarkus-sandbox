@@ -25,7 +25,7 @@
         <coroutines.version>1.10.1</coroutines.version>
 
         <!-- deps -->
-        <quarkus.version>3.31.4</quarkus.version>
+        <quarkus.version>3.32.1</quarkus.version>
         <assertj.version>3.25.2</assertj.version>
         <kotest.version>5.9.1</kotest.version>
         <quarkus-junit5-mockk.version>3.1.0</quarkus-junit5-mockk.version>
