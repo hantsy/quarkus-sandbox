@@ -28,7 +28,7 @@
         <assertj.version>3.27.7</assertj.version>
         <kotest.version>5.9.1</kotest.version>
         <quarkus-junit5-mockk.version>3.1.0</quarkus-junit5-mockk.version>
-        <mockk.version>1.14.0</mockk.version>
+        <mockk.version>1.14.9</mockk.version>
         <mockito-kotlin.version>6.2.3</mockito-kotlin.version>
 
         <skipITs>true</skipITs>
