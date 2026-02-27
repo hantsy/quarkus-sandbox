@@ -21,7 +21,7 @@
         <!-- quarkus -->
         <quarkus.version>3.8.2</quarkus.version>
         <wiremock.version>3.5.2</wiremock.version>
-        <assertj.version>3.25.3</assertj.version>
+        <assertj.version>3.27.7</assertj.version>
 
         <skipITs>true</skipITs>
     </properties>
