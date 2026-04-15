@@ -20,7 +20,7 @@
         <maven-failsafe-plugin.version>3.5.5</maven-failsafe-plugin.version>
 
         <!-- dependencies -->
-        <quarkus.version>3.32.1</quarkus.version>
+        <quarkus.version>3.34.3</quarkus.version>
         <mockito.version>5.21.0</mockito.version>
         <lombok.version>1.18.42</lombok.version>
         <assertj.version>3.27.7</assertj.version>
