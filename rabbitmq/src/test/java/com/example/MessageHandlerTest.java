@@ -6,6 +6,7 @@ import io.smallrye.reactive.messaging.memory.TestingConnector;
 import io.smallrye.reactive.messaging.memory.TestOutgoing;
 import io.smallrye.reactive.messaging.memory.TestIncoming;
 import jakarta.enterprise.inject.Any;
+import org.eclipse.microprofile.reactive.messaging.spi.Connector;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ import static org.awaitility.Awaitility.await;
 class MessageHandlerTest {
 
     @Inject
-    @Any
+    @Connector("smallrye-testing")
     TestingConnector connector;
 
     @Inject
