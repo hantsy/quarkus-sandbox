@@ -1,20 +1,16 @@
 package com.example.demo
 
-import com.fasterxml.jackson.databind.DeserializationFeature
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
-import io.quarkus.jackson.ObjectMapperCustomizer
+import tools.jackson.databind.cfg.DateTimeFeature
+import tools.jackson.databind.json.JsonMapper
+import io.quarkus.jackson.JsonMapperBuilderCustomizer
 import jakarta.enterprise.context.ApplicationScoped
 
 
 @ApplicationScoped
-class CustomObjectMapper : ObjectMapperCustomizer {
-    override fun customize(objectMapper: ObjectMapper) {
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-        objectMapper.disable(SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS)
-        objectMapper.disable(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS)
-        val module = JavaTimeModule()
-        objectMapper.registerModule(module)
+class CustomObjectMapper : JsonMapperBuilderCustomizer {
+    override fun customize(builder: JsonMapper.Builder) {
+        builder.disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
+        builder.disable(DateTimeFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS)
+        builder.disable(DateTimeFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS)
     }
 }

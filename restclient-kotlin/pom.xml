@@ -24,9 +24,8 @@
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
 
         <!-- dependencies-->
-        <quarkus.version>3.34.3</quarkus.version>
+        <quarkus.version>4.0.0.Beta2</quarkus.version>
         <wiremock.version>3.13.2</wiremock.version>
-        <jackson.version>2.21.1</jackson.version>
         <kotest.version>6.1.4</kotest.version>
     </properties>
     <dependencyManagement>
@@ -58,9 +57,8 @@
             <artifactId>quarkus-resteasy-client-jackson</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
+            <groupId>tools.jackson.module</groupId>
             <artifactId>jackson-module-kotlin</artifactId>
-            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>

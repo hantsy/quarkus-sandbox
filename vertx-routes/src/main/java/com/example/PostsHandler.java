@@ -1,7 +1,7 @@
 package com.example;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import io.vertx.ext.web.RoutingContext;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -97,7 +97,7 @@ class PostsHandler {
     private <T> T fromJson(String body, Class<T> tClass) {
         try {
             return objectMapper.readValue(body, tClass);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             e.printStackTrace();
         }
         return null;
@@ -106,7 +106,7 @@ class PostsHandler {
     private String toJson(Object post) {
         try {
             return objectMapper.writeValueAsString(post);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             e.printStackTrace();
         }
         return null;

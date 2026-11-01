@@ -1,33 +1,18 @@
 package com.example.demo;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import io.quarkus.jackson.ObjectMapperCustomizer;
-import io.vertx.core.json.Json;
-import io.vertx.core.json.jackson.DatabindCodec;
-import io.vertx.core.json.jackson.JacksonCodec;
+import tools.jackson.databind.cfg.DateTimeFeature;
+import tools.jackson.databind.json.JsonMapper;
+import io.quarkus.jackson.JsonMapperBuilderCustomizer;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @ApplicationScoped
-public class CustomObjectMapper implements ObjectMapperCustomizer {
+public class CustomObjectMapper implements JsonMapperBuilderCustomizer {
 
     @Override
-    public void customize(ObjectMapper objectMapper) {
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        objectMapper.disable(SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS);
-        objectMapper.disable(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS);
-
-        JavaTimeModule module = new JavaTimeModule();
-        LocalDateTimeDeserializer localDateTimeDeserializer = new LocalDateTimeDeserializer(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-        module.addDeserializer(LocalDateTime.class, localDateTimeDeserializer);
-        objectMapper.registerModule(module);
-        // Quarkus add its own JsonCodec impl.
-        //DatabindCodec.mapper = objectMapper;
+    public void customize(JsonMapper.Builder builder) {
+        builder.disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS);
+        builder.disable(DateTimeFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS);
+        builder.disable(DateTimeFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS);
     }
 }
