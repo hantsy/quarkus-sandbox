@@ -2,9 +2,9 @@ package com.example;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
-import io.smallrye.reactive.messaging.memory.InMemoryConnector;
-import io.smallrye.reactive.messaging.memory.InMemorySink;
-import io.smallrye.reactive.messaging.memory.InMemorySource;
+import io.smallrye.reactive.messaging.memory.TestingConnector;
+import io.smallrye.reactive.messaging.memory.TestOutgoing;
+import io.smallrye.reactive.messaging.memory.TestIncoming;
 import jakarta.enterprise.inject.Any;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +21,7 @@ class MessageHandlerTest {
 
     @Inject
     @Any
-    InMemoryConnector connector;
+    TestingConnector connector;
 
     @Inject
     MessageHandler handler;
@@ -32,18 +32,18 @@ class MessageHandlerTest {
 
     @Test
     void receive() {
-        InMemorySource<String> messages = connector.source("messages");
-        InMemorySink<String> sink = connector.sink("send");
-        InMemorySink<Message> dataStream = connector.sink("messages-stream");
+        TestIncoming<String> messages = connector.source("messages");
+        TestOutgoing<String> sink = connector.sink("send");
+        TestOutgoing<Message> dataStream = connector.sink("messages-stream");
 
         handler.send("hello");
         await().atMost(Duration.ofMillis(1000)).untilAsserted(() ->
-                assertThat(sink.received().getFirst().getPayload()).isEqualTo("hello")
+                assertThat(sink.sent().getFirst().getPayload()).isEqualTo("hello")
         );
 
-        messages.send("hello-123");
+        messages.deliver("hello-123");
         await().atMost(Duration.ofMillis(1000)).untilAsserted(() ->
-                assertThat(dataStream.received().getFirst().getPayload().body()).isEqualTo("hello-123")
+                assertThat(dataStream.sent().getFirst().getPayload().body()).isEqualTo("hello-123")
         );
     }
 }
