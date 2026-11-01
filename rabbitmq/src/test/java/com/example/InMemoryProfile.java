@@ -11,7 +11,10 @@ public class InMemoryProfile implements QuarkusTestProfile {
     @Override
     public Map<String, String> getConfigOverrides() {
         return Map.of(
-                "quarkus.rabbitmq.devservices.enabled", "false"
+                "quarkus.rabbitmq.devservices.enabled", "false",
+                "mp.messaging.outgoing.send.connector", "",
+                "mp.messaging.incoming.messages.connector", "",
+                "mp.messaging.outgoing.messages-stream.connector", ""
         );
     }
 

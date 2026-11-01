@@ -1,7 +1,6 @@
 package com.example;
 
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.TestProfile;
 import io.smallrye.reactive.messaging.memory.InMemoryConnector;
 import io.smallrye.reactive.messaging.memory.InMemorySink;
@@ -20,7 +19,6 @@ import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
 @TestProfile(InMemoryProfile.class)
-@QuarkusTestResource(InMemoryConnectorResource.class)
 @Slf4j
 class MessageHandlerTest {
 
