@@ -47,15 +47,19 @@ public interface Blogger {
     Optional<Post> byId(UUID id);
 
     @Insert
+    @Transactional
     Post insert(Post post);
 
     @Insert
+    @Transactional
     Comment insert(Comment comment);
 
     @Update
+    @Transactional
     Post update(Post post);
 
     @Delete
+    @Transactional
     void delete(Post post);
 
     // see: https://hibernate.zulipchat.com/#narrow/stream/132096-hibernate-user/topic/Jakarta.20Data.20cascade.20does.20not.20work.20in.20custom.20deletion.20Query/near/441874793
