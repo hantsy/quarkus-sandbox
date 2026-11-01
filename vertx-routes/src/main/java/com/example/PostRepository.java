@@ -2,7 +2,7 @@ package com.example;
 
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
-import io.vertx.mutiny.pgclient.PgPool;
+import io.vertx.mutiny.sqlclient.Pool;
 import io.vertx.mutiny.sqlclient.Row;
 import io.vertx.mutiny.sqlclient.RowSet;
 import io.vertx.mutiny.sqlclient.Tuple;
@@ -27,10 +27,10 @@ public class PostRepository {
                     row.getLocalDateTime("created_at")
             );
 
-    private final PgPool client;
+    private final Pool client;
 
     @Inject
-    public PostRepository(PgPool _client) {
+    public PostRepository(Pool _client) {
         this.client = _client;
     }
 

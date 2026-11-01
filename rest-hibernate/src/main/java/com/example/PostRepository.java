@@ -62,8 +62,8 @@ public class PostRepository {
             var root = update.from(Post.class);
 
             // set where clause
-            update.set(root.get(Post_.title), data.getTitle());
-            update.set(root.get(Post_.content), data.getContent());
+            update.set(root.get("title"), data.getTitle());
+            update.set(root.get("content"), data.getContent());
             update.where(cb.equal(root.get(Post_.id), id));
 
             return session.createQuery(update).executeUpdate();
