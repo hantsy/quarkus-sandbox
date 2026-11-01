@@ -1,7 +1,9 @@
 package com.example;
 
 import io.quarkus.test.junit.QuarkusTestProfile;
+import io.smallrye.reactive.messaging.memory.InMemoryConnector;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class InMemoryProfile implements QuarkusTestProfile {
@@ -10,12 +12,11 @@ public class InMemoryProfile implements QuarkusTestProfile {
 
     @Override
     public Map<String, String> getConfigOverrides() {
-        return Map.of(
-                "quarkus.rabbitmq.devservices.enabled", "false",
-                "mp.messaging.outgoing.send.connector", "",
-                "mp.messaging.incoming.messages.connector", "",
-                "mp.messaging.outgoing.messages-stream.connector", ""
-        );
+        Map<String, String> config = new HashMap<>();
+        config.put("quarkus.rabbitmq.devservices.enabled", "false");
+        config.putAll(InMemoryConnector.switchIncomingChannelsToInMemory("messages"));
+        config.putAll(InMemoryConnector.switchOutgoingChannelsToInMemory("send", "messages-stream"));
+        return config;
     }
 
     @Override
