@@ -7,6 +7,7 @@ import io.smallrye.reactive.messaging.memory.InMemorySink;
 import io.smallrye.reactive.messaging.memory.InMemorySource;
 import jakarta.enterprise.inject.Any;
 import jakarta.inject.Inject;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,6 +26,13 @@ class MessageHandlerTest {
 
     @Inject
     MessageHandler handler;
+
+    @BeforeAll
+    static void switchChannels() {
+        InMemoryConnector.switchIncomingChannelsToInMemory("messages");
+        InMemoryConnector.switchOutgoingChannelsToInMemory("send");
+        InMemoryConnector.switchOutgoingChannelsToInMemory("messages-stream");
+    }
 
     @BeforeEach
     void setUp() {
