@@ -1,6 +1,7 @@
 package com.example;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.TestProfile;
 import io.smallrye.reactive.messaging.memory.InMemoryConnector;
 import io.smallrye.reactive.messaging.memory.InMemorySink;
@@ -9,7 +10,6 @@ import jakarta.enterprise.inject.Any;
 import jakarta.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.config.Config;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,6 +20,7 @@ import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
 @TestProfile(InMemoryProfile.class)
+@QuarkusTestResource(InMemoryConnectorResource.class)
 @Slf4j
 class MessageHandlerTest {
 
@@ -32,13 +33,6 @@ class MessageHandlerTest {
 
     @Inject
     Config config;
-
-    @BeforeAll
-    static void switchChannels() {
-        InMemoryConnector.switchIncomingChannelsToInMemory("messages");
-        InMemoryConnector.switchOutgoingChannelsToInMemory("send");
-        InMemoryConnector.switchOutgoingChannelsToInMemory("messages-stream");
-    }
 
     @BeforeEach
     void setUp() {
