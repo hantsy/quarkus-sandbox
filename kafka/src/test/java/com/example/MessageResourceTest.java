@@ -9,18 +9,17 @@ import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.sse.SseEventSource;
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.net.URL;
+import java.time.Duration;
 import java.util.ArrayList;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
 class MessageResourceTest {
@@ -37,13 +36,11 @@ class MessageResourceTest {
         this.client = ClientBuilder.newClient();
     }
 
-    @SneakyThrows
     @Test
     void testSendAndReceiveMessages() {
         LOGGER.log(Level.INFO, "base url: {0}", url);
 
         var messageReplay = new ArrayList<Message>();
-        var latch = new CountDownLatch(1);
         try (SseEventSource sse = SseEventSource.target(this.client.target(url.toExternalForm()))
                 //.reconnectingEvery(2, TimeUnit.SECONDS)
                 .build()) {
@@ -54,14 +51,8 @@ class MessageResourceTest {
                         LOGGER.log(Level.INFO, "reading event data: {0}", message);
                         messageReplay.add(message);
                     },
-                    throwable -> {
-                        LOGGER.log(Level.SEVERE, "error: {0}", throwable.getMessage());
-                        latch.countDown();
-                    },
-                    () -> {
-                        LOGGER.log(Level.INFO, "done");
-                        latch.countDown();
-                    }
+                    throwable -> LOGGER.log(Level.SEVERE, "error: {0}", throwable.getMessage()),
+                    () -> LOGGER.log(Level.INFO, "done")
             );
             sse.open();
 
@@ -71,7 +62,11 @@ class MessageResourceTest {
                 assertThat(sendMessageResponse.getStatus()).isEqualTo(204);
             }
 
-            latch.await(5000, TimeUnit.MILLISECONDS);
+            // The message round trip through the real broker (connection setup on the
+            // first send, topic creation, consumer group join, etc.) may take a while
+            // in a CI environment, wait for the SSE replay instead of a fixed delay.
+            await().atMost(Duration.ofSeconds(20)).untilAsserted(() ->
+                    assertThat(messageReplay).hasSize(1));
         }
 
         assertThat(messageReplay.size()).isEqualTo(1);
