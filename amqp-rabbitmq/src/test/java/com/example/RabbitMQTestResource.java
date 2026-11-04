@@ -7,7 +7,7 @@ import org.testcontainers.rabbitmq.RabbitMQContainer;
 import java.util.Map;
 
 public class RabbitMQTestResource implements QuarkusTestResourceLifecycleManager {
-    static RabbitMQContainer container = new RabbitMQContainer("rabbitmq:4-management-alpine")
+    static RabbitMQContainer container = new RabbitMQContainer("rabbitmq:4.4.0-management-alpine")
             .withNetwork(Network.SHARED)
             .withNetworkAliases("rabbitmq")
             .withAdminUser("quarkus")
@@ -31,9 +31,9 @@ public class RabbitMQTestResource implements QuarkusTestResourceLifecycleManager
     }
 
     /**
-     * RabbitMQ 4 refuses attaching an AMQP 1.0 sender link to an address that does not
-     * resolve to an existing queue ({@code amqp:invalid-field / amqp_address_v1_not_permitted}),
-     * and closes the client. Declare the queue before the application boots.
+     * RabbitMQ does not create the queue when an AMQP 1.0 sender attaches to a
+     * {@code /queues/} address that has no backing queue, so declare it before the
+     * application boots.
      */
     private void declareTopology() {
         IllegalStateException failure = null;

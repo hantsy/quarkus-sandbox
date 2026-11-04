@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   rabbit:
-    image: rabbitmq:4-management-alpine
+    image: rabbitmq:4.4.0-management-alpine
     labels:
       - quarkus-dev-service-amqp=amqp
     ports:
