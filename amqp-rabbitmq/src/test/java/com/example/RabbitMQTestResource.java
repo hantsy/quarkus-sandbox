@@ -41,7 +41,8 @@ public class RabbitMQTestResource implements QuarkusTestResourceLifecycleManager
             try {
                 var result = container.execInContainer(
                         "rabbitmqadmin", "-u", container.getAdminUsername(), "-p", container.getAdminPassword(),
-                        "declare", "queue", "name=messages", "durable=true");
+                        // rabbitmqadmin v2 (RabbitMQ 4) uses flag style arguments
+                        "declare", "queue", "--name", "messages");
                 if (result.getExitCode() == 0) {
                     return;
                 }
