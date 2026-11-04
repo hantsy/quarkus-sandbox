@@ -56,17 +56,20 @@ class MessageResourceTest {
             );
             sse.open();
 
-            try (Response sendMessageResponse = this.client.target(url.toExternalForm())
-                    .request()
-                    .post(Entity.entity("hello", MediaType.TEXT_PLAIN_TYPE))) {
-                assertThat(sendMessageResponse.getStatus()).isEqualTo(204);
-            }
-
-            // The message round trip through the real broker (connection setup on the
-            // first send, queue creation, etc.) may take a while in a CI environment,
-            // wait for the SSE replay instead of a fixed delay.
-            await().atMost(Duration.ofSeconds(20)).untilAsserted(() ->
-                    assertThat(messageReplay).hasSize(1));
+            // At application startup the incoming channel may declare the queue binding
+            // slightly after the app is ready to serve requests; a message published in
+            // that window is dropped by RabbitMQ as unroutable. Re-send until the SSE
+            // subscriber receives one, the approach used by the Quarkus AMQP tests.
+            await().atMost(Duration.ofSeconds(20)).pollInterval(Duration.ofSeconds(1)).until(() -> {
+                if (messageReplay.isEmpty()) {
+                    try (Response sendMessageResponse = this.client.target(url.toExternalForm())
+                            .request()
+                            .post(Entity.entity("hello", MediaType.TEXT_PLAIN_TYPE))) {
+                        assertThat(sendMessageResponse.getStatus()).isEqualTo(204);
+                    }
+                }
+                return !messageReplay.isEmpty();
+            });
         }
 
         assertThat(messageReplay.size()).isEqualTo(1);
