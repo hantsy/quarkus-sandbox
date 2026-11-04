@@ -89,7 +89,7 @@
         </dependency>
         <dependency>
             <groupId>io.smallrye.reactive</groupId>
-            <artifactId>smallrye-reactive-messaging-in-memory</artifactId>
+            <artifactId>smallrye-reactive-messaging-testing</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

@@ -33,9 +33,9 @@ class MessageHandlerTest {
 
     @Test
     void receive() {
-        TestIncoming<String> messages = connector.source("messages");
-        TestOutgoing<String> sink = connector.sink("send");
-        TestOutgoing<Message> dataStream = connector.sink("messages-stream");
+        TestIncoming<String> messages = connector.incoming("messages");
+        TestOutgoing<String> sink = connector.outgoing("send");
+        TestOutgoing<Message> dataStream = connector.outgoing("messages-stream");
 
         handler.send("hello");
         await().atMost(Duration.ofMillis(1000)).untilAsserted(() ->
