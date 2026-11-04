@@ -20,7 +20,7 @@
         <maven-failsafe-plugin.version>3.5.5</maven-failsafe-plugin.version>
 
         <!-- dependencies -->
-        <quarkus.version>3.34.3</quarkus.version>
+        <quarkus.version>4.0.0.Beta2</quarkus.version>
         <lombok.version>1.18.42</lombok.version>
         <assertj.version>3.27.7</assertj.version>
         <awaitility.version>4.3.0</awaitility.version>
@@ -86,7 +86,7 @@
         </dependency>
         <dependency>
             <groupId>io.smallrye.reactive</groupId>
-            <artifactId>smallrye-reactive-messaging-in-memory</artifactId>
+            <artifactId>smallrye-reactive-messaging-testing</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

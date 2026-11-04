@@ -44,7 +44,7 @@ class PersonTest {
     fun `find alive persons`() {
         val alivePersons = Person.findAlive()
         assertEquals(1, alivePersons.size)
-        val updated = Person.update("name = 'Mortal' where status = ?1", Status.Alive).all()
+        val updated = Person.update("name", "Mortal").where("status", Status.Alive)
         assertEquals(1, updated)
 
         val alivePerson2 = Person.findAlive()

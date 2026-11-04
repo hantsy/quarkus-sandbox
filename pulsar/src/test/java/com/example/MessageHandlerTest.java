@@ -2,10 +2,11 @@ package com.example;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
-import io.smallrye.reactive.messaging.memory.InMemoryConnector;
-import io.smallrye.reactive.messaging.memory.InMemorySink;
-import io.smallrye.reactive.messaging.memory.InMemorySource;
+import io.smallrye.reactive.messaging.memory.TestingConnector;
+import io.smallrye.reactive.messaging.memory.TestOutgoing;
+import io.smallrye.reactive.messaging.memory.TestIncoming;
 import jakarta.enterprise.inject.Any;
+import org.eclipse.microprofile.reactive.messaging.spi.Connector;
 import jakarta.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.config.Config;
@@ -23,8 +24,8 @@ import static org.awaitility.Awaitility.await;
 class MessageHandlerTest {
 
     @Inject
-    @Any
-    InMemoryConnector connector;
+    @Connector("smallrye-testing")
+    TestingConnector connector;
 
     @Inject
     MessageHandler handler;
@@ -44,18 +45,18 @@ class MessageHandlerTest {
 
     @Test
     void receive() {
-        InMemorySource<String> messages = connector.source("messages");
-        InMemorySink<String> sink = connector.sink("send");
-        InMemorySink<Message> dataStream = connector.sink("messages-stream");
+        TestIncoming<String> messages = connector.incoming("messages");
+        TestOutgoing<String> sink = connector.outgoing("send");
+        TestOutgoing<Message> dataStream = connector.outgoing("messages-stream");
 
         handler.send("hello");
         await().atMost(Duration.ofMillis(1000)).untilAsserted(() ->
-                assertThat(sink.received().getFirst().getPayload()).isEqualTo("hello")
+                assertThat(sink.sent().getFirst().getPayload()).isEqualTo("hello")
         );
 
-        messages.send("hello-123");
+        messages.deliver("hello-123");
         await().atMost(Duration.ofMillis(1000)).untilAsserted(() ->
-                assertThat(dataStream.received().getFirst().getPayload().body()).isEqualTo("hello-123")
+                assertThat(dataStream.sent().getFirst().getPayload().body()).isEqualTo("hello-123")
         );
     }
 }

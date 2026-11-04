@@ -1,26 +1,23 @@
 package com.example.demo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import io.quarkus.jackson.ObjectMapperCustomizer;
+import tools.jackson.databind.cfg.DateTimeFeature;
+import tools.jackson.databind.json.JsonMapper;
+import io.quarkus.jackson.JsonMapperBuilderCustomizer;
 
 import jakarta.inject.Singleton;
 
 @Singleton
-public class ObjectMapperConfig implements ObjectMapperCustomizer {
+public class ObjectMapperConfig implements JsonMapperBuilderCustomizer {
 
     @Override
-    public void customize(ObjectMapper objectMapper) {
+    public void customize(JsonMapper.Builder builder) {
         // To suppress serializing properties with null values
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        objectMapper.disable(SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS);
-        objectMapper.disable(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS);
-
-        JavaTimeModule module = new JavaTimeModule();
-        objectMapper.registerModule(module);
+        builder.changeDefaultPropertyInclusion(incl -> incl
+                .withValueInclusion(JsonInclude.Include.NON_EMPTY)
+                .withContentInclusion(JsonInclude.Include.NON_EMPTY));
+        builder.disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS);
+        builder.disable(DateTimeFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS);
+        builder.disable(DateTimeFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS);
     }
 }

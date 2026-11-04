@@ -1,11 +1,7 @@
 package com.example.demo.jsonb;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import tools.jackson.databind.cfg.DateTimeFeature;
+import tools.jackson.databind.json.JsonMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,29 +10,23 @@ import jakarta.json.bind.JsonbConfig;
 import jakarta.json.bind.serializer.JsonbSerializer;
 import jakarta.json.bind.serializer.SerializationContext;
 import jakarta.json.stream.JsonGenerator;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.logging.Logger;
 
 public class JdkLocalDateTimeJsonSerDeserTest {
     private static final Logger LOGGER = Logger.getLogger(JdkLocalDateTimeJsonSerDeserTest.class.getSimpleName());
-    ObjectMapper objectMapper;
+    JsonMapper objectMapper;
 
     @BeforeEach
     public void setup() {
-        objectMapper = new ObjectMapper();
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        objectMapper.disable(SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS);
-        objectMapper.disable(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS);
-
-        JavaTimeModule module = new JavaTimeModule();
-        LocalDateTimeDeserializer localDateTimeDeserializer = new LocalDateTimeDeserializer(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-        module.addDeserializer(LocalDateTime.class, localDateTimeDeserializer);
-        objectMapper.registerModule(module);
+        objectMapper = JsonMapper.builder()
+                .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .disable(DateTimeFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS)
+                .disable(DateTimeFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS)
+                .build();
     }
 
     @Test
-    public void testSeAndDes() throws JsonProcessingException {
+    public void testSeAndDes() {
         var testObject = new TestObject();
         LOGGER.info("testObject:" + testObject);
         JsonbConfig config = new JsonbConfig()
@@ -49,4 +39,3 @@ public class JdkLocalDateTimeJsonSerDeserTest {
        LOGGER.info("de object:" + deObject);
     }
 }
-

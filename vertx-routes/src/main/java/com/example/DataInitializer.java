@@ -2,7 +2,7 @@ package com.example;
 
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;
-import io.vertx.mutiny.pgclient.PgPool;
+import io.vertx.mutiny.sqlclient.Pool;
 import io.vertx.mutiny.sqlclient.Tuple;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -22,7 +22,7 @@ public class DataInitializer {
     private final static Logger LOGGER = Logger.getLogger(DataInitializer.class.getName());
 
     @Inject
-    PgPool client;
+    Pool client;
 
     public void onStart(@Observes StartupEvent ev) {
         LOGGER.info("The application is starting...");

@@ -5,6 +5,7 @@ import com.example.repository.PostRepository;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,6 +30,7 @@ public class PostRepositoryTest {
     }
 
     @Test
+    @Transactional
     public void testPersistence() {
         Post first = Post.builder().title("Hello Quarkus").content("My first post of Quarkus").build();
         Post second = Post.builder().title("Hello Again, Quarkus").content("My second post of Quarkus").build();

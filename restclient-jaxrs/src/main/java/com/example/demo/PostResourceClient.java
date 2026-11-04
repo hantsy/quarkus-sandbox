@@ -7,7 +7,6 @@ import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import org.jboss.resteasy.plugins.providers.StringTextStar;
-import org.jboss.resteasy.plugins.providers.jackson.ResteasyJackson2Provider;
 
 import java.util.List;
 import java.util.concurrent.CompletionStage;
@@ -26,7 +25,6 @@ public class PostResourceClient {
     public PostResourceClient(PostServiceProperties properties) {
         baseUrl = properties.baseUrl();
         client = ClientBuilder.newBuilder()
-                .register(ResteasyJackson2Provider.class)
                 .register(StringTextStar.class)
                 .executorService(executorService)
                 .build();

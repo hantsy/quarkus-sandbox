@@ -2,6 +2,7 @@ package com.example;
 
 import io.quarkus.test.junit.QuarkusTestProfile;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class InMemoryProfile implements QuarkusTestProfile {
@@ -10,15 +11,17 @@ public class InMemoryProfile implements QuarkusTestProfile {
 
     @Override
     public Map<String, String> getConfigOverrides() {
-        return Map.of(
-                "quarkus.pulsar.devservices.enabled", "false",
-                "quarkus.messaging.pulsar.schema-autodetection.enabled","false",
-                "mp.messaging.outgoing.send.connector","smallrye-in-memory",
-                "mp.messaging.incoming.messages.connector","smallrye-in-memory",
-                "mp.messaging.outgoing.messages-stream.connector","smallrye-in-memory"
-//                "pulsar.client.serviceUrl", "",
-//                "pulsar.admin.serviceUrl", ""
-        );
+        Map<String, String> config = new HashMap<>();
+        config.put("quarkus.pulsar.devservices.enabled", "false");
+        // Do not use TestingConnector.switchXxxChannelsToTesting(...) here,
+        // it also sets JVM-wide system properties (System.setProperty) which leak
+        // into the following test boots and silently re-route the real broker
+        // connector channels of the default profile to the testing connector.
+        config.put("mp.messaging.incoming.messages.connector", "smallrye-testing");
+        config.put("mp.messaging.outgoing.send.connector", "smallrye-testing");
+        config.put("mp.messaging.outgoing.messages-stream.connector", "smallrye-testing");
+        config.put("quarkus.messaging.pulsar.schema-autodetection.enabled", "false");
+        return config;
     }
 
     @Override

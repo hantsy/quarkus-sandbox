@@ -1,7 +1,7 @@
 package com.example;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import io.vertx.ext.web.RoutingContext;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -49,7 +49,7 @@ class PostsHandler {
 
 
     public void save(RoutingContext rc) {
-        var body = rc.getBodyAsString();
+        var body = rc.body().asString();
         LOGGER.log(Level.INFO, "request body: {0}", body);
         var form = fromJson(body, CreatePostCommand.class);
         this.posts.save(Post.of(form.getTitle(), form.getContent()))
@@ -66,7 +66,7 @@ class PostsHandler {
     public void update(RoutingContext rc) {
         var params = rc.pathParams();
         var id = params.get("id");
-        var body = rc.getBodyAsString();
+        var body = rc.body().asString();
 
         LOGGER.log(Level.INFO, "\npath param id: {0}\nrequest body: {1}", new Object[]{id, body});
         var form = fromJson(body, CreatePostCommand.class);
@@ -97,7 +97,7 @@ class PostsHandler {
     private <T> T fromJson(String body, Class<T> tClass) {
         try {
             return objectMapper.readValue(body, tClass);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             e.printStackTrace();
         }
         return null;
@@ -106,7 +106,7 @@ class PostsHandler {
     private String toJson(Object post) {
         try {
             return objectMapper.writeValueAsString(post);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             e.printStackTrace();
         }
         return null;

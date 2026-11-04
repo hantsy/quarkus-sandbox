@@ -26,7 +26,7 @@
         <coroutines.version>1.10.2</coroutines.version>
 
         <!-- dependencies-->
-        <quarkus.version>3.34.3</quarkus.version>
+        <quarkus.version>4.0.0.Beta2</quarkus.version>
         <assertj.version>3.25.2</assertj.version>
         <kotest.version>6.1.4</kotest.version>
 
@@ -64,7 +64,7 @@
             <artifactId>quarkus-rest-jackson</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
+            <groupId>tools.jackson.module</groupId>
             <artifactId>jackson-module-kotlin</artifactId>
         </dependency>
         <dependency>

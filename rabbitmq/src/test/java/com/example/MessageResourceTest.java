@@ -9,18 +9,17 @@ import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.sse.SseEventSource;
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.net.URL;
+import java.time.Duration;
 import java.util.ArrayList;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
 class MessageResourceTest {
@@ -37,13 +36,11 @@ class MessageResourceTest {
         this.client = ClientBuilder.newClient();
     }
 
-    @SneakyThrows
     @Test
     void testSendAndReceiveMessages() {
         LOGGER.log(Level.INFO, "base url: {0}", url);
 
         var messageReplay = new ArrayList<Message>();
-        var latch = new CountDownLatch(1);
         try (SseEventSource sse = SseEventSource.target(this.client.target(url.toExternalForm()))
                 //.reconnectingEvery(2, TimeUnit.SECONDS)
                 .build()) {
@@ -54,24 +51,25 @@ class MessageResourceTest {
                         LOGGER.log(Level.INFO, "reading event data: {0}", message);
                         messageReplay.add(message);
                     },
-                    error -> {
-                        LOGGER.log(Level.SEVERE, "error: {}", error);
-                        latch.countDown();
-                    },
-                    () -> {
-                        LOGGER.log(Level.INFO, "done");
-                        latch.countDown();
-                    }
+                    error -> LOGGER.log(Level.SEVERE, "error: {0}", error.getMessage()),
+                    () -> LOGGER.log(Level.INFO, "done")
             );
             sse.open();
 
-            try (Response sendMessageResponse = this.client.target(url.toExternalForm())
-                    .request()
-                    .post(Entity.entity("hello", MediaType.TEXT_PLAIN_TYPE))) {
-                assertThat(sendMessageResponse.getStatus()).isEqualTo(204);
-            }
-
-            latch.await(500, TimeUnit.MILLISECONDS);
+            // At application startup the incoming channel may declare the queue binding
+            // slightly after the app is ready to serve requests; a message published in
+            // that window is dropped by RabbitMQ as unroutable. Re-send until the SSE
+            // subscriber receives one, the approach used by the Quarkus AMQP tests.
+            await().atMost(Duration.ofSeconds(20)).pollInterval(Duration.ofSeconds(1)).until(() -> {
+                if (messageReplay.isEmpty()) {
+                    try (Response sendMessageResponse = this.client.target(url.toExternalForm())
+                            .request()
+                            .post(Entity.entity("hello", MediaType.TEXT_PLAIN_TYPE))) {
+                        assertThat(sendMessageResponse.getStatus()).isEqualTo(204);
+                    }
+                }
+                return !messageReplay.isEmpty();
+            });
         }
 
         assertThat(messageReplay.size()).isEqualTo(1);
