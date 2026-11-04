@@ -94,24 +94,24 @@ nav:
       - JAX-RS Client: part-4-graphql/jaxrs-client.md
   - Part 5 — Messaging:
       - Overview: part-5-messaging/index.md
-      - AMQP: part-5-messaging/amqp.md
+      - Reactive Messaging with AMQP: part-5-messaging/amqp.md
       - AMQP with RabbitMQ: part-5-messaging/amqp-rabbitmq.md
-      - RabbitMQ connector: part-5-messaging/rabbitmq.md
+      - Reactive Messaging with RabbitMQ: part-5-messaging/rabbitmq.md
       - JMS with Qpid JMS: part-5-messaging/jms.md
-      - Pulsar: part-5-messaging/pulsar.md
-      - Kafka: part-5-messaging/kafka.md
+      - Reactive Messaging with Pulsar: part-5-messaging/pulsar.md
+      - Reactive Messaging with Kafka: part-5-messaging/kafka.md
   - Part 6 — Miscellaneous:
       - Overview: part-6-misc/index.md
       - Quarkus CLI: part-6-misc/quarkus-cli.md
       - Quarkus Maven plugin: part-6-misc/quarkus-maven-plugin.md
       - Quartz: part-6-misc/quartz.md
       - Legacy samples: part-6-misc/legacy.md
-  - Original blog posts:
-      - Archive and coverage notes: blog/posts/index.md
-      - Getting started with Quarkus: blog/posts/01-start.md
-      - Spring APIs on Quarkus: blog/posts/02-spring.md
-      - REST clients: blog/posts/restclient.md
-      - Reactive APIs: blog/posts/reactive.md
-      - GraphQL server: blog/posts/graphql.md
-      - GraphQL clients: blog/posts/graphql-client.md
-      - Jakarta Data: blog/posts/jakarta-data.md
+  - Original articles:
+      - Archive and coverage notes: articles/index.md
+      - Getting started with Quarkus: articles/01-start.md
+      - Spring APIs on Quarkus: articles/02-spring.md
+      - REST clients: articles/restclient.md
+      - Reactive APIs: articles/reactive.md
+      - GraphQL server: articles/graphql.md
+      - GraphQL clients: articles/graphql-client.md
+      - Jakarta Data: articles/jakarta-data.md

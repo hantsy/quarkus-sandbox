@@ -9,7 +9,7 @@ The preserved projects are `java8`, `rxjava2`, `vertx-routes-java8`,
 `hibernate-reactive-java8`, and `restclient-mutiny`. Their source and build
 files are the reference for their original dependencies and runtime
 requirements. The reactive walkthrough in the
-[original blog archive](../blog/posts/reactive.md) also discusses historical
+[original article archive](../articles/reactive.md) also discusses historical
 CompletionStage and RxJava approaches; those are not presented as current
 recipes.
 

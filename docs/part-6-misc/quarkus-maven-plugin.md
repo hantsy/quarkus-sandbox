@@ -50,7 +50,7 @@ updates the project's dependencies. The repository's `rest-classic` module
 already has the OpenAPI extension; see [OpenAPI and Swagger UI](../part-2-rest-backends/openapi.md)
 for its configuration and endpoints.
 
-The archived [original getting-started article](../blog/posts/01-start.md)
+The archived [original getting-started article](../articles/01-start.md)
 uses early Quarkus plugin versions and syntax. Use the commands on this page
 for current sample workflows, and check the [Quarkus Maven plugin
 guide](https://quarkus.io/guides/quarkus-maven-plugin) for other goals.

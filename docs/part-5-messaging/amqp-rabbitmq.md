@@ -46,5 +46,5 @@ timestamped messages.
 ## What's next
 
 - Compare with the [AMQP connector](./amqp.md).
-- See [RabbitMQ connector](./rabbitmq.md) for its native exchange and queue
+- See [Reactive Messaging with RabbitMQ](./rabbitmq.md) for its native exchange and queue
   configuration.

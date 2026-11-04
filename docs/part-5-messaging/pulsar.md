@@ -1,4 +1,4 @@
-# Pulsar with Reactive Messaging
+# Reactive Messaging with Pulsar
 
 The `pulsar` module connects SmallRye Reactive Messaging channels to Apache
 Pulsar. Its outgoing channel publishes to the `messages` topic; the incoming
@@ -40,5 +40,5 @@ On Windows, run `mvnw.cmd quarkus:dev`.
 
 ## What's next
 
-- Compare [Kafka Reactive Messaging](./kafka.md).
+- Compare [Reactive Messaging with Kafka](./kafka.md).
 - See [AMQP](./amqp.md) for an AMQP broker connector.

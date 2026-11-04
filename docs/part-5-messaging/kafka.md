@@ -1,4 +1,4 @@
-# Kafka with Reactive Messaging
+# Reactive Messaging with Kafka
 
 The `kafka` module uses SmallRye Reactive Messaging with Kafka. The outgoing
 channel is named `send`; the incoming `messages` channel consumes from the

@@ -1,4 +1,4 @@
-# AMQP with Reactive Messaging
+# Reactive Messaging with AMQP
 
 The `amqp` module connects SmallRye Reactive Messaging channels to an AMQP
 broker. It sends strings to the `messages` address, consumes the incoming

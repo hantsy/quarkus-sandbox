@@ -8,12 +8,12 @@ Reactive Messaging.
 
 Choose the recipe that matches the connector and broker you want to explore:
 
-- [AMQP](./amqp.md)
+- [Reactive Messaging with AMQP](./amqp.md)
 - [AMQP with RabbitMQ](./amqp-rabbitmq.md)
-- [RabbitMQ connector](./rabbitmq.md)
+- [Reactive Messaging with RabbitMQ](./rabbitmq.md)
 - [JMS with Qpid JMS](./jms.md)
-- [Pulsar](./pulsar.md)
-- [Kafka](./kafka.md)
+- [Reactive Messaging with Pulsar](./pulsar.md)
+- [Reactive Messaging with Kafka](./kafka.md)
 
 These modules are separate applications with separate broker settings. Do not
 assume one broker URL or Compose file works for another module.

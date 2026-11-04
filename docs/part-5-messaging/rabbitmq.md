@@ -1,4 +1,4 @@
-# RabbitMQ connector
+# Reactive Messaging with RabbitMQ
 
 The `rabbitmq` module uses the SmallRye Reactive Messaging RabbitMQ connector.
 It configures a named exchange and queue rather than using the AMQP 1.0
