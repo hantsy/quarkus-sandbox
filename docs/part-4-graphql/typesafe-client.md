@@ -19,6 +19,11 @@ declares list and summary queries, a query that returns `ErrorOr<Post>`, and a
 mutation. The client interface uses the GraphQL API types from the
 `graphql-client` module.
 
+`ErrorOr<Post>` is the sample's explicit way to represent a GraphQL operation
+that may return an error alongside its data. Inspect the result before using
+the post value; a GraphQL response can contain both `data` and `errors`, and
+an HTTP-success status alone does not mean every requested field succeeded.
+
 ## Run the client
 
 Start the `graphql` server on port `8080`, then run the

@@ -4,8 +4,9 @@ Standalone Quarkus sample projects for Java and Kotlin.
 
 ## Documentation
 
-The [cookbook](./docs/index.md) is organized into six parts, with each part
-and technology documented in its own Markdown page:
+Read the published [Quarkus Cookbook documentation](https://hantsy.github.io/quarkus-sandbox/).
+The [source documentation](./docs/index.md) is organized into six parts, with
+each part and technology documented in its own Markdown page:
 
 1. [Getting started](./docs/part-1-getting-started/index.md): Quarkus REST and
    Spring APIs on Quarkus.

@@ -5,9 +5,13 @@ The repository's `legacy` directory preserves earlier examples that use Java
 for historical comparison; use the modules listed in the other cookbook
 parts for current sample patterns.
 
-The repository README describes the legacy modules. Their source and build
+The preserved projects are `java8`, `rxjava2`, `vertx-routes-java8`,
+`hibernate-reactive-java8`, and `restclient-mutiny`. Their source and build
 files are the reference for their original dependencies and runtime
-requirements.
+requirements. The reactive walkthrough in the
+[original blog archive](../blog/posts/reactive.md) also discusses historical
+CompletionStage and RxJava approaches; those are not presented as current
+recipes.
 
 ## What's next
 

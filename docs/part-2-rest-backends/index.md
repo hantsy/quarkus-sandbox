@@ -17,6 +17,7 @@ not assume datasource settings are shared between samples.
 - [Kotlin coroutines with Hibernate Reactive](./hibernate-reactive-kotlin.md)
 - [Jakarta Data repositories](./jakarta-data.md)
 - [Vert.x Router with PostgreSQL](./vertx-router-postgres.md)
+- [OpenAPI and Swagger UI for RESTEasy Classic](./openapi.md)
 
 The Spring Data JPA sample is part of [Getting started](../part-1-getting-started/spring.md).
 
@@ -30,6 +31,12 @@ The Spring Data JPA sample is part of [Getting started](../part-1-getting-starte
 - [Customize JSON-B](./jsonb.md)
 - [Customize Jackson](./jackson.md)
 - [Receive and send multipart data](./multipart.md)
+
+## API documentation
+
+The `rest-classic` sample includes MicroProfile OpenAPI annotations and the
+SmallRye OpenAPI extension. See [OpenAPI and Swagger UI](./openapi.md) to
+inspect and serve its API description.
 
 ## What's next
 

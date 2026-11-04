@@ -32,3 +32,5 @@ tests and test configuration.
 
 - Compare with [Hibernate Reactive and Panache](./hibernate-reactive-panache.md).
 - See [JSON-B customization](./jsonb.md) for this module's customizer.
+- See [OpenAPI and Swagger UI](./openapi.md) for the API documentation in
+  `rest-classic`.

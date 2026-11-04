@@ -29,6 +29,17 @@ declares:
 The `PostService` stores posts in an in-memory list and publishes creation
 events through a broadcast processor.
 
+## Validate inputs and handle errors
+
+`createPost` accepts a `@Valid CreatePost` input, so the input object's
+Jakarta Bean Validation constraints are applied to mutations. The sample
+defines `PostNotFoundException` with the SmallRye `@ErrorCode` annotation and
+configures GraphQL error extension fields in
+[`application.properties`](https://github.com/hantsy/quarkus-sandbox/blob/master/graphql/src/main/resources/application.properties).
+This demonstrates returning a machine-readable error code and exposing
+selected error details; review the sample's settings before exposing
+exception messages in a public API.
+
 ## Send a query
 
 Send a GraphQL request to the endpoint. In PowerShell, run:

@@ -13,6 +13,15 @@ and `CommentRepository` extend Jakarta Data repository interfaces. The
 entities and resource classes show how the repository interfaces fit into
 the application.
 
+The application-facing
+[`Blogger`](https://github.com/hantsy/quarkus-sandbox/blob/master/jakarta-data/src/main/java/com/example/service/Blogger.java)
+repository demonstrates more than basic CRUD: a JPQL `@Query` returns a
+paginated projection, `@Find` methods derive lookups, and Jakarta Data
+`@Insert`, `@Update`, and `@Delete` declare writes. It also shows explicit
+query parameters, ordering, limits, and a default method that fetches a post's
+comments. The Maven compiler configuration includes Hibernate's annotation
+processor; keep it when changing this sample's repository declarations.
+
 This sample has its own Jakarta Data and Hibernate configuration. Check its
 POM and `application.properties` before choosing a compatible database or
 changing the API dependencies.

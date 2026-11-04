@@ -70,6 +70,7 @@ nav:
       - Reactive MongoDB and Kotlin coroutines: part-2-rest-backends/mongodb-kotlin-coroutines.md
       - Jakarta Data: part-2-rest-backends/jakarta-data.md
       - Vert.x Router with PostgreSQL: part-2-rest-backends/vertx-router-postgres.md
+      - OpenAPI and Swagger UI: part-2-rest-backends/openapi.md
       - JSON-B: part-2-rest-backends/jsonb.md
       - Jackson: part-2-rest-backends/jackson.md
       - Multipart requests and responses: part-2-rest-backends/multipart.md
@@ -103,3 +104,12 @@ nav:
       - Overview: part-6-misc/index.md
       - Quartz: part-6-misc/quartz.md
       - Legacy samples: part-6-misc/legacy.md
+  - Original blog posts:
+      - Archive and coverage notes: blog/posts/index.md
+      - Getting started with Quarkus: blog/posts/01-start.md
+      - Spring APIs on Quarkus: blog/posts/02-spring.md
+      - REST clients: blog/posts/restclient.md
+      - Reactive APIs: blog/posts/reactive.md
+      - GraphQL server: blog/posts/graphql.md
+      - GraphQL clients: blog/posts/graphql-client.md
+      - Jakarta Data: blog/posts/jakarta-data.md

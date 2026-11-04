@@ -26,8 +26,15 @@ the create, update, and delete handlers write posts.
 The
 [`PostRepository`](https://github.com/hantsy/quarkus-sandbox/blob/master/spring/src/main/java/com/example/PostRepository.java)
 extends Spring Data `JpaRepository`. Its custom interface and implementation
-provide keyword search. The module's POM includes the Quarkus Spring Web,
-Spring DI, Spring Data JPA, and PostgreSQL extensions.
+provide keyword search: `GET /posts/search?q=...` filters post title and
+content using a JPA Criteria query and supports offset/limit pagination. The
+module's POM includes the Quarkus Spring Web, Spring DI, Spring Data JPA, and
+PostgreSQL extensions.
+
+[`PostExceptionHandler`](https://github.com/hantsy/quarkus-sandbox/blob/master/spring/src/main/java/com/example/PostExceptionHandler.java)
+shows the sample's exception handling approaches. It maps a missing post to a
+structured `404` response and demonstrates `@ExceptionHandler` methods with
+`ResponseEntity`, `@ResponseStatus`, and the servlet response API.
 
 The create handler accepts a validated request object and returns a
 `201 Created` response with a `Location` header:
