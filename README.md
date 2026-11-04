@@ -1,27 +1,30 @@
 # Quarkus Cookbook
 
-A collection of standalone Quarkus sample projects for Java and Kotlin.
+Standalone Quarkus sample projects for Java and Kotlin.
 
 ## Documentation
 
-The [cookbook](./docs/index.md) is organized by the tasks you can try:
+The [cookbook](./docs/index.md) is organized into six parts, with each part
+and technology documented in its own Markdown page:
 
-1. [Get started with a REST API](./docs/01-start.md) and its
-   [Spring alternative](./docs/02-spring.md).
-2. Compare [REST backends and data access](./docs/rest-backends.md), including
-   [JSON serialization](./docs/serialization.md).
-3. Explore [REST clients](./docs/rest-clients.md).
-4. Build and call [GraphQL APIs](./docs/graphql.md) with the
-   [GraphQL client samples](./docs/graphql-client.md).
-5. Connect to [messaging brokers](./docs/messaging.md).
-6. Try [Quartz and multipart examples](./docs/other-examples.md).
+1. [Getting started](./docs/part-1-getting-started/index.md): Quarkus REST and
+   Spring APIs on Quarkus.
+2. [REST backends](./docs/part-2-rest-backends/index.md): relational and
+   MongoDB persistence, JSON-B, Jackson, and multipart.
+3. [REST clients](./docs/part-3-rest-clients/index.md): MicroProfile,
+   JAX-RS, Java HTTP, and Vert.x clients.
+4. [GraphQL](./docs/part-4-graphql/index.md): server and separate typesafe,
+   dynamic, Java HTTP, and JAX-RS client recipes.
+5. [Messaging](./docs/part-5-messaging/index.md): AMQP, RabbitMQ, JMS, Pulsar,
+   and Kafka.
+6. [Miscellaneous](./docs/part-6-misc/index.md): Quartz and legacy examples.
 
 ## Sample projects
 
-Each directory with a `pom.xml` is a separate Maven project. The samples can
-use different Quarkus versions, Java versions, extensions, and local services.
-Read that module's `pom.xml`, `src/main/resources/application.properties`,
-tests, and Compose files before running it.
+Each directory with a `pom.xml` is a separate Maven project. Quarkus versions,
+Java versions, dependencies, and external services can differ. Check the
+module's POM, `src/main/resources/application.properties`, tests, and Compose
+files before running it.
 
 | Topic | Modules |
 |---|---|
@@ -32,6 +35,6 @@ tests, and Compose files before running it.
 | Messaging | [`amqp`](./amqp), [`amqp-rabbitmq`](./amqp-rabbitmq), [`rabbitmq`](./rabbitmq), [`jms`](./jms), [`pulsar`](./pulsar), [`kafka`](./kafka) |
 | Other | [`multipart`](./multipart), [`quartz`](./quartz) |
 
-The [`legacy`](./legacy) directory contains earlier examples for reference.
-The root [`docker-compose.yml`](./docker-compose.yml) and module-level Compose
-files define some of the local services used by the samples.
+The [`legacy`](./legacy) directory preserves older samples. The root
+[`docker-compose.yml`](./docker-compose.yml) and module-level Compose files
+define local services for some examples.

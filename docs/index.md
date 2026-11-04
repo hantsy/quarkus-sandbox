@@ -1,40 +1,34 @@
 # Quarkus Cookbook
 
-This cookbook helps Java and Kotlin developers explore the Quarkus examples
-in this repository. Follow the first two chapters to build a REST API, then
-choose a persistence backend, client, GraphQL, messaging, or other recipe.
-Each sample is a standalone Maven project; check its `pom.xml` and
+The cookbook organizes the repository's Java and Kotlin samples around
+individual technologies. Start with the REST guides, then choose a persistence
+backend, REST client, GraphQL API, messaging connector, or miscellaneous
+example.
+
+Each recipe links to its sample module. Modules are independent Maven
+projects, and their Quarkus and Java versions, extensions, and service
+requirements can differ. Check the module's `pom.xml` and application
 configuration before running it.
 
-## Part 1: Get started
+## Parts
 
-Start with the Quarkus REST sample, then compare it with the Spring
-programming model running on Quarkus:
+- [Part 1: Getting started](./part-1-getting-started/index.md) builds a REST
+  API with Quarkus REST and compares Spring APIs running on Quarkus.
+- [Part 2: REST backends and data access](./part-2-rest-backends/index.md)
+  covers relational and document databases, JSON serialization, and multipart
+  requests.
+- [Part 3: REST clients](./part-3-rest-clients/index.md) compares each client
+  API in its own recipe.
+- [Part 4: GraphQL](./part-4-graphql/index.md) covers the GraphQL server and
+  clients.
+- [Part 5: Messaging](./part-5-messaging/index.md) has a separate recipe for
+  each broker or messaging API.
+- [Part 6: Miscellaneous](./part-6-misc/index.md) covers Quartz and legacy
+  samples.
 
-- [Build a REST API with Quarkus](./01-start.md)
-- [Build the API with Spring extensions](./02-spring.md)
+## Run a recipe
 
-## Part 2: Choose a REST backend
-
-Compare relational databases, Hibernate ORM and Reactive, MongoDB, and
-serialization customizations:
-
-- [REST backends and data access](./rest-backends.md)
-- [Customize JSON serialization](./serialization.md)
-
-## Part 3: Call REST services
-
-- [Call REST APIs from Quarkus](./rest-clients.md)
-
-## Part 4: Build and call GraphQL APIs
-
-- [Build a GraphQL API](./graphql.md)
-- [Call GraphQL APIs](./graphql-client.md)
-
-## Part 5: Send and receive messages
-
-- [Send and receive messages](./messaging.md)
-
-## Part 6: Explore other examples
-
-- [Quartz, multipart, and legacy samples](./other-examples.md)
+Run each Maven command from the sample module directory. Most modules include
+`mvnw` for Unix-like systems and `mvnw.cmd` for Windows. Start any required
+database or broker using the sample's documented Compose file or Dev Services
+configuration.

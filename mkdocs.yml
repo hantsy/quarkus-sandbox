@@ -55,15 +55,51 @@ plugins:
 
 nav:
   - Cookbook: index.md
-  - Part 1 — Get started:
-      - Quarkus REST API: 01-start.md
-      - Spring API on Quarkus: 02-spring.md
-  - Part 2 — REST backends and data access:
-      - Persistence choices: rest-backends.md
-      - JSON-B and Jackson: serialization.md
-  - Part 3 — REST clients: rest-clients.md
+  - Part 1 — Getting started:
+      - Overview: part-1-getting-started/index.md
+      - Quarkus REST API: part-1-getting-started/quarkus-rest.md
+      - Spring API on Quarkus: part-1-getting-started/spring.md
+  - Part 2 — REST backends:
+      - Overview: part-2-rest-backends/index.md
+      - Hibernate Reactive with Panache: part-2-rest-backends/hibernate-reactive-panache.md
+      - Hibernate Reactive session API: part-2-rest-backends/hibernate-reactive-session.md
+      - Reactive PostgreSQL Client: part-2-rest-backends/reactive-pg-client.md
+      - Hibernate ORM with Panache: part-2-rest-backends/hibernate-orm-panache.md
+      - Kotlin coroutines with Hibernate Reactive: part-2-rest-backends/hibernate-reactive-kotlin.md
+      - MongoDB Panache with Kotlin: part-2-rest-backends/mongodb-kotlin.md
+      - Reactive MongoDB and Kotlin coroutines: part-2-rest-backends/mongodb-kotlin-coroutines.md
+      - Jakarta Data: part-2-rest-backends/jakarta-data.md
+      - Vert.x Router with PostgreSQL: part-2-rest-backends/vertx-router-postgres.md
+      - JSON-B: part-2-rest-backends/jsonb.md
+      - Jackson: part-2-rest-backends/jackson.md
+      - Multipart requests and responses: part-2-rest-backends/multipart.md
+  - Part 3 — REST clients:
+      - Overview: part-3-rest-clients/index.md
+      - MicroProfile REST Client with RESTEasy Classic: part-3-rest-clients/microprofile-classic.md
+      - MicroProfile REST Client with Quarkus REST: part-3-rest-clients/microprofile-reactive.md
+      - MicroProfile REST Client with Kotlin: part-3-rest-clients/microprofile-kotlin.md
+      - MicroProfile REST Client with Kotlin coroutines: part-3-rest-clients/microprofile-kotlin-coroutines.md
+      - JAX-RS Client: part-3-rest-clients/jaxrs-client.md
+      - Java HTTP Client: part-3-rest-clients/java-http-client.md
+      - Vert.x Web Client: part-3-rest-clients/vertx-web-client.md
+      - JSON-B client support: part-3-rest-clients/jsonb-client.md
+      - Jackson client support: part-3-rest-clients/jackson-client.md
   - Part 4 — GraphQL:
-      - API server: graphql.md
-      - Clients: graphql-client.md
-  - Part 5 — Messaging: messaging.md
-  - Part 6 — Miscellaneous: other-examples.md
+      - Overview: part-4-graphql/index.md
+      - SmallRye GraphQL server: part-4-graphql/server.md
+      - Typesafe client: part-4-graphql/typesafe-client.md
+      - Dynamic client: part-4-graphql/dynamic-client.md
+      - Java HTTP Client: part-4-graphql/java-http-client.md
+      - JAX-RS Client: part-4-graphql/jaxrs-client.md
+  - Part 5 — Messaging:
+      - Overview: part-5-messaging/index.md
+      - AMQP: part-5-messaging/amqp.md
+      - AMQP with RabbitMQ: part-5-messaging/amqp-rabbitmq.md
+      - RabbitMQ connector: part-5-messaging/rabbitmq.md
+      - JMS with Qpid JMS: part-5-messaging/jms.md
+      - Pulsar: part-5-messaging/pulsar.md
+      - Kafka: part-5-messaging/kafka.md
+  - Part 6 — Miscellaneous:
+      - Overview: part-6-misc/index.md
+      - Quartz: part-6-misc/quartz.md
+      - Legacy samples: part-6-misc/legacy.md
