@@ -23,8 +23,8 @@ configuration before running it.
   clients.
 - [Part 5: Messaging](./part-5-messaging/index.md) has a separate recipe for
   each broker or messaging API.
-- [Part 6: Miscellaneous](./part-6-misc/index.md) covers Quartz and legacy
-  samples.
+- [Part 6: Miscellaneous](./part-6-misc/index.md) covers the Quarkus CLI,
+  Maven plugin, Quartz, and legacy samples.
 
 ## Run a recipe
 

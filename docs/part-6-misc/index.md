@@ -5,6 +5,8 @@ GraphQL, or messaging chapters.
 
 ## Recipes
 
+- [Use the Quarkus CLI](./quarkus-cli.md)
+- [Use the Quarkus Maven plugin](./quarkus-maven-plugin.md)
 - [Schedule tasks with Quartz](./quartz.md)
 - [Legacy samples](./legacy.md)
 

@@ -18,7 +18,8 @@ each part and technology documented in its own Markdown page:
    dynamic, Java HTTP, and JAX-RS client recipes.
 5. [Messaging](./docs/part-5-messaging/index.md): AMQP, RabbitMQ, JMS, Pulsar,
    and Kafka.
-6. [Miscellaneous](./docs/part-6-misc/index.md): Quartz and legacy examples.
+6. [Miscellaneous](./docs/part-6-misc/index.md): Quarkus CLI, Maven plugin,
+   Quartz, and legacy examples.
 
 ## Sample projects
 

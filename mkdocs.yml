@@ -102,6 +102,8 @@ nav:
       - Kafka: part-5-messaging/kafka.md
   - Part 6 — Miscellaneous:
       - Overview: part-6-misc/index.md
+      - Quarkus CLI: part-6-misc/quarkus-cli.md
+      - Quarkus Maven plugin: part-6-misc/quarkus-maven-plugin.md
       - Quartz: part-6-misc/quartz.md
       - Legacy samples: part-6-misc/legacy.md
   - Original blog posts:
