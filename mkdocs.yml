@@ -29,7 +29,7 @@ theme:
   icon:
     repo: fontawesome/brands/git-alt
 
-copyright: Copyright &copy;2022 Hantsy
+copyright: Copyright &copy;2026 Hantsy
 extra:
   social:
     - icon: fontawesome/brands/twitter
@@ -54,16 +54,16 @@ plugins:
   - git-revision-date-localized
 
 nav:
-  - index.md
-  - Getting Started:
-      - 01-start.md
-      - 02-spring.md
-  - REST Clients:
-      - restclient.md
-  - Reactive:
-      - reactive.md
-  - GraphQL:
-      - graphql.md
-      - graphql-client.md
-  - Data Access:
-      - jakarta-data.md
+  - Cookbook: index.md
+  - Part 1 — Get started:
+      - Quarkus REST API: 01-start.md
+      - Spring API on Quarkus: 02-spring.md
+  - Part 2 — REST backends and data access:
+      - Persistence choices: rest-backends.md
+      - JSON-B and Jackson: serialization.md
+  - Part 3 — REST clients: rest-clients.md
+  - Part 4 — GraphQL:
+      - API server: graphql.md
+      - Clients: graphql-client.md
+  - Part 5 — Messaging: messaging.md
+  - Part 6 — Miscellaneous: other-examples.md
