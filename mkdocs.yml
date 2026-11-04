@@ -1,0 +1,69 @@
+site_name: Quarkus Cookbook
+site_description: A collection of docs with code snippets to demonstrate the usage of Quarkus framework
+
+docs_dir: docs
+
+repo_url: https://github.com/hantsy/quarkus-sandbox
+repo_name: hantsy/quarkus-sandbox
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: pink
+      accent: pink
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: pink
+      accent: pink
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+  features:
+    - search.suggest
+    - navigation.expand
+    - navigation.indexes
+  icon:
+    repo: fontawesome/brands/git-alt
+
+copyright: Copyright &copy;2022 Hantsy
+extra:
+  social:
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/hantsy
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/hantsy
+    - icon: fontawesome/brands/medium
+      link: https://medium.com/@hantsy
+    - icon: fontawesome/brands/github
+      link: https://github.com/hantsy
+
+markdown_extensions:
+  - meta
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.highlight
+  - pymdownx.superfences
+
+plugins:
+  - search
+  - git-revision-date-localized
+
+nav:
+  - index.md
+  - Getting Started:
+      - 01-start.md
+      - 02-spring.md
+  - REST Clients:
+      - restclient.md
+  - Reactive:
+      - reactive.md
+  - GraphQL:
+      - graphql.md
+      - graphql-client.md
+  - Data Access:
+      - jakarta-data.md

@@ -12,25 +12,25 @@ Create a Quarkus project using [Quarkus Code Generator](https://code.quarkus.io)
 
 Open *pom.xml* file, add the following dependencies.
 
- ```xml
- <dependency>
-     <groupId>io.quarkus</groupId>
-     <artifactId>quarkus-smallrye-graphql-client</artifactId>
- </dependency>
- <dependency>
-     <groupId>io.quarkus</groupId>
-     <artifactId>quarkus-rest-client</artifactId>
- </dependency>
- <dependency>
-     <groupId>io.quarkus</groupId>
-     <artifactId>quarkus-rest-client-jsonb</artifactId>
- </dependency>
- <dependency>
-     <groupId>org.projectlombok</groupId>
-     <artifactId>lombok</artifactId>
-     <version>1.18.20</version>
- </dependency>
- ```
+```xml
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-smallrye-graphql-client</artifactId>
+</dependency>
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-rest-client</artifactId>
+</dependency>
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-rest-client-jsonb</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.20</version>
+</dependency>
+```
 
 Lombok is used to erase the setters, getters, hashCode, equals, toString etc. in your POJO classes and make it looks clean. 
 

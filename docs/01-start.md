@@ -1,7 +1,5 @@
 # Kickstart your first Quarkus application
 
-[TOC]
-
 [Quarkus](https://quarkus.io) is a container-first framework for building cloud native applications.
 
 ##  Getting Started
@@ -1125,7 +1123,7 @@ services:
 
 And do not forget to setup  the datasource properties in the *application.properties* file.
 
-```pro
+```properties
 quarkus.datasource.url = jdbc:postgresql://localhost:5432/blogdb
 quarkus.datasource.driver = org.postgresql.Driver
 quarkus.datasource.username = user
