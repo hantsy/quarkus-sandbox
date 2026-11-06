@@ -60,6 +60,12 @@
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- dynamic client used to call the /graphql endpoint exposed by this very app in @QuarkusTest -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-graphql-client</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

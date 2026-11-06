@@ -13,14 +13,14 @@ the configured JSON-B provider.
 
 ## JDK HTTP client
 
-The `restclient-java11` module injects `Jsonb` and uses it to parse response
+The `restclient-classic-java11` module injects `Jsonb` and uses it to parse response
 body strings. For a list response, it uses `jakarta.enterprise.util.TypeLiteral`
 to preserve the generic list type.
 
 See the client implementations in
 [`restclient-classic`](https://github.com/hantsy/quarkus-sandbox/tree/master/restclient-classic)
 and
-[`restclient-java11`](https://github.com/hantsy/quarkus-sandbox/tree/master/restclient-java11).
+[`restclient-classic-java11`](https://github.com/hantsy/quarkus-sandbox/tree/master/restclient-classic-java11).
 
 ## What's next
 

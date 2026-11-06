@@ -28,16 +28,16 @@ dependencies omitted:
 | [`rest-kotlin-co`](./rest-kotlin-co) | Kotlin coroutines with Quarkus REST and Hibernate Reactive with Panache. | `quarkus-rest-kotlin`, `quarkus-kotlin`, `quarkus-hibernate-reactive-panache-kotlin`, `quarkus-reactive-pg-client` |
 | [`vertx-routes`](./vertx-routes) | CRUD endpoints on a Vert.x `Router` with the Reactive PostgreSQL Client. | `quarkus-reactive-routes`, `quarkus-reactive-pg-client`, `quarkus-jackson` |
 | [`spring`](./spring) | Spring Web, Spring DI, and Spring Data JPA APIs on Quarkus. | `quarkus-spring-web`, `quarkus-spring-di`, `quarkus-spring-data-jpa`, `quarkus-spring-boot-properties`, `quarkus-undertow`, `quarkus-jdbc-postgresql` |
-| [`jakarta-data`](./jakarta-data) | Jakarta Data repository interfaces with Hibernate ORM. | `quarkus-hibernate-orm`, `jakarta.data-api`, `quarkus-resteasy-jackson`, `quarkus-smallrye-openapi`, `quarkus-jdbc-postgresql` |
+| [`data-hibernate`](./data-hibernate) | Jakarta Data repositories on Hibernate ORM via the Quarkus Data extension. | `quarkus-data-hibernate`, `quarkus-resteasy-jackson`, `quarkus-smallrye-openapi`, `quarkus-hibernate-validator`, `quarkus-jdbc-postgresql` |
 | [`mongodb-kotlin`](./mongodb-kotlin) | MongoDB Panache with Kotlin and RESTEasy Classic. | `quarkus-mongodb-client`, `quarkus-mongodb-panache-kotlin`, `quarkus-resteasy-jackson` |
 | [`mongodb-kotlin-co`](./mongodb-kotlin-co) | Reactive MongoDB Panache with Kotlin coroutines. | `quarkus-mongodb-panache-kotlin`, `quarkus-rest-kotlin`, `quarkus-kotlin`, `quarkus-rest-jackson` |
 | [`restclient-classic`](./restclient-classic) | MicroProfile REST Client on RESTEasy Classic with JSON-B. | `quarkus-resteasy-client`, `quarkus-resteasy-client-jsonb`, `quarkus-resteasy-jsonb` |
-| [`restclient-reactive`](./restclient-reactive) | MicroProfile REST Client on Quarkus REST with Jackson. | `quarkus-rest-client`, `quarkus-rest-client-jackson`, `quarkus-rest-jackson` |
-| [`restclient-kotlin`](./restclient-kotlin) | MicroProfile REST Client in Kotlin on RESTEasy Classic. | `quarkus-resteasy-client`, `quarkus-kotlin`, `quarkus-resteasy-client-jackson` |
+| [`restclient`](./restclient) | MicroProfile REST Client on Quarkus REST with Jackson. | `quarkus-rest-client`, `quarkus-rest-client-jackson`, `quarkus-rest-jackson` |
+| [`restclient-classic-kotlin`](./restclient-classic-kotlin) | MicroProfile REST Client in Kotlin on RESTEasy Classic. | `quarkus-resteasy-client`, `quarkus-kotlin`, `quarkus-resteasy-client-jackson` |
 | [`restclient-kotlin-co`](./restclient-kotlin-co) | Typesafe REST Client with Kotlin coroutines on Quarkus REST. | `quarkus-rest-client`, `quarkus-kotlin`, `quarkus-rest-client-jackson` |
-| [`restclient-jaxrs`](./restclient-jaxrs) | JAX-RS Client API with Jackson. | `quarkus-resteasy-client`, `quarkus-resteasy-client-jackson`, `quarkus-resteasy-jackson` |
-| [`restclient-java11`](./restclient-java11) | The `java.net.http.HttpClient` API against a RESTEasy Classic endpoint. | `quarkus-resteasy`, `quarkus-resteasy-jsonb` |
-| [`restclient-vertx`](./restclient-vertx) | The Vert.x Web Client with Mutiny types. | `quarkus-vertx`, `quarkus-resteasy-mutiny`, `quarkus-resteasy-jackson` |
+| [`restclient-classic-jaxrs`](./restclient-classic-jaxrs) | JAX-RS Client API with Jackson. | `quarkus-resteasy-client`, `quarkus-resteasy-client-jackson`, `quarkus-resteasy-jackson` |
+| [`restclient-classic-java11`](./restclient-classic-java11) | The `java.net.http.HttpClient` API against a RESTEasy Classic endpoint. | `quarkus-resteasy`, `quarkus-resteasy-jsonb` |
+| [`restclient-classic-vertx`](./restclient-classic-vertx) | The Vert.x Web Client with Mutiny types. | `quarkus-vertx`, `quarkus-resteasy-mutiny`, `quarkus-resteasy-jackson` |
 | [`graphql`](./graphql) | GraphQL API with SmallRye GraphQL. | `quarkus-smallrye-graphql`, `quarkus-hibernate-validator` |
 | [`graphql-client`](./graphql-client) | Typesafe, dynamic, Java HTTP, and JAX-RS GraphQL clients. | `quarkus-smallrye-graphql-client`, `quarkus-rest-client-jsonb` |
 | [`amqp`](./amqp) | Reactive Messaging with the AMQP 1.0 connector. | `quarkus-messaging-amqp`, `quarkus-rest-jsonb` |
@@ -48,6 +48,25 @@ dependencies omitted:
 | [`kafka`](./kafka) | Reactive Messaging with the Kafka connector. | `quarkus-messaging-kafka`, `quarkus-rest-jackson` |
 | [`multipart`](./multipart) | Multipart uploads and downloads with Quarkus REST. | `quarkus-rest`, `quarkus-rest-client`, `quarkus-rest-jackson` |
 | [`quartz`](./quartz) | Cron jobs with Quartz, Hibernate ORM with Panache, and Flyway migrations. | `quarkus-quartz`, `quarkus-hibernate-orm-panache`, `quarkus-flyway`, `quarkus-jdbc-postgresql` |
+
+## Mock HTTP peers
+
+The `restclient*` and `graphql-client` samples stub the peer service they call
+instead of starting a second server. The table above leaves test-scoped
+dependencies out, so the mocking stack of each module is listed here.
+
+| Stack | Modules | How the client finds the mock |
+|:---|:---|:---|
+| Quarkiverse WireMock dev service, `@ConnectWireMock(restClient = "...")` | [`restclient`](./restclient), [`restclient-classic`](./restclient-classic), [`restclient-kotlin-co`](./restclient-kotlin-co) | The extension rewrites `quarkus.rest-client.<configKey>.url` to its own port, so the interface needs `@RegisterRestClient(configKey = ...)` and stubs are declared with the static `WireMock` DSL. |
+| WireMock as a `QuarkusTestResourceLifecycleManager` on a dynamic port | [`restclient-classic-jaxrs`](./restclient-classic-jaxrs), [`graphql-client`](./graphql-client) | An in-process `WireMockServer` started by the test resource publishes its address under any config key: `post-service.base_url`, or the two `quarkus.smallrye-graphql-client.<key>.url` properties. `graphql-client` registers `wiremock-graphql-extension`, so stubs match the GraphQL document semantically rather than byte for byte; that module stays on WireMock 3.x because the extension trips over the immutable matcher metadata introduced in 4.0.0-beta. |
+| JUnit 5 `@WireMockTest(httpPort = 8080)` | [`restclient-classic-java11`](./restclient-classic-java11), [`restclient-classic-vertx`](./restclient-classic-vertx) | Plain WireMock with no Quarkus wiring, bound to the port the hardcoded `localhost:8080` peer already assumes. |
+| OkHttp `MockWebServer` | [`restclient-classic-kotlin`](./restclient-classic-kotlin) | A queue rather than a router: the test resource publishes the mock's dynamic address under `quarkus.rest-client.post-service.url`, tests enqueue one `MockResponse` per request, then assert on `takeRequest()`. |
+
+WireMock is a request/response stub server, so it cannot hold an SSE stream
+open. `restclient-classic-jaxrs` keeps a
+[`@Disabled` server-sent-events test](./restclient-classic-jaxrs/src/test/java/com/example/demo/PostResourceClientTest.java)
+with the WireMock SSE recipe (SSE-formatted body plus `chunkedDribbleDelay`) and
+the reason it does not reach the JAX-RS `SseEventSource` consumer.
 
 ## Run a sample
 

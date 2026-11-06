@@ -1,12 +1,12 @@
 # Java HTTP Client
 
-The `restclient-java11` module uses the JDK's `java.net.http.HttpClient` to
+The `restclient-classic-java11` module uses the JDK's `java.net.http.HttpClient` to
 call the posts service. It sends asynchronous requests and maps response
 bodies with JSON-B.
 
 ## Inspect the client
 
-[`PostResourceClient`](https://github.com/hantsy/quarkus-sandbox/blob/master/restclient-java11/src/main/java/com/example/demo/PostResourceClient.java)
+[`PostResourceClient`](https://github.com/hantsy/quarkus-sandbox/blob/master/restclient-classic-java11/src/main/java/com/example/demo/PostResourceClient.java)
 builds an HTTP/2 client and calls the service with `sendAsync`. It parses
 count responses as text and converts JSON response bodies to Java objects
 with an injected `Jsonb` instance. The module includes RESTEasy Classic and
@@ -18,7 +18,7 @@ The sample currently uses `http://localhost:8080` in its request URIs. The
 ## Run the client
 
 Start the posts service on port `8080`, then run the client from
-`restclient-java11`:
+`restclient-classic-java11`:
 
 ```shell
 ./mvnw quarkus:dev

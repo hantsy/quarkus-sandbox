@@ -68,7 +68,7 @@ nav:
       - Kotlin coroutines with Hibernate Reactive: part-2-rest-backends/hibernate-reactive-kotlin.md
       - MongoDB Panache with Kotlin: part-2-rest-backends/mongodb-kotlin.md
       - Reactive MongoDB and Kotlin coroutines: part-2-rest-backends/mongodb-kotlin-coroutines.md
-      - Jakarta Data: part-2-rest-backends/jakarta-data.md
+      - Data with Hibernate ORM: part-2-rest-backends/data-hibernate.md
       - Vert.x Router with PostgreSQL: part-2-rest-backends/vertx-router-postgres.md
       - OpenAPI and Swagger UI: part-2-rest-backends/openapi.md
       - JSON-B: part-2-rest-backends/jsonb.md
@@ -114,4 +114,4 @@ nav:
       - Reactive APIs: articles/reactive.md
       - GraphQL server: articles/graphql.md
       - GraphQL clients: articles/graphql-client.md
-      - Jakarta Data: articles/jakarta-data.md
+      - Jakarta Data: articles/data-hibernate.md

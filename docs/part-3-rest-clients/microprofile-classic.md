@@ -7,16 +7,17 @@ interface and runs the client with RESTEasy Classic. Its methods return
 ## Declare the client
 
 [`PostResourceClient`](https://github.com/hantsy/quarkus-sandbox/blob/master/restclient-classic/src/main/java/com/example/demo/PostResourceClient.java)
-uses `@RegisterRestClient` and `@RegisterProvider` for its response exception
-mapper. It exposes count, list, and by-ID operations. Its POM includes
-`quarkus-resteasy-client` and `quarkus-resteasy-client-jsonb`.
+uses `@RegisterRestClient(configKey = "post-service")` and `@RegisterProvider`
+for its response exception mapper. It exposes count, list, and by-ID
+operations. Its POM includes `quarkus-resteasy-client` and
+`quarkus-resteasy-client-jsonb`.
 
 The module configures the client URL and listens on port `8081`:
 
 ```properties
 quarkus.http.port=8081
-com.example.demo.PostResourceClient/mp-rest/url=http://localhost:8080
-com.example.demo.PostResourceClient/mp-rest/scope=jakarta.inject.Singleton
+quarkus.rest-client.post-service.url=http://localhost:8080
+quarkus.rest-client.post-service.scope=jakarta.inject.Singleton
 ```
 
 The JSON-B client provider is supplied by the module's

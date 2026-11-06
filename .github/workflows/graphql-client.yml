@@ -28,4 +28,4 @@ jobs:
 
                      
       - name: Build with Maven
-        run: mvn clean install --file graphql-client/pom.xml -Dmaven.test.skip=true -DskipTests  
+        run: mvn clean install --file graphql-client/pom.xml  
