@@ -41,12 +41,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.hibernate.orm</groupId>
-            <artifactId>hibernate-processor</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
         </dependency>
@@ -116,8 +110,8 @@
                     <parameters>true</parameters>
                     <annotationProcessorPaths>
                         <path>
-                            <groupId>org.hibernate.orm</groupId>
-                            <artifactId>hibernate-processor</artifactId>
+                            <groupId>io.quarkus</groupId>
+                            <artifactId>quarkus-data-processor</artifactId>
                         </path>
                         <path>
                             <groupId>org.projectlombok</groupId>
