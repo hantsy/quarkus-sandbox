@@ -49,6 +49,12 @@ updates:
       maven-plugins:
         patterns:
           - org.apache.maven.plugins:*
+      # The wrapper distribution is read from every module's
+      # .mvn/wrapper/maven-wrapper.properties, so without a group each bump opens
+      # one PR per module directory.
+      maven-wrapper:
+        patterns:
+          - org.apache.maven:apache-maven
       kotlin:
         patterns:
           - org.jetbrains.kotlin*
