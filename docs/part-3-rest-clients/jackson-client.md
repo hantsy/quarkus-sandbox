@@ -6,13 +6,13 @@ described in [Part 2](../part-2-rest-backends/jackson.md).
 
 ## RESTEasy Classic and JAX-RS clients
 
-The `restclient-kotlin` and `restclient-jaxrs` modules use
+The `restclient-classic-kotlin` and `restclient-classic-jaxrs` modules use
 `quarkus-resteasy-client-jackson`. They pair the classic RESTEasy client with
 Jackson serialization.
 
 ## Quarkus REST client
 
-The `restclient-reactive` and `restclient-kotlin-co` modules use
+The `restclient` and `restclient-kotlin-co` modules use
 `quarkus-rest-client-jackson`. The client extension supplies Jackson support
 for entity responses.
 
@@ -24,9 +24,9 @@ Use the extension matching the REST stack:
 - `quarkus-rest-client-jackson` for Quarkus REST clients.
 
 The
-[`restclient-jaxrs` POM](https://github.com/hantsy/quarkus-sandbox/blob/master/restclient-jaxrs/pom.xml)
+[`restclient-classic-jaxrs` POM](https://github.com/hantsy/quarkus-sandbox/blob/master/restclient-classic-jaxrs/pom.xml)
 and
-[`restclient-reactive` POM](https://github.com/hantsy/quarkus-sandbox/blob/master/restclient-reactive/pom.xml)
+[`restclient` POM](https://github.com/hantsy/quarkus-sandbox/blob/master/restclient/pom.xml)
 show these dependencies in context.
 
 ## What's next

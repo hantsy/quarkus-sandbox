@@ -32,12 +32,12 @@ dependencies omitted:
 | [`mongodb-kotlin`](./mongodb-kotlin) | MongoDB Panache with Kotlin and RESTEasy Classic. | `quarkus-mongodb-client`, `quarkus-mongodb-panache-kotlin`, `quarkus-resteasy-jackson` |
 | [`mongodb-kotlin-co`](./mongodb-kotlin-co) | Reactive MongoDB Panache with Kotlin coroutines. | `quarkus-mongodb-panache-kotlin`, `quarkus-rest-kotlin`, `quarkus-kotlin`, `quarkus-rest-jackson` |
 | [`restclient-classic`](./restclient-classic) | MicroProfile REST Client on RESTEasy Classic with JSON-B. | `quarkus-resteasy-client`, `quarkus-resteasy-client-jsonb`, `quarkus-resteasy-jsonb` |
-| [`restclient-reactive`](./restclient-reactive) | MicroProfile REST Client on Quarkus REST with Jackson. | `quarkus-rest-client`, `quarkus-rest-client-jackson`, `quarkus-rest-jackson` |
-| [`restclient-kotlin`](./restclient-kotlin) | MicroProfile REST Client in Kotlin on RESTEasy Classic. | `quarkus-resteasy-client`, `quarkus-kotlin`, `quarkus-resteasy-client-jackson` |
+| [`restclient`](./restclient) | MicroProfile REST Client on Quarkus REST with Jackson. | `quarkus-rest-client`, `quarkus-rest-client-jackson`, `quarkus-rest-jackson` |
+| [`restclient-classic-kotlin`](./restclient-classic-kotlin) | MicroProfile REST Client in Kotlin on RESTEasy Classic. | `quarkus-resteasy-client`, `quarkus-kotlin`, `quarkus-resteasy-client-jackson` |
 | [`restclient-kotlin-co`](./restclient-kotlin-co) | Typesafe REST Client with Kotlin coroutines on Quarkus REST. | `quarkus-rest-client`, `quarkus-kotlin`, `quarkus-rest-client-jackson` |
-| [`restclient-jaxrs`](./restclient-jaxrs) | JAX-RS Client API with Jackson. | `quarkus-resteasy-client`, `quarkus-resteasy-client-jackson`, `quarkus-resteasy-jackson` |
-| [`restclient-java11`](./restclient-java11) | The `java.net.http.HttpClient` API against a RESTEasy Classic endpoint. | `quarkus-resteasy`, `quarkus-resteasy-jsonb` |
-| [`restclient-vertx`](./restclient-vertx) | The Vert.x Web Client with Mutiny types. | `quarkus-vertx`, `quarkus-resteasy-mutiny`, `quarkus-resteasy-jackson` |
+| [`restclient-classic-jaxrs`](./restclient-classic-jaxrs) | JAX-RS Client API with Jackson. | `quarkus-resteasy-client`, `quarkus-resteasy-client-jackson`, `quarkus-resteasy-jackson` |
+| [`restclient-classic-java11`](./restclient-classic-java11) | The `java.net.http.HttpClient` API against a RESTEasy Classic endpoint. | `quarkus-resteasy`, `quarkus-resteasy-jsonb` |
+| [`restclient-classic-vertx`](./restclient-classic-vertx) | The Vert.x Web Client with Mutiny types. | `quarkus-vertx`, `quarkus-resteasy-mutiny`, `quarkus-resteasy-jackson` |
 | [`graphql`](./graphql) | GraphQL API with SmallRye GraphQL. | `quarkus-smallrye-graphql`, `quarkus-hibernate-validator` |
 | [`graphql-client`](./graphql-client) | Typesafe, dynamic, Java HTTP, and JAX-RS GraphQL clients. | `quarkus-smallrye-graphql-client`, `quarkus-rest-client-jsonb` |
 | [`amqp`](./amqp) | Reactive Messaging with the AMQP 1.0 connector. | `quarkus-messaging-amqp`, `quarkus-rest-jsonb` |

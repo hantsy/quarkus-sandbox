@@ -1,11 +1,11 @@
 # Vert.x Web Client
 
-The `restclient-vertx` module uses the Mutiny Vert.x Web Client to call the
+The `restclient-classic-vertx` module uses the Mutiny Vert.x Web Client to call the
 posts service. Its methods return Mutiny `Uni` or `Multi` values.
 
 ## Configure and call the service
 
-[`PostResourceClient`](https://github.com/hantsy/quarkus-sandbox/blob/master/restclient-vertx/src/main/java/com/example/demo/PostResourceClient.java)
+[`PostResourceClient`](https://github.com/hantsy/quarkus-sandbox/blob/master/restclient-classic-vertx/src/main/java/com/example/demo/PostResourceClient.java)
 creates a Mutiny `WebClient` with the host and port provided by
 `PostServiceProperties`. The module's configuration sets the host to
 `localhost` and the port to `8080`, and listens locally on `8081`.
@@ -17,7 +17,7 @@ dependency.
 ## Run the client
 
 Start a posts service on port `8080`, then run the client from
-`restclient-vertx`:
+`restclient-classic-vertx`:
 
 ```shell
 ./mvnw quarkus:dev

@@ -1,12 +1,12 @@
 # MicroProfile REST Client with Kotlin
 
-The `restclient-kotlin` module declares a MicroProfile REST Client in Kotlin.
+The `restclient-classic-kotlin` module declares a MicroProfile REST Client in Kotlin.
 Its methods return JAX-RS `Response` values, allowing the caller to inspect
 the response directly.
 
 ## Inspect the client interface
 
-[`PostResourceClient`](https://github.com/hantsy/quarkus-sandbox/blob/master/restclient-kotlin/src/main/kotlin/com/example/PostResourceClient.kt)
+[`PostResourceClient`](https://github.com/hantsy/quarkus-sandbox/blob/master/restclient-classic-kotlin/src/main/kotlin/com/example/PostResourceClient.kt)
 uses `@RegisterRestClient` and declares methods for posts and counts. Its POM
 includes the RESTEasy Classic REST client with Jackson.
 
@@ -17,7 +17,7 @@ The interface package determines the REST client config-key prefix.
 ## Run the client
 
 Start a posts service at the configured URL, then run the client from
-`restclient-kotlin`:
+`restclient-classic-kotlin`:
 
 ```shell
 ./mvnw quarkus:dev
