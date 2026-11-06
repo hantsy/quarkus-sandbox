@@ -49,6 +49,12 @@ updates:
       maven-plugins:
         patterns:
           - org.apache.maven.plugins:*
+      # The wrapper distribution is read from every module's
+      # .mvn/wrapper/maven-wrapper.properties, so without a group each bump opens
+      # one PR per module directory.
+      maven-wrapper:
+        patterns:
+          - org.apache.maven:apache-maven
       kotlin:
         patterns:
           - org.jetbrains.kotlin*
@@ -57,6 +63,22 @@ updates:
         patterns:
           - io.quarkus*
           - io.quarkiverse*
+      # Third-party libraries each module pins itself, so a single upstream
+      # release otherwise fans out into one PR per declaring module. Artifacts
+      # left to the Quarkus BOM (io.rest-assured:*, io.smallrye.*) have no
+      # version here for Dependabot to bump; they move with quarkus-platform.
+      shared-libraries:
+        patterns:
+          - org.assertj:*
+          - org.awaitility:*
+          - org.mockito:*
+          - org.mockito.kotlin:*
+          - io.mockk:*
+          - io.kotest:*
+          - org.wiremock:*
+          - io.github.nilwurtz:*
+          - com.squareup.okhttp3:*
+          - org.projectlombok:*
 
   # Actions themselves: checkout, setup-java, and the Pages build.
   - package-ecosystem: github-actions
