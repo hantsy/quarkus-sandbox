@@ -1,0 +1,68 @@
+version: 2
+updates:
+  # Every sample is a standalone Maven project with its own pom.xml, so each
+  # module directory is registered explicitly. `legacy/` is deliberately absent:
+  # those samples stay pinned to older APIs and are never part of an upgrade sweep.
+  - package-ecosystem: maven
+    directories:
+      - /amqp
+      - /amqp-rabbitmq
+      - /data-hibernate
+      - /graphql
+      - /graphql-client
+      - /jms
+      - /kafka
+      - /mongodb-kotlin
+      - /mongodb-kotlin-co
+      - /multipart
+      - /pulsar
+      - /quartz
+      - /rabbitmq
+      - /rest
+      - /rest-classic
+      - /rest-hibernate
+      - /rest-kotlin-co
+      - /rest-pgclient
+      - /restclient
+      - /restclient-classic
+      - /restclient-classic-java11
+      - /restclient-classic-jaxrs
+      - /restclient-classic-kotlin
+      - /restclient-classic-vertx
+      - /restclient-kotlin-co
+      - /spring
+      - /vertx-routes
+    schedule:
+      interval: weekly
+      day: sunday
+      time: "03:00"
+      timezone: Asia/Shanghai
+    open-pull-requests-limit: 25
+    ignore:
+      # graphql-client stubs GraphQL documents with wiremock-graphql-extension,
+      # which writes matcher metadata that became immutable in the 4.x line
+      # (UnsupportedOperationException: Metadata is immutable). Revisit once the
+      # extension ships a compatible release.
+      - dependency-name: org.wiremock:*
+        versions: [">= 4.0.0"]
+    groups:
+      maven-plugins:
+        patterns:
+          - org.apache.maven.plugins:*
+      kotlin:
+        patterns:
+          - org.jetbrains.kotlin*
+          - org.jetbrains.kotlinx:*
+      quarkus-platform:
+        patterns:
+          - io.quarkus*
+          - io.quarkiverse*
+
+  # Actions themselves: checkout, setup-java, and the Pages build.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: sunday
+      time: "03:00"
+      timezone: Asia/Shanghai
