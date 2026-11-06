@@ -11,13 +11,11 @@ import jakarta.data.page.Page;
 import jakarta.data.page.PageRequest;
 import jakarta.data.repository.*;
 import jakarta.transaction.Transactional;
-import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.StatelessSession;
 import org.hibernate.annotations.processing.Pattern;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 
@@ -67,7 +65,7 @@ public interface Blogger {
     @Transactional
     long deleteAllPosts();
 
-    default List<Comment> getCommentsOfPost( UUID postId) {
+    default List<Comment> getCommentsOfPost(UUID postId) {
         var post = this.byId(postId).orElseThrow(() -> new PostNotFoundException(postId));
         session().fetch(post.getComments());
         return post.getComments();

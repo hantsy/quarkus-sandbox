@@ -35,9 +35,9 @@ public class BloggerTest {
     public void testPosts() {
         var blog = blogger.insert(Post.builder().title("Jakarta Data").content("content of Jakarta Data").build());
         blogger.insert(Comment.builder().post(blog).content("test comment").build());
-//        var comments = blogger.getCommentsOfPost(blog.getId());
-//        comments.forEach(c -> log.debug("inserted comment: {}",  c.toString()));
-//        assertThat(comments.size()).isEqualTo(1);
+        var comments = blogger.getCommentsOfPost(blog.getId());
+        comments.forEach(c -> log.debug("inserted comment: {}", c.toString()));
+        assertThat(comments).hasSize(1);
 
         blogger.insert(Post.builder().title("Quarkus and Jakarta Data").content("content of Quarkus and Jakarta Data").build());
 

@@ -24,7 +24,7 @@
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
 
         <!-- dependencies-->
-        <quarkus.version>4.0.0.Beta2</quarkus.version>
+        <quarkus.version>4.0.0.Beta3</quarkus.version>
         <wiremock.version>3.13.2</wiremock.version>
         <kotest.version>6.1.4</kotest.version>
     </properties>
@@ -117,8 +117,8 @@
                     <parameters>true</parameters>
                     <annotationProcessorPaths>
                         <path>
-                            <groupId>org.hibernate.orm</groupId>
-                            <artifactId>hibernate-processor</artifactId>
+                            <groupId>io.quarkus</groupId>
+                            <artifactId>quarkus-data-processor</artifactId>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
