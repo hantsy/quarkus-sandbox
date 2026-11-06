@@ -131,9 +131,12 @@
                 <configuration>
                     <parameters>true</parameters>
                     <annotationProcessorPaths>
+                        <!-- Wraps hibernate-processor with the Quarkus CDI extension; plain
+                             hibernate-processor generates repositories that own their
+                             StatelessSession and break JTA. See quarkusio/quarkus#58132 -->
                         <path>
-                            <groupId>org.hibernate.orm</groupId>
-                            <artifactId>hibernate-processor</artifactId>
+                            <groupId>io.quarkus</groupId>
+                            <artifactId>quarkus-data-processor</artifactId>
                         </path>
                         <path>
                             <groupId>org.projectlombok</groupId>

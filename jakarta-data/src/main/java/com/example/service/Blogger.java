@@ -4,12 +4,14 @@ import com.example.domain.Comment;
 import com.example.domain.Post;
 import com.example.domain.PostSummary;
 import com.example.domain.Status;
+import com.example.web.PostNotFoundException;
 import jakarta.data.Limit;
 import jakarta.data.Order;
 import jakarta.data.page.Page;
 import jakarta.data.page.PageRequest;
 import jakarta.data.repository.*;
 import jakarta.transaction.Transactional;
+import org.hibernate.StatelessSession;
 import org.hibernate.annotations.processing.Pattern;
 
 import java.util.List;
@@ -19,6 +21,8 @@ import java.util.UUID;
 
 @Repository
 public interface Blogger {
+
+    StatelessSession session();
 
     @Query("""
             SELECT p.id, p.title, size(c) AS summary FROM Post p LEFT JOIN p.comments c
@@ -61,6 +65,9 @@ public interface Blogger {
     @Transactional
     long deleteAllPosts();
 
-    @Query("SELECT c FROM Comment c WHERE c.post.id = :postId")
-    List<Comment> getCommentsOfPost(UUID postId);
+    default List<Comment> getCommentsOfPost(UUID postId) {
+        var post = this.byId(postId).orElseThrow(() -> new PostNotFoundException(postId));
+        session().fetch(post.getComments());
+        return post.getComments();
+    }
 }
