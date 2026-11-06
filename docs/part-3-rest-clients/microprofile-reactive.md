@@ -7,16 +7,16 @@ an event-stream method that returns `Multi`.
 ## Declare and configure the client
 
 [`PostResourceClient`](https://github.com/hantsy/quarkus-sandbox/blob/master/restclient/src/main/java/com/example/demo/PostResourceClient.java)
-uses `@RegisterRestClient` and registers a response exception mapper. It
-provides count, list, and by-ID methods, plus an `events` endpoint annotated
-for server-sent events.
+uses `@RegisterRestClient(configKey = "post-service")` and registers a response
+exception mapper. It provides count, list, and by-ID methods, plus an `events`
+endpoint annotated for server-sent events.
 
 The module configures the client URL and listens on port `8081`:
 
 ```properties
 quarkus.http.port=8081
-com.example.demo.PostResourceClient/mp-rest/url=http://localhost:8080
-com.example.demo.PostResourceClient/mp-rest/scope=jakarta.inject.Singleton
+quarkus.rest-client.post-service.url=http://localhost:8080
+quarkus.rest-client.post-service.scope=jakarta.inject.Singleton
 ```
 
 The POM includes `quarkus-rest-client` and

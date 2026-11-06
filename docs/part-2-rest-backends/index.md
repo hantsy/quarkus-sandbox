@@ -15,7 +15,7 @@ not assume datasource settings are shared between samples.
 - [Reactive PostgreSQL Client](./reactive-pg-client.md)
 - [Hibernate ORM with Panache](./hibernate-orm-panache.md)
 - [Kotlin coroutines with Hibernate Reactive](./hibernate-reactive-kotlin.md)
-- [Jakarta Data repositories](./jakarta-data.md)
+- [Jakarta Data repositories](./data-hibernate.md)
 - [Vert.x Router with PostgreSQL](./vertx-router-postgres.md)
 - [OpenAPI and Swagger UI for RESTEasy Classic](./openapi.md)
 

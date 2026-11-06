@@ -10,9 +10,19 @@ Kotlin `suspend` methods. Use it to compare coroutine-based clients with
 declares suspending methods that return a list of posts and a count. The POM
 includes Quarkus REST, REST Client, Jackson, and Kotlin support.
 
-The module sets port `8081` and points the client at `http://localhost:8080`.
-Its configuration uses the interface's fully qualified class name as the
-client key.
+The module sets port `8081` and points the client at `http://localhost:8080`
+through the `configKey` declared on `@RegisterRestClient`:
+
+```properties
+quarkus.http.port=8081
+quarkus.rest-client.post-service.url=http://localhost:8080
+quarkus.rest-client.post-service.scope=jakarta.inject.Singleton
+```
+
+A simple `configKey` is required for testing: the Quarkiverse WireMock dev
+service repoints `quarkus.rest-client.<configKey>.url` when the test class is
+annotated with `@ConnectWireMock(restClient = "post-service")`. See [Mock HTTP
+peers](../../README.md#mock-http-peers).
 
 ## Run the client
 

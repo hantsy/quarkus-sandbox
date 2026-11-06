@@ -1,17 +1,17 @@
 # This workflow will build a Java project with Maven
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: jakarta-data
+name: data-hibernate
 
 on:
   push:
     paths:
-      - "jakarta-data/**"
+      - "data-hibernate/**"
     branches:
       - master
   pull_request:
     paths:
-      - "jakarta-data/**"
+      - "data-hibernate/**"
     types:
       - opened
       - synchronize
@@ -31,4 +31,4 @@ jobs:
                  
       - name: Build with Maven
         run: |
-          mvn -q clean  test --file jakarta-data/pom.xml
+          mvn -q clean  test --file data-hibernate/pom.xml

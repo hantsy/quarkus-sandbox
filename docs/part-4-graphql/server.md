@@ -52,6 +52,15 @@ curl.exe -X POST http://localhost:8080/graphql `
 
 The response contains the selected fields under `data.allPosts`.
 
+## Exercise the server from a test
+
+The module ships a `@QuarkusTest` (`GraphQLResourceDynamicClientTest`) that calls the running
+application through SmallRye's dynamic client API (`DynamicGraphQLClient`, added in test scope via
+`quarkus-smallrye-graphql-client`). Injecting the client with an empty `@GraphQLClient("")` config key
+makes Quarkus point it at the application's own `/graphql` endpoint automatically, so no url has to be
+configured. The test asserts on real results: the seeded `allPosts`, a `postById` lookup passed as a
+`postId` argument, and a `createPost` mutation whose input is sent as a `CreatePostInput` variable.
+
 ## What's next
 
 - See the [typesafe client](./typesafe-client.md), [dynamic client](./dynamic-client.md),

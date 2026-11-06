@@ -1,23 +1,28 @@
 package com.example.demo
 
 import com.github.tomakehurst.wiremock.client.WireMock.*
-import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import io.kotest.matchers.shouldBe
+import io.quarkiverse.wiremock.devservice.ConnectWireMock
 import io.quarkus.test.junit.QuarkusTest
 import jakarta.inject.Inject
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
 import org.eclipse.microprofile.rest.client.inject.RestClient
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-@WireMockTest(httpPort = 8080)
 @QuarkusTest
+@ConnectWireMock(restClient = "post-service")
 class PostResourceClientTest {
 
     @Inject
     @field:RestClient
     lateinit var client: PostResourceClient
+
+    @BeforeEach
+    fun resetStubs() {
+        // @ConnectWireMock points the static WireMock DSL at the dev service.
+        reset()
+    }
 
     @Test
     fun `get all posts`() = runTest {
@@ -33,15 +38,15 @@ class PostResourceClientTest {
                             """
                             [
                                 {
-                                    "id":1,
+                                    "id":"1",
                                     "title":"test post 1",
-                                    "content":"test content of post 1", 
+                                    "content":"test content of post 1",
                                     "createdAt":"2023-03-26T10:15:30"
                                 },
                                 {
-                                    "id":2,
+                                    "id":"2",
                                     "title":"test post 2",
-                                    "content":"test content of post 2", 
+                                    "content":"test content of post 2",
                                     "createdAt":"2023-03-26T10:15:30"
                                 }
                             ]
@@ -57,7 +62,6 @@ class PostResourceClientTest {
             getRequestedFor(urlEqualTo(url))
                 .withHeader("Accept", equalTo("application/json"))
         )
-
     }
 
     @Test
@@ -65,7 +69,6 @@ class PostResourceClientTest {
         val url = "/posts/count?q="
         stubFor(
             get(url)
-                //.withHeader("Accept", equalTo("text/plain"))
                 .willReturn(
                     aResponse()
                         .withHeader("Content-Type", "text/plain")
@@ -81,6 +84,5 @@ class PostResourceClientTest {
             getRequestedFor(urlEqualTo(url))
                 .withHeader("Accept", containing("text/plain"))
         )
-
     }
 }

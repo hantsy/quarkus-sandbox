@@ -13,7 +13,7 @@ original relative image links continue to work.
 - [Reactive APIs](./reactive.md)
 - [GraphQL server](./graphql.md)
 - [GraphQL clients](./graphql-client.md)
-- [Jakarta Data](./jakarta-data.md)
+- [Jakarta Data](./data-hibernate.md)
 
 ## Topics not fully covered by the cookbook
 
@@ -29,7 +29,7 @@ missing or only summarized:
 | [Reactive APIs](./reactive.md) | Current reactive persistence and client examples are documented in [REST backends](../part-2-rest-backends/index.md) and [REST clients](../part-3-rest-clients/index.md). | The older CompletionStage and RxJava approaches are retained as historical code, not maintained cookbook recipes. |
 | [GraphQL server](./graphql.md) | [GraphQL server](../part-4-graphql/server.md) covers queries, mutations, field resolution, subscriptions, validation, and error configuration. | The original's longer GraphQL introduction and detailed walkthrough of exception handling and validation are condensed. |
 | [GraphQL clients](./graphql-client.md) | [GraphQL client recipes](../part-4-graphql/index.md) separate typesafe, dynamic, Java HTTP, and JAX-RS approaches. | The original's side-by-side client explanation and full exception-handling discussion are abbreviated. |
-| [Jakarta Data](./jakarta-data.md) | [Jakarta Data repositories](../part-2-rest-backends/jakarta-data.md) now describes the sample's repository styles and annotation processor. | The original's chronological setup/dependency walkthrough and broader feature explanation are not reproduced as a full Jakarta Data tutorial. |
+| [Jakarta Data](./data-hibernate.md) | [Jakarta Data repositories](../part-2-rest-backends/data-hibernate.md) now describes the sample's repository styles and annotation processor. | The original's chronological setup/dependency walkthrough and broader feature explanation are not reproduced as a full Jakarta Data tutorial. |
 
 Use the cookbook for the current organization and these archived articles when
 you need the original narrative, screenshots, or historical context.

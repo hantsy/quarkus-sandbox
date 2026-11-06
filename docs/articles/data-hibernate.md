@@ -270,7 +270,7 @@ this.posts.findAll().forEach(p -> LOGGER.log(Level.INFO, "Post:{0}", p));
 assertEquals(2, this.posts.findAll().toList().size(), "result list size is 2");
 ```
 
-> For the complete sample codes, please check [`PostRepositoryTest`](https://github.com/hantsy/quarkus-sandbox/blob/master/jakarta-data/src/test/java/com/example/PostRepositoryTest.java).
+> For the complete sample codes, please check [`PostRepositoryTest`](https://github.com/hantsy/quarkus-sandbox/blob/master/data-hibernate/src/test/java/com/example/PostRepositoryTest.java).
 
 In the [Integrating Jakarta Data with Spring](https://medium.com/itnext/integrating-jakarta-data-with-spring-0beb5c215f5f), we've encountered Spring transaction management because Spring lacks transaction support when using Hibernate `StatelessSession`. 
 
@@ -379,7 +379,7 @@ The following is an example using `@Query` and [JDQL(Jakarta Data Query Language
         """)
 Page<PostSummary> allPosts(@Param("title") String title, PageRequest page);
 ```
-The [`BloggerTest`](https://github.com/hantsy/quarkus-sandbox/blob/master/jakarta-data/src/test/java/com/example/BloggerTest.java) shows the usage of these custom methods.
+The [`BloggerTest`](https://github.com/hantsy/quarkus-sandbox/blob/master/data-hibernate/src/test/java/com/example/BloggerTest.java) shows the usage of these custom methods.
 
 ```java
  var blog = blogger.insert(Post.builder().title("Jakarta Data").content("content of Jakarta Data").build());
@@ -400,7 +400,7 @@ assertThat(pagedPosts.totalElements()).isEqualTo(2);
 pagedPosts.content().forEach(post -> log.debug("post: {}", post));
 ```        
 
-Get [the complete sample codes](https://github.com/hantsy/quarkus-sandbox/blob/master/jakarta-data) from my Github, and experience the Jakarta Data features yourself. 
+Get [the complete sample codes](https://github.com/hantsy/quarkus-sandbox/blob/master/data-hibernate) from my Github, and experience the Jakarta Data features yourself. 
 
 
 

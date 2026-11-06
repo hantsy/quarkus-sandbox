@@ -11,7 +11,7 @@ import org.jboss.resteasy.reactive.RestStreamElementType;
 import java.util.List;
 
 @Path("/posts")
-@RegisterRestClient()
+@RegisterRestClient(configKey = "post-service")
 @RegisterProvider(PostResponseExceptionMapper.class)
 public interface PostResourceClient {
 

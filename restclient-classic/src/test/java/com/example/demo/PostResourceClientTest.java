@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import com.github.tomakehurst.wiremock.junit5.WireMockTest;
+import io.quarkiverse.wiremock.devservice.ConnectWireMock;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
@@ -13,7 +13,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @QuarkusTest
-@WireMockTest(httpPort = 8080)
+@ConnectWireMock(restClient = "post-service")
 class PostResourceClientTest {
 
     @Inject
@@ -22,6 +22,8 @@ class PostResourceClientTest {
 
     @BeforeEach
     void setUp() {
+        // @ConnectWireMock points the static WireMock DSL at the dev service.
+        reset();
     }
 
     @Test

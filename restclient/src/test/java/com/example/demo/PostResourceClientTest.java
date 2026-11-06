@@ -1,8 +1,6 @@
 package com.example.demo;
 
-import com.github.tomakehurst.wiremock.WireMockServer;
-import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.common.ResourceArg;
+import io.quarkiverse.wiremock.devservice.ConnectWireMock;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.vertx.VertxContextSupport;
 import jakarta.inject.Inject;
@@ -19,33 +17,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @QuarkusTest
-@QuarkusTestResource(
-        value = WireMockTestResource.class,
-        initArgs = {
-                @ResourceArg(
-                        name = WireMockTestResource.MOCKED_API_BASE_URL_CONFIG_KEY,
-                        value = "com.example.demo.PostResourceClient/mp-rest/url"
-                )
-        }
-)
+@ConnectWireMock(restClient = "post-service")
 class PostResourceClientTest {
     private static final Logger LOGGER = Logger.getLogger(PostResourceClientTest.class.getName());
-
-    @InjectWireMock
-    WireMockServer wireMockServer;
-
 
     @Inject
     @RestClient
     PostResourceClient client;
 
     @BeforeEach
-    void setUp() {
-    }
-
-    @Test
-    void wireMockServerIsRunning() {
-        assertThat(this.wireMockServer.isRunning()).isTrue();
+    void resetStubs() {
+        // @ConnectWireMock points the static WireMock DSL at the dev service.
+        reset();
     }
 
     @Test

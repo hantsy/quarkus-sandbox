@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.concurrent.CompletionStage;
 
 @Path("/posts")
-@RegisterRestClient
+@RegisterRestClient(configKey = "post-service")
 @RegisterProvider(PostResponseExceptionMapper.class)
 public interface PostResourceClient {
 
