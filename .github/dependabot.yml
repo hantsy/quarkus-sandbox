@@ -46,15 +46,13 @@ updates:
       - dependency-name: org.wiremock:*
         versions: [">= 4.0.0"]
     groups:
-      maven-plugins:
+      # Both the Maven plugins and the wrapper distribution (read from every
+      # module's .mvn/wrapper/maven-wrapper.properties) are versioned together,
+      # so one PR per bump instead of one per module directory.
+      maven:
         patterns:
+          - org.apache.maven:*
           - org.apache.maven.plugins:*
-      # The wrapper distribution is read from every module's
-      # .mvn/wrapper/maven-wrapper.properties, so without a group each bump opens
-      # one PR per module directory.
-      maven-wrapper:
-        patterns:
-          - org.apache.maven:apache-maven
       kotlin:
         patterns:
           - org.jetbrains.kotlin*
