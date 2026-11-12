@@ -6,7 +6,7 @@ request from sending one and returning a multipart response.
 
 ## Before you begin
 
-The module uses Java 25 and Quarkus `4.0.0.Beta2`. Its POM includes
+The module uses Java 25 and Quarkus `4.0.0.CR1`. Its POM includes
 `quarkus-rest`, `quarkus-rest-jackson`, and the REST client extensions. Start
 the application from the `multipart` directory:
 

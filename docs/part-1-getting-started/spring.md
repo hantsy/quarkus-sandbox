@@ -8,7 +8,7 @@ application.
 ## Before you begin
 
 You need Java 25 and a container runtime for local PostgreSQL Dev Services.
-The module sets the compiler release to Java 25 and uses Quarkus `4.0.0.Beta2`.
+The module sets the compiler release to Java 25 and uses Quarkus `4.0.0.CR1`.
 
 The active `application.properties` configuration selects PostgreSQL and
 `drop-and-create` schema generation, but does not set a connection URL. Use

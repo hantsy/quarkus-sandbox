@@ -3,7 +3,6 @@ package com.example;
 import com.example.domain.Post;
 import com.example.repository.PostRepository;
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit.TestProfile;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +15,6 @@ import java.util.logging.Logger;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
-//@TestProfile(H2Profile.class)
 public class PostRepositoryTest {
 
     private final static Logger LOGGER = Logger.getLogger(PostRepositoryTest.class.getName());
