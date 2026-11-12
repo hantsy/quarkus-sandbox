@@ -9,7 +9,7 @@ than generating a different project.
 
 You need Java 25 and a container runtime if you want Quarkus Dev Services to
 start PostgreSQL. The module sets `maven.compiler.release` to `25` and uses
-Quarkus `4.0.0.Beta2`.
+Quarkus `4.0.0.CR1`.
 
 The active datasource configuration sets the database kind to PostgreSQL but
 does not set a connection URL. Use Dev Services with a container runtime or
