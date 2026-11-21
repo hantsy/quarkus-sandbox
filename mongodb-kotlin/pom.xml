@@ -26,7 +26,7 @@
         <!-- dependencies-->
         <quarkus.version>4.0.0.CR1</quarkus.version>
         <assertj.version>3.27.7</assertj.version>
-        <kotest.version>6.2.6</kotest.version>
+        <kotest.version>6.2.7</kotest.version>
         <quarkus-junit5-mockk.version>3.1.0</quarkus-junit5-mockk.version>
         <mockk.version>1.14.12</mockk.version>
         <mockito-kotlin.version>6.4.0</mockito-kotlin.version>

@@ -26,7 +26,7 @@
         <!-- dependencies-->
         <quarkus.version>4.0.0.CR1</quarkus.version>
         <okhttp.version>5.5.1</okhttp.version>
-        <kotest.version>6.2.6</kotest.version>
+        <kotest.version>6.2.7</kotest.version>
     </properties>
     <dependencyManagement>
         <dependencies>
