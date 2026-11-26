@@ -21,7 +21,7 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
         CriteriaBuilder cb = this.entityManager.getCriteriaBuilder();
         CriteriaQuery<Post> query = cb.createQuery(Post.class);
         Root<Post> root = query.from(Post.class);
-        if (!StringUtils.isEmpty(q)) {
+        if (StringUtils.hasText(q)) {
             query.where(
                     cb.or(
                             cb.like(root.get(Post_.title), "%" + q + "%"),
