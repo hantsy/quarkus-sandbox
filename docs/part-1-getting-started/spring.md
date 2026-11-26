@@ -85,6 +85,12 @@ to run the module's tests. The
 [`PostControllerTest`](https://github.com/hantsy/quarkus-sandbox/blob/master/spring/src/test/java/com/example/PostControllerTest.java)
 and `IntegrationTest` cover the API.
 
+The module also depends on the `quarkus-spring-test` extension, which makes
+`@SpringBootTest` an alias for `@QuarkusTest`. The
+[`SpringBootGreetingTest`](https://github.com/hantsy/quarkus-sandbox/blob/master/spring/src/test/java/com/example/SpringBootGreetingTest.java)
+uses the Spring Boot annotation and `@Autowired` injection unchanged, while
+the test still runs on the Quarkus runtime and the CDI container.
+
 ## What's next
 
 - Compare data access options in [REST backends and data access](../part-2-rest-backends/index.md).
