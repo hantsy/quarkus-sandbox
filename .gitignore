@@ -16,6 +16,9 @@ nb-configuration.xml
 # Visual Studio Code
 .vscode
 
+# Qoder
+.qoder/
+
 # OSX
 .DS_Store
 
